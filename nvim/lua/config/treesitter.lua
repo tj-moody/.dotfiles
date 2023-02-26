@@ -44,4 +44,10 @@ require'nvim-treesitter.configs'.setup {
     incremental_selection = {
         enable = true,
     },
+    context_commentstring = {
+        enable = true,
+    },
+    autotag = {
+        enable = true,
+    },
 }

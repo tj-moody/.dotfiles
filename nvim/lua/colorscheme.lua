@@ -23,26 +23,13 @@ local colors_table = {
     end,
 }
 
-function M.setup()
-    colors_table[M.THEME]()
-    -- vim.api.nvim_set_hl(0, 'Normal', {fg = require('utils').getcolor('Normal', 'fg#'), bg = ''})
-    clear_hl_bg('Normal')
-    clear_hl_bg('NormalNC')
-    clear_hl_bg('StatusColumn')
-    clear_hl_bg('SignColumn')
-    clear_hl_bg('FoldColumn')
-    clear_hl_bg('StatusLine')
-    clear_hl_bg('StatusLineNC')
-    clear_hl_bg('StatusLineTerm')
-    clear_hl_bg('StatusLineTermNC')
-    clear_hl_bg('NvimTreeStatusLine')
-    clear_hl_bg('MsgArea')
-    clear_hl_bg('ModeMsg')
-    clear_hl_bg('MsgSeparator')
-end
-
-function M.alpha()
-    require('hlgroups').hltable[M.THEME].alpha()
+function M.setup(category)
+    if not category then
+        colors_table[M.THEME]()
+        require('hlgroups').hl_category_setup('setup', M.THEME)
+        return
+    end
+    require('hlgroups').hl_category_setup(category, M.THEME)
 end
 
 return M
