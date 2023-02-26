@@ -8,7 +8,7 @@ m('n', '<leader>w', ":silent write<CR>")
 m('n', '<leader><leader>w', ":silent write<CR>:so<CR>:echo ' [WS]'<CR>")
 
 m('n', '<leader>q', ":q<CR>")
-m('n', '<leader>h', ":noh<CR>")
+m('n', '<leader>h', ":noh<CR>:ColorizerReloadAllBuffers<CR>")
 
 m('v', 'K', ":m '<-2<CR>gv=gv")
 m('v', 'J', ":m '>+1<CR>gv=gv")
@@ -40,6 +40,10 @@ m('n', '<C-C>', '~')
 --- PLUGINS
 -- NvimTree
 local function nvimtreetoggle()
+    if vim.g.nvimtreefloat == true then
+        require('config.nvim-tree').nvim_tree_setup()
+        return
+    end
     if vim.bo.filetype == 'NvimTree' then
         vim.cmd("NvimTreeClose")
     else
@@ -48,7 +52,12 @@ local function nvimtreetoggle()
     end
 end
 m('n', 't', nvimtreetoggle)
-m('n', 'T', ':NvimTreeClose<CR>:NvimTreeOpen<CR>:only<CR>')
+local function nvimtreetogglefloat()
+    require('config.nvim-tree').nvim_tree_float_setup()
+    vim.cmd("NvimTreeClose")
+    vim.cmd("NvimTreeOpen")
+end
+m('n', 'T', nvimtreetogglefloat)
 -- Telescope
 m('n', '<leader>ff', ":Telescope find_files<CR>")
 m('n', '<leader>fh', ":Telescope highlights<CR>")
@@ -78,17 +87,17 @@ m('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
 -- git
 m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
 -- smart-splits
--- m('n', '<C-S-h>', require('smart-splits').resize_left)
--- m('n', '<C-S-j>', require('smart-splits').resize_down)
--- m('n', '<C-S-k>', require('smart-splits').resize_up)
--- m('n', '<C-S-l>', require('smart-splits').resize_right)
-    -- moving between splits
--- m('n', '<C-h>', require('smart-splits').move_cursor_left)
--- m('n', '<C-j>', require('smart-splits').move_cursor_down)
--- m('n', '<C-k>', require('smart-splits').move_cursor_up)
--- m('n', '<C-l>', require('smart-splits').move_cursor_right)
-    -- swapping buffers between windows
--- m('n', '<space>h', require('smart-splits').swap_buf_left)
--- m('n', '<space>j', require('smart-splits').swap_buf_down)
--- m('n', '<space>k', require('smart-splits').swap_buf_up)
--- m('n', '<space>l', require('smart-splits').swap_buf_right)
+m('n', '<C-S-h>', require('smart-splits').resize_left)
+m('n', '<C-S-j>', require('smart-splits').resize_down)
+m('n', '<C-S-k>', require('smart-splits').resize_up)
+m('n', '<C-S-l>', require('smart-splits').resize_right)
+   -- moving between splits
+m('n', '<C-h>', require('smart-splits').move_cursor_left)
+m('n', '<C-j>', require('smart-splits').move_cursor_down)
+m('n', '<C-k>', require('smart-splits').move_cursor_up)
+m('n', '<C-l>', require('smart-splits').move_cursor_right)
+   -- swapping buffers between windows
+m('n', '<space>h', require('smart-splits').swap_buf_left)
+m('n', '<space>j', require('smart-splits').swap_buf_down)
+m('n', '<space>k', require('smart-splits').swap_buf_up)
+m('n', '<space>l', require('smart-splits').swap_buf_right)

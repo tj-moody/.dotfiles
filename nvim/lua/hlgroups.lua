@@ -1,11 +1,20 @@
 local M = {}
 
-M.hltable = {
+M.hl_table = {
     noclownfiesta = {
-        alpha = function()
-            vim.api.nvim_set_hl(0, 'AlphaHeader', { fg = '#bad7ff'})
-            vim.api.nvim_set_hl(0, 'AlphaFooter1', { fg = '#b46958'})
-        end,
+        alpha = {
+            { 'AlphaHeader', { fg = '#bad7ff'} },
+            { 'AlphaFooter1', { fg = '#b46958'} },
+        },
+        nvim_tree = {
+            { 'NvimTreeFolderIcon', { fg = '#ffa557', }},
+            { 'NvimTreeFolderName', { fg = '#7e97ab', }},
+            { 'NvimTreeOpenedFolderName', { fg = '#88afa2', }},
+            { 'NvimTreeExecFile', { fg = '#e1e1e1', }},
+            { 'NvimTreeGitNew', { fg = '#ffa557', }},
+            { 'NvimTreeGitDirty', { fg = '#b46958', }},
+            { 'NvimTreeOpenedFile', { fg = '#bad7ff', }},
+        },
     },
 }
 

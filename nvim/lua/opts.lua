@@ -6,6 +6,15 @@ local opts = {
 		foldsep = " ",
 		diff = "╱",
 		eob = " ",
+
+        horiz = ' ',
+        horizup = ' ',
+        horizdown = ' ',
+        vert = ' ',
+        vertleft = ' ',
+        vertright = ' ',
+        verthoriz = ' ',
+
 	},
     compatible = false,
 	foldcolumn = "2",

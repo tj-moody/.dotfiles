@@ -1,4 +1,4 @@
-local bgcolor = require("utils").getcolor('Normal', 'bg#')
+local bgcolor = require("utils").get_color('Normal', 'bg#')
 require("bufferline").setup{
     options = {
         mode = "buffers",
@@ -37,7 +37,7 @@ require("bufferline").setup{
                 filetype = "NvimTree",
                 text = "",
                 text_align = "center",
-                separator = true,
+                separator = ' ',
             },
         },
         color_icons = true,

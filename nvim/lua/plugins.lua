@@ -91,7 +91,9 @@ return {
     {
         'nvim-tree/nvim-tree.lua',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = true,
+        config = function()
+            require('config.nvim-tree').nvim_tree_setup()
+        end,
     },
     {
         'rmagatti/auto-session',
