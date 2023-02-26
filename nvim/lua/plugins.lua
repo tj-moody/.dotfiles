@@ -89,6 +89,13 @@ return {
         end,
     },
     {
+        'nvim-lualine/lualine.nvim',
+        event = "VeryLazy",
+        config = function()
+            require('config.lualine')
+        end,
+    },
+    {
         'nvim-tree/nvim-tree.lua',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
@@ -109,12 +116,6 @@ return {
         requires = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require('config.alpha')
-        end
-    },
-    {
-        'nvim-treesitter/nvim-treesitter',
-        config = function()
-            require('config.treesitter')
         end
     },
 }

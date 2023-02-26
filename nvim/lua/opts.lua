@@ -35,6 +35,8 @@ local opts = {
 	splitright = true,
     laststatus = 3,
     incsearch = true,
+    wrap = false,
+    showmode = false,
 }
 for k, v in pairs(opts) do
 	vim.opt[k] = v

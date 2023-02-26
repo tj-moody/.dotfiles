@@ -1,14 +1,5 @@
 local M = {}
 
-local function clear_hl_bg(hl)
-    local fgcolor = require('utils').getcolor(hl, 'fg#')
-    if hl ~= 'Normal' then
-        vim.api.nvim_set_hl(0, hl, {fg = require('utils').getcolor('Normal', 'fg#'), bg = ''})
-    else
-        vim.api.nvim_set_hl(0, hl, {fg = '#ffffff', bg = ''})
-    end
-end
-
 M.THEME = os.getenv("COLORS_NAME")
 if not M.THEME then
     M.THEME = "noclownfiesta"
