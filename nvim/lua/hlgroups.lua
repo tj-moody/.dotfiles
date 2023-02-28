@@ -2,6 +2,9 @@ local M = {}
 
 M.hl_table = {
     noclownfiesta = {
+        setup = {
+            { 'CursorLineNr', { fg = '#afafaf'} },
+        },
         alpha = {
             { 'AlphaHeader', { fg = '#bad7ff'} },
             { 'AlphaFooter1', { fg = '#b46958'} },
@@ -14,6 +17,7 @@ M.hl_table = {
             { 'NvimTreeGitNew', { fg = '#ffa557', }},
             { 'NvimTreeGitDirty', { fg = '#b46958', }},
             { 'NvimTreeOpenedFile', { fg = '#bad7ff', }},
+            { 'NvimTreeIndentMarker', { fg = '#e1e1e1', }},
         },
     },
 }

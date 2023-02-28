@@ -12,11 +12,6 @@ return {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
         dependencies = { 'nvim-lua/plenary.nvim' },
-        config = true,
-    },
-    {
-        'akinsho/bufferline.nvim',
-        tag = "v3.*",
         config = function()
             require('config.telescope')
         end,
@@ -26,14 +21,51 @@ return {
         event = "VeryLazy",
         dependencies = {
             { 'nvim-treesitter/nvim-treesitter-context' },
-            {'JoosepAlviste/nvim-ts-context-commentstring'},
-            {'windwp/nvim-ts-autotag'},
+            { 'JoosepAlviste/nvim-ts-context-commentstring' },
+            { 'windwp/nvim-ts-autotag' },
         },
         config = function()
             require('config.treesitter')
         end,
     },
     --- LSP
+    {
+        'williamboman/mason-lspconfig.nvim',
+        config = function()
+            require('config.mason')
+        end,
+    },
+    {
+        'williamboman/mason.nvim',
+        dependencies = {
+            { 'williamboman/mason-lspconfig.nvim' },
+        },
+    },
+    {
+        'neovim/nvim-lspconfig',
+        config = function()
+            require('config.lspconfig')
+        end,
+        dependencies = {
+            { 'williamboman/mason.nvim', },
+        },
+    },
+    {
+        'hrsh7th/nvim-cmp',
+        event = 'VeryLazy',
+        dependencies = {
+            { 'neovim/nvim-lspconfig' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-cmdline' },
+            { 'L3MON4D3/LuaSnip' },
+            { 'saadparwaiz1/cmp_luasnip' },
+        },
+        config = function()
+            require('config.cmp')
+        end,
+    },
     --- DAP
     --- UTILS
     {
@@ -42,7 +74,7 @@ return {
             auto_save_enabled = true,
             auto_restore_enabled = false,
             log_level = "error",
-            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
+            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
         },
     },
     {
@@ -63,7 +95,10 @@ return {
     {
         'windwp/nvim-autopairs',
         event = "BufEnter",
-        config = true,
+        config = function()
+            require("nvim-autopairs").setup()
+            vim.cmd [[set formatoptions-=cro]]
+        end,
     },
     {
         'norcalli/nvim-colorizer.lua',
@@ -105,10 +140,10 @@ return {
     {
         'rmagatti/auto-session',
         opts = {
-              auto_save_enabled = true,
-              auto_restore_enabled = false,
+            auto_save_enabled = true,
+            auto_restore_enabled = false,
             log_level = "error",
-            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
+            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
         },
     },
     {

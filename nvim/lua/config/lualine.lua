@@ -87,12 +87,20 @@ require('lualine').setup {
             },
             {
                 'filename',
+                symbols = {
+                    modified = '',
+                    readonly = '',
+                    unnamed = '[No Name]',
+                    newfile = '',
+                },
             },
         },
         lualine_x = {},
         lualine_y = {
             {
-                'diagnostics'
+                'diagnostics',
+                symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
+                -- symbols = {error = '', warn = '', info = '', hint = ''},
             }
         },
         lualine_z = {

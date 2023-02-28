@@ -16,7 +16,6 @@ local opts = {
         verthoriz = ' ',
 
 	},
-    compatible = false,
 	foldcolumn = "2",
 	signcolumn = "yes:1",
 	number = true,
@@ -34,9 +33,12 @@ local opts = {
 	splitbelow = true,
 	splitright = true,
     laststatus = 3,
+    scrolloff = 3,
     incsearch = true,
     wrap = false,
     showmode = false,
+    cursorline = true,
+    foldmethod = "marker",
 }
 for k, v in pairs(opts) do
 	vim.opt[k] = v

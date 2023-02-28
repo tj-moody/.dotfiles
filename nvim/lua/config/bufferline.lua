@@ -1,16 +1,20 @@
 local bgcolor = require("utils").get_color('Normal', 'bg#')
-require("bufferline").setup{
+vim.api.nvim_set_hl(0, 'TabLineSel', { fg = '#a2b5c1', })
+require("bufferline").setup {
     options = {
         mode = "buffers",
-        numbers = "none",
-        close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
+        -- numbers = "none",
+        numbers = function()
+            return ''
+        end,
+        close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
         right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-        left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
-        middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+        left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
+        middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
         indicator = {
             icon = '▎', -- this should be omitted if indicator style is not 'icon'
-            -- style = 'icon',
-            style = 'underline',
+            style = 'icon',
+            -- style = 'underline',
         },
         buffer_close_icon = '',
         modified_icon = '●',
@@ -29,7 +33,9 @@ require("bufferline").setup{
         diagnostics_update_in_insert = false,
         -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
-            return "("..count..")"
+            -- return "("..count..")"
+            -- return "" .. count
+            return ""
         end,
         -- NOTE: this will be called a lot so don't do any heavy processing here
         offsets = {
@@ -50,23 +56,50 @@ require("bufferline").setup{
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
+        -- separator_style = "thick",
         separator_style = { ' ', ' ' },
         enforce_regular_tabs = false,
         always_show_bufferline = false,
         hover = {
             enabled = true,
             delay = 200,
-            reveal = {'close'},
+            reveal = { 'close' },
         },
         sort_by = 'insert_after_current',
+        custom_areas = {
+            left = function()
+                return { { text = ' ', bg = '', fg = '', } }
+            end,
+            -- right = function()
+            --     local result = {}
+            --     local seve = vim.diagnostic.severity
+            --     local error = #vim.diagnostic.get(0, {severity = seve.ERROR})
+            --     local warning = #vim.diagnostic.get(0, {severity = seve.WARN})
+            --     local info = #vim.diagnostic.get(0, {severity = seve.INFO})
+            --     local hint = #vim.diagnostic.get(0, {severity = seve.HINT})
+            --     if error ~= 0 then
+            --         table.insert(result, {text = "  " .. error, fg = "#EC5241"})
+            --     end
+            --     if warning ~= 0 then
+            --         table.insert(result, {text = "  " .. warning, fg = "#EFB839"})
+            --     end
+            --     if hint ~= 0 then
+            --         table.insert(result, {text = "  " .. hint, fg = "#A3BA5E"})
+            --     end
+            --     if info ~= 0 then
+            --         table.insert(result, {text = "  " .. info, fg = "#7EA9A7"})
+            --     end
+            --     return result
+            -- end,
+        },
     },
     highlights = {
         fill = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         background = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor
         },
         tab = {
@@ -74,261 +107,309 @@ require("bufferline").setup{
             bg = bgcolor
         },
         tab_selected = {
-            fg = tabline_sel_bg,
-            bg = bgcolor
+            -- fg = tabline_sel_bg,
+            bg = bgcolor,
+            -- underline = true,
         },
         tab_close = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor
         },
         close_button = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor
         },
         close_button_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor
         },
         close_button_selected = {
-            fg = '',
-            bg = bgcolor
+            -- fg = '',
+            bg = bgcolor,
+            -- underline = true,
         },
         buffer_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             bold = true,
             italic = true,
-            underline = true,
         },
         buffer_selected = {
-            fg = normal_fg,
+            -- fg = normal_fg,
             bg = bgcolor,
             bold = true,
             italic = true,
-            underline = true,
+            -- underline = true,
         },
         numbers = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         numbers_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         numbers_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             bold = true,
             italic = true,
+            -- underline = true,
         },
         diagnostic = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         diagnostic_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         diagnostic_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             bold = true,
             italic = true,
+            -- underline = true,
         },
         hint = {
-            fg = '',
+            -- fg = '',
             sp = bgcolor,
             bg = ''
         },
         hint_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor
         },
         hint_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             sp = '',
             bold = true,
             italic = true,
+            -- underline = true,
         },
         hint_diagnostic = {
-            fg = '',
+            -- fg = '',
             sp = bgcolor,
             bg = ''
         },
         hint_diagnostic_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor
         },
         hint_diagnostic_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
-            sp = '',
             bold = true,
             italic = true,
+            -- underline = true,
         },
         info = {
-            fg = '',
+            -- fg = '',
             sp = bgcolor,
             bg = '',
         },
         info_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         info_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
-            sp = '',
             bold = true,
             italic = true,
+            -- underline = true,
         },
         info_diagnostic = {
-            fg = '',
+            -- fg = '',
             sp = bgcolor,
             bg = '',
         },
         info_diagnostic_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         info_diagnostic_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
-            sp = '',
             bold = true,
             italic = true,
+            -- underline = true,
         },
         warning = {
-            fg = '',
+            -- fg = '',
             sp = bgcolor,
             bg = '',
         },
         warning_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         warning_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
-            sp = '',
             bold = true,
             italic = true,
+            -- underline = true,
         },
         warning_diagnostic = {
-            fg = '',
+            -- fg = '',
             sp = bgcolor,
             bg = '',
         },
         warning_diagnostic_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         warning_diagnostic_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
-            sp = '',
             bold = true,
             italic = true,
+            -- underline = true,
         },
         error = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             sp = '',
         },
         error_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         error_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
-            sp = '',
             bold = true,
             italic = true,
+            -- underline = true,
         },
         error_diagnostic = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             sp = '',
         },
         error_diagnostic_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         error_diagnostic_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
-            sp = '',
             bold = true,
             italic = true,
+            -- underline = true,
         },
         modified = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         modified_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
         modified_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
+            -- underline = true,
         },
         duplicate_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             italic = true,
+            -- underline = true,
         },
         duplicate_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             italic = true
         },
         duplicate = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             italic = true
         },
         separator_selected = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
+            -- underline = true,
         },
         separator_visible = {
-            fg = '',
+            -- fg = '',
+            fg = bgcolor,
             bg = bgcolor,
         },
         separator = {
-            fg = '',
+            -- fg = '',
+            fg = bgcolor,
             bg = bgcolor,
         },
         indicator_selected = {
-            fg = '',
+            -- fg = '',
+            fg = bgcolor,
             bg = bgcolor,
-        },
-        pick_selected = {
-            fg = '',
-            bg = bgcolor,
+            -- underline = true,
             bold = true,
             italic = true,
         },
+        pick_selected = {
+            -- fg = '',
+            bg = bgcolor,
+            bold = true,
+            italic = true,
+            -- underline = true,
+        },
         pick_visible = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             bold = true,
             italic = true,
         },
         pick = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
             bold = true,
             italic = true,
         },
         offset_separator = {
-            fg = '',
+            -- fg = '',
             bg = bgcolor,
         },
     }
 }
-vim.api.nvim_set_hl(0, 'BufferLineIndicatorVisible', {fg = '#bad7ff'})
-vim.api.nvim_set_hl(0, 'BufferLineIndicatorSelected', {fg = '#bad7ff'})
+
+-- local bufferline_underline_hls = {
+--     'BufferLineTabSelected',
+--     'BufferLineHintSelected',
+--     'BufferLineErrorSelected',
+--     'BufferLineInfoSelected',
+--     'BufferLinePickSelected',
+--     'BufferLineWarningSelected',
+--     'BufferLineBufferSelected',
+--     'BufferLineNumbersSelected',
+--     'BufferLineModifiedSelected',
+--     'BufferLineDuplicateSelected',
+--     'BufferLineIndicatorSelected',
+--     'BufferLineSeparatorSelected',
+--     'BufferLineDiagnosticSelected',
+--     'BufferLineCloseButtonSelected',
+--     'BufferLineTabSeparatorSelected',
+--     'BufferLineInfoDiagnosticSelected',
+--     'BufferLineHintDiagnosticSelected',
+--     'BufferLineErrorDiagnosticSelected',
+--     'BufferLineWarningDiagnosticSelected',
+-- }
+-- local function mod_hl(hl_name, opts)
+--     local is_ok, hl_def = pcall(vim.api.nvim_get_hl_by_name, hl_name, true)
+--     if is_ok then
+--         for k, v in pairs(opts) do hl_def[k] = v end
+--         vim.api.nvim_set_hl(0, hl_name, hl_def)
+--     end
+-- end
+-- for _, hl in ipairs(bufferline_underline_hls) do
+
+--     mod_hl(hl, {sp = '#e1e1e1'})
+-- end
+
+vim.api.nvim_set_hl(0, 'BufferLineIndicatorVisible', { fg = '#bad7ff' })
+vim.api.nvim_set_hl(0, 'BufferLineIndicatorSelected', { fg = '#bad7ff' })
