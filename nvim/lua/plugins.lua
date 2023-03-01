@@ -48,6 +48,7 @@ return {
         end,
         dependencies = {
             { 'williamboman/mason.nvim', },
+            { 'folke/neodev.nvim' },
         },
     },
     {
@@ -151,6 +152,12 @@ return {
         requires = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require('config.alpha')
+        end
+    },
+    {
+        'j-hui/fidget.nvim',
+        config = function ()
+            require('config.fidget')
         end
     },
 }

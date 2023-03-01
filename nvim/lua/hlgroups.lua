@@ -47,9 +47,14 @@ local clear_hl_bg_table = {
     'NvimTreeNormal',
     'ErrorMsg',
     'WarningMsg',
+    'Title',
+    'NonText',
+    'FloatShadow',
+    'FloatShadowThrough',
 }
 local clear_hl_table = {
-    'CursorLine'
+    'CursorLine',
+    'NonText',
 }
 local mod_hl_table = {
     { 'Comment', { italic = true, } },
