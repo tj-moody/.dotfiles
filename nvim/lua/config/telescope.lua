@@ -1,4 +1,9 @@
 require('telescope').setup {
+    pickers = {
+        find_files = {
+            hidden = true,
+        },
+    },
     defaults = {
         layout_strategy = "horizontal",
         layout_config = {

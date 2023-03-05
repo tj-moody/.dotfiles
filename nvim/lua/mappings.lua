@@ -112,3 +112,10 @@ m('n', '<space>l', require('smart-splits').move_cursor_right)
 -- m('n', '<space>j', require('smart-splits').swap_buf_down)
 -- m('n', '<space>k', require('smart-splits').swap_buf_up)
 -- m('n', '<space>l', require('smart-splits').swap_buf_right)
+-- config
+local function toggle_lsp_lines()
+    local d_conf = vim.diagnostic.config
+    d_conf({ virtual_text = not d_conf().virtual_text })
+    require('lsp_lines').toggle()
+end
+m('n', '<leader>ctl', toggle_lsp_lines) -- config toggle lsp lines

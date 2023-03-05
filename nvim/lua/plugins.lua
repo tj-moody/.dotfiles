@@ -49,6 +49,8 @@ return {
         dependencies = {
             { 'williamboman/mason.nvim', },
             { 'folke/neodev.nvim' },
+            { 'ray-x/lsp_signature.nvim' },
+            { 'simrat39/rust-tools.nvim' },
         },
     },
     {
@@ -62,6 +64,7 @@ return {
             { 'hrsh7th/cmp-cmdline' },
             { 'L3MON4D3/LuaSnip' },
             { 'saadparwaiz1/cmp_luasnip' },
+            { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
         },
         config = function()
             require('config.cmp')
@@ -69,6 +72,9 @@ return {
     },
     --- DAP
     --- UTILS
+    {
+        'tpope/vim-surround',
+    },
     {
         'rmagatti/auto-session',
         opts = {
@@ -156,7 +162,7 @@ return {
     },
     {
         'j-hui/fidget.nvim',
-        config = function ()
+        config = function()
             require('config.fidget')
         end
     },

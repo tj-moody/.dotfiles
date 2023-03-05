@@ -3,21 +3,22 @@ local M = {}
 M.hl_table = {
     noclownfiesta = {
         setup = {
-            { 'CursorLineNr', { fg = '#afafaf'} },
+            { 'CursorLineNr',   { fg = '#afafaf' } },
+            { 'DiagnosticInfo', { fg = '#a2b5c1', } },
         },
         alpha = {
-            { 'AlphaHeader', { fg = '#bad7ff'} },
-            { 'AlphaFooter1', { fg = '#b46958'} },
+            { 'AlphaHeader',  { fg = '#bad7ff' } },
+            { 'AlphaFooter1', { fg = '#b46958' } },
         },
         nvim_tree = {
-            { 'NvimTreeFolderIcon', { fg = '#ffa557', }},
-            { 'NvimTreeFolderName', { fg = '#7e97ab', }},
-            { 'NvimTreeOpenedFolderName', { fg = '#88afa2', }},
-            { 'NvimTreeExecFile', { fg = '#e1e1e1', }},
-            { 'NvimTreeGitNew', { fg = '#ffa557', }},
-            { 'NvimTreeGitDirty', { fg = '#b46958', }},
-            { 'NvimTreeOpenedFile', { fg = '#bad7ff', }},
-            { 'NvimTreeIndentMarker', { fg = '#e1e1e1', }},
+            { 'NvimTreeFolderIcon',       { fg = '#ffa557', } },
+            { 'NvimTreeFolderName',       { fg = '#7e97ab', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#88afa2', } },
+            { 'NvimTreeExecFile',         { fg = '#e1e1e1', } },
+            { 'NvimTreeGitNew',           { fg = '#ffa557', } },
+            { 'NvimTreeGitDirty',         { fg = '#b46958', } },
+            { 'NvimTreeOpenedFile',       { fg = '#bad7ff', } },
+            { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
     },
 }
@@ -57,16 +58,16 @@ local clear_hl_table = {
     'NonText',
 }
 local mod_hl_table = {
-    { 'Comment', { italic = true, } },
+    { 'Comment',  { italic = true, } },
     { '@comment', { italic = true, } },
 }
 
 local function clear_hl_bg(hl)
     local fgcolor = require('utils').get_color(hl, 'fg#')
     if fgcolor ~= "" then
-        vim.api.nvim_set_hl(0, hl, {fg = fgcolor, bg = ''})
+        vim.api.nvim_set_hl(0, hl, { fg = fgcolor, bg = '' })
     else
-        vim.api.nvim_set_hl(0, hl, {fg = require('utils').get_color('Normal', 'fg#'), bg = ''})
+        vim.api.nvim_set_hl(0, hl, { fg = require('utils').get_color('Normal', 'fg#'), bg = '' })
     end
 end
 local function clear_hl(hl)
@@ -76,7 +77,7 @@ end
 local function mod_hl(hl_name, opts)
     local is_ok, hl_def = pcall(vim.api.nvim_get_hl_by_name, hl_name, true)
     if is_ok then
-        for k,v in pairs(opts) do hl_def[k] = v end
+        for k, v in pairs(opts) do hl_def[k] = v end
         vim.api.nvim_set_hl(0, hl_name, hl_def)
     end
 end
@@ -108,8 +109,8 @@ function M.hl_category_setup(category, theme)
     if category == "setup" then
         setup_hls()
     elseif category == "toggleterm" then
-        vim.api.nvim_set_hl(0, 'TermCursorNC', { fg = vim.g.normalbg, bg = vim.g.normalfg})
-        vim.api.nvim_set_hl(0, 'TermCursor', { fg = vim.g.normalbg, bg = vim.g.normalfg})
+        vim.api.nvim_set_hl(0, 'TermCursorNC', { fg = vim.g.normalbg, bg = vim.g.normalfg })
+        vim.api.nvim_set_hl(0, 'TermCursor', { fg = vim.g.normalbg, bg = vim.g.normalfg })
     end
 end
 

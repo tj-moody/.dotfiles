@@ -15,12 +15,12 @@ cmp.setup({
     },
     window = {
         -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs( -4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
+        -- ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -52,7 +52,10 @@ cmp.setup({
         { name = 'luasnip' }, -- For luasnip users.
     }, {
         { name = 'buffer' },
-    })
+    }),
+    experimental = {
+        ghost_text = true,
+    }
 })
 
 -- Set configuration for specific filetype.
@@ -83,9 +86,12 @@ cmp.setup.cmdline(':', {
 })
 
 vim.diagnostic.config {
-    virtual_text = true,
+    -- virtual_text = true,
+    virtual_text = false,
     underline = true,
 }
+
+require("lsp_lines").setup()
 
 local signs = {
     { name = "DiagnosticSignError", text = "" },
