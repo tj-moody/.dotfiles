@@ -16,6 +16,8 @@ m('v', 'J', ":m '>+1<CR>gv=gv")
 m('n', '<CR>', "mmo<esc>`m")
 m('n', '<S-CR>', "mmO<esc>`m")
 
+m('v', 'p', '"0p') -- '"0pgv'
+
 -- m('n', '<space>h', "<C-W>h")
 -- m('n', '<space>j', "<C-W>j")
 -- m('n', '<space>k', "<C-W>k")
@@ -93,6 +95,8 @@ m('n', '<leader>td', ':ToggleTerm size=20 direction=horizontal<CR>')
 m('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
 -- git
 m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
+m('n', '<leader>gdo', ':DiffviewOpen<CR>')
+m('n', '<leader>gdc', ':DiffviewClose<CR>')
 -- smart-splits
 m('n', '<C-h>', require('smart-splits').resize_left)
 m('n', '<C-j>', require('smart-splits').resize_down)

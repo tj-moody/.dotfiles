@@ -2,8 +2,10 @@ return {
     {
 
         'aktersnurra/no-clown-fiesta.nvim',
+        dependencies = {
+            'rebelot/kanagawa.nvim',
+        },
         lazy = false,
-        priority = 1000,
         config = function()
             require("colorscheme").setup()
         end,
@@ -23,6 +25,7 @@ return {
             { 'nvim-treesitter/nvim-treesitter-context' },
             { 'JoosepAlviste/nvim-ts-context-commentstring' },
             { 'windwp/nvim-ts-autotag' },
+            { 'nvim-treesitter/nvim-treesitter-textobjects' },
         },
         config = function()
             require('config.treesitter')
@@ -121,6 +124,21 @@ return {
             require('config.smart-splits')
         end
     },
+    {
+        'chrisgrieser/nvim-various-textobjs',
+        config = function()
+            require('config.various-textobjs')
+        end
+    },
+    --- Git
+    {
+        'lewis6991/gitsigns.nvim',
+        config = true,
+    },
+    {
+        'sindrets/diffview.nvim',
+        dependencies = 'nvim-lua/plenary.nvim',
+    },
     --- UI
     {
         'akinsho/bufferline.nvim',
@@ -139,6 +157,7 @@ return {
     },
     {
         'nvim-tree/nvim-tree.lua',
+        event = 'VeryLazy',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require('config.nvim-tree').nvim_tree_setup()

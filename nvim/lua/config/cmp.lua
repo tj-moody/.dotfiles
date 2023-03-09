@@ -86,12 +86,12 @@ cmp.setup.cmdline(':', {
 })
 
 vim.diagnostic.config {
-    -- virtual_text = true,
-    virtual_text = false,
+    virtual_text = true,
     underline = true,
 }
 
 require("lsp_lines").setup()
+require('lsp_lines').toggle()
 
 local signs = {
     { name = "DiagnosticSignError", text = "" },

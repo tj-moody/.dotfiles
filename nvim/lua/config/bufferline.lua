@@ -109,6 +109,7 @@ require("bufferline").setup {
         tab_selected = {
             -- fg = tabline_sel_bg,
             bg = bgcolor,
+            italic = true,
             -- underline = true,
         },
         tab_close = {
@@ -311,6 +312,7 @@ require("bufferline").setup {
         modified_selected = {
             -- fg = '',
             bg = bgcolor,
+            italic = true,
             -- underline = true,
         },
         duplicate_selected = {
@@ -407,8 +409,7 @@ require("bufferline").setup {
 --     end
 -- end
 -- for _, hl in ipairs(bufferline_underline_hls) do
-
---     mod_hl(hl, {sp = '#e1e1e1'})
+--     mod_hl(hl, { italic = true, })
 -- end
 
 vim.api.nvim_set_hl(0, 'BufferLineIndicatorVisible', { fg = '#bad7ff' })

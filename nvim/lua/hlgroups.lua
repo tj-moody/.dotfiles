@@ -3,8 +3,11 @@ local M = {}
 M.hl_table = {
     noclownfiesta = {
         setup = {
-            { 'CursorLineNr',   { fg = '#afafaf' } },
-            { 'DiagnosticInfo', { fg = '#a2b5c1', } },
+            { 'CursorLineNr',           { fg = '#afafaf' } },
+            { 'DiagnosticInfo',         { fg = '#a2b5c1', } },
+            { '@operator',              { fg = '#727272', } },
+            { '@punctuation.bracket',   { fg = '#727272', } }, -- still debating gray parens
+            { '@punctuation.delimiter', { fg = '#727272', } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#bad7ff' } },
@@ -21,6 +24,28 @@ M.hl_table = {
             { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
     },
+    kanagawa = {
+        setup = {
+            { 'Operator',               { fg = '#727169', } },
+            { '@punctuation.bracket',   { fg = '#727169', } },
+            { '@punctuation.delimiter', { fg = '#727169', } },
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#7fb4ca' } },
+            { 'AlphaFooter1', { fg = '#ff5d62' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeFolderIcon',       { fg = '#DCA561', } },
+            { 'NvimTreeFolderName',       { fg = '#658594', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#7aa89f', } },
+            { 'NvimTreeNormal',           { fg = '#c8c093', } },
+            { 'NvimTreeExecFile',         { fg = '#dcd7ba', } },
+            { 'NvimTreeGitNew',           { fg = '#ffa066', } },
+            { 'NvimTreeGitDirty',         { fg = '#ff5d62', } },
+            { 'NvimTreeOpenedFile',       { fg = '#957fb8', } },
+            -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
+        },
+    }
 }
 
 local clear_hl_bg_table = {
@@ -29,6 +54,7 @@ local clear_hl_bg_table = {
     'StatusColumn',
     'SignColumn',
     'FoldColumn',
+    'ColorColumn',
     'StatusLine',
     'StatusLineNC',
     'StatusLineTerm',
@@ -52,6 +78,14 @@ local clear_hl_bg_table = {
     'NonText',
     'FloatShadow',
     'FloatShadowThrough',
+    'LineNr',
+    'LineNrAbove',
+    'LineNrBelow',
+    'CursorLineNr',
+    'TreesitterContext',
+    'GitSignsAdd',
+    'GitSignsChange',
+    'GitSignsDelete',
 }
 local clear_hl_table = {
     'CursorLine',
