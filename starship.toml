@@ -17,7 +17,6 @@ style = 'bold cyan'
 format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [git_status]
-format = '[\[]($style)[$conflicted]($style)[$stashed]($style)[$deleted](red)[$renamed](yellow)[$modified](yellow)[$staged](green)[$untracked](red)[$ahead_behind]($style)[\]]($style) '
 
 [c]
 symbol = ' '
