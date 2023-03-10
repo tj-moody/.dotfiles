@@ -13,6 +13,11 @@ vicmd_symbol = '[V](bold green) '
 
 [git_branch]
 symbol = ' '
+style = 'bold cyan'
+format = '[$symbol$branch(:$remote_branch)]($style) '
+
+[git_status]
+format = '[\[]($style)[$conflicted]($style)[$stashed]($style)[$deleted](red)[$renamed](yellow)[$modified](yellow)[$staged](green)[$untracked](red)[$ahead_behind]($style)[\]]($style) '
 
 [c]
 symbol = ' '
@@ -50,3 +55,4 @@ format = '[$user]($style) '
 [directory]
 read_only = ' '
 read_only_style = 'yellow'
+style = 'purple'
