@@ -32,6 +32,10 @@ theme() {
     esac
 }
 
+ccompile() {
+    gcc -o $1 $1.c
+}
+
 dev() { cd ~/Documents/dev/$1; }
 dot() { cd ~/.dotfiles/$1; }
 config() { cd ~/.config/$1; }

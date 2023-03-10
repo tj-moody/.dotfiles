@@ -68,6 +68,7 @@ return {
             { 'L3MON4D3/LuaSnip' },
             { 'saadparwaiz1/cmp_luasnip' },
             { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
+            { 'onsails/lspkind.nvim' },
         },
         config = function()
             require('config.cmp')

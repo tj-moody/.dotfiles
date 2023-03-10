@@ -84,16 +84,23 @@ local clear_hl_bg_table = {
     'CursorLineNr',
     'TreesitterContext',
     'GitSignsAdd',
+
     'GitSignsChange',
-    'GitSignsDelete',
+    'DiagnosticSignError',
+    'DiagnosticSignWarn',
+    'DiagnosticSignInfo',
+    'DiagnosticSignHint',
 }
 local clear_hl_table = {
     'CursorLine',
     'NonText',
 }
 local mod_hl_table = {
-    { 'Comment',  { italic = true, } },
-    { '@comment', { italic = true, } },
+    { 'Comment',   { italic = true, } },
+    { '@comment',  { italic = true, } },
+    { 'Statement', { bold = false, } },
+    { 'Keyword',   { bold = false, italic = true, } },
+    { '@keyword',  { bold = false, italic = true, } },
 }
 
 local function clear_hl_bg(hl)

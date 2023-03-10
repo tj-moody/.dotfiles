@@ -10,6 +10,7 @@ kittypath="$(which kitty)"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 source ~/.cargo/env
 export PATH="/Users/tj/.local/share/bob/nvim-bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
 	
 # PROMPT
 export PS1="\e[33m\u \e[0;35m\W\e[0m "
@@ -17,10 +18,11 @@ export PS1="\e[33m\u \e[0;35m\W\e[0m "
 # Zoxide Setup
 [ -z "$IS_INIT_ZOXIDE" ] && eval "$(zoxide init bash)"
 export IS_INIT_ZOXIDE='true'
+eval "$(starship init bash)"
 
 # ALIASES
 alias nv="nvim"
 alias src="source /Users/tj/.bashrc"
 alias lg="lazygit"
 
-. ~/.dotfiles/bash/functions.sh
+. /Users/tj/.dotfiles/bash/functions.sh

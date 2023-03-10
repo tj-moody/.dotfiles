@@ -1,0 +1,52 @@
+format = '''
+$username$directory$all$fill$memory_usage
+$character
+'''
+# right_format = '''$memory_usage'''
+add_newline = false
+
+
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[➜](bold red)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+vicmd_symbol = '[V](bold green) '
+
+[git_branch]
+symbol = ' '
+
+[c]
+symbol = ' '
+
+[lua]
+symbol = ' '
+style = "#51a0cf"
+
+[python]
+symbol = ' '
+
+[os.symbols]
+Macos = ' '
+Windows = " "
+
+[line_break]
+disabled = true
+
+[memory_usage]
+disabled = false
+threshold = -1
+symbol = ''
+style = 'green'
+format = '[$symbol](dimmed green) [$ram_pct]($style)'
+# format = 'via $symbol [${ram}( | ${swap})]($style) '
+
+[fill]
+symbol = ' '
+
+[username]
+disabled = false
+show_always = true
+format = '[$user]($style) '
+
+[directory]
+read_only = ' '
+read_only_style = 'yellow'

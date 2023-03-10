@@ -5,6 +5,7 @@ require('telescope').setup {
         },
     },
     defaults = {
+        file_ignore_patterns = { '.git/' },
         layout_strategy = "horizontal",
         layout_config = {
             horizontal = {
