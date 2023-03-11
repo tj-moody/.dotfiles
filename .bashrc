@@ -24,5 +24,6 @@ eval "$(starship init bash)"
 alias nv="nvim"
 alias src="source /Users/tj/.bashrc"
 alias lg="lazygit"
+alias gs="git status"
 
-. /Users/tj/.dotfiles/bash/functions.sh
+. /Users/tj/.dotfiles/bash/functions.bash

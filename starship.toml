@@ -1,7 +1,6 @@
 format = '''
-$username$directory$all$fill$memory_usage
-$character
-'''
+$username$directory$git_branch$git_status$cmd_duration$fill$all$jobs$memory_usage
+$character'''
 # right_format = '''$memory_usage'''
 add_newline = false
 
@@ -12,9 +11,10 @@ error_symbol = '[➜](bold red)' # The 'success_symbol' segment is being set to 
 vicmd_symbol = '[V](bold green) '
 
 [git_branch]
-symbol = ' '
+# symbol = ' '
+symbol = ' '
 style = 'bold cyan'
-format = '[$symbol$branch(:$remote_branch)]($style) '
+format = '$symbol[$branch(:$remote_branch)]($style) '
 
 [git_status]
 
@@ -28,19 +28,16 @@ style = "#51a0cf"
 [python]
 symbol = ' '
 
-[os.symbols]
-Macos = ' '
-Windows = " "
-
 [line_break]
 disabled = true
 
 [memory_usage]
 disabled = false
 threshold = -1
-symbol = ''
+# symbol = ''
+symbol = ''
 style = 'green'
-format = '[$symbol](dimmed green) [$ram_pct]($style)'
+format = '[$symbol](dimmed green)[$ram_pct]($style)'
 # format = 'via $symbol [${ram}( | ${swap})]($style) '
 
 [fill]
@@ -55,3 +52,119 @@ format = '[$user]($style) '
 read_only = ' '
 read_only_style = 'yellow'
 style = 'purple'
+
+[aws]
+symbol = " "
+
+[buf]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = "⌘ "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[meson]
+symbol = "喝 "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[os.symbols]
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "﯑ "
+Gentoo = " "
+HardenedBSD = "ﲊ "
+Illumos = " "
+Linux = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = " "
+openSUSE = " "
+OracleLinux = " "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = " "
+Solus = "ﴱ "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = " "
+
+[package]
+symbol = " "
+
+[pijul_channel]
+symbol = "🪺 "
+
+[rlang]
+symbol = "ﳒ "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[scala]
+symbol = " "
+
+[spack]
+symbol = "🅢 "
