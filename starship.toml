@@ -1,9 +1,11 @@
 format = '''
-$username$directory$git_branch$git_status$cmd_duration$fill$all$jobs$memory_usage
+$username$directory$git_branch$git_status$cmd_duration$fill$jobs$all$memory_usage
 $character'''
 # right_format = '''$memory_usage'''
 add_newline = false
 
+[jobs]
+format = '[$symbol$number]($style) | '
 
 [character] # The name of the module we are configuring is 'character'
 success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
@@ -20,13 +22,16 @@ format = '$symbol[$branch(:$remote_branch)]($style) '
 
 [c]
 symbol = ' '
+format = 'via [$symbol($version(-$name) )]($style)| '
 
 [lua]
 symbol = ' '
 style = "#51a0cf"
+format = 'via [$symbol($version )]($style)| '
 
 [python]
 symbol = ' '
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)| '
 
 [line_break]
 disabled = true
@@ -37,7 +42,7 @@ threshold = -1
 # symbol = ''
 symbol = ''
 style = 'green'
-format = '[$symbol](dimmed green)[$ram_pct]($style)'
+format = '[$symbol](dimmed green)[$ram_pct]($style) '
 # format = 'via $symbol [${ram}( | ${swap})]($style) '
 
 [fill]
@@ -64,12 +69,15 @@ symbol = " "
 
 [dart]
 symbol = " "
+format = 'via [$symbol($version )]($style)| '
 
 [docker_context]
 symbol = " "
+format = 'via [$symbol$context]($style)| '
 
 [elixir]
-symbol = " "
+symbol = " " 
+format = 'via [$symbol($version \(OTP $otp_version\) )]($style)| '
 
 [elm]
 symbol = " "
@@ -79,12 +87,14 @@ symbol = " "
 
 [golang]
 symbol = " "
+format = 'via [$symbol($version )]($style)| '
 
 [guix_shell]
 symbol = " "
 
 [haskell]
 symbol = " "
+format = 'via [$symbol($version )]($style)| '
 
 [haxe]
 symbol = "⌘ "
@@ -94,9 +104,11 @@ symbol = " "
 
 [java]
 symbol = " "
+format = 'via [${symbol}(${version} )]($style)| '
 
 [julia]
 symbol = " "
+format = 'via [$symbol($version )]($style)| '
 
 [meson]
 symbol = "喝 "
@@ -109,6 +121,7 @@ symbol = " "
 
 [nodejs]
 symbol = " "
+format = 'via [$symbol($version )]($style)| '
 
 [os.symbols]
 Alpine = " "
@@ -150,18 +163,19 @@ Windows = " "
 
 [package]
 symbol = " "
-
-[pijul_channel]
-symbol = "🪺 "
+style = '208'
 
 [rlang]
 symbol = "ﳒ "
 
 [ruby]
 symbol = " "
+format = 'via [$symbol($version )]($style)| '
 
 [rust]
 symbol = " "
+format = 'via [$symbol($version )]($style)| '
+style = '#b7410e'
 
 [scala]
 symbol = " "

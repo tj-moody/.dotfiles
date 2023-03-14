@@ -88,7 +88,7 @@ cmp.setup({
         {
             { name = 'buffer' },
             { name = 'path' },
-            { name = 'cmdline' },
+            -- { name = 'cmdline' },
         }
     ),
     formatting = {

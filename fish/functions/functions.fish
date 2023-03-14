@@ -15,7 +15,7 @@ function cleard
 end
 
 function speedtest
-    speedtest-rs | grep "Upload\|Download" &
+    speedtest-rs
 end
 
 function theme

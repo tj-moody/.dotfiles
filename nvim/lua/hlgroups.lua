@@ -1,5 +1,6 @@
 local M = {}
 
+
 M.hl_table = {
     noclownfiesta = {
         setup = {
@@ -84,6 +85,8 @@ local clear_hl_bg_table = {
     'CursorLineNr',
     'TreesitterContext',
     'GitSignsAdd',
+    -- 'TermCursor',
+    -- 'TermCursorNC',
 
     'GitSignsChange',
     'DiagnosticSignError',
@@ -149,9 +152,6 @@ function M.hl_category_setup(category, theme)
     end
     if category == "setup" then
         setup_hls()
-    elseif category == "toggleterm" then
-        vim.api.nvim_set_hl(0, 'TermCursorNC', { fg = vim.g.normalbg, bg = vim.g.normalfg })
-        vim.api.nvim_set_hl(0, 'TermCursor', { fg = vim.g.normalbg, bg = vim.g.normalfg })
     end
 end
 
