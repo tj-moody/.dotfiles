@@ -1,5 +1,7 @@
 local M = {}
 
+vim.g.normalbg = require('utils').get_color('Normal', 'bg#')
+vim.g.normalfg = require('utils').get_color('Normal', 'fg#')
 
 M.hl_table = {
     noclownfiesta = {
@@ -9,6 +11,8 @@ M.hl_table = {
             { '@operator',              { fg = '#727272', } },
             { '@punctuation.bracket',   { fg = '#727272', } }, -- still debating gray parens
             { '@punctuation.delimiter', { fg = '#727272', } },
+            { 'TermCursor',             { bg = vim.g.normalfg, } },
+            { 'TermCursorNC',           { bg = vim.g.normalfg, } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#bad7ff' } },
@@ -85,8 +89,7 @@ local clear_hl_bg_table = {
     'CursorLineNr',
     'TreesitterContext',
     'GitSignsAdd',
-    -- 'TermCursor',
-    -- 'TermCursorNC',
+    'MatchParen',
 
     'GitSignsChange',
     'DiagnosticSignError',
@@ -127,8 +130,6 @@ local function mod_hl(hl_name, opts)
 end
 
 local function setup_hls()
-    vim.g.normalbg = require('utils').get_color('Normal', 'bg#')
-    vim.g.normalfg = require('utils').get_color('Normal', 'fg#')
     for _, v in ipairs(clear_hl_bg_table) do
         clear_hl_bg(v)
     end

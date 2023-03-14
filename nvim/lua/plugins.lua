@@ -186,4 +186,9 @@ return {
             require('config.fidget')
         end
     },
+    {
+        'folke/which-key.nvim',
+        event = 'VeryLazy',
+        config = true,
+    },
 }
