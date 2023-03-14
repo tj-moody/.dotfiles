@@ -115,8 +115,10 @@ end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-m('n', '<C-T>', ':ToggleTerm size=40 direction=float<CR>')
-m('n', '<leader>td', ':ToggleTerm size=20 direction=horizontal<CR>')
+-- m('n', '<C-T>', ':ToggleTerm size=40 direction=float<CR>')
+m('n', '<leader>tf', ':ToggleTerm size=40 direction=float<CR>')
+m('n', '<leader>tj', ':ToggleTerm size=20 direction=horizontal<CR>')
+m('n', '<leader>tl', ':ToggleTerm size=60 direction=vertical<CR>')
 m('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
 -- git
 m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')

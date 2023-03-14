@@ -90,7 +90,8 @@ return {
     },
     {
         'akinsho/toggleterm.nvim', version = '*',
-        cmd = { "ToggleTerm" },
+        -- cmd = { "ToggleTerm" },
+        keys = { '<c-t>', },
         config = function()
             require('config.toggleterm')
             require('colorscheme').setup('toggleterm')
