@@ -13,7 +13,10 @@ require('telescope').setup {
             },
         },
         prompt_position = 'top',
+        prompt_prefix = '  ',
+        selection_caret = '  ',
+        entry_prefix = '   ',
         sorting_strategy = 'ascending',
-        winblend = 0,
+        -- winblend = 20,
     },
 }

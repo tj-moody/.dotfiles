@@ -1,7 +1,6 @@
 local M = {}
 
-vim.g.normalbg = require('utils').get_color('Normal', 'bg#')
-vim.g.normalfg = require('utils').get_color('Normal', 'fg#')
+local get_color = require('utils').get_color
 
 M.hl_table = {
     noclownfiesta = {
@@ -11,8 +10,6 @@ M.hl_table = {
             { '@operator',              { fg = '#727272', } },
             { '@punctuation.bracket',   { fg = '#727272', } }, -- still debating gray parens
             { '@punctuation.delimiter', { fg = '#727272', } },
-            { 'TermCursor',             { bg = vim.g.normalfg, } },
-            { 'TermCursorNC',           { bg = vim.g.normalfg, } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#bad7ff' } },
@@ -73,9 +70,11 @@ local clear_hl_bg_table = {
     'FloatBoder',
     'VertSplit',
     'WinSeparator',
+
     'TelescopeNormal',
     'TelescopeBorder',
     'TelescopeSelection',
+
     'NvimTreeNormal',
     'ErrorMsg',
     'WarningMsg',
@@ -89,9 +88,10 @@ local clear_hl_bg_table = {
     'CursorLineNr',
     'TreesitterContext',
     'GitSignsAdd',
+    'GitSignsChange',
+    'GitSignsDelete',
     'MatchParen',
 
-    'GitSignsChange',
     'DiagnosticSignError',
     'DiagnosticSignWarn',
     'DiagnosticSignInfo',
@@ -102,11 +102,11 @@ local clear_hl_table = {
     'NonText',
 }
 local mod_hl_table = {
-    { 'Comment',   { italic = true, } },
-    { '@comment',  { italic = true, } },
-    { 'Statement', { bold = false, } },
-    { 'Keyword',   { bold = false, italic = true, } },
-    { '@keyword',  { bold = false, italic = true, } },
+    { 'Comment',        { italic = true, } },
+    { '@comment',       { italic = true, } },
+    { 'Statement',      { bold = false, } },
+    { 'Keyword',        { bold = false, italic = true, } },
+    { '@keyword',       { bold = false, italic = true, } },
 }
 
 local function clear_hl_bg(hl)
@@ -128,8 +128,9 @@ local function mod_hl(hl_name, opts)
         vim.api.nvim_set_hl(0, hl_name, hl_def)
     end
 end
-
 local function setup_hls()
+    vim.g.normalbg = get_color('Normal', 'bg#')
+    vim.g.normalfg = get_color('Normal', 'fg#')
     for _, v in ipairs(clear_hl_bg_table) do
         clear_hl_bg(v)
     end
