@@ -53,3 +53,7 @@ end
 function colortest
     bash /Users/tj/.dotfiles/bash/colortest.bash
 end
+
+function nvimspeedtest
+    hyperfine "nvim --headless +qa"
+end

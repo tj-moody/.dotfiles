@@ -1,6 +1,5 @@
 return {
     {
-
         'aktersnurra/no-clown-fiesta.nvim',
         dependencies = {
             'rebelot/kanagawa.nvim',
@@ -11,8 +10,9 @@ return {
         end,
     },
     {
-        'nvim-telescope/telescope.nvim',
+       'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
+        cmd = { 'Telescope', },
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             require('config.telescope')
@@ -20,7 +20,7 @@ return {
     },
     {
         'nvim-treesitter/nvim-treesitter',
-        event = "VeryLazy",
+        event = 'VeryLazy',
         dependencies = {
             { 'nvim-treesitter/nvim-treesitter-context' },
             { 'JoosepAlviste/nvim-ts-context-commentstring' },
@@ -33,24 +33,18 @@ return {
     },
     --- LSP
     {
-        'williamboman/mason-lspconfig.nvim',
-        config = function()
-            require('config.mason')
-        end,
-    },
-    {
-        'williamboman/mason.nvim',
-        dependencies = {
-            { 'williamboman/mason-lspconfig.nvim' },
-        },
-    },
-    {
         'neovim/nvim-lspconfig',
+        event = 'VeryLazy',
         config = function()
             require('config.lspconfig')
         end,
         dependencies = {
-            { 'williamboman/mason.nvim', },
+            { 'williamboman/mason.nvim',
+                dependencies = 'williamboman/mason-lspconfig.nvim',
+                config = function()
+                    require('config.mason')
+                end,
+            },
             { 'folke/neodev.nvim' },
             { 'ray-x/lsp_signature.nvim' },
             { 'simrat39/rust-tools.nvim' },
@@ -58,9 +52,9 @@ return {
     },
     {
         'hrsh7th/nvim-cmp',
-        event = 'VeryLazy',
+        event = 'InsertEnter',
         dependencies = {
-            { 'neovim/nvim-lspconfig' },
+            -- { 'neovim/nvim-lspconfig' },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-path' },
@@ -78,9 +72,18 @@ return {
     --- UTILS
     {
         'tpope/vim-surround',
+        event = 'VeryLazy',
     },
+    -- TODO: Investigate - breaks default `%` for some reason? Investigate further
+    -- {
+    --     'andymass/vim-matchup',
+    --     -- event = 'BufReadPost',
+    --     event = 'VeryLazy',
+    -- },
     {
         'rmagatti/auto-session',
+        event = 'VeryLazy',
+        cmd = { 'RestoreSession' },
         opts = {
             auto_save_enabled = true,
             auto_restore_enabled = false,
@@ -90,8 +93,8 @@ return {
     },
     {
         'akinsho/toggleterm.nvim', version = '*',
-        -- cmd = { "ToggleTerm" },
         keys = { '<c-t>', },
+        cmd = { 'ToggleTerm' },
         config = function()
             require('config.toggleterm')
             require('colorscheme').setup('toggleterm')
@@ -99,14 +102,14 @@ return {
     },
     {
         'numToStr/Comment.nvim',
-        event = "BufEnter",
+        event = 'VeryLazy',
         config = function()
             require('config.comment')
         end,
     },
     {
         'windwp/nvim-autopairs',
-        event = "BufEnter",
+        event = 'VeryLazy',
         config = function()
             require("nvim-autopairs").setup()
             vim.cmd [[set formatoptions-=cro]]
@@ -114,20 +117,21 @@ return {
     },
     {
         'norcalli/nvim-colorizer.lua',
-        event = "BufEnter",
+        event = 'VeryLazy',
         config = function()
             require('config.colorizer')
         end,
     },
     {
         'mrjones2014/smart-splits.nvim',
-        event = "VeryLazy",
+        event = 'VeryLazy',
         config = function()
             require('config.smart-splits')
         end
     },
     {
         'chrisgrieser/nvim-various-textobjs',
+        event = 'VeryLazy',
         config = function()
             require('config.various-textobjs')
         end
@@ -135,15 +139,19 @@ return {
     --- Git
     {
         'lewis6991/gitsigns.nvim',
+        priority = 100,
+        event = 'VeryLazy',
         config = true,
     },
     {
         'sindrets/diffview.nvim',
+        cmd = { 'DiffviewOpen', 'DiffviewClose', },
         dependencies = 'nvim-lua/plenary.nvim',
     },
     --- UI
     {
         'akinsho/bufferline.nvim',
+        priority = 100,
         event = "VeryLazy",
         requires = 'nvim-tree/nvim-web-devicons',
         config = function()
@@ -152,30 +160,23 @@ return {
     },
     {
         'nvim-lualine/lualine.nvim',
-        event = "VeryLazy",
+        priority = 100,
+        event = 'VeryLazy',
         config = function()
             require('config.lualine')
         end,
     },
     {
         'nvim-tree/nvim-tree.lua',
-        event = 'VeryLazy',
+        cmd = { 'NvimTreeClose', 'NvimTreeToggle', },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require('config.nvim-tree').nvim_tree_setup()
         end,
     },
     {
-        'rmagatti/auto-session',
-        opts = {
-            auto_save_enabled = true,
-            auto_restore_enabled = false,
-            log_level = "error",
-            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-        },
-    },
-    {
         'goolord/alpha-nvim',
+        event = 'VimEnter',
         requires = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require('config.alpha')
@@ -183,6 +184,7 @@ return {
     },
     {
         'j-hui/fidget.nvim',
+        event = 'VeryLazy',
         config = function()
             require('config.fidget')
         end
@@ -193,5 +195,10 @@ return {
         config = function()
             require('config.whichkey')
         end,
+    },
+    {
+        'folke/todo-comments.nvim',
+        event = 'VeryLazy',
+        config = true,
     },
 }

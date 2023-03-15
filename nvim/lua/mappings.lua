@@ -149,4 +149,18 @@ local function toggle_lsp_lines()
     d_conf({ virtual_text = not d_conf().virtual_text })
     require('lsp_lines').toggle()
 end
-m('n', '<leader>ctl', toggle_lsp_lines) -- config toggle lsp lines
+m('n', 'Cll', toggle_lsp_lines) -- config toggle lsp lines
+local function toggle_relative_number()
+    vim.opt.relativenumber = not vim.opt.relativenumber._value
+end
+m('n', 'Crn', toggle_relative_number) -- config toggle lsp lines
+local function toggle_wrap()
+    vim.opt.wrap = not vim.opt.wrap._value
+end
+m('n', 'Cw', toggle_wrap) -- config toggle lsp lines
+
+
+-- m('n', '<space>j', require('smart').move_cursor_down)
+-- m('n', '<space>h', require('smart').move_cursor_left)
+-- m('n', '<space>k', require('smart').move_cursor_up)
+-- m('n', '<space>l', require('smart').move_cursor_right)
