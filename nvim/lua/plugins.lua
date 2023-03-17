@@ -10,7 +10,7 @@ return {
         end,
     },
     {
-       'nvim-telescope/telescope.nvim',
+        'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
         cmd = { 'Telescope', },
         dependencies = { 'nvim-lua/plenary.nvim' },
@@ -26,6 +26,7 @@ return {
             { 'JoosepAlviste/nvim-ts-context-commentstring' },
             { 'windwp/nvim-ts-autotag' },
             { 'nvim-treesitter/nvim-treesitter-textobjects' },
+            { 'Wansmer/treesj' },
         },
         config = function()
             require('config.treesitter')
@@ -39,7 +40,8 @@ return {
             require('config.lspconfig')
         end,
         dependencies = {
-            { 'williamboman/mason.nvim',
+            {
+                'williamboman/mason.nvim',
                 dependencies = 'williamboman/mason-lspconfig.nvim',
                 config = function()
                     require('config.mason')
@@ -92,7 +94,8 @@ return {
         },
     },
     {
-        'akinsho/toggleterm.nvim', version = '*',
+        'akinsho/toggleterm.nvim',
+        version = '*',
         keys = { '<c-t>', },
         cmd = { 'ToggleTerm' },
         config = function()

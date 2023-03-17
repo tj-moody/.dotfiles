@@ -10,7 +10,7 @@ m('n', '<leader><leader>w', ":silent write<CR>:so<CR>:echo ' [WS]'<CR>")
 
 m('n', '<leader>q', ":q<CR>")
 -- m('n', '<leader>h', ":noh<CR>:ColorizerReloadAllBuffers<CR>")
-m('n', '<esc>', ":noh<CR>")
+m('n', '<esc>', ":noh<CR>:ColorizerReloadAllBuffers<CR>")
 
 m('v', 'K', ":m '<-2<CR>gv=gv")
 m('v', 'J', ":m '>+1<CR>gv=gv")
@@ -125,11 +125,12 @@ m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
 m('n', '<leader>gdo', ':DiffviewOpen<CR>')
 m('n', '<leader>gdc', ':DiffviewClose<CR>')
 -- smart-splits
+--- resize
 m('n', '<C-s-h>', require('smart-splits').resize_left)
 m('n', '<C-s-j>', require('smart-splits').resize_down)
 m('n', '<C-s-k>', require('smart-splits').resize_up)
 m('n', '<C-s-l>', require('smart-splits').resize_right)
--- moving between splits
+---  moving between splits
 m('n', '<C-j>', require('smart-splits').move_cursor_down)
 m('n', '<C-h>', require('smart-splits').move_cursor_left)
 m('n', '<C-k>', require('smart-splits').move_cursor_up)
@@ -138,11 +139,13 @@ m('n', '<C-l>', require('smart-splits').move_cursor_right)
 -- m('n', '<space>h', require('smart-splits').move_cursor_left)
 -- m('n', '<space>k', require('smart-splits').move_cursor_up)
 -- m('n', '<space>l', require('smart-splits').move_cursor_right)
--- swapping buffers between windows
+--- swapping buffers between windows
 m('n', '<space>h', require('smart-splits').swap_buf_left)
 m('n', '<space>j', require('smart-splits').swap_buf_down)
 m('n', '<space>k', require('smart-splits').swap_buf_up)
 m('n', '<space>l', require('smart-splits').swap_buf_right)
+-- treesj
+m('n', '<c-s>', ':TSJToggle<CR>')
 -- config
 local function toggle_lsp_lines()
     local d_conf = vim.diagnostic.config
@@ -150,17 +153,7 @@ local function toggle_lsp_lines()
     require('lsp_lines').toggle()
 end
 m('n', 'Cll', toggle_lsp_lines) -- config toggle lsp lines
-local function toggle_relative_number()
-    vim.opt.relativenumber = not vim.opt.relativenumber._value
-end
+local function toggle_relative_number() vim.opt.relativenumber = not vim.opt.relativenumber._value end
 m('n', 'Crn', toggle_relative_number) -- config toggle lsp lines
-local function toggle_wrap()
-    vim.opt.wrap = not vim.opt.wrap._value
-end
+local function toggle_wrap() vim.opt.wrap = not vim.opt.wrap._value end
 m('n', 'Cw', toggle_wrap) -- config toggle lsp lines
-
-
--- m('n', '<space>j', require('smart').move_cursor_down)
--- m('n', '<space>h', require('smart').move_cursor_left)
--- m('n', '<space>k', require('smart').move_cursor_up)
--- m('n', '<space>l', require('smart').move_cursor_right)
