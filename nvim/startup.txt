@@ -1,0 +1,54 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.003  000.003: --- NVIM STARTING ---
+000.053  000.050: event init
+000.131  000.077: early init
+000.414  000.283: locale set
+000.442  000.028: init first window
+000.675  000.233: inits 1
+000.692  000.017: window checked
+000.694  000.002: parsing arguments
+001.029  000.042  000.042: require('vim.shared')
+001.116  000.036  000.036: require('vim._meta')
+001.117  000.086  000.050: require('vim._editor')
+001.118  000.165  000.037: require('vim._init_packages')
+001.120  000.261: init lua interpreter
+002.591  001.472: expanding arguments
+002.603  000.012: inits 2
+002.817  000.213: init highlight
+002.817  000.001: waiting for UI
+002.941  000.124: done waiting for UI
+002.952  000.011: clear screen
+003.060  000.108: init default mappings & autocommands
+003.061  000.001: sourcing vimrc file(s)
+003.068  000.008: inits 3
+005.050  001.982: reading ShaDa
+005.110  000.060: opening buffers
+005.111  000.001: BufEnter autocommands
+005.113  000.002: editing files in windows
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.003  000.003: --- NVIM STARTING ---
+000.054  000.051: event init
+000.154  000.101: early init
+000.520  000.365: locale set
+000.553  000.033: init first window
+000.854  000.301: inits 1
+000.862  000.007: window checked
+000.864  000.003: parsing arguments
+001.257  000.055  000.055: require('vim.shared')
+001.348  000.033  000.033: require('vim._meta')
+001.350  000.090  000.057: require('vim._editor')
+001.352  000.186  000.041: require('vim._init_packages')
+001.354  000.303: init lua interpreter
+001.662  000.308: expanding arguments
+001.679  000.017: inits 2
+001.926  000.247: init highlight

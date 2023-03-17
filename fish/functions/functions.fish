@@ -57,3 +57,14 @@ end
 function nvimspeedtest
     hyperfine "nvim --headless +qa"
 end
+
+function splash
+    set length $(math $(pfetch | wc -l) + $(exa -al --icons | wc -l) - 4)
+    set length $(math $LINES-$length)
+    for line in (seq $length)
+        printf "\n"
+    end
+    pfetch
+    exa -al --icons
+    printf "\n"
+end
