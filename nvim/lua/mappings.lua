@@ -46,7 +46,7 @@ local function only_buffer()
     if vim.bo.filetype == 'NvimTree' then
         vim.cmd('only')
     else
-        vim.cmd('%bd')
+        vim.cmd('%bd!')
         vim.cmd(vim.api.nvim_replace_termcodes('normal <c-o>', true, true, true))
         vim.cmd('bd #')
     end
