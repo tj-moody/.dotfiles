@@ -1,5 +1,5 @@
 function l
-    exa -al --icons
+    exa -al --icons $argv
 end
 
 function lds
@@ -81,5 +81,6 @@ function git-status-chsh
     echo -e "$clear_text  modified$red_text !"
     echo -e "$clear_text    staged$red_text +"
     echo -e "$clear_text   renamed$red_text »"
-    echo -e "$clear_text   deleted$red_text ✘$clear_text"
+    echo -e "$clear_text   deleted$red_text ✘"
+    echo -e "$clear_text"
 end
