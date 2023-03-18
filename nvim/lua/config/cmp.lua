@@ -43,7 +43,6 @@ cmp.setup({
         end,
     },
     window = {
-        -- completion = cmp.config.window.bordered(),
         completion = {
             -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
             col_offset = -3,
@@ -52,7 +51,7 @@ cmp.setup({
         documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert {
-        ['<C-b>'] = cmp.mapping.scroll_docs( -4),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         -- ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
@@ -74,8 +73,8 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable( -1) then
-                luasnip.jump( -1)
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             else
                 fallback()
             end
@@ -101,13 +100,13 @@ cmp.setup({
             kind.kind = " " .. (strings[1] or "") .. " "
             -- kind.menu = "    (" .. (strings[2] or "") .. ")"
             kind.menu = ({
-                    buffer = "(Buf)",
-                    nvim_lsp = "(LSP)",
-                    luasnip = "(SNP)",
-                    nvim_lua = "(Lua)",
-                    latex_symbols = "(Text)",
-                    cmdline = "(Cmd)"
-                })[entry.source.name]
+                buffer = "(Buf)",
+                nvim_lsp = "(LSP)",
+                luasnip = "(SNP)",
+                nvim_lua = "(Lua)",
+                latex_symbols = "(Text)",
+                cmdline = "(Cmd)"
+            })[entry.source.name]
             return kind
         end,
     },
@@ -148,14 +147,21 @@ vim.diagnostic.config {
     underline = true,
 }
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover, {
+        border = "single",
+        title = "  "
+    }
+)
+
 require("lsp_lines").setup()
 require('lsp_lines').toggle()
 
 local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn",  text = "" },
-    { name = "DiagnosticSignHint",  text = "" },
-    { name = "DiagnosticSignInfo",  text = "" },
+    { name = "DiagnosticSignHint",  text = "" },
+    { name = "DiagnosticSignInfo",  text = "" },
 }
 
 for _, sign in ipairs(signs) do

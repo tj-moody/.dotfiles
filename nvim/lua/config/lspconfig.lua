@@ -11,7 +11,6 @@ vim.keymap.set('n', 'dj', vim.diagnostic.goto_next, opts)
 -- after the language server attaches to the current buffer
 
 local on_attach = function(client, bufnr)
-    _ = client
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     require "lsp_signature".on_attach({

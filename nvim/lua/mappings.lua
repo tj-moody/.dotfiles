@@ -76,7 +76,7 @@ local function nvimtreetoggle()
         vim.cmd("NvimTreeOpen")
     end
 end
-m('n', 't', nvimtreetoggle)
+m('n', 'T', nvimtreetoggle)
 local function nvimtreetogglefloat()
     if vim.g.nvimtreefloat == true then
         vim.g.nvimtreefloat = false
@@ -88,7 +88,7 @@ local function nvimtreetogglefloat()
         vim.cmd("NvimTreeOpen")
     end
 end
-m('n', 'T', nvimtreetogglefloat)
+m('n', 'tt', nvimtreetogglefloat)
 -- Telescope
 m('n', '<leader>ff', ":Telescope find_files<CR>")
 m('n', '<leader>fh', ":Telescope highlights<CR>")
@@ -96,10 +96,15 @@ m('n', '<leader>fg', ":Telescope live_grep<CR>")
 -- Bufferline
 m('n', 'H', ":BufferLineCyclePrev<CR>")
 m('n', 'L', ":BufferLineCycleNext<CR>")
-m('n', '<leader>tq', ":BufferLinePickClose<CR>")
-m('n', '<leader>ts', ":BufferLineSortByTabs<CR>")
+m('n', 'tq', ":BufferLinePickClose<CR>")
+m('n', 'ts', ":BufferLineSortByTabs<CR>")
 m('n', 'gb', ":BufferLinePick<CR>")
-
+-- Tabs
+m('n', 't.', ':tabe %<CR>:Telescope find_files<CR>')
+m('n', 'tl', ':tabnext<CR>')
+m('n', 'th', ':tabprevious<CR>')
+m('n', 'to', ':tabonly<CR>')
+m('n', 'tc', ':tabclose<CR>')
 -- Lazy
 m('n', '<leader>lz', ":Lazy<CR>")
 -- Toggleterm
@@ -126,10 +131,14 @@ m('n', '<leader>gdo', ':DiffviewOpen<CR>')
 m('n', '<leader>gdc', ':DiffviewClose<CR>')
 -- smart-splits
 --- resize
-m('n', '<C-s-h>', require('smart-splits').resize_left)
-m('n', '<C-s-j>', require('smart-splits').resize_down)
-m('n', '<C-s-k>', require('smart-splits').resize_up)
-m('n', '<C-s-l>', require('smart-splits').resize_right)
+-- m('n', '<C-s-h>', require('smart-splits').resize_left)
+-- m('n', '<C-s-j>', require('smart-splits').resize_down)
+-- m('n', '<C-s-k>', require('smart-splits').resize_up)
+-- m('n', '<C-s-l>', require('smart-splits').resize_right)
+m('n', '<space>h', require('smart-splits').resize_left)
+m('n', '<space>j', require('smart-splits').resize_down)
+m('n', '<space>k', require('smart-splits').resize_up)
+m('n', '<space>l', require('smart-splits').resize_right)
 ---  moving between splits
 m('n', '<C-j>', require('smart-splits').move_cursor_down)
 m('n', '<C-h>', require('smart-splits').move_cursor_left)
@@ -140,10 +149,10 @@ m('n', '<C-l>', require('smart-splits').move_cursor_right)
 -- m('n', '<space>k', require('smart-splits').move_cursor_up)
 -- m('n', '<space>l', require('smart-splits').move_cursor_right)
 --- swapping buffers between windows
-m('n', '<space>h', require('smart-splits').swap_buf_left)
-m('n', '<space>j', require('smart-splits').swap_buf_down)
-m('n', '<space>k', require('smart-splits').swap_buf_up)
-m('n', '<space>l', require('smart-splits').swap_buf_right)
+-- m('n', '<space>h', require('smart-splits').swap_buf_left)
+-- m('n', '<space>j', require('smart-splits').swap_buf_down)
+-- m('n', '<space>k', require('smart-splits').swap_buf_up)
+-- m('n', '<space>l', require('smart-splits').swap_buf_right)
 -- treesj
 m('n', '<c-s>', ':TSJToggle<CR>')
 -- config
@@ -153,7 +162,17 @@ local function toggle_lsp_lines()
     require('lsp_lines').toggle()
 end
 m('n', 'Cll', toggle_lsp_lines) -- config toggle lsp lines
-local function toggle_relative_number() vim.opt.relativenumber = not vim.opt.relativenumber._value end
+local function toggle_relative_number()
+    vim.opt.relativenumber = not vim.opt.relativenumber._value
+end
 m('n', 'Crn', toggle_relative_number) -- config toggle lsp lines
-local function toggle_wrap() vim.opt.wrap = not vim.opt.wrap._value end
+local function toggle_wrap()
+    vim.opt.wrap = not vim.opt.wrap._value
+    vim.cmd([[echo " Wrap: ]] .. tostring(vim.opt.wrap._value) .. [["]])
+end
 m('n', 'Cw', toggle_wrap) -- config toggle lsp lines
+local function toggle_bufferline_show_all()
+    vim.g.bufferline_show_all = not vim.g.bufferline_show_all
+    vim.cmd([[echo " Bufferline Show All: ]] .. tostring(vim.g.bufferline_show_all) .. [["]])
+end
+m('n', 'Cba', toggle_bufferline_show_all) -- config toggle lsp lines
