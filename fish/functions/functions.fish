@@ -68,3 +68,18 @@ function splash
     exa -al --icons
     printf "\n"
 end
+
+function git-status-chsh
+    set red_text '\e[0;31m'
+    set clear_text '\e[0m'
+    echo -e "$clear_text  conflict$red_text ="
+    echo -e "$clear_text     ahead$red_text ⇡"
+    echo -e "$clear_text    behind$red_text ⇣"
+    echo -e "$clear_text  diverged$red_text ⇕"
+    echo -e "$clear_text untracked$red_text ?"
+    echo -e "$clear_text   stashed$red_text \$"
+    echo -e "$clear_text  modified$red_text !"
+    echo -e "$clear_text    staged$red_text +"
+    echo -e "$clear_text   renamed$red_text »"
+    echo -e "$clear_text   deleted$red_text ✘"
+end

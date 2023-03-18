@@ -76,7 +76,7 @@ symbol = " "
 format = 'via [$symbol$context]($style)| '
 
 [elixir]
-symbol = " " 
+symbol = " "
 format = 'via [$symbol($version \(OTP $otp_version\) )]($style)| '
 
 [elm]
