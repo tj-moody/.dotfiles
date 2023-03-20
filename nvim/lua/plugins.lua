@@ -1,3 +1,16 @@
+local fun = {}
+if vim.g.have_fun then
+    fun = {
+        {
+            "giusgad/pets.nvim",
+            event = 'VeryLazy',
+            dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
+            opts = {
+                popup = { avoid_statusline = true },
+            }
+        },
+    }
+end
 return {
     {
         'aktersnurra/no-clown-fiesta.nvim',
@@ -165,4 +178,6 @@ return {
         event = 'VeryLazy',
         config = true,
     },
+    --- Fun
+    fun,
 }

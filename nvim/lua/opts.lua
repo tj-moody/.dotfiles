@@ -46,8 +46,7 @@ for k, v in pairs(opts) do
 	vim.opt[k] = v
 end
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 vim.g.bufferline_show_all = false
+vim.g.have_fun = false
 
 vim.cmd [[set formatoptions-=cro]]
