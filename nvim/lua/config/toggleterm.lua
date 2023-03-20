@@ -10,7 +10,7 @@ require('toggleterm').setup {
             guibg = "#151515",
         },
         FloatBorder = {
-            guibg = '#151515'
+            guibg = '#151515',
         },
     },
     shade_terminals = false,

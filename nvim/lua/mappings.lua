@@ -76,7 +76,7 @@ local function nvimtreetoggle()
         vim.cmd("NvimTreeOpen")
     end
 end
-m('n', 'T', nvimtreetoggle)
+m('n', 't', nvimtreetoggle)
 local function nvimtreetogglefloat()
     if vim.g.nvimtreefloat == true then
         vim.g.nvimtreefloat = false
@@ -88,7 +88,7 @@ local function nvimtreetogglefloat()
         vim.cmd("NvimTreeOpen")
     end
 end
-m('n', 'tt', nvimtreetogglefloat)
+m('n', 'TT', nvimtreetogglefloat)
 -- Telescope
 m('n', '<leader>ff', ":Telescope find_files<CR>")
 m('n', '<leader>fh', ":Telescope highlights<CR>")
@@ -96,15 +96,16 @@ m('n', '<leader>fg', ":Telescope live_grep<CR>")
 -- Bufferline
 m('n', 'H', ":BufferLineCyclePrev<CR>")
 m('n', 'L', ":BufferLineCycleNext<CR>")
-m('n', 'tq', ":BufferLinePickClose<CR>")
-m('n', 'ts', ":BufferLineSortByTabs<CR>")
+m('n', 'Tq', ":BufferLinePickClose<CR>")
+m('n', 'Ts', ":BufferLineSortByTabs<CR>")
 m('n', 'gb', ":BufferLinePick<CR>")
 -- Tabs
-m('n', 't.', ':tabe %<CR>:Telescope find_files<CR>')
-m('n', 'tl', ':tabnext<CR>')
-m('n', 'th', ':tabprevious<CR>')
-m('n', 'to', ':tabonly<CR>')
-m('n', 'tc', ':tabclose<CR>')
+m('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
+m('n', 'T>', ':tabe %<CR>:Telescope find_files<CR>') -- proof for typos
+m('n', 'TL', ':tabnext<CR>')
+m('n', 'TH', ':tabprevious<CR>')
+m('n', 'TO', ':tabonly<CR>')
+m('n', 'TC', ':tabclose<CR>')
 -- Lazy
 m('n', '<leader>lz', ":Lazy<CR>")
 -- Toggleterm
@@ -176,3 +177,6 @@ local function toggle_bufferline_show_all()
     vim.cmd([[echo " Bufferline Show All: ]] .. tostring(vim.g.bufferline_show_all) .. [["]])
 end
 m('n', 'Cba', toggle_bufferline_show_all) -- config toggle lsp lines
+
+-- search & replace in word
+-- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

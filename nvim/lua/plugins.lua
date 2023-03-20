@@ -14,6 +14,7 @@ return {
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function() require('config.telescope') end,
     },
+    --- Treesitter
     {
         'nvim-treesitter/nvim-treesitter',
         event = 'VeryLazy',
@@ -28,25 +29,23 @@ return {
     },
     --- LSP
     {
-        'neovim/nvim-lspconfig',
-        event = 'VeryLazy',
-        config = function() require('config.lspconfig') end,
-        dependencies = {
-            {
-                'williamboman/mason.nvim',
-                dependencies = 'williamboman/mason-lspconfig.nvim',
-                config = function() require('config.mason') end,
-            },
-            { 'folke/neodev.nvim' },
-            { 'ray-x/lsp_signature.nvim' },
-            { 'simrat39/rust-tools.nvim' },
-        },
-    },
-    {
         'hrsh7th/nvim-cmp',
         event = 'VeryLazy',
         dependencies = {
-            { 'neovim/nvim-lspconfig' },
+            {
+                'neovim/nvim-lspconfig',
+                config = function() require('config.lspconfig') end,
+                dependencies = {
+                    {
+                        'williamboman/mason.nvim',
+                        dependencies = 'williamboman/mason-lspconfig.nvim',
+                        config = function() require('config.mason') end,
+                    },
+                    { 'folke/neodev.nvim' },
+                    { 'ray-x/lsp_signature.nvim' },
+                    { 'simrat39/rust-tools.nvim' },
+                },
+            },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-path' },
