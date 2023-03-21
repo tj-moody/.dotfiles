@@ -1,5 +1,5 @@
 function l
-    exa -al --icons $argv
+    exa -al --icons --group-directories-first $argv
 end
 
 function lds
@@ -14,24 +14,38 @@ function cleard
     end
 end
 
+function cl
+    cleard;l;echo
+end
+
 function speedtest
     speedtest-rs
 end
 
 function theme
+    if [ "0" != "$(count $argv)" ]
+        echo $COLORS_NAME
+        return
+    end
     echo "  1) noclownfiesta"
     echo "  2) kanagawa"
+    echo "  3) gruvbox"
     echo ""
     printf "> "
     read -l -P '> ' themename
     switch $themename
         case 1
-            export COLORS_NAME=noclownfiesta
+            set name noclownfiesta
         case 2
-            export COLORS_NAME=kanagawa
+            set name kanagawa
+        case 3
+            set name gruvbox
         case '*'
             echo $COLORS_NAME
+            return
     end
+    export COLORS_NAME=$name
+    echo -e "\033]50;SetProfile=$name\a"
 end
 
 function ccompile
@@ -83,4 +97,8 @@ function git-status-chsh
     echo -e "$clear_text   renamed$red_text »"
     echo -e "$clear_text   deleted$red_text ✘"
     echo -e "$clear_text"
+end
+
+function chwall
+    wal -qsti /Users/tj/Documents/tjwallpapers/used/
 end

@@ -31,6 +31,7 @@ M.hl_table = {
             { 'Operator',               { fg = '#727169', } },
             { '@punctuation.bracket',   { fg = '#727169', } },
             { '@punctuation.delimiter', { fg = '#727169', } },
+            { 'WinSeparator',           { fg = '#54546D' } }
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#7fb4ca' } },
@@ -102,11 +103,11 @@ local clear_hl_table = {
     'NonText',
 }
 local mod_hl_table = {
-    { 'Comment',        { italic = true, } },
-    { '@comment',       { italic = true, } },
-    { 'Statement',      { bold = false, } },
-    { 'Keyword',        { bold = false, italic = true, } },
-    { '@keyword',       { bold = false, italic = true, } },
+    { 'Comment',   { italic = true, } },
+    { '@comment',  { italic = true, } },
+    { 'Statement', { bold = false, } },
+    { 'Keyword',   { bold = false, italic = true, } },
+    { '@keyword',  { bold = false, italic = true, } },
 }
 
 local function clear_hl_bg(hl)

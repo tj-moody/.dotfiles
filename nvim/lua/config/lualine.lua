@@ -65,20 +65,35 @@ require('lualine').setup {
             }
         },
         lualine_b = {
+            -- {
+            --     'branch',
+            --     icon = '',
+            --     padding = 2,
+            -- },
+            -- {
+            --     'diff',
+            --     icon = '',
+            --     diff_color = {
+            --         added = { fg = colors.normal },
+            --         modified = { fg = colors.visual },
+            --         removed = { fg = colors.replace },
+            --     },
+            --     symbols = { added = '', modified = '', removed = '' },
+            -- },
             {
                 'branch',
-                icon = '',
-                padding = 2,
+                icon = '',
+                padding = { left = 2, right = 1, }
             },
             {
                 'diff',
-                icon = '',
                 diff_color = {
                     added = { fg = colors.normal },
                     modified = { fg = colors.visual },
                     removed = { fg = colors.replace },
                 },
                 symbols = { added = '', modified = '', removed = '' },
+                padding = 1,
             },
         },
         lualine_c = {
@@ -110,6 +125,17 @@ require('lualine').setup {
             },
             {
                 function()
+                    return ''
+                end,
+                color = function()
+                    if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
+                        return { fg = colors.normal }
+                    end
+                    return {}
+                end,
+            },
+            {
+                function()
                     local msg = 'No Active Lsp'
                     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
                     local clients = vim.lsp.get_active_clients()
@@ -124,7 +150,7 @@ require('lualine').setup {
                     end
                     return msg
                 end,
-                icon = ' ',
+                icon = '',
             },
         },
         lualine_z = {

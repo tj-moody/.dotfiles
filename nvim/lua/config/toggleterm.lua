@@ -7,20 +7,22 @@ require('toggleterm').setup {
         Normal = {
         },
         NormalFloat = {
-            guibg = "#151515",
+            -- guibg = "#151515",
+            guibg = vim.g.normalbg,
         },
         FloatBorder = {
-            guibg = '#151515',
+            -- guibg = '#151515',
+            guibg = vim.g.normalbg,
+            guifg = vim.g.normalbg,
         },
     },
     shade_terminals = false,
     float_opts = {
         winblend = 10,
+        border = 'single',
     },
 }
--- local get_color = require('utils').get_color
--- vim.api.nvim_set_hl(0, 'TermCursor', { bg = get_color('Normal', 'fg#'), fg = '#000000' })
 
-local cursor_hl = { bg = '#ffffff', fg = '#000000' }
+local cursor_hl = { bg = vim.g.normalfg, fg = vim.g.normalbg }
 vim.api.nvim_set_hl(0, 'TermCursor', cursor_hl)
 vim.api.nvim_set_hl(0, 'TermCursorNC', cursor_hl)

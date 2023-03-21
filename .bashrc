@@ -11,7 +11,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 source ~/.cargo/env
 export PATH="/Users/tj/.local/share/bob/nvim-bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
-	
+
 # PROMPT
 export PS1="\e[33m\u \e[0;35m\W\e[0m "
 
