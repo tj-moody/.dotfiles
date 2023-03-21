@@ -12,13 +12,15 @@ require('toggleterm').setup {
         },
         FloatBorder = {
             -- guibg = '#151515',
+            -- guibg = '',
             guibg = vim.g.normalbg,
-            guifg = vim.g.normalbg,
+            guifg = vim.g.normalfg,
         },
     },
     shade_terminals = false,
     float_opts = {
-        winblend = 10,
+        -- winblend = 10, -- border does not use winblend, giving it a different color
+        winblend = 0,
         border = 'single',
     },
 }

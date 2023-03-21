@@ -1,14 +1,14 @@
 local M = {}
 
-M.THEME = os.getenv("COLORS_NAME")
-if not M.THEME then
-    M.THEME = "noclownfiesta"
+vim.g.THEME = os.getenv("COLORS_NAME")
+if not vim.g.THEME then
+    vim.g.THEME = "noclownfiesta"
 end
 
 local colors_table = {
     noclownfiesta = function()
         require("no-clown-fiesta").setup {
-            transparent = false,
+            transparent = true,
         }
         vim.cmd [[colorscheme no-clown-fiesta]]
     end,
@@ -39,16 +39,26 @@ local colors_table = {
 
         -- setup must be called before loading
         vim.cmd("colorscheme kanagawa")
-    end
+    end,
+    gruvbox = function()
+    end,
 }
 
 function M.setup(category)
     if not category then
-        colors_table[M.THEME]()
-        require('hlgroups').hl_category_setup('setup', M.THEME)
+        colors_table[vim.g.THEME]()
+        require('hlgroups').hl_category_setup('setup', vim.g.THEME)
         return
     end
-    require('hlgroups').hl_category_setup(category, M.THEME)
+    require('hlgroups').hl_category_setup(category, vim.g.THEME)
+end
+
+function M.reload()
+    M.setup()
+    M.setup('alpha')
+    M.setup('nvim_tree')
+    require('config.bufferline')
+    require('config.lualine')
 end
 
 return M

@@ -93,6 +93,7 @@ m('n', 'TT', nvimtreetogglefloat)
 m('n', '<leader>ff', ":Telescope find_files<CR>")
 m('n', '<leader>fh', ":Telescope highlights<CR>")
 m('n', '<leader>fg', ":Telescope live_grep<CR>")
+m('n', '<leader>fk', ":Telescope keymaps<CR>")
 -- Bufferline
 m('n', 'H', ":BufferLineCyclePrev<CR>")
 m('n', 'L', ":BufferLineCycleNext<CR>")
@@ -103,9 +104,13 @@ m('n', 'gb', ":BufferLinePick<CR>")
 m('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
 m('n', 'T>', ':tabe %<CR>:Telescope find_files<CR>') -- proof for typos
 m('n', 'TL', ':tabnext<CR>')
+m('n', 'Tl', ':tabnext<CR>')
 m('n', 'TH', ':tabprevious<CR>')
+m('n', 'Th', ':tabprevious<CR>')
 m('n', 'TO', ':tabonly<CR>')
+m('n', 'To', ':tabonly<CR>')
 m('n', 'TC', ':tabclose<CR>')
+m('n', 'Tc', ':tabclose<CR>')
 -- Lazy
 m('n', '<leader>lz', ":Lazy<CR>")
 -- Toggleterm

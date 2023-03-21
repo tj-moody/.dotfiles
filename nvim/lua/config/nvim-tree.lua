@@ -10,6 +10,7 @@ function M.nvim_tree_setup()
             highlight_opened_files = "name",
         },
         view = {
+            cursorline = false,
             mappings = {
                 custom_only = false,
                 list = {
@@ -28,6 +29,7 @@ function M.nvim_tree_float_setup()
 
     require('nvim-tree').setup({
         view = {
+            cursorline = false,
             float = {
                 enable = true,
                 open_win_config = function()

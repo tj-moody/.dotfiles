@@ -1,11 +1,12 @@
 local bgcolor = require("utils").get_color('Normal', 'bg#')
-vim.api.nvim_set_hl(0, 'TabLineSel', { fg = '#a2b5c1', })
+local tabline_sel_bg = '#a2b5c1'
+vim.api.nvim_set_hl(0, 'TabLineSel', { fg = tabline_sel_bg, })
 
-local get_color = require("utils").get_color
-local error_color = get_color('DiagnosticError', 'fg#')
-local warning_color = get_color('DiagnosticWarn', 'fg#')
-local hint_color = get_color('DiagnosticHint', 'fg#')
-local info_color = get_color('DiagnosticInfo', 'fg#')
+-- local get_color = require("utils").get_color
+-- local error_color = get_color('DiagnosticError', 'fg#')
+-- local warning_color = get_color('DiagnosticWarn', 'fg#')
+-- local hint_color = get_color('DiagnosticHint', 'fg#')
+-- local info_color = get_color('DiagnosticInfo', 'fg#')
 
 require("bufferline").setup {
     options = {
@@ -128,13 +129,17 @@ require("bufferline").setup {
             bg = bgcolor
         },
         tab_selected = {
-            -- fg = tabline_sel_bg,
+            fg = tabline_sel_bg,
             bg = bgcolor,
             -- italic = true,
             -- underline = true,
         },
-        tab_close = {
-            -- fg = '',
+        tab_separator = {
+            fg = '',
+            bg = bgcolor
+        },
+        tab_separator_selected = {
+            fg = '',
             bg = bgcolor
         },
         close_button = {
@@ -372,6 +377,12 @@ require("bufferline").setup {
             fg = bgcolor,
             bg = bgcolor,
             -- underline = true,
+            bold = true,
+            italic = true,
+        },
+        indicator_visible = {
+            fg = bgcolor,
+            bg = bgcolor,
             bold = true,
             italic = true,
         },

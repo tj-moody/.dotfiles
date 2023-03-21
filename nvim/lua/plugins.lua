@@ -16,6 +16,7 @@ return {
         'aktersnurra/no-clown-fiesta.nvim',
         dependencies = {
             'rebelot/kanagawa.nvim',
+            'sainnhe/gruvbox-material',
         },
         lazy = false,
         config = function() require("colorscheme").setup() end,

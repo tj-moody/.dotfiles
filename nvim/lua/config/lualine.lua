@@ -13,7 +13,7 @@ local colors_table = {
     },
 }
 
-local THEME = require('colorscheme').THEME
+local THEME = vim.g.THEME
 local colors = colors_table.noclownfiesta
 if THEME then
     colors = colors_table[THEME]
