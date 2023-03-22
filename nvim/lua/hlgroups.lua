@@ -48,12 +48,60 @@ M.hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#957fb8', } },
             -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
+    },
+    kanagawa_muted = {
+        setup = {
+            { 'Operator',               { fg = '#737c73', } },
+            { '@punctuation.bracket',   { fg = '#737c73', } },
+            { '@punctuation.delimiter', { fg = '#737c73', } },
+            { 'WinSeparator',           { fg = '#60656f' } }
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#949fb5' } },
+            { 'AlphaFooter1', { fg = '#c4746e' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeFolderIcon',       { fg = '#c4b28a', } },
+            { 'NvimTreeFolderName',       { fg = '#949fb5', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#8a9a7b', } },
+            { 'NvimTreeNormal',           { fg = '#c4b28a', } },
+            { 'NvimTreeExecFile',         { fg = '#c5c9c5', } },
+            { 'NvimTreeGitNew',           { fg = '#b6927b', } },
+            { 'NvimTreeGitDirty',         { fg = '#c4746e', } },
+            { 'NvimTreeOpenedFile',       { fg = '#a292a3', } },
+            -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
+        },
+    },
+    gruvbox = {
+        setup = {
+            { 'TSOperator',             { fg = '#928374', } },
+            { '@punctuation.bracket',   { fg = '#928374', } },
+            { '@punctuation.delimiter', { fg = '#928374', } },
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#89b4a2' } },
+            { 'AlphaFooter1', { fg = '#ea6962' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeFolderIcon',       { fg = '#d8a657', } },
+            { 'NvimTreeFolderName',       { fg = '#7daea3', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#89b482', } },
+            { 'NvimTreeNormal',           { fg = '#928374', } },
+            { 'NvimTreeNormalNC',         { fg = '#928374', } },
+            { 'NvimTreeEndOfBuffer',      { fg = '#928374', } },
+            { 'NvimTreeExecFile',         { fg = '#d4be98', } },
+            { 'NvimTreeGitNew',           { fg = '#d8a657', } },
+            { 'NvimTreeGitDirty',         { fg = '#ea6962', } },
+            { 'NvimTreeOpenedFile',       { fg = '#d3869b', } },
+            { 'NvimTreeRootFolder',       { fg = '#d4be98', } },
+        },
     }
 }
 
 local clear_hl_bg_table = {
     'Normal',
     'NormalNC',
+    'EndOfBuffer',
     'StatusColumn',
     'SignColumn',
     'FoldColumn',

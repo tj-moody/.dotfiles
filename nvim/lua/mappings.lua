@@ -75,6 +75,7 @@ local function nvimtreetoggle()
         vim.cmd("NvimTreeClose")
         vim.cmd("NvimTreeOpen")
     end
+    require('hlgroups').hl_category_setup('nvim_tree', vim.g.tjtheme)
 end
 m('n', 't', nvimtreetoggle)
 local function nvimtreetogglefloat()
@@ -132,7 +133,21 @@ m('n', '<leader>tj', ':ToggleTerm size=20 direction=horizontal<CR>')
 m('n', '<leader>tl', ':ToggleTerm size=60 direction=vertical<CR>')
 m('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
 -- git
-m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
+local Terminal  = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, highlights = {
+    NormalFloat = {
+        guibg = '',
+    },
+    FloatBorder = {
+        guibg = '',
+        guifg = '',
+    }
+}})
+local function lazygit_toggle()
+  lazygit:toggle()
+end
+-- m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
+m('n', '<leader>lg', lazygit_toggle)
 m('n', '<leader>gdo', ':DiffviewOpen<CR>')
 m('n', '<leader>gdc', ':DiffviewClose<CR>')
 -- smart-splits

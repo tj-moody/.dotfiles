@@ -30,6 +30,7 @@ function theme
     echo "  1) noclownfiesta"
     echo "  2) kanagawa"
     echo "  3) gruvbox"
+    echo "  4) kanagawa_muted"
     echo ""
     printf "> "
     read -l -P '> ' themename
@@ -40,6 +41,8 @@ function theme
             set name kanagawa
         case 3
             set name gruvbox
+        case 4
+            set name kanagawa_muted
         case '*'
             echo $COLORS_NAME
             return

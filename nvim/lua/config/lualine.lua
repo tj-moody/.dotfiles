@@ -11,11 +11,23 @@ local colors_table = {
         visual = '#ffa066',
         insert = '#7fb4ca',
     },
+    kanagawa_muted = {
+        normal = '#8a9a7b',
+        replace = '#c4746e',
+        visual = '#b6927b',
+        insert = '#949fb5',
+    },
+    gruvbox = {
+        normal = '#a9b66f',
+        replace = '#ea6962',
+        visual = '#e7a84e',
+        insert = '#7daea3',
+    },
 }
 
-local THEME = vim.g.THEME
+local THEME = vim.g.tjtheme
 local colors = colors_table.noclownfiesta
-if THEME then
+if THEME and colors_table[THEME] then
     colors = colors_table[THEME]
 end
 

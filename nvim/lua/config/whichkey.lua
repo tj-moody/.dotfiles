@@ -1,5 +1,5 @@
 require('which-key').setup {
-    window = {
-        winblend = 20,
-    }
+    -- window = {
+    --     winblend = 20,
+    -- }
 }

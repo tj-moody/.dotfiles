@@ -2,6 +2,8 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     # global vars
     set -x EDITOR nvim
+    # set -x COLORS_NAME noclownfiesta
+    export COLORS_NAME=noclownfiesta
     set fish_greeting
 
     # Path
