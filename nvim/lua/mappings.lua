@@ -6,7 +6,7 @@ local function m_o(mode, lhs, rhs, opts) vim.keymap.set(mode, lhs, rhs, opts) en
 m('n', '<leader>.', ":vsp<CR>:Telescope find_files<CR>")
 
 m('n', '<leader>w', ":silent write<CR>")
-m('n', '<leader><leader>w', ":silent write<CR>:so<CR>:echo ' [WS]'<CR>")
+m('n', '<leader><leader>w', ":w<CR>:so<CR>")
 
 m('n', '<leader>q', ":q<CR>")
 -- m('n', '<leader>h', ":noh<CR>:ColorizerReloadAllBuffers<CR>")
@@ -135,13 +135,8 @@ m('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
 -- git
 local Terminal  = require('toggleterm.terminal').Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, highlights = {
-    NormalFloat = {
-        guibg = '',
-    },
-    FloatBorder = {
-        guibg = '',
-        guifg = '',
-    }
+    NormalFloat = { guibg = '', guifg = '', },
+    FloatBorder = { guibg = '', },
 }})
 local function lazygit_toggle()
   lazygit:toggle()

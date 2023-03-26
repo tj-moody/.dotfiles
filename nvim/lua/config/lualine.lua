@@ -43,7 +43,7 @@ local theme = {
     replace = { a = { fg = colors.replace, bg = colors.bg } },
 }
 
-require('lualine').setup {
+local lualine_config = {
     options = {
         icons_enabled = true,
         theme = theme,
@@ -73,7 +73,7 @@ require('lualine').setup {
                 function()
                     return ''
                 end,
-                padding = { left = 4, right = 2 },
+                padding = { left = 1, right = 2 },
             }
         },
         lualine_b = {
@@ -171,7 +171,7 @@ require('lualine').setup {
                     return os.date('%H:%M')
                 end,
                 color = { fg = colors.normal },
-                padding = { left = 2, right = 3 },
+                padding = { left = 2, right = 1 },
             },
         },
     },
@@ -188,3 +188,5 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = {}
 }
+
+require('lualine').setup(lualine_config)

@@ -1,4 +1,4 @@
-local fortune = require("alpha.fortune") 
+local fortune = require("alpha.fortune")
 
 local headers = require('config.bin.headers')
 
@@ -40,6 +40,15 @@ local header = {
         -- wrap = "overflow";
     }
 }
+local navigations = {
+    type = "group",
+    val = {
+        " Config   Projects  ",
+    },
+    opts = {
+        spacing = 1
+    }
+}
 
 local buttons = {
     type = "group",
@@ -47,7 +56,8 @@ local buttons = {
         button("f", "  Find file",       ':Telescope find_files<CR>'),
         button("r", "勒 Restore Session", ':RestoreSession<CR>'),
         button("L", "鈴 Lazy",            ':Lazy<CR>'),
-        button("c", "  Config",          ':e ~/.config/nvim<CR>'),
+        button("S", "  Sync",            ':Lazy<CR>S'),
+        button("P", "󰾆  Profile",         ':Lazy<CR>P'),
         button("q", "  Quit",            ':qa<CR>'),
         --  
     },
@@ -59,7 +69,7 @@ local buttons = {
 local function get_footer1()
     local datetime = os.date(" %m-%d   %H:%M")
     local version = vim.version()
-    local nvim_version_info = "   v" .. version.major .. "." .. version.minor .. "." .. version.patch
+    local nvim_version_info = " v" .. version.major .. "." .. version.minor .. "." .. version.patch
 
     return datetime .. " " .. nvim_version_info
 end
