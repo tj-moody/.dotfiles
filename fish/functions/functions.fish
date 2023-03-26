@@ -2,6 +2,14 @@ function l
     exa -al --icons --group-directories-first $argv
 end
 
+function lt
+    exa -al --tree --icons --group-directories-first --ignore-glob="*.git*" $argv
+end
+
+function lg
+    exa -al --icons --group-directories-first --git $argv
+end
+
 function lds
     exa -alD --icons
 end
