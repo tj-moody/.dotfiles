@@ -34,6 +34,6 @@ if status is-interactive
     # Aliases
     alias nv "nvim"
     alias src "fish"
-    alias lzg "lazygit"
+    alias lg "lazygit"
     alias gs "git status"
 end
