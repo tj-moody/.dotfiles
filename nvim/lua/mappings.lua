@@ -10,7 +10,7 @@ m('n', '<leader><leader>w', ":w<CR>:so<CR>")
 
 m('n', '<leader>q', ":q<CR>")
 -- m('n', '<leader>h', ":noh<CR>:ColorizerReloadAllBuffers<CR>")
-m('n', '<esc>', ":noh<CR>:ColorizerReloadAllBuffers<CR>")
+m('n', '<esc>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
 
 m('v', 'K', ":m '<-2<CR>gv=gv")
 m('v', 'J', ":m '>+1<CR>gv=gv")
@@ -75,7 +75,7 @@ local function nvimtreetoggle()
         vim.cmd("NvimTreeClose")
         vim.cmd("NvimTreeOpen")
     end
-    require('hlgroups').hl_category_setup('nvim_tree', vim.g.tjtheme)
+    require('colorscheme').setup('nvim_tree')
 end
 m('n', 't', nvimtreetoggle)
 local function nvimtreetogglefloat()

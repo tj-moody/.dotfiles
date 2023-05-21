@@ -19,6 +19,9 @@ function M.nvim_tree_setup()
         },
     }
 
+    require('colorscheme').clear_hl_bg('NvimTreeNormalNC')
+    require('colorscheme').clear_hl_bg('NvimTreeNormal')
+    require('colorscheme').clear_hl_bg('NvimTreeNormalFloat')
     require('colorscheme').setup('nvim_tree')
 end
 
@@ -43,7 +46,7 @@ function M.nvim_tree_float_setup()
                     local center_y = ((vim.opt.lines:get() - window_h) / 2)
                     - vim.opt.cmdheight:get()
                     return {
-                        border = 'rounded',
+                        border = 'single',
                         relative = 'editor',
                         row = center_y,
                         col = center_x,
@@ -58,7 +61,14 @@ function M.nvim_tree_float_setup()
         },
     })
 
+    local function set_float_bg(hl)
+        local get_color = require('utils').get_color
+        vim.api.nvim_set_hl(0, hl, { fg = get_color(hl, 'fg#'), bg = get_color('NormalFloat', 'bg#')})
+    end
     require('colorscheme').setup('nvim_tree')
+    set_float_bg('NvimTreeNormal')
+    set_float_bg('NvimTreeNormalNC')
+    set_float_bg('NvimTreeNormalFloat')
 end
 
 return M

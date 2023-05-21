@@ -37,3 +37,7 @@ if status is-interactive
     alias lg "lazygit"
     alias gs "git status"
 end
+
+# Setting PATH for Python 3.11
+# The original version is saved in /Users/tj/.config/fish/config.fish.pysave
+set -x PATH "/Library/Frameworks/Python.framework/Versions/3.11/bin" "$PATH"

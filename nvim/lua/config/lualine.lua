@@ -23,6 +23,12 @@ local colors_table = {
         visual = '#e7a84e',
         insert = '#7daea3',
     },
+    marsbox = {
+        normal = '#b8bb26',
+        replace = '#fb4934',
+        visual = '#fe8019',
+        insert = '#83a598',
+    },
 }
 
 local THEME = vim.g.tjtheme
@@ -73,7 +79,7 @@ local lualine_config = {
                 function()
                     return ''
                 end,
-                padding = { left = 1, right = 2 },
+                padding = { left = 2, right = 2 },
             }
         },
         lualine_b = {

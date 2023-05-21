@@ -54,7 +54,7 @@ local buttons = {
     type = "group",
     val = {
         button("f", "  Find file",       ':Telescope find_files<CR>'),
-        button("r", "勒 Restore Session", ':RestoreSession<CR>'),
+        button("r", "勒 Restore Session", ':SessionRestore<CR>'),
         button("L", "鈴 Lazy",            ':Lazy<CR>'),
         button("S", "  Sync",            ':Lazy<CR>S'),
         button("P", "󰾆  Profile",         ':Lazy<CR>P'),

@@ -17,6 +17,7 @@ return {
         dependencies = {
             'rebelot/kanagawa.nvim',
             'sainnhe/gruvbox-material',
+            'tj-moody/marsbox.nvim'
         },
         lazy = false,
         config = function() require("colorscheme").setup() end,
@@ -86,7 +87,7 @@ return {
     {
         'rmagatti/auto-session',
         event = 'VeryLazy',
-        cmd = { 'RestoreSession' },
+        cmd = { 'SessionRestore' },
         opts = {
             auto_save_enabled = true,
             auto_restore_enabled = false,
@@ -125,6 +126,11 @@ return {
         'chrisgrieser/nvim-various-textobjs',
         event = 'VeryLazy',
         config = function() require('config.various-textobjs') end
+    },
+    {
+        'JellyApple102/flote.nvim',
+        event = 'VeryLazy',
+        config = function() require('config.flote') end
     },
     --- Git
     {
