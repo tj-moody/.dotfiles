@@ -11,6 +11,8 @@ if status is-interactive
     set PATH /Users/tj/.local/share/bob/nvim-bin/ $PATH
     set PATH $HOME/.cargo/bin $PATH
     set PATH /opt/homebrew/bin/ $PATH
+    set PATH /opt/homebrew/anaconda3/bin/ $PATH
+    set PATH /Qt/5.15.2/clang_64/bin/ $PATH
 
     # Init
     # Starship
@@ -41,3 +43,11 @@ end
 # Setting PATH for Python 3.11
 # The original version is saved in /Users/tj/.config/fish/config.fish.pysave
 set -x PATH "/Library/Frameworks/Python.framework/Versions/3.11/bin" "$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /opt/homebrew/anaconda3/bin/conda
+    eval /opt/homebrew/anaconda3/bin/conda "shell.fish" "hook" $argv | source
+end
+# <<< conda initialize <<<
+

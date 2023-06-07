@@ -265,10 +265,14 @@ local mod_hl_table = {
 
 function M.clear_hl_bg(hl)
     local fgcolor = require('utils').get_color(hl, 'fg#')
-    if fgcolor ~= "" then
+    if hl == "Normal" then
         vim.api.nvim_set_hl(0, hl, { fg = fgcolor, bg = '' })
+        return
+    end
+    if fgcolor ~= "" then
+        vim.api.nvim_set_hl(0, hl, { fg = fgcolor, bg = require('utils').get_color('Normal', 'bg#') })
     else
-        vim.api.nvim_set_hl(0, hl, { fg = require('utils').get_color('Normal', 'fg#'), bg = '' })
+        vim.api.nvim_set_hl(0, hl, { fg = require('utils').get_color('Normal', 'fg#'), bg = require('utils').get_color('Normal', 'bg#') })
     end
 end
 
@@ -284,7 +288,7 @@ function M.mod_hl(hl_name, opts)
     end
 end
 
-function M.setup_hls()
+local function setup_hls()
     vim.g.normalbg = get_color('Normal', 'bg#')
     vim.g.normalfg = get_color('Normal', 'fg#')
     for _, v in ipairs(clear_hl_bg_table) do
@@ -298,7 +302,7 @@ function M.setup_hls()
     end
 end
 
-function M.hl_category_setup(category, theme)
+local function hl_category_setup(category, theme)
     local colorscheme = hl_table[theme]
     if colorscheme[category] then
         for _, v in ipairs(colorscheme[category]) do
@@ -308,17 +312,17 @@ function M.hl_category_setup(category, theme)
         end
     end
     if category == "setup" then
-        M.setup_hls()
+        setup_hls()
     end
 end
 
 function M.setup(category)
     if not category then
         colors_table[vim.g.tjtheme]()
-        M.hl_category_setup('setup', vim.g.tjtheme)
+        hl_category_setup('setup', vim.g.tjtheme)
         return
     end
-    M.hl_category_setup(category, vim.g.tjtheme)
+    hl_category_setup(category, vim.g.tjtheme)
 end
 
 function M.reload()

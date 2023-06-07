@@ -1,5 +1,7 @@
 local opts = {
 	fillchars = {
+        stl = " ",
+        stlnc = " ",
 		foldopen = "",
 		foldclose = "",
 		fold = " ",

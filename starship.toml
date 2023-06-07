@@ -74,6 +74,7 @@ symbol = " "
 
 [conda]
 symbol = " "
+format = 'in [$symbol$environment ]($style)| '
 
 [dart]
 symbol = " "

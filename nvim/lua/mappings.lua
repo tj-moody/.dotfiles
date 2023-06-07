@@ -62,6 +62,11 @@ m('v', '>', '>gv4l')
 
 m('n', '<C-C>', '~')
 
+local function change_theme()
+    require('colorscheme').reload()
+end
+m('n', '<leader>ct', change_theme)
+
 --- PLUGINS
 -- NvimTree
 local function nvimtreetoggle()

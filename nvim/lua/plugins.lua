@@ -13,6 +13,11 @@ if vim.g.have_fun then
 end
 return {
     {
+        event = 'VeryLazy',
+        'xiyaowong/transparent.nvim',
+        config = true,
+    },
+    {
         'aktersnurra/no-clown-fiesta.nvim',
         dependencies = {
             'rebelot/kanagawa.nvim',
@@ -59,6 +64,9 @@ return {
                     { 'folke/neodev.nvim' },
                     { 'ray-x/lsp_signature.nvim' },
                     { 'simrat39/rust-tools.nvim' },
+                    { 'lvimuser/lsp-inlayhints.nvim',
+                        branch = "anticonceal",
+                    },
                 },
             },
             { 'hrsh7th/cmp-nvim-lsp' },
@@ -69,8 +77,20 @@ return {
             { 'saadparwaiz1/cmp_luasnip' },
             { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
             { 'onsails/lspkind.nvim' },
+            config = function() require('config.cmp') end,
         },
-        config = function() require('config.cmp') end,
+    },
+    {
+        event = 'VeryLazy',
+        "jose-elias-alvarez/null-ls.nvim",
+        config = function() require('config.null-ls') end,
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {
+        "willothy/luahint",
+        build = "cargo install --path=./",
+        config = true
+        -- or opts = { ... }
     },
     --- DAP
     --- UTILS
@@ -100,7 +120,9 @@ return {
         version = '*',
         keys = { '<c-t>', },
         cmd = { 'ToggleTerm' },
-        config = function() require('config.toggleterm'); require('colorscheme').setup('toggleterm') end,
+        config = function()
+            require('config.toggleterm'); require('colorscheme').setup('toggleterm')
+        end,
     },
     {
         'numToStr/Comment.nvim',
@@ -110,7 +132,9 @@ return {
     {
         'windwp/nvim-autopairs',
         event = 'VeryLazy',
-        config = function() require("nvim-autopairs").setup(); vim.cmd [[set formatoptions-=cro]] end,
+        config = function()
+            require("nvim-autopairs").setup(); vim.cmd [[set formatoptions-=cro]]
+        end,
     },
     {
         'norcalli/nvim-colorizer.lua',

@@ -1,20 +1,22 @@
 -- Mappings
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', 'dk', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', 'dj', vim.diagnostic.goto_next, opts)
+local map_opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float, map_opts)
+vim.keymap.set('n', 'dk', vim.diagnostic.goto_prev, map_opts)
+vim.keymap.set('n', 'dj', vim.diagnostic.goto_next, map_opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
+vim.api.nvim_set_hl(0, 'TestGroup', {})
 
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     require "lsp_signature".on_attach({
         hint_prefix = " ",
+        hint_inline = function() return false end,
     }, bufnr)
 
     -- Mappings.
@@ -42,7 +44,7 @@ require("neodev").setup {
         enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
         -- these settings will be used for your Neovim config directory
         runtime = true, -- runtime path
-        types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+        types = true,   -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
         plugins = true, -- installed opt or start plugins in packpath
         -- you can also specify the list of plugins to make available as a workspace library
         -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
@@ -68,6 +70,27 @@ local lsp_flags = {
     -- This is the default in Nvim 0.7+
     debounce_text_changes = 150,
 }
+
+local inlayhints_opts = {
+    inlay_hints = {
+        -- highlight = "FoldColumn",
+        -- highlight = "Statement",
+        -- highlight = "Folded",
+        highlight = "Comment",
+    }
+}
+require("lsp-inlayhints").setup(inlayhints_opts)
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {}),
+    callback = function(args)
+        if not (args.data and args.data.client_id) then
+            return
+        end
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        require("lsp-inlayhints").on_attach(client, args.buf)
+    end,
+})
+
 require('lspconfig')['pyright'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
@@ -87,19 +110,27 @@ require("rust-tools").setup {
     server = {
         on_attach = on_attach,
     },
-    inlay_hints = {
-        parameter_hints_prefix = "<- ",
-        other_hints_prefix = "=> ",
-    }
+    tools = {
+        inlay_hints = {
+            auto = false
+        }
+    },
 }
-require('rust-tools').inlay_hints.enable()
+require('rust-tools').inlay_hints.disable()
 require('lspconfig')['lua_ls'].setup {
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+        on_attach(client, bufnr)
+        require("lsp-inlayhints").on_attach(client, bufnr)
+    end,
     flags = lsp_flags,
     settings = {
         Lua = {
             diagnostics = {
                 globals = { 'vim' },
+            },
+            hint = {
+                enable = false,
+                arrayIndex = "Disable",
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
@@ -141,3 +172,5 @@ require('lspconfig')['vimls'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
+
+vim.cmd('source ~/.dotfiles/nvim/lua/config/cmp.lua')

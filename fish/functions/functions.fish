@@ -31,11 +31,14 @@ function theme
         echo $COLORS_NAME
         return
     end
-    echo "  1) noclownfiesta"
-    echo "  2) kanagawa"
-    echo "  3) kanagawa_muted"
-    echo "  4) gruvbox"
-    echo "  5) marsbox"
+    tput civis
+    printf '\e[?1049h'
+    cleard
+    echo -e "  1)\e[0;34m noclownfiesta\e[0m"
+    echo -e "  2)\e[1;36m kanagawa\e[0m"
+    echo -e "  3)\e[0;36m kanagawa_muted\e[0m"
+    echo -e "  4)\e[0;33m gruvbox\e[0m"
+    echo -e "  5)\e[0;31m marsbox\e[0m"
     echo ""
     printf "> "
     read -l -P '> ' themename
@@ -51,11 +54,15 @@ function theme
         case 5
             set name marsbox
         case '*'
+            printf '\e[?1049l'
+            tput cnorm
             echo $COLORS_NAME
             return
     end
     export COLORS_NAME=$name
     echo -e "\033]50;SetProfile=$name\a"
+    printf '\e[?1049l'
+    tput cnorm
 end
 
 function ccompile
@@ -132,4 +139,22 @@ function fish_mode_prompt
         echo '?'
     end
     set_color normal
+end
+
+function get_ip
+    /sbin/ifconfig|grep inet|head -8|tail -1|sed 's/\:/ /'|awk '{print $2}'
+end
+
+function conda_auto_env --on-event fish_prompt
+    if test -e environment.yml
+        set ENV (head -n 1 environment.yml | cut -f2 -d ' ')
+        # Check if you are already in the environment
+        conda activate $ENV
+    else
+        if test $CONDA_DEFAULT_ENV = "base"
+            :
+        else
+            conda deactivate
+        end
+    end
 end
