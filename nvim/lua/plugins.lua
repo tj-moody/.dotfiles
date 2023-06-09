@@ -156,6 +156,10 @@ return {
         event = 'VeryLazy',
         config = function() require('config.flote') end
     },
+    { 'RaafatTurki/hex.nvim',
+        event = 'VeryLazy',
+        config = true,
+    },
     --- Git
     {
         'lewis6991/gitsigns.nvim',
