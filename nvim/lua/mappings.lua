@@ -1,5 +1,17 @@
 vim.g.mapleader = ","
+---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, opts) with
+---```lua
+---    opts = { noremap = true, silent = true }
+---```
+---@param mode string
+---@param lhs string
+---@param rhs string | function
 local function m(mode, lhs, rhs) vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, }) end
+---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, `opts`)
+---@param mode string
+---@param lhs string
+---@param rhs string | function
+---@param opts table | nil
 local function m_o(mode, lhs, rhs, opts) vim.keymap.set(mode, lhs, rhs, opts) end
 
 --- BASICS
@@ -42,6 +54,7 @@ m('n', 'sl', ':vsp<CR>')
 m('n', 'sj', ':sp<CR>')
 m('n', 'se', '<c-w>=')
 
+---Delete all other open buffers
 local function only_buffer()
     if vim.bo.filetype == 'NvimTree' then
         vim.cmd('only')
@@ -69,6 +82,7 @@ m('n', '<leader>ct', change_theme)
 
 --- PLUGINS
 -- NvimTree
+
 local function nvimtreetoggle()
     if vim.g.nvimtreefloat == true then
         require('config.nvim-tree').nvim_tree_setup()
@@ -83,6 +97,7 @@ local function nvimtreetoggle()
     require('colorscheme').setup('nvim_tree')
 end
 m('n', 't', nvimtreetoggle)
+
 local function nvimtreetogglefloat()
     if vim.g.nvimtreefloat == true then
         vim.g.nvimtreefloat = false
@@ -120,6 +135,8 @@ m('n', 'Tc', ':tabclose<CR>')
 -- Lazy
 m('n', '<leader>lz', ":Lazy<CR>")
 -- Toggleterm
+
+---Set keymaps to align with normal navigation in terminal buffers
 function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
     vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
@@ -138,13 +155,17 @@ m('n', '<leader>tj', ':ToggleTerm size=20 direction=horizontal<CR>')
 m('n', '<leader>tl', ':ToggleTerm size=60 direction=vertical<CR>')
 m('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
 -- git
-local Terminal  = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, highlights = {
-    NormalFloat = { guibg = '', guifg = '', },
-    FloatBorder = { guibg = '', },
-}})
-local function lazygit_toggle()
-  lazygit:toggle()
+local Terminal = require('toggleterm.terminal').Terminal
+local lazygit  = Terminal:new({
+    cmd = "lazygit",
+    hidden = true,
+    highlights = {
+        NormalFloat = { guibg = '', guifg = '', },
+        FloatBorder = { guibg = '', },
+    }
+})
+local function lazygit_toggle() -- Wrapped in a function to match `m()` parameter type specifications
+    lazygit:toggle()
 end
 -- m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
 m('n', '<leader>lg', lazygit_toggle)
@@ -182,11 +203,11 @@ local function toggle_lsp_lines()
     d_conf({ virtual_text = not d_conf().virtual_text })
     require('lsp_lines').toggle()
 end
-m('n', 'Cll', toggle_lsp_lines) -- config toggle lsp lines
+m('n', 'Cll', toggle_lsp_lines)
 local function toggle_relative_number()
     vim.opt.relativenumber = not vim.opt.relativenumber._value
 end
-m('n', 'Crn', toggle_relative_number) -- config toggle lsp lines
+m('n', 'Crn', toggle_relative_number)
 local function toggle_wrap()
     vim.opt.wrap = not vim.opt.wrap._value
     vim.cmd([[echo " Wrap: ]] .. tostring(vim.opt.wrap._value) .. [["]])
@@ -196,7 +217,7 @@ local function toggle_bufferline_show_all()
     vim.g.bufferline_show_all = not vim.g.bufferline_show_all
     vim.cmd([[echo " Bufferline Show All: ]] .. tostring(vim.g.bufferline_show_all) .. [["]])
 end
-m('n', 'Cba', toggle_bufferline_show_all) -- config toggle lsp lines
+m('n', 'Cba', toggle_bufferline_show_all)
 
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

@@ -1,5 +1,3 @@
---  TODO:
--- Combine colorscheme and hlgroups file
 require('opts')
 require('config.lazy')
 require('mappings')

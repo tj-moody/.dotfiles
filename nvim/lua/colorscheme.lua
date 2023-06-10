@@ -1,5 +1,15 @@
 local M = {}
-local get_color = require('utils').get_color
+
+-- u/Pocco81
+local fn = vim.fn
+---Get the color of an attribute of a highlight group
+---@param group string name of hl
+---@param attr 'bg#' | 'fg#'
+---@return string color color of attr '#XXXXXX'
+function M.get_color(group, attr)
+    return fn.synIDattr(fn.synIDtrans(fn.hlID(group)), attr)
+end
+
 local themes_list = { "noclownfiesta", "kanagawa", "kanagawa_muted", "gruvbox", "marsbox", }
 
 vim.g.tjtheme = os.getenv("COLORS_NAME")
@@ -37,9 +47,9 @@ local colors_table = {
             -- overrides = function(colors) -- add/modify highlights
             --     return {}
             -- end,
-            theme = "wave",    -- Load "wave" theme when 'background' option is not set
+            theme = "wave", -- Load "wave" theme when 'background' option is not set
             background = {
-                               -- map the value of 'background' option to a theme
+                -- map the value of 'background' option to a theme
                 dark = "wave", -- try "dragon" !
                 light = "lotus"
             },
@@ -66,9 +76,9 @@ local colors_table = {
             -- overrides = function(colors) -- add/modify highlights
             --     return {}
             -- end,
-            theme = "dragon",    -- Load "wave" theme when 'background' option is not set
+            theme = "dragon", -- Load "wave" theme when 'background' option is not set
             background = {
-                                 -- map the value of 'background' option to a theme
+                -- map the value of 'background' option to a theme
                 dark = "dragon", -- try "dragon" !
                 light = "lotus"
             },
@@ -263,23 +273,37 @@ local mod_hl_table = {
     { '@keyword',  { bold = false, italic = true, } },
 }
 
+---Remove background from highlight group `hl`
+---@param hl string
 function M.clear_hl_bg(hl)
-    local fgcolor = require('utils').get_color(hl, 'fg#')
+    local fgcolor = M.get_color(hl, 'fg#')
     if hl == "Normal" then
         vim.api.nvim_set_hl(0, hl, { fg = fgcolor, bg = '' })
         return
     end
     if fgcolor ~= "" then
-        vim.api.nvim_set_hl(0, hl, { fg = fgcolor, bg = require('utils').get_color('Normal', 'bg#') })
+        vim.api.nvim_set_hl(0, hl, { fg = fgcolor, bg = M.get_color('Normal', 'bg#') })
     else
-        vim.api.nvim_set_hl(0, hl, { fg = require('utils').get_color('Normal', 'fg#'), bg = require('utils').get_color('Normal', 'bg#') })
+        vim.api.nvim_set_hl(0, hl,
+            { fg = M.get_color('Normal', 'fg#'), bg = M.get_color('Normal', 'bg#') })
     end
 end
 
+---Clear highlight group `hl`
+---@param hl string
 function M.clear_hl(hl)
     vim.api.nvim_set_hl(0, hl, {})
 end
+
 -- u/lkhphuc
+---Applies `opts` to `hl` without modifying `hl` otherwise
+---
+---Example:
+--- ```lua
+---    mod_hl('Normal', {fg = '#XXXXXX', bold = true})
+--- ```
+---@param hl_name string
+---@param opts table
 function M.mod_hl(hl_name, opts)
     local is_ok, hl_def = pcall(vim.api.nvim_get_hl, hl_name, true)
     if is_ok then
@@ -288,9 +312,11 @@ function M.mod_hl(hl_name, opts)
     end
 end
 
+---Applies general hl changes specified in `clear_hl_bg_table`,
+---`clear_hl_table`, and `mod_hl_table`
 local function setup_hls()
-    vim.g.normalbg = get_color('Normal', 'bg#')
-    vim.g.normalfg = get_color('Normal', 'fg#')
+    vim.g.normalbg = M.get_color('Normal', 'bg#')
+    vim.g.normalfg = M.get_color('Normal', 'fg#')
     for _, v in ipairs(clear_hl_bg_table) do
         M.clear_hl_bg(v)
     end
@@ -302,8 +328,24 @@ local function setup_hls()
     end
 end
 
-local function hl_category_setup(category, theme)
-    local colorscheme = hl_table[theme]
+---Load theme-specific highlights in `category` as specified by *hl_table*
+---
+---If parameter `category` is not supplied, will
+---load highlights in "setup" field of "hl_table"
+---
+---Examples:
+--- ```lua
+---    setup('NvimTree')
+---    setup()
+--- ```
+---@param category? '"nvim_tree"' | '"alpha"' | '"setup"'
+function M.setup(category)
+    if not category or category == "setup" then
+        colors_table[vim.g.tjtheme]()
+        setup_hls()
+        category = "setup"
+    end
+    local colorscheme = hl_table[vim.g.tjtheme]
     if colorscheme[category] then
         for _, v in ipairs(colorscheme[category]) do
             if next(v[2]) ~= nil then
@@ -311,20 +353,9 @@ local function hl_category_setup(category, theme)
             end
         end
     end
-    if category == "setup" then
-        setup_hls()
-    end
 end
 
-function M.setup(category)
-    if not category then
-        colors_table[vim.g.tjtheme]()
-        hl_category_setup('setup', vim.g.tjtheme)
-        return
-    end
-    hl_category_setup(category, vim.g.tjtheme)
-end
-
+---Reload all fields of 'hl_table' and files affected by colorscheme
 function M.reload()
     M.setup()
     M.setup('alpha')

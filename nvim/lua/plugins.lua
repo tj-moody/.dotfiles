@@ -200,6 +200,7 @@ return {
     },
     {
         'j-hui/fidget.nvim',
+        tag = 'legacy',
         event = 'VeryLazy',
         config = function() require('config.fidget') end
     },

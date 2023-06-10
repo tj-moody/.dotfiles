@@ -62,7 +62,7 @@ function M.nvim_tree_float_setup()
     })
 
     local function set_float_bg(hl)
-        local get_color = require('utils').get_color
+        local get_color = require('colorscheme').get_color
         vim.api.nvim_set_hl(0, hl, { fg = get_color(hl, 'fg#'), bg = get_color('NormalFloat', 'bg#')})
     end
     require('colorscheme').setup('nvim_tree')
