@@ -22,6 +22,17 @@ function cl
     cleard;l;echo
 end
 
+function wallpaper
+    echo $argv[1]
+    if not count $argv > /dev/null
+        exit 1
+    end
+    if not test -e $argv[1]
+       exit 1
+    end
+    m wallpaper $argv[1]
+end
+
 function speedtest
     speedtest-rs
 end
@@ -31,38 +42,18 @@ function theme
         echo $COLORS_NAME
         return
     end
-    tput civis
-    printf '\e[?1049h'
-    cleard
-    echo -e "  1)\e[0;34m noclownfiesta\e[0m"
-    echo -e "  2)\e[1;36m kanagawa\e[0m"
-    echo -e "  3)\e[0;36m kanagawa_muted\e[0m"
-    echo -e "  4)\e[0;33m gruvbox\e[0m"
-    echo -e "  5)\e[0;31m marsbox\e[0m"
-    echo ""
-    printf "> "
-    read -l -P '> ' themename
-    switch $themename
-        case 1
-            set name noclownfiesta
-        case 2
-            set name kanagawa
-        case 3
-            set name kanagawa_muted
-        case 4
-            set name gruvbox
-        case 5
-            set name marsbox
-        case '*'
-            printf '\e[?1049l'
-            tput cnorm
-            echo $COLORS_NAME
-            return
-    end
-    export COLORS_NAME=$name
-    echo -e "\033]50;SetProfile=$name\a"
-    printf '\e[?1049l'
-    tput cnorm
+
+    bash ~/.dotfiles/bash/theme.bash $COLORS_NAME
+
+    set COLORS_NAME (cat /tmp/COLORS_NAME.txt)
+end
+
+function chwall
+    # if [ "0" != "$(count $argv)" ]
+    #     return
+    # end
+    bash ~/.dotfiles/bash/chwall.bash
+    m wallpaper $(sed '1q;d' ~/Documents/dev/bin/WallPath.txt)
 end
 
 function ccompile
@@ -114,10 +105,6 @@ function git-status-chsh
     echo -e "$clear_text   renamed$red_text »"
     echo -e "$clear_text   deleted$red_text ✘"
     echo -e "$clear_text"
-end
-
-function chwall
-    wal -qsti /Users/tj/Documents/tjwallpapers/used/
 end
 
 function fish_mode_prompt
