@@ -44,6 +44,7 @@ return {
             { 'windwp/nvim-ts-autotag' },
             { 'nvim-treesitter/nvim-treesitter-textobjects' },
             { 'Wansmer/treesj' },
+            { 'nvim-treesitter/playground' },
         },
         config = function() require('config.treesitter') end,
     },
@@ -64,7 +65,8 @@ return {
                     { 'folke/neodev.nvim' },
                     { 'ray-x/lsp_signature.nvim' },
                     { 'simrat39/rust-tools.nvim' },
-                    { 'lvimuser/lsp-inlayhints.nvim',
+                    {
+                        'lvimuser/lsp-inlayhints.nvim',
                         branch = "anticonceal",
                     },
                 },
@@ -156,7 +158,8 @@ return {
         event = 'VeryLazy',
         config = function() require('config.flote') end
     },
-    { 'RaafatTurki/hex.nvim',
+    {
+        'RaafatTurki/hex.nvim',
         event = 'VeryLazy',
         config = true,
     },

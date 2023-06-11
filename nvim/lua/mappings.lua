@@ -1,5 +1,6 @@
 vim.g.mapleader = ","
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, opts) with
+
 ---```lua
 ---    opts = { noremap = true, silent = true }
 ---```
@@ -18,10 +19,8 @@ local function m_o(mode, lhs, rhs, opts) vim.keymap.set(mode, lhs, rhs, opts) en
 m('n', '<leader>.', ":vsp<CR>:Telescope find_files<CR>")
 
 m('n', '<leader>w', ":silent write<CR>")
-m('n', '<leader><leader>w', ":w<CR>:so<CR>")
 
 m('n', '<leader>q', ":q<CR>")
--- m('n', '<leader>h', ":noh<CR>:ColorizerReloadAllBuffers<CR>")
 m('n', '<esc>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
 
 m('v', 'K', ":m '<-2<CR>gv=gv")
@@ -33,7 +32,7 @@ m('n', '<S-CR>', "mzO<esc>`z")
 m_o("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 m_o("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
-m('n', "<leader>'", ':e #<CR>')
+m('n', "<leader><space>", ':e #<CR>')
 
 m('n', '<leader>=', 'mzgg=G`z')
 
@@ -160,8 +159,8 @@ local lazygit  = Terminal:new({
     cmd = "lazygit",
     hidden = true,
     highlights = {
-        NormalFloat = { guibg = '', guifg = '', },
-        FloatBorder = { guibg = '', },
+        NormalFloat = { guibg = '', guifg = '' },
+        FloatBorder = { guibg = '' },
     }
 })
 local function lazygit_toggle() -- Wrapped in a function to match `m()` parameter type specifications
@@ -169,14 +168,10 @@ local function lazygit_toggle() -- Wrapped in a function to match `m()` paramete
 end
 -- m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
 m('n', '<leader>lg', lazygit_toggle)
-m('n', '<leader>gdo', ':DiffviewOpen<CR>')
+m('n', '<leader>gdo', ':DiffviewOpen<CR>') -- buffer mapping for ,q to be :DiffviewClose
 m('n', '<leader>gdc', ':DiffviewClose<CR>')
 -- smart-splits
 --- resize
--- m('n', '<C-s-h>', require('smart-splits').resize_left)
--- m('n', '<C-s-j>', require('smart-splits').resize_down)
--- m('n', '<C-s-k>', require('smart-splits').resize_up)
--- m('n', '<C-s-l>', require('smart-splits').resize_right)
 m('n', '<space>h', require('smart-splits').resize_left)
 m('n', '<space>j', require('smart-splits').resize_down)
 m('n', '<space>k', require('smart-splits').resize_up)
@@ -186,15 +181,6 @@ m('n', '<C-j>', require('smart-splits').move_cursor_down)
 m('n', '<C-h>', require('smart-splits').move_cursor_left)
 m('n', '<C-k>', require('smart-splits').move_cursor_up)
 m('n', '<C-l>', require('smart-splits').move_cursor_right)
--- m('n', '<space>j', require('smart-splits').move_cursor_down)
--- m('n', '<space>h', require('smart-splits').move_cursor_left)
--- m('n', '<space>k', require('smart-splits').move_cursor_up)
--- m('n', '<space>l', require('smart-splits').move_cursor_right)
---- swapping buffers between windows
--- m('n', '<space>h', require('smart-splits').swap_buf_left)
--- m('n', '<space>j', require('smart-splits').swap_buf_down)
--- m('n', '<space>k', require('smart-splits').swap_buf_up)
--- m('n', '<space>l', require('smart-splits').swap_buf_right)
 -- treesj
 m('n', '<c-s>', ':TSJToggle<CR>')
 -- config
@@ -218,6 +204,10 @@ local function toggle_bufferline_show_all()
     vim.cmd([[echo " Bufferline Show All: ]] .. tostring(vim.g.bufferline_show_all) .. [["]])
 end
 m('n', 'Cba', toggle_bufferline_show_all)
+local function toggle_inlay_hints()
+    require('lsp-inlayhints').toggle()
+end
+m('n', 'Cih', toggle_inlay_hints)
 
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

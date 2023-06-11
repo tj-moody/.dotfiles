@@ -111,7 +111,8 @@ cmp.setup({
         end,
     },
     experimental = {
-        ghost_text = true,
+        -- ghost_text = true,
+        ghost_text = { hl_group = 'Comment' },
     },
 })
 

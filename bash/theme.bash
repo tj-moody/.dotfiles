@@ -115,11 +115,15 @@ while : ; do
         'j')
             if [[ $index -gt 0 ]]; then
                 index=$((index-1))
+            else
+                index=$MAX_INDEX
             fi
             ;;
         'k')
             if [[ $index -lt $MAX_INDEX ]]; then
                 index=$((index+1))
+            else
+                index=0
             fi
             ;;
         '')

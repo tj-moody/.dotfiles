@@ -76,7 +76,8 @@ local inlayhints_opts = {
         -- highlight = "FoldColumn",
         -- highlight = "Statement",
         -- highlight = "Folded",
-        highlight = "Comment",
+        -- highlight = "Comment",
+        highlight = "Normal",
     }
 }
 require("lsp-inlayhints").setup(inlayhints_opts)
