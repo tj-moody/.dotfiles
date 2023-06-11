@@ -55,11 +55,11 @@ m('n', 'sj', ':sp<CR>')
 m('n', 'se', '<c-w>=')
 
 
-local npairs = require('nvim-autopairs')
 local function backspace()
-    local col = vim.api.nvim_win_get_cursor(0)[2]
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     local char = vim.api.nvim_get_current_line():sub(col, col)
-    if char == " " then
+    local previous_line = vim.api.nvim_buf_get_lines(0, line-2, line-1, false)[1]
+    if char == " " and previous_line:match("^%s*$") then --
         -- expression from a deleted reddit user
         vim.cmd([[
             let g:exprvalue =
@@ -70,7 +70,7 @@ local function backspace()
         ]])
         return vim.g.exprvalue
     else
-        return npairs.autopairs_bs()
+        return require('nvim-autopairs').autopairs_bs()
     end
 end
 m_o('i', '<BS>', backspace, { expr = true, noremap = true, replace_keycodes = false })
