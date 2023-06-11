@@ -135,7 +135,7 @@ return {
         'windwp/nvim-autopairs',
         event = 'VeryLazy',
         config = function()
-            require("nvim-autopairs").setup(); vim.cmd [[set formatoptions-=cro]]
+            require("nvim-autopairs").setup { map_bs = false }; vim.cmd [[set formatoptions-=cro]]
         end,
     },
     {

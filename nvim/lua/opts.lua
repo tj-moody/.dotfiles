@@ -24,6 +24,7 @@ local opts = {
 	signcolumn = "yes:1",
 	number = true,
 	relativenumber = true,
+    breakindent = true,
 	mouse = "a",
 	hidden = true,
 	autoindent = true,

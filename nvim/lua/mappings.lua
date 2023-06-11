@@ -19,6 +19,7 @@ local function m_o(mode, lhs, rhs, opts) vim.keymap.set(mode, lhs, rhs, opts) en
 m('n', '<leader>.', ":vsp<CR>:Telescope find_files<CR>")
 
 m('n', '<leader>w', ":silent write<CR>")
+m('n', '<leader><leader>x', ":silent write<CR>:source <CR>")
 
 m('n', '<leader>q', ":q<CR>")
 m('n', '<esc>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
@@ -49,9 +50,30 @@ m('n', "<C-u>", "<C-u>zz")
 m('n', "n", "nzzzv")
 m('n', "N", "Nzzzv")
 
-m('n', 'sl', ':vsp<CR>')
+m('n', 'sl', ':vsp<CR')
 m('n', 'sj', ':sp<CR>')
 m('n', 'se', '<c-w>=')
+
+
+local npairs = require('nvim-autopairs')
+local function backspace()
+    local col = vim.api.nvim_win_get_cursor(0)[2]
+    local char = vim.api.nvim_get_current_line():sub(col, col)
+    if char == " " then
+        -- expression from a deleted reddit user
+        vim.cmd([[
+            let g:exprvalue =
+            \ (&indentexpr isnot '' ? &indentkeys : &cinkeys) =~? '!\^F' &&
+            \ &backspace =~? '.*eol\&.*start\&.*indent\&' &&
+            \ !search('\S','nbW',line('.')) ? (col('.') != 1 ? "\<C-U>" : "") .
+            \ "\<bs>" . (getline(line('.')-1) =~ '\S' ? "" : "\<C-F>") : "\<bs>"
+        ]])
+        return vim.g.exprvalue
+    else
+        return npairs.autopairs_bs()
+    end
+end
+m_o('i', '<BS>', backspace, { expr = true, noremap = true, replace_keycodes = false })
 
 ---Delete all other open buffers
 local function only_buffer()
