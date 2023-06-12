@@ -57,7 +57,11 @@ function chwall
 end
 
 function ccompile
-    gcc -o $1 $1.c
+    gcc -o $argv[1] $argv[1].c
+end
+
+function cppcompile
+    g++ -o $argv[1] $argv[1].cpp
 end
 
 function dev

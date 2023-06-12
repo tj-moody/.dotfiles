@@ -109,7 +109,7 @@ m_o('i', '<BS>', backspace, {
     noremap = true,
     replace_keycodes = false,
 })
-m('i', '<S-BS>', 'BS')
+m('i', '<S-BS>', '<BS>')
 
 ---Delete all other open buffers
 local function only_buffer()
@@ -119,9 +119,7 @@ local function only_buffer()
         vim.cmd('%bd!')
         vim.cmd(vim.api.nvim_replace_termcodes(
             'normal <c-o>',
-            true,
-            true,
-            true
+            true, true, true
         ))
         vim.cmd('bd #')
     end
