@@ -139,8 +139,12 @@ end
 function conda_auto_env --on-event fish_prompt
     if test -e environment.yml
         set ENV (head -n 1 environment.yml | cut -f2 -d ' ')
-        # Check if you are already in the environment
-        conda activate $ENV
+        # Check if you are already in the correct environment
+        if test $ENV = $CONDA_DEFAULT_ENV
+            :
+        else
+            conda activate $ENV
+        end
     else
         if test $CONDA_DEFAULT_ENV = "base"
             :
