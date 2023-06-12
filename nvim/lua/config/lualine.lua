@@ -138,8 +138,18 @@ local lualine_config = {
         lualine_y = {
             {
                 'diagnostics',
-                symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
-                -- symbols = {error = '', warn = '', info = '', hint = ''},
+                symbols = {
+                    error = ' ',
+                    warn = ' ',
+                    info = ' ',
+                    hint = ' ',
+                },
+                -- symbols = {
+                --     error = '',
+                --     warn = '',
+                --     info = '',
+                --     hint = '',
+                -- },
             },
             {
                 function()
@@ -162,7 +172,8 @@ local lualine_config = {
                     end
                     for _, client in ipairs(clients) do
                         local filetypes = client.config.filetypes
-                        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                        if filetypes and
+                            vim.fn.index(filetypes, buf_ft) ~= -1 then
                             return client.name
                         end
                     end

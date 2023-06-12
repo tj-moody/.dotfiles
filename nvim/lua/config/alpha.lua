@@ -3,7 +3,10 @@ local fortune = require("alpha.fortune")
 local headers = require('config.bin.headers')
 
 local function button(sc, txt, keybind, keybind_opts)
-    local sc_ = sc:gsub("%s", ""):gsub("LDR", "<leader>"):gsub("SPC", "<space>")
+    local sc_ = sc
+        :gsub("%s", "")
+        :gsub("LDR", "<leader>")
+        :gsub("SPC", "<space>")
 
     local opts = {
         position       = "center",
@@ -14,12 +17,18 @@ local function button(sc, txt, keybind, keybind_opts)
         hl_shortcut    = "Conditional",
     }
     if keybind then
-        keybind_opts = vim.F.if_nil(keybind_opts, { noremap = true, silent = true, nowait = true })
+        keybind_opts = vim.F.if_nil(
+            keybind_opts,
+            { noremap = true, silent = true, nowait = true }
+        )
         opts.keymap = { "n", sc_, keybind, keybind_opts }
     end
 
     local function on_press()
-        local key = vim.api.nvim_replace_termcodes(sc_ .. '<Ignore>', true, false, true)
+        local key = vim.api.nvim_replace_termcodes(
+            sc_ .. '<Ignore>',
+            true, false, true
+        )
         vim.api.nvim_feedkeys(key, "normal", false)
     end
 
@@ -53,12 +62,12 @@ local navigations = {
 local buttons = {
     type = "group",
     val = {
-        button("f", "  Find file",       ':Telescope find_files<CR>'),
+        button("f", "  Find file", ':Telescope find_files<CR>'),
         button("r", "勒 Restore Session", ':SessionRestore<CR>'),
-        button("L", "鈴 Lazy",            ':Lazy<CR>'),
-        button("S", "  Sync",            ':Lazy<CR>S'),
-        button("P", "󰾆  Profile",         ':Lazy<CR>P'),
-        button("q", "  Quit",            ':qa<CR>'),
+        button("L", "鈴 Lazy", ':Lazy<CR>'),
+        button("S", "  Sync", ':Lazy<CR>S'),
+        button("P", "󰾆  Profile", ':Lazy<CR>P'),
+        button("q", "  Quit", ':qa<CR>'),
         --  
     },
     opts = {
@@ -69,7 +78,10 @@ local buttons = {
 local function get_footer1()
     local datetime = os.date(" %m-%d   %H:%M")
     local version = vim.version()
-    local nvim_version_info = " v" .. version.major .. "." .. version.minor .. "." .. version.patch
+    local nvim_version_info = " v"
+        .. version.major .. "."
+        .. version.minor .. "."
+        .. version.patch
 
     return datetime .. " " .. nvim_version_info
 end
@@ -80,7 +92,7 @@ local footer1 = {
     val = get_footer1(),
     opts = {
         position = "center",
-        hl  = "AlphaFooter1",
+        hl       = "AlphaFooter1",
     },
 }
 local footer2 = {
@@ -88,7 +100,7 @@ local footer2 = {
     val = "  " .. require("lazy").stats().count,
     opts = {
         position = "center",
-        hl  = "AlphaFooter1",
+        hl       = "AlphaFooter1",
     },
 }
 local footer3 = {
@@ -124,7 +136,8 @@ vim.api.nvim_create_autocmd("User", {
     callback = function()
         local stats = require("lazy").stats()
         local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-        footer2.val = " " .. require("lazy").stats().count .. " plugins  󱑎 " .. ms .. "ms"
+        footer2.val = " " .. require("lazy").stats().count
+            .. " plugins  󱑎 " .. ms .. "ms"
         require('colorscheme').setup('alpha')
         pcall(vim.cmd.AlphaRedraw)
     end,

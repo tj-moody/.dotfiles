@@ -7,13 +7,17 @@ vim.g.mapleader = ","
 ---@param mode string
 ---@param lhs string
 ---@param rhs string | function
-local function m(mode, lhs, rhs) vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, }) end
+local function m(mode, lhs, rhs)
+    vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true })
+end
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, `opts`)
 ---@param mode string
 ---@param lhs string
 ---@param rhs string | function
 ---@param opts table | nil
-local function m_o(mode, lhs, rhs, opts) vim.keymap.set(mode, lhs, rhs, opts) end
+local function m_o(mode, lhs, rhs, opts)
+    vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 --- BASICS
 m('n', '<leader>.', ":vsp<CR>:Telescope find_files<CR>")
@@ -54,8 +58,14 @@ m('n', 'sl', ':vsp<CR')
 m('n', 'sj', ':sp<CR>')
 m('n', 'se', '<c-w>=')
 
-local escape_code = vim.api.nvim_replace_termcodes("<Esc>", false, false, true)
-local backspace_code = vim.api.nvim_replace_termcodes("<BS>", false, false, true)
+local escape_code = vim.api.nvim_replace_termcodes(
+    "<Esc>",
+    false, false, true
+)
+local backspace_code = vim.api.nvim_replace_termcodes(
+    "<BS>",
+    false, false, true
+)
 local function viml_backspace()
     -- expression from a deleted reddit user
     vim.cmd([[
@@ -69,7 +79,10 @@ local function viml_backspace()
 end
 local function backspace()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    local before_cursor_is_whitespace = vim.api.nvim_get_current_line():sub(0, col):match("^%s*$")
+    local before_cursor_is_whitespace = vim.api.nvim_get_current_line()
+        :sub(0, col)
+        :match("^%s*$")
+
     if not before_cursor_is_whitespace then
         return require('nvim-autopairs').autopairs_bs()
     end
@@ -78,7 +91,9 @@ local function backspace()
     end
     local correct_indent = require("nvim-treesitter.indent").get_indent(line)
     local current_indent = vim.fn.indent(line)
-    local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(0, line - 2, line - 1, false)[1]:match("^%s*$")
+    local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(
+        0, line - 2, line - 1, false
+    )[1]:match("^%s*$")
     if current_indent == correct_indent then
         if previous_line_is_whitespace then
             return viml_backspace()
@@ -89,7 +104,11 @@ local function backspace()
     end
     return backspace_code
 end
-m_o('i', '<BS>', backspace, { expr = true, noremap = true, replace_keycodes = false })
+m_o('i', '<BS>', backspace, {
+    expr = true,
+    noremap = true,
+    replace_keycodes = false,
+})
 m('i', '<S-BS>', 'BS')
 
 ---Delete all other open buffers
@@ -98,7 +117,12 @@ local function only_buffer()
         vim.cmd('only')
     else
         vim.cmd('%bd!')
-        vim.cmd(vim.api.nvim_replace_termcodes('normal <c-o>', true, true, true))
+        vim.cmd(vim.api.nvim_replace_termcodes(
+            'normal <c-o>',
+            true,
+            true,
+            true
+        ))
         vim.cmd('bd #')
     end
 end
@@ -207,7 +231,7 @@ local function lazygit_toggle() -- Wrapped in a function to match `m()` paramete
 end
 -- m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
 m('n', '<leader>lg', lazygit_toggle)
-m('n', '<leader>gdo', ':DiffviewOpen<CR>') -- buffer mapping for ,q to be :DiffviewClose
+m('n', '<leader>gdo', ':DiffviewOpen<CR>') -- TODO: buffer mapping for ,q to be :DiffviewClose
 m('n', '<leader>gdc', ':DiffviewClose<CR>')
 -- smart-splits
 --- resize
@@ -225,8 +249,11 @@ m('n', '<c-s>', ':TSJToggle<CR>')
 -- config
 local function toggle_lsp_lines()
     local d_conf = vim.diagnostic.config
-    d_conf({ virtual_text = not d_conf().virtual_text })
-    require('lsp_lines').toggle()
+    d_conf({
+        virtual_text = not d_conf().virtual_text,
+        virtual_lines = not d_conf().virtual_lines
+    })
+    -- require('lsp_lines').toggle()
 end
 m('n', 'Cll', toggle_lsp_lines)
 local function toggle_relative_number()
@@ -240,7 +267,10 @@ end
 m('n', 'Cw', toggle_wrap) -- config toggle lsp lines
 local function toggle_bufferline_show_all()
     vim.g.bufferline_show_all = not vim.g.bufferline_show_all
-    vim.cmd([[echo " Bufferline Show All: ]] .. tostring(vim.g.bufferline_show_all) .. [["]])
+    vim.cmd([[echo " Bufferline Show All: ]]
+        .. tostring(vim.g.bufferline_show_all)
+        .. [["]]
+    )
 end
 m('n', 'Cba', toggle_bufferline_show_all)
 local function toggle_inlay_hints()

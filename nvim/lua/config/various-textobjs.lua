@@ -1,12 +1,13 @@
 local to = require('various-textobjs')
 to.setup({ useDefaultKeymaps = false })
+local map = vim.keymap.set
 
-vim.keymap.set({ "o", "x" }, "as", function() to.subword(false) end)
-vim.keymap.set({ "o", "x" }, "is", function() to.subword(true) end)
+map({ "o", "x" }, "as", function() to.subword(false) end)
+map({ "o", "x" }, "is", function() to.subword(true) end)
 
-vim.keymap.set({ "o", "x" }, "ad", function() to.doubleSquareBrackets(false) end)
-vim.keymap.set({ "o", "x" }, "id", function() to.doubleSquareBrackets(true) end)
+map({ "o", "x" }, "ad", function() to.doubleSquareBrackets(false) end)
+map({ "o", "x" }, "id", function() to.doubleSquareBrackets(true) end)
 
-vim.keymap.set({ "o", "x" }, "gG", function() to.entireBuffer() end)
+map({ "o", "x" }, "gG", function() to.entireBuffer() end)
 
--- vim.keymap.set({ "o", "x" }, "!", function() to.diagnostic() end)
+-- map({ "o", "x" }, "!", function() to.diagnostic() end)

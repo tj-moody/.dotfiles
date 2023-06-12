@@ -4,7 +4,10 @@ if vim.g.have_fun then
         {
             "giusgad/pets.nvim",
             event = 'VeryLazy',
-            dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
+            dependencies = {
+                "MunifTanjim/nui.nvim",
+                "giusgad/hologram.nvim",
+            },
             opts = {
                 popup = { avoid_statusline = true },
             }
@@ -114,7 +117,12 @@ return {
             auto_save_enabled = true,
             auto_restore_enabled = false,
             log_level = "error",
-            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+            auto_session_suppress_dirs = {
+                "~/",
+                "~/Projects",
+                "~/Downloads",
+                "/",
+            },
         },
     },
     {
@@ -123,7 +131,8 @@ return {
         keys = { '<c-t>', },
         cmd = { 'ToggleTerm' },
         config = function()
-            require('config.toggleterm'); require('colorscheme').setup('toggleterm')
+            require('config.toggleterm')
+            require('colorscheme').setup('toggleterm')
         end,
     },
     {
@@ -135,7 +144,8 @@ return {
         'windwp/nvim-autopairs',
         event = 'VeryLazy',
         config = function()
-            require("nvim-autopairs").setup { map_bs = false }; vim.cmd [[set formatoptions-=cro]]
+            require("nvim-autopairs").setup { map_bs = false }
+            vim.cmd [[set formatoptions-=cro]]
         end,
     },
     {

@@ -95,7 +95,10 @@ cmp.setup({
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
             -- Kind icons
-            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+            local kind = require("lspkind").cmp_format({
+                mode = "symbol_text",
+                maxwidth = 50,
+            })(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. (strings[1] or "") .. " "
             -- kind.menu = "    (" .. (strings[2] or "") .. ")"
@@ -148,6 +151,7 @@ cmp.setup.cmdline(':', {
 
 vim.diagnostic.config {
     virtual_text = true,
+    virtual_lines = false,
     underline = true,
 }
 
@@ -159,7 +163,6 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 )
 
 require("lsp_lines").setup()
-require('lsp_lines').toggle()
 
 local signs = {
     { name = "DiagnosticSignError", text = "" },
@@ -169,7 +172,11 @@ local signs = {
 }
 
 for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+    vim.fn.sign_define(sign.name, {
+        texthl = sign.name,
+        text = sign.text,
+        numhl = "",
+    })
 end
 
 -- local cmp_colors = {

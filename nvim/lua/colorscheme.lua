@@ -10,7 +10,13 @@ function M.get_color(group, attr)
     return fn.synIDattr(fn.synIDtrans(fn.hlID(group)), attr)
 end
 
-local themes_list = { "noclownfiesta", "kanagawa", "kanagawa_muted", "gruvbox", "marsbox", }
+local themes_list = {
+    "noclownfiesta",
+    "kanagawa",
+    "kanagawa_muted",
+    "gruvbox",
+    "marsbox",
+}
 
 vim.g.tjtheme = os.getenv("COLORS_NAME")
 local valid_color = false
@@ -47,7 +53,7 @@ local colors_table = {
             -- overrides = function(colors) -- add/modify highlights
             --     return {}
             -- end,
-            theme = "wave", -- Load "wave" theme when 'background' option is not set
+            theme = "wave",
             background = {
                 -- map the value of 'background' option to a theme
                 dark = "wave", -- try "dragon" !
@@ -76,7 +82,7 @@ local colors_table = {
             -- overrides = function(colors) -- add/modify highlights
             --     return {}
             -- end,
-            theme = "dragon", -- Load "wave" theme when 'background' option is not set
+            theme = "dragon",
             background = {
                 -- map the value of 'background' option to a theme
                 dark = "dragon", -- try "dragon" !
@@ -108,7 +114,7 @@ local hl_table = {
             { 'CursorLineNr',           { fg = '#afafaf' } },
             { 'DiagnosticInfo',         { fg = '#a2b5c1', } },
             { '@operator',              { fg = '#727272', } },
-            { '@punctuation.bracket',   { fg = '#727272', } }, -- still debating gray parens
+            { '@punctuation.bracket',   { fg = '#727272', } },
             { '@punctuation.delimiter', { fg = '#727272', } },
         },
         alpha = {
@@ -219,7 +225,7 @@ local clear_hl_bg_table = {
     'StatusColumn',
     'SignColumn',
     'FoldColumn',
-    'ColorColumn',
+    -- 'ColorColumn',
     'StatusLine',
     'StatusLineNC',
     'StatusLineTerm',
@@ -282,10 +288,15 @@ function M.clear_hl_bg(hl)
         return
     end
     if fgcolor ~= "" then
-        vim.api.nvim_set_hl(0, hl, { fg = fgcolor, bg = M.get_color('Normal', 'bg#') })
+        vim.api.nvim_set_hl(0, hl, {
+            fg = fgcolor,
+            bg = M.get_color('Normal', 'bg#'),
+        })
     else
-        vim.api.nvim_set_hl(0, hl,
-            { fg = M.get_color('Normal', 'fg#'), bg = M.get_color('Normal', 'bg#') })
+        vim.api.nvim_set_hl(0, hl, {
+            fg = M.get_color('Normal', 'fg#'),
+            bg = M.get_color('Normal', 'bg#'),
+        })
     end
 end
 
