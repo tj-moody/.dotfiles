@@ -110,9 +110,12 @@ cmp.setup({
             return kind
         end,
     },
+    completion = {
+        keyword_length = 2,
+    },
     experimental = {
-        -- ghost_text = true,
-        ghost_text = { hl_group = 'Comment' },
+        ghost_text = false,
+        -- ghost_text = { hl_group = 'Comment' },
     },
 })
 

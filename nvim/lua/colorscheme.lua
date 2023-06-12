@@ -338,7 +338,7 @@ end
 ---    setup('NvimTree')
 ---    setup()
 --- ```
----@param category? '"nvim_tree"' | '"alpha"' | '"setup"'
+---@param category? string
 function M.setup(category)
     if not category or category == "setup" then
         colors_table[vim.g.tjtheme]()
