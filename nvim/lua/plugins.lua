@@ -15,11 +15,7 @@ if vim.g.have_fun then
     }
 end
 return {
-    {
-        event = 'VeryLazy',
-        'xiyaowong/transparent.nvim',
-        config = true,
-    },
+    --- Colorscheme
     {
         'aktersnurra/no-clown-fiesta.nvim',
         dependencies = {
@@ -30,6 +26,7 @@ return {
         lazy = false,
         config = function() require("colorscheme").setup() end,
     },
+    --- Telescope
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
@@ -225,6 +222,10 @@ return {
     {
         'folke/todo-comments.nvim',
         event = 'VeryLazy',
+        config = true,
+    },
+    {
+        'xiyaowong/virtcolumn.nvim',
         config = true,
     },
     --- Fun

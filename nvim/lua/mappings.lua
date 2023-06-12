@@ -277,6 +277,11 @@ local function toggle_inlay_hints()
     require('lsp-inlayhints').toggle()
 end
 m('n', 'Cih', toggle_inlay_hints)
+local function toggle_colorcolumn()
+    local cc = vim.wo.colorcolumn
+    cc = cc == '80' and '0' or '80'
+end
+m('n', 'Ccc', toggle_colorcolumn)
 
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

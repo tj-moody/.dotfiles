@@ -25,12 +25,6 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorHold' }, {
     end,
 })
 
-vim.api.nvim_create_autocmd( 'ExitPre', {
-    callback = function(opts)
-        vim.cmd('SaveSession')
-    end,
-})
-
 --- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
 -- Strip trailing spaces before write
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {

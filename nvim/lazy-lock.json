@@ -1,5 +1,5 @@
 {
-  "Comment.nvim": { "branch": "master", "commit": "c8043290f2d77f61025494d839d88e414608c460" },
+  "Comment.nvim": { "branch": "master", "commit": "176e85eeb63f1a5970d6b88f1725039d85ca0055" },
   "LuaSnip": { "branch": "master", "commit": "a13af80734eb28f744de6c875330c9d3c24b5f3b" },
   "alpha-nvim": { "branch": "main", "commit": "9e33db324b8bb7a147bce9ea5496686ee859461d" },
   "auto-session": { "branch": "main", "commit": "d91509611981759419ee2fe5e2ef436d5ec8d0eb" },
@@ -48,8 +48,8 @@
   "telescope.nvim": { "branch": "master", "commit": "c1a2af0af69e80e14e6b226d3957a064cd080805" },
   "todo-comments.nvim": { "branch": "main", "commit": "09b0b17d824d2d56f02ff15967e8a2499a89c731" },
   "toggleterm.nvim": { "branch": "main", "commit": "95204ece0f2a54c89c4395295432f9aeedca7b5f" },
-  "transparent.nvim": { "branch": "main", "commit": "f09966923f7e329ceda9d90fe0b7e8042b6bdf31" },
   "treesj": { "branch": "main", "commit": "b1e2976c2d7ba922371cc7f3ab08b75136c27231" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
+  "virtcolumn.nvim": { "branch": "main", "commit": "cd9485d64a0763c5572272e03d70cbff1f91fde0" },
   "which-key.nvim": { "branch": "main", "commit": "e271c28118998c93a14d189af3395812a1aa646c" }
 }
