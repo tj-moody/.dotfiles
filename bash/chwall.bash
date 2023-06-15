@@ -9,7 +9,7 @@ printf '\e[?1049h'
 
 MAX_INDEX=4
 
-INDEX=$(sed '2q;d' ~/Documents/dev/bin/WallPath.txt)
+INDEX=$(sed '2q;d' ~/.config/.WallPath.txt)
 index=$INDEX
 
 cleard() {
@@ -65,19 +65,19 @@ PHOTOS_PATH="~/Documents/tjwallpapers/used/"
 write_wall_path() {
     case $1 in
         4)
-            echo -e "${PHOTOS_PATH}mountains1.jpg\n$1" > ~/Documents/dev/bin/WallPath.txt
+            echo -e "${PHOTOS_PATH}mountains1.jpg\n$1" > ~/.config/.WallPath.txt
             ;;
         3)
-            echo -e "${PHOTOS_PATH}plains1.jpg\n$1" > ~/Documents/dev/bin/WallPath.txt
+            echo -e "${PHOTOS_PATH}plains1.jpg\n$1" > ~/.config/.WallPath.txt
             ;;
         2)
-            echo -e "${PHOTOS_PATH}redcloudysunset.jpg\n$1" > ~/Documents/dev/bin/WallPath.txt
+            echo -e "${PHOTOS_PATH}redcloudysunset.jpg\n$1" > ~/.config/.WallPath.txt
             ;;
         1)
-            echo -e "${PHOTOS_PATH}bigsurnightsucculents.heic\n$1" > ~/Documents/dev/bin/WallPath.txt
+            echo -e "${PHOTOS_PATH}bigsurnightsucculents.heic\n$1" > ~/.config/.WallPath.txt
             ;;
         0)
-            echo -e "${PHOTOS_PATH}purpleclouds.jpg\n$1" > ~/Documents/dev/bin/WallPath.txt
+            echo -e "${PHOTOS_PATH}purpleclouds.jpg\n$1" > ~/.config/.WallPath.txt
             ;;
     esac
 }
@@ -104,7 +104,7 @@ while : ; do
             ;;
         '')
             write_wall_path $index
-            m wallpaper $(sed '1q;d' ~/Documents/dev/bin/WallPath.txt)
+            m wallpaper $(sed '1q;d' ~/.config/.WallPath.txt)
             ;;
         'q')
             tput cnorm

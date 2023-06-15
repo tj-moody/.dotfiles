@@ -2,8 +2,11 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     # global vars
     set -x EDITOR nvim
-    # set -x COLORS_NAME noclownfiesta
-    export COLORS_NAME=noclownfiesta
+    export COLORS_NAME=$(cat ~/.config/.COLORS_NAME.txt)
+    echo -e "\033]50;SetProfile=$COLORS_NAME\a"
+    if [ "$TERM" = "xterm-kitty" ]
+        kitty +kitten themes --reload-in=all $COLORS_NAME
+    end
     set fish_greeting
 
     # Path

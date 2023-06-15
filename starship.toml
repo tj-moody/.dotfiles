@@ -28,6 +28,9 @@ format = '$symbol[$branch(:$remote_branch)]($style) '
 
 [git_status]
 
+[battery]
+format = '[$symbol$percentage]($style) | '
+
 [c]
 symbol = ' '
 format = 'via [$symbol($version(-$name) )]($style)| '

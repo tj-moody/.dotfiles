@@ -45,7 +45,7 @@ function theme
 
     bash ~/.dotfiles/bash/theme.bash $COLORS_NAME
 
-    set COLORS_NAME (cat /tmp/COLORS_NAME.txt)
+    set COLORS_NAME (cat ~/.config/.COLORS_NAME.txt)
 end
 
 function chwall
@@ -53,7 +53,7 @@ function chwall
     #     return
     # end
     bash ~/.dotfiles/bash/chwall.bash
-    m wallpaper $(sed '1q;d' ~/Documents/dev/bin/WallPath.txt)
+    m wallpaper $(sed '1q;d' ~/.config/.WallPath.txt)
 end
 
 function ccompile

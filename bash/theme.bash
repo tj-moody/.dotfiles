@@ -129,8 +129,11 @@ while : ; do
         '')
             theme=$(index_to_theme $index)
             # export COLORS_NAME=$theme
-            echo $theme > /tmp/COLORS_NAME.txt
+            echo $theme > ~/.config/.COLORS_NAME.txt
             echo -e "\033]50;SetProfile=$theme\a"
+            if [[ "$TERM" == "xterm-kitty" ]]; then
+                kitty +kitten themes --reload-in=all $theme
+            fi
             tput cnorm
             printf '\e[?1049l'
             break
@@ -139,6 +142,9 @@ while : ; do
             tput cnorm
             printf '\e[?1049l'
             echo -e "\033]50;SetProfile=$THEME\a"
+            if [[ "$TERM" == "xterm-kitty" ]]; then
+                kitty +kitten themes --reload-in=all $theme
+            fi
             break
             ;;
         *)

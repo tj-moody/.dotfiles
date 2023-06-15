@@ -117,8 +117,8 @@ cmp.setup({
         keyword_length = 2,
     },
     experimental = {
-        ghost_text = false,
         -- ghost_text = { hl_group = 'Comment' },
+        ghost_text = true,
     },
 })
 
