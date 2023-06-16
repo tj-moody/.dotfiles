@@ -54,7 +54,7 @@ m('n', "<C-u>", "<C-u>zz")
 m('n', "n", "nzzzv")
 m('n', "N", "Nzzzv")
 
-m('n', 'sl', ':vsp<CR')
+m('n', 'sl', ':vsp<CR>')
 m('n', 'sj', ':sp<CR>')
 m('n', 'se', '<c-w>=')
 

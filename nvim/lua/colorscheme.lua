@@ -19,6 +19,7 @@ local themes_list = {
     "tokyonight",
     "oxocarbon",
     "catppuccin",
+    "everforest",
 }
 
 vim.g.tjtheme = os.getenv("COLORS_NAME")
@@ -94,7 +95,7 @@ local colors_table = {
         })
 
         -- setup must be called before loading
-        vim.cmd("colorscheme kanagawa")
+        vim.cmd [[colorscheme kanagawa]]
     end,
 
     gruvbox = function()
@@ -134,6 +135,10 @@ local colors_table = {
             flavour = "mocha",
         }
         vim.cmd [[colorscheme catppuccin]]
+    end,
+    everforest = function()
+        vim.g.everforest_background = 'dark'
+        vim.cmd [[colorscheme everforest]]
     end,
 }
 
@@ -332,6 +337,33 @@ local hl_table = {
             { 'NvimTreeRootFolder',       { fg = '#cdd6f4', } },
         },
     },
+    everforest = {
+        setup = {
+            { 'StatusLineNC',           { fg = '#859288' } },
+            { 'Operator',               { fg = '#859288', } },
+            { '@operator',              { fg = '#859288', } },
+            { '@punctuation.bracket',   { fg = '#859288', } },
+            { '@punctuation.delimiter', { fg = '#859288', } },
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#7fbbb3' } },
+            { 'AlphaFooter1', { fg = '#e67e80' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeWinSeparator',     { fg = '#555f66' } },
+            { 'NvimTreeFolderIcon',       { fg = '#dbbc7f', } },
+            { 'NvimTreeFolderName',       { fg = '#8ec092', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#7fbbb3', } },
+            { 'NvimTreeNormal',           { fg = '#859289', } },
+            { 'NvimTreeNormalNC',         { fg = '#859289', } },
+            { 'NvimTreeEndOfBuffer',      { fg = '#859289', } },
+            { 'NvimTreeExecFile',         { fg = '#d3c6aa', } },
+            { 'NvimTreeGitNew',           { fg = '#dbbc7f', } },
+            { 'NvimTreeGitDirty',         { fg = '#e67e80', } },
+            { 'NvimTreeOpenedFile',       { fg = '#d699b6', } },
+            { 'NvimTreeRootFolder',       { fg = '#d3c6aa', } },
+        },
+    },
 }
 
 local clear_hl_bg_table = {
@@ -361,6 +393,7 @@ local clear_hl_bg_table = {
     'TelescopeSelection',
 
     'NvimTreeNormal',
+    'NvimTreeNormalNC',
     'ErrorMsg',
     'WarningMsg',
     'Title',

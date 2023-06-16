@@ -25,7 +25,8 @@ return {
             'folke/tokyonight.nvim',
             'EdenEast/nightfox.nvim',
             'catppuccin/nvim',
-            'mcchrish/zenbones.nvim',
+            'sainnhe/everforest',
+            'AlexvZyl/nordic.nvim'
         },
         lazy = false,
         config = function() require("colorscheme").setup() end,
