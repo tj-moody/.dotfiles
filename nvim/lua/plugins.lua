@@ -24,6 +24,8 @@ return {
             'tj-moody/marsbox.nvim',
             'folke/tokyonight.nvim',
             'EdenEast/nightfox.nvim',
+            'catppuccin/nvim',
+            'mcchrish/zenbones.nvim',
         },
         lazy = false,
         config = function() require("colorscheme").setup() end,

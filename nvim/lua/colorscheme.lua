@@ -18,6 +18,7 @@ local themes_list = {
     "marsbox",
     "tokyonight",
     "oxocarbon",
+    "catppuccin",
 }
 
 vim.g.tjtheme = os.getenv("COLORS_NAME")
@@ -126,6 +127,13 @@ local colors_table = {
     oxocarbon = function()
         require('nightfox').setup {}
         vim.cmd [[colorscheme carbonfox]]
+    end,
+
+    catppuccin = function()
+        require('catppuccin').setup {
+            flavour = "mocha",
+        }
+        vim.cmd [[colorscheme catppuccin]]
     end,
 }
 
@@ -294,6 +302,34 @@ local hl_table = {
             { 'NvimTreeGitDirty',         { fg = '#ee5396', } },
             { 'NvimTreeOpenedFile',       { fg = '#c8a5ff', } },
             { 'NvimTreeRootFolder',       { fg = '#f2f4f8', } },
+        },
+    },
+    catppuccin = {
+        setup = {
+            { 'WinSeparator',           { fg = '#6c7086' } },
+            { 'Operator',               { fg = '#6c7086', } },
+            { '@operator',              { fg = '#6c7086', } },
+            { '@punctuation.bracket',   { fg = '#6c7086', } },
+            { '@punctuation.delimiter', { fg = '#6c7086', } },
+            { 'TelescopeBorder',        { fg = '#6c7086', } },
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#89b4fa' } },
+            { 'AlphaFooter1', { fg = '#f38ba8' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeWinSeparator',     { fg = '#6c7086' } },
+            { 'NvimTreeFolderIcon',       { fg = '#fab387', } },
+            { 'NvimTreeFolderName',       { fg = '#94e2d5', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#89b4fa', } },
+            { 'NvimTreeNormal',           { fg = '#6c7086', } },
+            { 'NvimTreeNormalNC',         { fg = '#6c7086', } },
+            { 'NvimTreeEndOfBuffer',      { fg = '#6c7086', } },
+            { 'NvimTreeExecFile',         { fg = '#cdd6f4', } },
+            { 'NvimTreeGitNew',           { fg = '#f9e2af', } },
+            { 'NvimTreeGitDirty',         { fg = '#f38ba8', } },
+            { 'NvimTreeOpenedFile',       { fg = '#cba6f7', } },
+            { 'NvimTreeRootFolder',       { fg = '#cdd6f4', } },
         },
     },
 }

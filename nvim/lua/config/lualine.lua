@@ -41,6 +41,12 @@ local colors_table = {
         visual = '#ff91c1',
         insert = '#3ddbd9',
     },
+    catppuccin = {
+        normal = '#a6e3a1',
+        replace = '#f38ba8',
+        visual = '#fab387',
+        insert = '#89b4fa',
+    },
 }
 
 local THEME = vim.g.tjtheme

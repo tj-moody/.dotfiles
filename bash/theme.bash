@@ -6,35 +6,38 @@ fi
 
 tput civis
 printf '\e[?1049h'
-MAX_INDEX=6
+MAX_INDEX=7
 index=$MAX_INDEX
 THEME=$1
 theme=$THEME
 
 case $theme in
     "noclownfiesta")
-        index=6
+        index=9
         ;;
     "kanagawa")
-        index=5
+        index=8
         ;;
     "kanagawa_muted")
-        index=4
+        index=7
         ;;
     "gruvbox")
-        index=3
+        index=6
         ;;
     "marsbox")
-        index=2
+        index=5
         ;;
     "tokyonight")
-        index=1
+        index=4
         ;;
     "oxocarbon")
-        index=0
+        index=3
+        ;;
+    "catppuccin")
+        index=2
         ;;
     *)
-        index=5
+        index=6
         ;;
 esac
 
@@ -49,26 +52,29 @@ cleard
 
 index_to_theme() {
     case $1 in
-        6)
+        7)
             echo "noclownfiesta"
             ;;
-        5)
+        6)
             echo "kanagawa"
             ;;
-        4)
+        5)
             echo "kanagawa_muted"
             ;;
-        3)
+        4)
             echo "gruvbox"
             ;;
-        2)
+        3)
             echo "marsbox"
             ;;
-        1)
+        2)
             echo "tokyonight"
             ;;
-        0)
+        1)
             echo "oxocarbon"
+            ;;
+        0)
+            echo "catppuccin"
             ;;
     esac
 }
@@ -77,7 +83,7 @@ index_to_theme() {
 print_themes() {
     exa -al --icons; echo ""
     case $1 in
-        6)
+        7)
             echo -e "> \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
@@ -85,8 +91,9 @@ print_themes() {
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
             echo -e "  \e[0;32m oxocarbon      \e[0m"
+            echo -e "  \e[0;35m catppuccin     \e[0m"
             ;;
-        5)
+        6)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "> \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
@@ -94,8 +101,9 @@ print_themes() {
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
             echo -e "  \e[0;32m oxocarbon      \e[0m"
+            echo -e "  \e[0;35m catppuccin     \e[0m"
             ;;
-        4)
+        5)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "> \e[0;36m kanagawa_muted \e[0m"
@@ -103,8 +111,9 @@ print_themes() {
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
             echo -e "  \e[0;32m oxocarbon      \e[0m"
+            echo -e "  \e[0;35m catppuccin     \e[0m"
             ;;
-        3)
+        4)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
@@ -112,8 +121,9 @@ print_themes() {
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
             echo -e "  \e[0;32m oxocarbon      \e[0m"
+            echo -e "  \e[0;35m catppuccin     \e[0m"
             ;;
-        2)
+        3)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
@@ -121,8 +131,9 @@ print_themes() {
             echo -e "> \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
             echo -e "  \e[0;32m oxocarbon      \e[0m"
+            echo -e "  \e[0;35m catppuccin     \e[0m"
             ;;
-        1)
+        2)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
@@ -130,6 +141,17 @@ print_themes() {
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "> \e[0;34m tokyonight     \e[0m"
             echo -e "  \e[0;32m oxocarbon      \e[0m"
+            echo -e "  \e[0;35m catppuccin     \e[0m"
+            ;;
+        1)
+            echo -e "  \e[0;34m noclownfiesta  \e[0m"
+            echo -e "  \e[1;36m kanagawa       \e[0m"
+            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;33m gruvbox        \e[0m"
+            echo -e "  \e[0;31m marsbox        \e[0m"
+            echo -e "  \e[0;34m tokyonight     \e[0m"
+            echo -e "> \e[0;32m oxocarbon      \e[0m"
+            echo -e "  \e[0;35m catppuccin     \e[0m"
             ;;
         0)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
@@ -138,7 +160,8 @@ print_themes() {
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "> \e[0;32m oxocarbon      \e[0m"
+            echo -e "  \e[0;32m oxocarbon      \e[0m"
+            echo -e "> \e[0;35m catppuccin     \e[0m"
             ;;
         *)
             return
