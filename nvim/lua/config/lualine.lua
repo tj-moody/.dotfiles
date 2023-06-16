@@ -29,6 +29,18 @@ local colors_table = {
         visual = '#fe8019',
         insert = '#83a598',
     },
+    tokyonight = {
+        normal = '#9ece6a',
+        replace = '#f7768e',
+        visual = '#ff9e64',
+        insert = '#7dcfff',
+    },
+    oxocarbon = {
+        normal = '#25be6a',
+        replace = '#ee5396',
+        visual = '#ff91c1',
+        insert = '#3ddbd9',
+    },
 }
 
 local THEME = vim.g.tjtheme

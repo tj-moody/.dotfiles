@@ -21,7 +21,9 @@ return {
         dependencies = {
             'rebelot/kanagawa.nvim',
             'sainnhe/gruvbox-material',
-            'tj-moody/marsbox.nvim'
+            'tj-moody/marsbox.nvim',
+            'folke/tokyonight.nvim',
+            'EdenEast/nightfox.nvim',
         },
         lazy = false,
         config = function() require("colorscheme").setup() end,

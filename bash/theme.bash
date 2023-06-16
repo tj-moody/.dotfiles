@@ -6,29 +6,35 @@ fi
 
 tput civis
 printf '\e[?1049h'
-MAX_INDEX=4
+MAX_INDEX=6
 index=$MAX_INDEX
 THEME=$1
 theme=$THEME
 
 case $theme in
     "noclownfiesta")
-        index=4
+        index=6
         ;;
     "kanagawa")
-        index=3
+        index=5
         ;;
     "kanagawa_muted")
-        index=2
+        index=4
         ;;
     "gruvbox")
-        index=1
+        index=3
         ;;
     "marsbox")
+        index=2
+        ;;
+    "tokyonight")
+        index=1
+        ;;
+    "oxocarbon")
         index=0
         ;;
     *)
-        index=3
+        index=5
         ;;
 esac
 
@@ -43,20 +49,26 @@ cleard
 
 index_to_theme() {
     case $1 in
-        4)
+        6)
             echo "noclownfiesta"
             ;;
-        3)
+        5)
             echo "kanagawa"
             ;;
-        2)
+        4)
             echo "kanagawa_muted"
             ;;
-        1)
+        3)
             echo "gruvbox"
             ;;
-        0)
+        2)
             echo "marsbox"
+            ;;
+        1)
+            echo "tokyonight"
+            ;;
+        0)
+            echo "oxocarbon"
             ;;
     esac
 }
@@ -65,40 +77,68 @@ index_to_theme() {
 print_themes() {
     exa -al --icons; echo ""
     case $1 in
-        4)
+        6)
             echo -e "> \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
+            echo -e "  \e[0;34m tokyonight     \e[0m"
+            echo -e "  \e[0;32m oxocarbon      \e[0m"
             ;;
-        3)
+        5)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "> \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
+            echo -e "  \e[0;34m tokyonight     \e[0m"
+            echo -e "  \e[0;32m oxocarbon      \e[0m"
             ;;
-        2)
+        4)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "> \e[0;36m kanagawa_muted \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
+            echo -e "  \e[0;34m tokyonight     \e[0m"
+            echo -e "  \e[0;32m oxocarbon      \e[0m"
             ;;
-        1)
+        3)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
             echo -e "> \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
+            echo -e "  \e[0;34m tokyonight     \e[0m"
+            echo -e "  \e[0;32m oxocarbon      \e[0m"
+            ;;
+        2)
+            echo -e "  \e[0;34m noclownfiesta  \e[0m"
+            echo -e "  \e[1;36m kanagawa       \e[0m"
+            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;33m gruvbox        \e[0m"
+            echo -e "> \e[0;31m marsbox        \e[0m"
+            echo -e "  \e[0;34m tokyonight     \e[0m"
+            echo -e "  \e[0;32m oxocarbon      \e[0m"
+            ;;
+        1)
+            echo -e "  \e[0;34m noclownfiesta  \e[0m"
+            echo -e "  \e[1;36m kanagawa       \e[0m"
+            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;33m gruvbox        \e[0m"
+            echo -e "  \e[0;31m marsbox        \e[0m"
+            echo -e "> \e[0;34m tokyonight     \e[0m"
+            echo -e "  \e[0;32m oxocarbon      \e[0m"
             ;;
         0)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
             echo -e "  \e[0;36m kanagawa_muted \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "> \e[0;31m marsbox        \e[0m"
+            echo -e "  \e[0;31m marsbox        \e[0m"
+            echo -e "  \e[0;34m tokyonight     \e[0m"
+            echo -e "> \e[0;32m oxocarbon      \e[0m"
             ;;
         *)
             return

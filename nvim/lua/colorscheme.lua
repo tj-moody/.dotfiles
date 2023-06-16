@@ -16,6 +16,8 @@ local themes_list = {
     "kanagawa_muted",
     "gruvbox",
     "marsbox",
+    "tokyonight",
+    "oxocarbon",
 }
 
 vim.g.tjtheme = os.getenv("COLORS_NAME")
@@ -105,7 +107,26 @@ local colors_table = {
     marsbox = function()
         require('marsbox').setup {}
         vim.cmd("colorscheme marsbox")
-    end
+    end,
+
+    tokyonight = function()
+        -- vim.g.tokyonight_colors = {
+        --     ["bg_dark"] = "#16161F",
+        --     ["bg_popup"] = "#16161F",
+        --     ["bg_statusline"] = "#16161F",
+        --     ["bg_sidebar"] = "#16161F",
+        --     ["bg_float"] = "#16161F",
+        -- }
+        require('tokyonight').setup {
+            style = "night",
+        }
+        vim.cmd [[colorscheme tokyonight]]
+    end,
+
+    oxocarbon = function()
+        require('nightfox').setup {}
+        vim.cmd [[colorscheme carbonfox]]
+    end,
 }
 
 local hl_table = {
@@ -215,6 +236,65 @@ local hl_table = {
         nvim_tree = {
             { 'NvimTreeNormal', { fg = '#928374' } }
         }
+    },
+    tokyonight = {
+        setup = {
+            { "DiffAdd",                { bg = '#283B4D', } },
+            { "DiffChange",             { bg = '#28304d', } },
+            { "DiffText",               { bg = '#36426b', } },
+            { "DiffDelete",             { bg = "#37222c", fg = '#37222c', } },
+            { 'WinSeparator',           { fg = '#3b4261', } },
+            { 'Operator',               { fg = '#3b4261', } },
+            { '@operator',              { fg = '#3b4261', } },
+            { '@punctuation.bracket',   { fg = '#3b4261', } },
+            { '@punctuation.delimiter', { fg = '#3b4261', } },
+            { 'TelescopeBorder',        { fg = '#3b4261', } },
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#2ac3de' } },
+            { 'AlphaFooter1', { fg = '#f7768e' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeWinSeparator',     { fg = '#3b4261' } },
+            { 'NvimTreeFolderIcon',       { fg = '#e0af68', } },
+            { 'NvimTreeFolderName',       { fg = '#73daca', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#2ac3de', } },
+            { 'NvimTreeNormal',           { fg = '#565f89', } },
+            { 'NvimTreeNormalNC',         { fg = '#565f89', } },
+            { 'NvimTreeEndOfBuffer',      { fg = '#565f89', } },
+            { 'NvimTreeExecFile',         { fg = '#c0caf5', } },
+            { 'NvimTreeGitNew',           { fg = '#e0af68', } },
+            { 'NvimTreeGitDirty',         { fg = '#f7768e', } },
+            { 'NvimTreeOpenedFile',       { fg = '#bb9af7', } },
+            { 'NvimTreeRootFolder',       { fg = '#c0caf5', } },
+        },
+    },
+    oxocarbon = {
+        setup = {
+            { 'WinSeparator',           { fg = '#6e6f70' } },
+            { 'Operator',               { fg = '#6e6f70', } },
+            { '@operator',              { fg = '#6e6f70', } },
+            { '@punctuation.bracket',   { fg = '#6e6f70', } },
+            { '@punctuation.delimiter', { fg = '#6e6f70', } },
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#78a9ff' } },
+            { 'AlphaFooter1', { fg = '#ee5396' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeWinSeparator',     { fg = '#6e6f70' } },
+            { 'NvimTreeFolderIcon',       { fg = '#e0af68', } },
+            { 'NvimTreeFolderName',       { fg = '#5ae0df', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#78a9ff', } },
+            { 'NvimTreeNormal',           { fg = '#6e6f70', } },
+            { 'NvimTreeNormalNC',         { fg = '#6e6f70', } },
+            { 'NvimTreeEndOfBuffer',      { fg = '#6e6f70', } },
+            { 'NvimTreeExecFile',         { fg = '#f2f4f8', } },
+            { 'NvimTreeGitNew',           { fg = '#e0af68', } },
+            { 'NvimTreeGitDirty',         { fg = '#ee5396', } },
+            { 'NvimTreeOpenedFile',       { fg = '#c8a5ff', } },
+            { 'NvimTreeRootFolder',       { fg = '#f2f4f8', } },
+        },
     },
 }
 
@@ -375,4 +455,5 @@ function M.reload()
     require('config.lualine')
 end
 
+print("")
 return M

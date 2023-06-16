@@ -4,9 +4,6 @@ if status is-interactive
     set -x EDITOR nvim
     export COLORS_NAME=$(cat ~/.config/.COLORS_NAME.txt)
     echo -e "\033]50;SetProfile=$COLORS_NAME\a"
-    if [ "$TERM" = "xterm-kitty" ]
-        kitty +kitten themes --reload-in=all $COLORS_NAME
-    end
     set fish_greeting
 
     # Path
@@ -31,7 +28,7 @@ if status is-interactive
 
     # Kitty
     set kittypath (which kitty)
-    [ ! -z "$kittypath" ] && set -gx TERM xterm-kitty
+    [ ! -z "$kittypath" ] && set -gx TERM xterm-kitty && kitty +kitten themes --reload-in=all $COLORS_NAME
 
     # Prompt
     # set -gx PS1 "\e[33m\u \e[0;35m\W\e[0m "
