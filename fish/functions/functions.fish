@@ -132,8 +132,9 @@ function fish_mode_prompt
     set_color normal
 end
 
-function get_ip
-    /sbin/ifconfig|grep inet|head -8|tail -1|sed 's/\:/ /'|awk '{print $2}'
+function getip
+    curl https://ipinfo.io/ip
+    # /sbin/ifconfig|grep inet|head -8|tail -1|sed 's/\:/ /'|awk '{print $2}'
 end
 
 function conda_auto_env --on-event fish_prompt
