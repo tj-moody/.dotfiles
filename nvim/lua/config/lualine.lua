@@ -8,14 +8,18 @@ local colors_table = {
     kanagawa = {
         normal = '#98bb6c',
         replace = '#ff5d62',
-        visual = '#ffa066',
         insert = '#7fb4ca',
+        visual = '#ffa066',
     },
-    kanagawa_muted = {
-        normal = '#8a9a7b',
-        replace = '#c4746e',
-        visual = '#b6927b',
-        insert = '#949fb5',
+    kanagawa_dark = {
+        -- normal = '#8a9a7b',
+        -- replace = '#c4746e',
+        -- visual = '#b6927b',
+        -- insert = '#949fb5',
+        normal = '#98bb6c',
+        replace = '#ff5d62',
+        insert = '#7fb4ca',
+        visual = '#ffa066',
     },
     gruvbox = {
         normal = '#a9b66f',

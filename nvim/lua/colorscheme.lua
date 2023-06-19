@@ -13,7 +13,7 @@ end
 local themes_list = {
     "noclownfiesta",
     "kanagawa",
-    "kanagawa_muted",
+    "kanagawa_dark",
     "gruvbox",
     "marsbox",
     "tokyonight",
@@ -68,7 +68,7 @@ local colors_table = {
         -- setup must be called before loading
         vim.cmd("colorscheme kanagawa")
     end,
-    kanagawa_muted = function()
+    kanagawa_dark = function()
         require('kanagawa').setup({
             compile = false,  -- enable compiling the colorscheme
             undercurl = true, -- enable undercurls
@@ -86,10 +86,10 @@ local colors_table = {
             -- overrides = function(colors) -- add/modify highlights
             --     return {}
             -- end,
-            theme = "dragon",
+            theme = "wave",
             background = {
                 -- map the value of 'background' option to a theme
-                dark = "dragon", -- try "dragon" !
+                dark = "wave", -- try "dragon" !
                 light = "lotus"
             },
         })
@@ -189,7 +189,7 @@ local hl_table = {
             -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
     },
-    kanagawa_muted = {
+    kanagawa_dark = {
         setup = {
             { 'Operator',               { fg = '#737c73', } },
             { '@punctuation.bracket',   { fg = '#737c73', } },

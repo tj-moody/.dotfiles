@@ -18,7 +18,7 @@ case $theme in
     "kanagawa")
         index=7
         ;;
-    "kanagawa_muted")
+    "kanagawa_dark")
         index=6
         ;;
     "gruvbox")
@@ -62,7 +62,7 @@ index_to_theme() {
             echo "kanagawa"
             ;;
         6)
-            echo "kanagawa_muted"
+            echo "kanagawa_dark"
             ;;
         5)
             echo "gruvbox"
@@ -92,7 +92,7 @@ print_themes() {
         8)
             echo -e "> \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;36m kanagawa_dark \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
@@ -103,7 +103,7 @@ print_themes() {
         7)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "> \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;36m kanagawa_dark \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
@@ -114,7 +114,7 @@ print_themes() {
         6)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "> \e[0;36m kanagawa_muted \e[0m"
+            echo -e "> \e[0;36m kanagawa_dark \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
@@ -125,7 +125,7 @@ print_themes() {
         5)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;36m kanagawa_dark \e[0m"
             echo -e "> \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
@@ -136,7 +136,7 @@ print_themes() {
         4)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;36m kanagawa_dark \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "> \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
@@ -148,7 +148,7 @@ print_themes() {
         3)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;36m kanagawa_dark \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "> \e[0;34m tokyonight     \e[0m"
@@ -159,7 +159,7 @@ print_themes() {
         2)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;36m kanagawa_dark \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
@@ -170,7 +170,7 @@ print_themes() {
         1)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;36m kanagawa_dark \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
@@ -181,7 +181,7 @@ print_themes() {
         0)
             echo -e "  \e[0;34m noclownfiesta  \e[0m"
             echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_muted \e[0m"
+            echo -e "  \e[0;36m kanagawa_dark \e[0m"
             echo -e "  \e[0;33m gruvbox        \e[0m"
             echo -e "  \e[0;31m marsbox        \e[0m"
             echo -e "  \e[0;34m tokyonight     \e[0m"
