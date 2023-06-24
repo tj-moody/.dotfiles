@@ -192,7 +192,7 @@ return {
         'akinsho/bufferline.nvim',
         priority = 100,
         event = "VeryLazy",
-        requires = 'nvim-tree/nvim-web-devicons',
+        dependencies = 'nvim-tree/nvim-web-devicons',
         config = function() require('config.bufferline') end,
     },
     {
@@ -210,7 +210,7 @@ return {
     {
         'goolord/alpha-nvim',
         event = 'VimEnter',
-        requires = { 'nvim-tree/nvim-web-devicons' },
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function() require('config.alpha') end
     },
     {

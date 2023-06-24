@@ -87,7 +87,7 @@ index_to_theme() {
 
 
 print_themes() {
-    exa -al --icons; echo ""
+    # exa -al --icons; echo ""
     case $1 in
         8)
             echo -e "> \e[0;34m noclownfiesta  \e[0m"
@@ -197,8 +197,10 @@ print_themes() {
 }
 
 while : ; do
-    cleard
+    # cleard
     print_themes $index
+    echo -ne "\e[${MAX_INDEX}A"
+    echo -ne "\e[2A"
     read -s -p "" -n 1 key
     case $key in
         'j')
