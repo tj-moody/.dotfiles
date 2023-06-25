@@ -16,9 +16,13 @@ local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     require "lsp_signature".on_attach({
-        -- hint_prefix = " ",
-        hint_prefix = " ",
+        hint_scheme = 'Normal',
+        hint_prefix = " ",
         hint_inline = function() return false end,
+        -- bind = true,
+        -- handler_opts = {
+        --     border = "rounded"
+        -- }
     }, bufnr)
 
     -- Mappings.
@@ -28,7 +32,7 @@ local on_attach = function(client, bufnr)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
     map('n', 'K', vim.lsp.buf.hover, bufopts)
     map('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    map('n', 'gt', vim.lsp.buf.signature_help, bufopts) -- "go type"
+    map('n', 'gs', vim.lsp.buf.signature_help, bufopts) -- "go type"
     -- map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     -- map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
     -- map('n', '<space>wl', function()
