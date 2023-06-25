@@ -186,6 +186,11 @@ return {
         event = 'VeryLazy',
         config = true,
     },
+    {
+        'tommcdo/vim-lion',
+        event = 'VeryLazy',
+        config = true,
+    },
     --- Git
     {
         'lewis6991/gitsigns.nvim',
