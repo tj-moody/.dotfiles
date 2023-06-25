@@ -59,6 +59,10 @@ if THEME and colors_table[THEME] then
     colors = colors_table[THEME]
 end
 
+local function ts_active()
+    return vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil
+end
+
 local theme = {
     normal = {
         a = { fg = colors.normal, bg = colors.bg },
@@ -175,14 +179,21 @@ local lualine_config = {
             },
             {
                 function()
+                    local venv = os.getenv('CONDA_DEFAULT_ENV')
+                    if venv == "base" then
+                        return ''
+                    end
+                    return venv
+                end,
+                icon = { '', color = { fg = colors.visual } },
+
+            },
+            {
+                function()
                     return ''
                 end,
-                color = function()
-                    if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
-                        return { fg = colors.normal }
-                    end
-                    return {}
-                end,
+                color = { fg = colors.normal },
+                cond = ts_active,
             },
             {
                 function()
