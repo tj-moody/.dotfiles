@@ -171,7 +171,7 @@ local function nvimtreetogglefloat()
 end
 m('n', 'TT', nvimtreetogglefloat)
 -- Telescope
-m('n', '<leader>ff', ":lua require('telescope').extensions.smart_open.smart_open()<CR>")
+m('n', '<leader>ff', ":Telescope smart_open<CR>")
 -- m('n', '<leader>ff', ":Telescope find_files<CR>")
 m('n', '<leader>fh', ":Telescope highlights<CR>")
 m('n', '<leader>fg', ":Telescope live_grep<CR>")

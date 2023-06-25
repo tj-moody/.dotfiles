@@ -62,7 +62,7 @@ local navigations = {
 local buttons = {
     type = "group",
     val = {
-        button("f", "  Find file", ':Telescope find_files<CR>'),
+        button("f", "  Find file", ":Telescope smart_open<CR>"),
         button("r", "勒 Restore Session", ':SessionRestore<CR>'),
         button("L", "鈴 Lazy", ':Lazy<CR>'),
         button("S", "  Sync", ':Lazy<CR>S'),
