@@ -3,7 +3,7 @@ require 'nvim-treesitter.configs'.setup {
         "c",
         "lua",
         "vim",
-        "help",
+        -- "help",
         "rust",
         "javascript",
         "typescript",

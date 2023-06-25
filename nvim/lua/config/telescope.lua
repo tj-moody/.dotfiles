@@ -1,20 +1,20 @@
 local telescope = require('telescope')
 telescope.setup {
     pickers = {
-
         find_files = {
-            hidden = true,
+            layout_config = {
+                prompt_position = 'top',
+            },
         },
     },
     defaults = {
         file_ignore_patterns = { '.git/' },
-        layout_strategy = "horizontal",
         layout_config = {
+            -- prompt_position = 'top',
             horizontal = {
                 prompt_position = 'top',
             },
         },
-        prompt_position = 'top',
         prompt_prefix = '  ',
         selection_caret = '  ',
         entry_prefix = '   ',
@@ -22,3 +22,5 @@ telescope.setup {
         -- winblend = 20,
     },
 }
+
+telescope.load_extension("smart_open")

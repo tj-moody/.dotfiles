@@ -36,7 +36,18 @@ return {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
         cmd = { 'Telescope', },
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        dependencies = {
+            { 'nvim-lua/plenary.nvim' },
+            {
+                "danielfalk/smart-open.nvim",
+                branch = "0.2.x",
+                dependencies = {
+                    { "kkharji/sqlite.lua" },
+                    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+                    { "nvim-telescope/telescope-fzy-native.nvim" },
+                },
+            },
+        },
         config = function() require('config.telescope') end,
     },
     --- Treesitter
