@@ -57,11 +57,11 @@ local lsp_flags = {
 
 local inlayhints_opts = {
     inlay_hints = {
-        -- highlight = "FoldColumn",
+        highlight = "FoldColumn",
         -- highlight = "Statement",
         -- highlight = "Folded",
         -- highlight = "Comment",
-        highlight = "Normal",
+        -- highlight = "Normal",
     }
 }
 require("lsp-inlayhints").setup(inlayhints_opts)
@@ -115,7 +115,7 @@ require('lspconfig')['lua_ls'].setup {
                 globals = { 'vim' },
             },
             hint = {
-                enable = false,
+                enable = true,
                 arrayIndex = "Disable",
             },
             workspace = {
