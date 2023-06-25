@@ -197,8 +197,10 @@ local hl_table = {
             { 'WinSeparator',           { fg = '#60656f' } }
         },
         alpha = {
-            { 'AlphaHeader',  { fg = '#949fb5' } },
-            { 'AlphaFooter1', { fg = '#c4746e' } },
+            -- { 'AlphaHeader',  { fg = '#949fb5' } },
+            -- { 'AlphaFooter1', { fg = '#c4746e' } },
+            { 'AlphaHeader',  { fg = '#7fb4ca' } },
+            { 'AlphaFooter1', { fg = '#ff5d62' } },
         },
         nvim_tree = {
             { 'NvimTreeFolderIcon',       { fg = '#c4b28a', } },
