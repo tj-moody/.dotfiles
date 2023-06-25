@@ -37,8 +37,6 @@ m('n', '<S-CR>', "mzO<esc>`z")
 m_o("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 m_o("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
-m('n', "<leader><space>", ':e #<CR>')
-
 m('n', '<leader>=', 'mzgg=G`z')
 
 m('n', 'p', ']p')
@@ -111,7 +109,7 @@ m_o('i', '<BS>', backspace, {
 })
 m('i', '<S-BS>', '<BS>')
 
----Delete all other open buffers
+-- Delete all other open buffers
 local function only_buffer()
     if vim.bo.filetype == 'NvimTree' then
         vim.cmd('only')
@@ -170,18 +168,21 @@ local function nvimtreetogglefloat()
     end
 end
 m('n', 'TT', nvimtreetogglefloat)
+
 -- Telescope
 m('n', '<leader>ff', ":Telescope smart_open<CR>")
 -- m('n', '<leader>ff', ":Telescope find_files<CR>")
 m('n', '<leader>fh', ":Telescope highlights<CR>")
 m('n', '<leader>fg', ":Telescope live_grep<CR>")
 m('n', '<leader>fk', ":Telescope keymaps<CR>")
+
 -- Bufferline
 m('n', 'H', ":BufferLineCyclePrev<CR>")
 m('n', 'L', ":BufferLineCycleNext<CR>")
 m('n', 'Tq', ":BufferLinePickClose<CR>")
 m('n', 'Ts', ":BufferLineSortByTabs<CR>")
 m('n', 'gb', ":BufferLinePick<CR>")
+
 -- Tabs
 m('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
 m('n', 'T>', ':tabe %<CR>:Telescope find_files<CR>') -- proof for typos
@@ -193,11 +194,13 @@ m('n', 'TO', ':tabonly<CR>')
 m('n', 'To', ':tabonly<CR>')
 m('n', 'TC', ':tabclose<CR>')
 m('n', 'Tc', ':tabclose<CR>')
+
 -- Lazy
 m('n', '<leader>lz', ":Lazy<CR>")
+
 -- Toggleterm
 
----Set keymaps to align with normal navigation in terminal buffers
+-- Set keymaps to align with normal navigation in terminal buffers
 function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
     vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
@@ -215,6 +218,7 @@ m('n', '<leader>tf', ':ToggleTerm size=40 direction=float<CR>')
 m('n', '<leader>tj', ':ToggleTerm size=20 direction=horizontal<CR>')
 m('n', '<leader>tl', ':ToggleTerm size=60 direction=vertical<CR>')
 m('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
+
 -- git
 local Terminal = require('toggleterm.terminal').Terminal
 local lazygit  = Terminal:new({
@@ -232,20 +236,25 @@ end
 m('n', '<leader>lg', lazygit_toggle)
 m('n', '<leader>gdo', ':DiffviewOpen<CR>') -- TODO: buffer mapping for ,q to be :DiffviewClose
 m('n', '<leader>gdc', ':DiffviewClose<CR>')
+
 -- smart-splits
---- resize
 m('n', '<space>h', require('smart-splits').resize_left)
 m('n', '<space>j', require('smart-splits').resize_down)
 m('n', '<space>k', require('smart-splits').resize_up)
 m('n', '<space>l', require('smart-splits').resize_right)
----  moving between splits
+
 m('n', '<C-j>', require('smart-splits').move_cursor_down)
 m('n', '<C-h>', require('smart-splits').move_cursor_left)
 m('n', '<C-k>', require('smart-splits').move_cursor_up)
 m('n', '<C-l>', require('smart-splits').move_cursor_right)
+
 -- treesj
 m('n', '<c-s>', ':TSJToggle<CR>')
--- config
+
+-- alternate-toggler
+m('n', '<leader>ta', ':ToggleAlternate<CR>')
+
+--- CONFIG
 local function toggle_lsp_lines()
     local d_conf = vim.diagnostic.config
     d_conf({

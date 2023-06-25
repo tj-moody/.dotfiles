@@ -190,6 +190,11 @@ return {
         'tommcdo/vim-lion',
         event = 'VeryLazy',
     },
+    {
+        'rmagatti/alternate-toggler',
+        event = 'VeryLazy',
+        config = function() require('config.alternate-toggler') end,
+    },
     --- Git
     {
         'lewis6991/gitsigns.nvim',
