@@ -189,7 +189,6 @@ return {
     {
         'tommcdo/vim-lion',
         event = 'VeryLazy',
-        config = true,
     },
     --- Git
     {
