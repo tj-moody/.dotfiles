@@ -186,7 +186,6 @@ local lualine_config = {
                     return venv
                 end,
                 icon = { '', color = { fg = colors.visual } },
-
             },
             {
                 function()
@@ -203,16 +202,22 @@ local lualine_config = {
                     if next(clients) == nil then
                         return msg
                     end
-                    for _, client in ipairs(clients) do
-                        local filetypes = client.config.filetypes
-                        if filetypes and
-                            vim.fn.index(filetypes, buf_ft) ~= -1 then
-                            return client.name
+                    local clients_str = ""
+                    for i, client in ipairs(clients) do
+                        if i == 1 then
+                            clients_str = clients_str .. client.name
+                        else
+                            clients_str = clients_str .. ', ' .. client.name
                         end
+                        -- local filetypes = client.config.filetypes
+                        -- if filetypes and
+                        --     vim.fn.index(filetypes, buf_ft) ~= -1 then
+                        --     return client.name
+                        -- end
                     end
-                    return msg
+                    return clients_str
                 end,
-                icon = '',
+                icon =  '',
             },
         },
         lualine_z = {
