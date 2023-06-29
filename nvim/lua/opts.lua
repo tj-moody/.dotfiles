@@ -45,7 +45,7 @@ local opts = {
     cursorline = true,
     foldmethod = "marker",
     background = 'dark',
-    smoothscroll = true,
+    -- smoothscroll = true,
 }
 for k, v in pairs(opts) do
 	vim.opt[k] = v
