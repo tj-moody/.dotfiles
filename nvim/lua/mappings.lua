@@ -1,22 +1,24 @@
 vim.g.mapleader = ","
+
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, opts) with
 
 ---```lua
 ---    opts = { noremap = true, silent = true }
 ---```
----@param mode string
----@param lhs string
----@param rhs string | function
-local function m(mode, lhs, rhs)
-    vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true })
+---@param m string
+---@param l string
+---@param r string | function
+local function m(m, l, r)
+    vim.keymap.set(m, l, r, { noremap = true, silent = true })
 end
+
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, `opts`)
----@param mode string
----@param lhs string
----@param rhs string | function
+---@param m string
+---@param l string
+---@param r string | function
 ---@param opts table | nil
-local function m_o(mode, lhs, rhs, opts)
-    vim.keymap.set(mode, lhs, rhs, opts)
+local function m_o(m, l, r, opts)
+    vim.keymap.set(m, l, r, opts)
 end
 
 --- BASICS
@@ -175,7 +177,6 @@ m('n', '<leader>ff', ":Telescope smart_open<CR>")
 m('n', '<leader>fh', ":Telescope highlights<CR>")
 m('n', '<leader>fg', ":Telescope live_grep<CR>")
 m('n', '<leader>fk', ":Telescope keymaps<CR>")
-
 -- Bufferline
 m('n', 'H', ":BufferLineCyclePrev<CR>")
 m('n', 'L', ":BufferLineCycleNext<CR>")
