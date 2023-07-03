@@ -156,3 +156,7 @@ function conda_auto_env --on-event fish_prompt
         end
     end
 end
+
+function lavat
+    ~/packages/lavat/lavat -c magenta -R 5 -F @%#&I!:.
+end

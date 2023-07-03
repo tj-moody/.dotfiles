@@ -1,0 +1,84 @@
+runcharts:
+  - title: Search engine response time
+    position: [[57, 5], [23, 13]]
+    rate-ms: 500
+    legend:
+        enabled: true
+        details: false
+    scale: 2
+    items:
+      - label: GOOGLE
+        color: 178
+        sample: curl -o /dev/null -s -w '%{time_total}'  https://www.google.com
+      - label: YAHOO
+        sample: curl -o /dev/null -s -w '%{time_total}'  https://search.yahoo.com
+      - label: BING
+        sample: curl -o /dev/null -s -w '%{time_total}'  https://www.bing.com
+  - title: CPU
+    position: [[0, 10], [37, 8]]
+    rate-ms: 200
+    legend:
+        enabled: true
+        details: true
+    scale: 0
+    items:
+      - label: CPU
+        color: 48
+        sample: ps -A -o %cpu | awk '{s+=$1} END {print s}'
+  - title: Memory
+    position: [[0, 0], [37, 10]]
+    rate-ms: 200
+    legend:
+        enabled: true
+        details: true
+    scale: 0
+    items:
+      - label: RAM
+        color: 129
+        sample: memory_pressure | grep 'Pages free' | awk '{print $3}'
+barcharts:
+  - title: Local network activity
+    position: [[37, 10], [20, 8]]
+    rate-ms: 500
+    scale: 0
+    items:
+      - label: UDP bytes in
+        sample: nettop -J bytes_in -l 1 -m udp | awk '{sum += $4} END {print sum}'
+      - label: UDP bytes out
+        sample: nettop -J bytes_out -l 1 -m udp | awk '{sum += $4} END {print sum}'
+      - label: TCP bytes in
+        sample: nettop -J bytes_in -l 1 -m tcp | awk '{sum += $4} END {print sum}'
+      - label: TCP bytes out
+        sample: nettop -J bytes_out -l 1 -m tcp | awk '{sum += $4} END {print sum}'
+gauges:
+  - title: Year progress
+    position: [[48, 1], [32, 2]]
+    cur:
+        sample: date +%j
+    max:
+        sample: echo 365
+    min:
+        sample: echo 0
+  - title: Day progress
+    position: [[48, 3], [32, 2]]
+    rate-ms: 500
+    scale: 2
+    color: 178
+    percent-only: true
+    cur:
+        sample: expr $(expr 60 \* $(date +%H)) + $(date +%M)
+    max:
+        sample: echo 1440
+    min:
+        sample: echo 0
+textboxes:
+  - title: Local weather
+    position: [[37, 0], [13, 8]]
+    rate-ms: 10000
+    color: 178
+    sample: curl wttr.in/?0QFAT
+    border: false
+  - title: Time
+    position: [[37, 5], [22, 7]]
+    sample: 'figlet $(date "+%H : %M : %S")'
+    border: false
