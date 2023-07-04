@@ -253,6 +253,5 @@ return {
         'xiyaowong/virtcolumn.nvim',
         config = true,
     },
-    --- Fun
     fun,
 }
