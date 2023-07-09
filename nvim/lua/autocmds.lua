@@ -15,6 +15,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 
         vim.cmd.cd(data.file)
         require("nvim-tree.api").tree.open()
+        vim.cmd('only')
     end
 })
 
