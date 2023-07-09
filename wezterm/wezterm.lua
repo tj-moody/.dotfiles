@@ -1,12 +1,10 @@
 local wezterm = require('wezterm')
 local config = {}
 
-config.font = wezterm.font_with_fallback({
-    {
-        family = 'FiraCode Nerd Font Mono',
-        weight = 'Light',
-    },
-})
+config.font = wezterm.font(
+    'FiraCode Nerd Font Mono',
+    { weight = 'Light' }
+)
 config.font_size = 12
 config.cell_width = 1
 config.line_height = 1
@@ -42,12 +40,12 @@ config.window_padding = {
     left = 35,
     right = 35,
     top = 35,
-    bottom = 15,
+    bottom = 10,
 }
 
 config.inactive_pane_hsb = {
-  saturation = 1,
-  brightness = 1,
+    saturation = 1,
+    brightness = 1,
 }
 
 config.window_frame = {
