@@ -57,7 +57,9 @@ local on_attach = function(client, bufnr)
         vim.lsp.buf.format { async = true }
     end, bufopts)
 
-    vim.lsp.inlay_hint(0, true)
+    if client.resolved_capabilities.inlay_hint() then
+        vim.lsp.inlay_hint(0, true)
+    end
 end
 
 local neodev_opts = {}

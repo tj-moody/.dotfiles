@@ -140,6 +140,9 @@ local colors_table = {
         vim.g.everforest_background = 'dark'
         vim.cmd [[colorscheme everforest]]
     end,
+    ayu = function()
+        vim.cmd [[colorscheme ayu]]
+    end
 }
 
 local hl_table = {
@@ -383,6 +386,11 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#d699b6', } },
             { 'NvimTreeRootFolder',       { fg = '#d3c6aa', } },
         },
+    },
+    ayu = {
+        setup = {},
+        alpha = {},
+        nvim_tree = {},
     },
 }
 

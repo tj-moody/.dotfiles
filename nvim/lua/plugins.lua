@@ -26,7 +26,8 @@ return {
             'EdenEast/nightfox.nvim',
             'catppuccin/nvim',
             'sainnhe/everforest',
-            'AlexvZyl/nordic.nvim'
+            'AlexvZyl/nordic.nvim',
+            'Shatur/neovim-ayu',
         },
         lazy = false,
         config = function() require("colorscheme").setup() end,

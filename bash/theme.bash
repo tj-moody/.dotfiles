@@ -53,6 +53,7 @@ cleard() {
 }
 cleard
 
+# declare
 index_to_theme() {
     case $1 in
         8)
