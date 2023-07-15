@@ -14,15 +14,27 @@ vim.keymap.set('n', 'dj', vim.diagnostic.goto_next, map_opts)
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    require "lsp_signature".on_attach({
+    require("lsp_signature").on_attach({
         hint_scheme = 'Normal',
         hint_prefix = " ",
-        hint_inline = function() return false end,
-        -- bind = true,
-        -- handler_opts = {
-        --     border = "rounded"
-        -- }
+        bind = true,
+        handler_opts = {
+            border = "rounded"
+        }
     }, bufnr)
+
+    -- NOTE: Inlay hints on insert mode only
+    -- vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
+    -- vim.api.nvim_create_autocmd("InsertEnter", {
+    --     buffer = bufnr,
+    --     callback = function() vim.lsp.buf.inlay_hint(bufnr, true) end,
+    --     group = "lsp_augroup",
+    -- })
+    -- vim.api.nvim_create_autocmd("InsertLeave", {
+    --     buffer = bufnr,
+    --     callback = function() vim.lsp.buf.inlay_hint(bufnr, false) end,
+    --     group = "lsp_augroup",
+    -- })
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -44,6 +56,8 @@ local on_attach = function(client, bufnr)
     map('n', '<leader>df', function()
         vim.lsp.buf.format { async = true }
     end, bufopts)
+
+    vim.lsp.inlay_hint(0, true)
 end
 
 local neodev_opts = {}
@@ -53,27 +67,6 @@ local lsp_flags = {
     -- This is the default in Nvim 0.7+
     debounce_text_changes = 150,
 }
-
-local inlayhints_opts = {
-    inlay_hints = {
-        highlight = "FoldColumn",
-        -- highlight = "Statement",
-        -- highlight = "Folded",
-        -- highlight = "Comment",
-        -- highlight = "Normal",
-    }
-}
-require("lsp-inlayhints").setup(inlayhints_opts)
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {}),
-    callback = function(args)
-        if not (args.data and args.data.client_id) then
-            return
-        end
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        require("lsp-inlayhints").on_attach(client, args.buf)
-    end,
-})
 
 require('lspconfig')['pyright'].setup {
     on_attach = on_attach,
