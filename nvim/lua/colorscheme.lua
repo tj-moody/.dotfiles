@@ -20,6 +20,7 @@ local themes_list = {
     "oxocarbon",
     "catppuccin",
     "everforest",
+    "ayu",
 }
 
 vim.g.tjtheme = os.getenv("COLORS_NAME")
@@ -388,9 +389,33 @@ local hl_table = {
         },
     },
     ayu = {
-        setup = {},
-        alpha = {},
-        nvim_tree = {},
+        setup = {
+            { 'Operator',               { fg = '#626a73', } },
+            { '@punctuation.bracket',   { fg = '#626a73', } },
+            { '@punctuation.delimiter', { fg = '#626a73', } },
+            { 'WinSeparator',           { fg = '#626a73', } },
+            { 'GitSignsAdd',            { fg = '#c2d94c', } },
+            { 'GitSignsAddLine',        { fg = '#c2d94c', } },
+            { 'GitSignsAddNr',          { fg = '#c2d94c', } },
+            { 'GitSignsDelete',         { fg = '#d96c75', } },
+            { 'GitSignsDeleteNr',       { fg = '#d96c75', } },
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#39bae6' } },
+            { 'AlphaFooter1', { fg = '#ff8f40' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeFolderIcon',       { fg = '#e6b450', } },
+            { 'NvimTreeNormal',           { fg = '#626a73', } },
+            { 'NvimTreeNormalNC',         { fg = '#626a73', } },
+            { 'NvimTreeGitNew',           { fg = '#e6b450', } },
+            { 'NvimTreeGitDirty',         { fg = '#f07178', } },
+            { 'NvimTreeFolderName',       { fg = '#39bae6', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#a7e3cc', bold = true, } },
+            { 'NvimTreeOpenedFile',       { fg = '#cb9ff8', bold = true, } },
+            { 'NvimTreeExecFile',         { fg = '#b3b1ad', } },
+            { 'NvimTreeRootFolder',       { fg = '#ff8f40', bold = true, } },
+        },
     },
 }
 

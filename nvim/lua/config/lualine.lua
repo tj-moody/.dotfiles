@@ -51,6 +51,18 @@ local colors_table = {
         visual = '#fab387',
         insert = '#89b4fa',
     },
+    everforest = {
+        normal = '#abbf86',
+        replace = '#d88382',
+        visual = '#e69875',
+        insert = '#7fbbb3',
+    },
+    ayu = {
+        normal = '#c2d94c',
+        replace = '#f07178',
+        visual = '#ff8f40',
+        insert = '#39bae6',
+    },
 }
 
 local THEME = vim.g.tjtheme
@@ -217,7 +229,7 @@ local lualine_config = {
                     end
                     return clients_str
                 end,
-                icon =  '',
+                icon = '',
             },
         },
         lualine_z = {

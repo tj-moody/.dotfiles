@@ -6,41 +6,59 @@ fi
 
 tput civis
 printf '\e[?1049h'
-MAX_INDEX=8
+
+declare -a themeslist=(
+"\e[0;34m noclownfiesta  \e[0m"
+"\e[1;36m kanagawa       \e[0m"
+"\e[0;36m kanagawa_dark  \e[0m"
+"\e[0;33m gruvbox        \e[0m"
+"\e[0;31m marsbox        \e[0m"
+"\e[0;34m tokyonight     \e[0m"
+"\e[0;32m oxocarbon      \e[0m"
+"\e[0;35m catppuccin     \e[0m"
+"\e[0;33m everforest     \e[0m"
+"\e[0;33m ayu            \e[0m"
+)
+
+# MAX_INDEX=8
+MAX_INDEX=$( expr ${#themeslist[@]} - 1 )
 index=$MAX_INDEX
 THEME=$1
 theme=$THEME
 
 case $theme in
     "noclownfiesta")
-        index=8
+        index=9
         ;;
     "kanagawa")
-        index=7
+        index=8
         ;;
     "kanagawa_dark")
-        index=6
+        index=7
         ;;
     "gruvbox")
-        index=5
+        index=6
         ;;
     "marsbox")
-        index=4
+        index=5
         ;;
     "tokyonight")
-        index=3
+        index=4
         ;;
     "oxocarbon")
-        index=2
+        index=3
         ;;
     "catppuccin")
-        index=1
+        index=2
         ;;
     "everforest")
+        index=1
+        ;;
+    "ayu")
         index=0
         ;;
     *)
-        index=8
+        index=5
         ;;
 esac
 
@@ -56,47 +74,39 @@ cleard
 # declare
 index_to_theme() {
     case $1 in
-        8)
+        9)
             echo "noclownfiesta"
             ;;
-        7)
+        8)
             echo "kanagawa"
             ;;
-        6)
+        7)
             echo "kanagawa_dark"
             ;;
-        5)
+        6)
             echo "gruvbox"
             ;;
-        4)
+        5)
             echo "marsbox"
             ;;
-        3)
+        4)
             echo "tokyonight"
             ;;
-        2)
+        3)
             echo "oxocarbon"
             ;;
-        1)
+        2)
             echo "catppuccin"
             ;;
-        0)
+        1)
             echo "everforest"
+            ;;
+        0)
+            echo "ayu"
             ;;
     esac
 }
 
-declare -a themeslist=(
-"\e[0;34m noclownfiesta  \e[0m"
-"\e[1;36m kanagawa       \e[0m"
-"\e[0;36m kanagawa_dark  \e[0m"
-"\e[0;33m gruvbox        \e[0m"
-"\e[0;31m marsbox        \e[0m"
-"\e[0;34m tokyonight     \e[0m"
-"\e[0;32m oxocarbon      \e[0m"
-"\e[0;35m catppuccin     \e[0m"
-"\e[0;33m everforest     \e[0m"
-)
 print_themes() {
     # exa -al --icons; echo ""
     listindex=$( expr $MAX_INDEX - $1 )
