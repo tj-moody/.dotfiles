@@ -237,6 +237,8 @@ end
 m('n', '<leader>lg', lazygit_toggle)
 m('n', '<leader>gdo', ':DiffviewOpen<CR>') -- TODO: buffer mapping for ,q to be :DiffviewClose
 m('n', '<leader>gdc', ':DiffviewClose<CR>')
+m('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
+m('n', '<leader>gj', ':Gitsigns prev_hunk<CR>')
 
 -- smart-splits
 m('n', '<space>h', require('smart-splits').resize_left)
