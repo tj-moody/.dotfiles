@@ -87,15 +87,15 @@ index_to_theme() {
 }
 
 declare -a themeslist=(
-" \e[0;34m noclownfiesta  \e[0m"
-" \e[1;36m kanagawa       \e[0m"
-" \e[0;36m kanagawa_dark  \e[0m"
-" \e[0;33m gruvbox        \e[0m"
-" \e[0;31m marsbox        \e[0m"
-" \e[0;34m tokyonight     \e[0m"
-" \e[0;32m oxocarbon      \e[0m"
-" \e[0;35m catppuccin     \e[0m"
-" \e[0;33m everforest     \e[0m"
+"\e[0;34m noclownfiesta  \e[0m"
+"\e[1;36m kanagawa       \e[0m"
+"\e[0;36m kanagawa_dark  \e[0m"
+"\e[0;33m gruvbox        \e[0m"
+"\e[0;31m marsbox        \e[0m"
+"\e[0;34m tokyonight     \e[0m"
+"\e[0;32m oxocarbon      \e[0m"
+"\e[0;35m catppuccin     \e[0m"
+"\e[0;33m everforest     \e[0m"
 )
 print_themes() {
     # exa -al --icons; echo ""
@@ -103,9 +103,9 @@ print_themes() {
     for i in "${!themeslist[@]}"; do
         # echo "$index -> ${arr[$index]}"
         if [[ $i -eq $listindex ]]; then
-            echo -n ">"
+            echo -n "> "
         else
-            echo -n " "
+            echo -n "  "
         fi
         echo -e "${themeslist[$i]}"
     done
