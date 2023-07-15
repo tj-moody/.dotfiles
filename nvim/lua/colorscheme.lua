@@ -252,14 +252,14 @@ local hl_table = {
             { 'Operator',               { fg = '#928374', } },
             { '@punctuation.bracket',   { fg = '#928374', } },
             { '@punctuation.delimiter', { fg = '#928374', } },
-            { 'ErrorMsg', { fg = '#fb4934', } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#8ec07c' } },
             { 'AlphaFooter1', { fg = '#fb4934' } },
         },
         nvim_tree = {
-            { 'NvimTreeNormal', { fg = '#928374' } }
+            { 'NvimTreeNormal',   { fg = '#928374' } },
+            { 'NvimTreeNormalNC', { fg = '#928374' } },
         }
     },
     tokyonight = {

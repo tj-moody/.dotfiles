@@ -25,7 +25,7 @@
   "lspkind.nvim": { "branch": "master", "commit": "57610d5ab560c073c465d6faf0c19f200cb67e6e" },
   "luahint": { "branch": "main", "commit": "511b7aab6dbee82ed5d912eda2d24b31b02baa4d" },
   "lualine.nvim": { "branch": "master", "commit": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9" },
-  "marsbox.nvim": { "branch": "main", "commit": "cbf9ce8731c3c820818951d10193eaf622d0ca63" },
+  "marsbox.nvim": { "branch": "main", "commit": "125403b3953a0b916fd9b8100131ce882e6bc047" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "828a538ac8419f586c010996aefa5df6eb7c250b" },
   "mason.nvim": { "branch": "main", "commit": "5ad3e113b0c3fde3caba8630599373046f6197e8" },
   "neodev.nvim": { "branch": "main", "commit": "d89c108a091172fa46dbdcb8486c6645127aabe1" },
