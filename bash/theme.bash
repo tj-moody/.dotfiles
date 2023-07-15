@@ -86,114 +86,29 @@ index_to_theme() {
     esac
 }
 
-
+declare -a themeslist=(
+" \e[0;34m noclownfiesta  \e[0m"
+" \e[1;36m kanagawa       \e[0m"
+" \e[0;36m kanagawa_dark  \e[0m"
+" \e[0;33m gruvbox        \e[0m"
+" \e[0;31m marsbox        \e[0m"
+" \e[0;34m tokyonight     \e[0m"
+" \e[0;32m oxocarbon      \e[0m"
+" \e[0;35m catppuccin     \e[0m"
+" \e[0;33m everforest     \e[0m"
+)
 print_themes() {
     # exa -al --icons; echo ""
-    case $1 in
-        8)
-            echo -e "> \e[0;34m noclownfiesta  \e[0m"
-            echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_dark \e[0m"
-            echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "  \e[0;31m marsbox        \e[0m"
-            echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "  \e[0;32m oxocarbon      \e[0m"
-            echo -e "  \e[0;35m catppuccin     \e[0m"
-            echo -e "  \e[0;33m everforest     \e[0m"
-            ;;
-        7)
-            echo -e "  \e[0;34m noclownfiesta  \e[0m"
-            echo -e "> \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_dark \e[0m"
-            echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "  \e[0;31m marsbox        \e[0m"
-            echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "  \e[0;32m oxocarbon      \e[0m"
-            echo -e "  \e[0;35m catppuccin     \e[0m"
-            echo -e "  \e[0;33m everforest     \e[0m"
-            ;;
-        6)
-            echo -e "  \e[0;34m noclownfiesta  \e[0m"
-            echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "> \e[0;36m kanagawa_dark \e[0m"
-            echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "  \e[0;31m marsbox        \e[0m"
-            echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "  \e[0;32m oxocarbon      \e[0m"
-            echo -e "  \e[0;35m catppuccin     \e[0m"
-            echo -e "  \e[0;33m everforest     \e[0m"
-            ;;
-        5)
-            echo -e "  \e[0;34m noclownfiesta  \e[0m"
-            echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_dark \e[0m"
-            echo -e "> \e[0;33m gruvbox        \e[0m"
-            echo -e "  \e[0;31m marsbox        \e[0m"
-            echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "  \e[0;32m oxocarbon      \e[0m"
-            echo -e "  \e[0;35m catppuccin     \e[0m"
-            echo -e "  \e[0;33m everforest     \e[0m"
-            ;;
-        4)
-            echo -e "  \e[0;34m noclownfiesta  \e[0m"
-            echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_dark \e[0m"
-            echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "> \e[0;31m marsbox        \e[0m"
-            echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "  \e[0;32m oxocarbon      \e[0m"
-            echo -e "  \e[0;35m catppuccin     \e[0m"
-            echo -e "  \e[0;33m everforest     \e[0m"
-
-            ;;
-        3)
-            echo -e "  \e[0;34m noclownfiesta  \e[0m"
-            echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_dark \e[0m"
-            echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "  \e[0;31m marsbox        \e[0m"
-            echo -e "> \e[0;34m tokyonight     \e[0m"
-            echo -e "  \e[0;32m oxocarbon      \e[0m"
-            echo -e "  \e[0;35m catppuccin     \e[0m"
-            echo -e "  \e[0;33m everforest     \e[0m"
-            ;;
-        2)
-            echo -e "  \e[0;34m noclownfiesta  \e[0m"
-            echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_dark \e[0m"
-            echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "  \e[0;31m marsbox        \e[0m"
-            echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "> \e[0;32m oxocarbon      \e[0m"
-            echo -e "  \e[0;35m catppuccin     \e[0m"
-            echo -e "  \e[0;33m everforest     \e[0m"
-            ;;
-        1)
-            echo -e "  \e[0;34m noclownfiesta  \e[0m"
-            echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_dark \e[0m"
-            echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "  \e[0;31m marsbox        \e[0m"
-            echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "  \e[0;32m oxocarbon      \e[0m"
-            echo -e "> \e[0;35m catppuccin     \e[0m"
-            echo -e "  \e[0;33m everforest     \e[0m"
-            ;;
-        0)
-            echo -e "  \e[0;34m noclownfiesta  \e[0m"
-            echo -e "  \e[1;36m kanagawa       \e[0m"
-            echo -e "  \e[0;36m kanagawa_dark \e[0m"
-            echo -e "  \e[0;33m gruvbox        \e[0m"
-            echo -e "  \e[0;31m marsbox        \e[0m"
-            echo -e "  \e[0;34m tokyonight     \e[0m"
-            echo -e "  \e[0;32m oxocarbon      \e[0m"
-            echo -e "  \e[0;35m catppuccin     \e[0m"
-            echo -e "> \e[0;33m everforest     \e[0m"
-            ;;
-        *)
-            return
-            ;;
-    esac
+    listindex=$( expr $MAX_INDEX - $1 )
+    for i in "${!themeslist[@]}"; do
+        # echo "$index -> ${arr[$index]}"
+        if [[ $i -eq $listindex ]]; then
+            echo -n ">"
+        else
+            echo -n " "
+        fi
+        echo -e "${themeslist[$i]}"
+    done
     echo -e "\033]50;SetProfile=$(index_to_theme $1)\a"
 }
 
