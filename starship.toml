@@ -15,7 +15,7 @@ format = '[$symbol$number]($style) | '
 
 # vicmd_symbol = '[](bold green) '
 
-vicmd_symbol = '[➜](bold green) '
+vicmd_symbol = '[➜](bold green)'
 success_symbol = '[➜](bold blue)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 error_symbol = '[➜](bold red)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 

@@ -3,16 +3,18 @@ if status is-interactive
     # global vars
     set -x EDITOR nvim
     export COLORS_NAME=$(cat ~/.config/.COLORS_NAME.txt)
-    echo -e "\033]50;SetProfile=$COLORS_NAME\a"
+    echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
     set fish_greeting
 
     # Path
     set PATH /usr/local/bin $PATH
+    set PATH ~/.local/bin $PATH
     set PATH /Users/tj/.local/share/bob/nvim-bin/ $PATH
     set PATH $HOME/.cargo/bin $PATH
     set PATH /opt/homebrew/bin/ $PATH
     set PATH /opt/homebrew/anaconda3/bin/ $PATH
     set PATH /Qt/5.15.2/clang_64/bin/ $PATH
+    set PATH ~/go/bin/ $PATH
 
     # Init
     # Starship
@@ -35,9 +37,13 @@ if status is-interactive
 
     # Aliases
     alias nv "nvim"
-    alias src "fish"
+    alias src "source ~/.config/fish/config.fish"
     alias lg "lazygit"
     alias gs "git status"
+    alias md "glow"
+
+    alias pond "pond -db"
+    alias arttime "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
 end
 
 # Setting PATH for Python 3.11
