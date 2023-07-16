@@ -16,7 +16,7 @@ declare -a themestrings=(
 "\e[0;34m tokyonight     \e[0m"
 "\e[0;32m oxocarbon      \e[0m"
 "\e[0;35m catppuccin     \e[0m"
-"\e[0;33m everforest     \e[0m"
+"\e[0;32m everforest     \e[0m"
 "\e[0;33m ayu            \e[0m"
 "\e[0;36m midnightclub   \e[0m"
 )

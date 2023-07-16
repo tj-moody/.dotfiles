@@ -405,7 +405,7 @@ local hl_table = {
             { 'GitSignsDeleteNr',       { fg = '#d96c75', } },
         },
         alpha = {
-            { 'AlphaHeader',  { fg = '#39bae6' } },
+            { 'AlphaHeader',  { fg = '#c2d94c' } },
             { 'AlphaFooter1', { fg = '#ff8f40' } },
         },
         nvim_tree = {
