@@ -1,26 +1,32 @@
 -- fix filetype.vim format options issue
+vim.api.nvim_create_augroup("Filetype Options", {})
 vim.api.nvim_create_autocmd('Filetype', {
-    callback = function(opts)
+    group = "Filetype Options",
+    callback = function(_)
         vim.cmd("set formatoptions-=cro")
     end,
 })
 
 -- Use nvim-tree when opening a directory on launch
+vim.api.nvim_create_augroup("NvimTree Launch", {})
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
-    callback = function(data)
-        local directory = vim.fn.isdirectory(data.file) == 1
+    group = "NvimTree Launch",
+    callback = function(args)
+        local directory = vim.fn.isdirectory(args.file) == 1
         if not directory then
             return
         end
 
-        vim.cmd.cd(data.file)
+        vim.cmd.cd(args.file)
         require("nvim-tree.api").tree.open()
         vim.cmd('only')
     end
 })
 
--- to optimize startup time with lazy event
+-- start lsp after loading file to lazyload lsp plugins
+vim.api.nvim_create_augroup("LSP Auto Start", {})
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorHold' }, {
+    group = "LSP Auto Start",
     callback = function(opts)
         vim.cmd('LspStart')
     end,
@@ -28,8 +34,10 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorHold' }, {
 
 --- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
 -- Strip trailing spaces before write
+vim.api.nvim_create_augroup("Format On Save", {})
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     pattern = { '*' },
+    group = "Format On Save",
     callback = function()
         vim.cmd([[ %s/\s\+$//e ]])
     end,
@@ -37,6 +45,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 
 -- Enable spellcheck on gitcommit and markdown
 vim.api.nvim_create_autocmd({ 'FileType' }, {
+    group = "Filetype Options",
     pattern = { 'gitcommit', 'markdown', '*.txt' },
     callback = function()
         vim.opt_local.wrap = true
