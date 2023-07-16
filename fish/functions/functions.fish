@@ -37,9 +37,29 @@ function speedtest
     speedtest-rs
 end
 
-function theme
+function theme --argument-names 'themename'
+    set themeslist "noclownfiesta"
+    set -a themeslist "kanagawa"
+    set -a themeslist "kanagawa_dark"
+    set -a themeslist "gruvbox"
+    set -a themeslist "marsbox"
+    set -a themeslist "tokyonight"
+    set -a themeslist "oxocarbon"
+    set -a themeslist "catppuccin"
+    set -a themeslist "everforest"
+    set -a themeslist "ayu"
+
     if [ "0" != "$(count $argv)" ]
-        echo $COLORS_NAME
+        if contains $themename $themeslist
+            set COLORS_NAME $themename
+            echo -e "\033]50;SetProfile=$themename\a"
+            if [ "$TERM" = "xterm-kitty" ]
+                kitty +kitten themes --reload-in=all $themename
+            end
+        else
+            echo $COLORS_NAME
+        end
+
         return
     end
 
