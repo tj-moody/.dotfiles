@@ -28,6 +28,7 @@ return {
             'sainnhe/everforest',
             'AlexvZyl/nordic.nvim',
             'Shatur/neovim-ayu',
+            'nyngwang/midnight-club.nvim',
         },
         lazy = false,
         config = function() require("colorscheme").setup() end,

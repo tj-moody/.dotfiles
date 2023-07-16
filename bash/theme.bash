@@ -10,14 +10,15 @@ printf '\e[?1049h'
 declare -a themestrings=(
 "\e[0;34m noclownfiesta  \e[0m"
 "\e[1;36m kanagawa       \e[0m"
-"\e[0;36m kanagawa_dark  \e[0m"
+"\e[1;34m kanagawa_dark  \e[0m"
 "\e[0;33m gruvbox        \e[0m"
-"\e[0;31m marsbox        \e[0m"
+"\e[1;31m marsbox        \e[0m"
 "\e[0;34m tokyonight     \e[0m"
 "\e[0;32m oxocarbon      \e[0m"
 "\e[0;35m catppuccin     \e[0m"
 "\e[0;33m everforest     \e[0m"
 "\e[0;33m ayu            \e[0m"
+"\e[0;36m midnightclub   \e[0m"
 )
 
 declare -a themeslist=(
@@ -31,6 +32,7 @@ declare -a themeslist=(
 "catppuccin"
 "everforest"
 "ayu"
+"midnightclub"
 )
 
 MAX_INDEX=$( expr ${#themestrings[@]} - 1 )

@@ -63,6 +63,12 @@ local colors_table = {
         visual = '#ff8f40',
         insert = '#39bae6',
     },
+    midnightclub = {
+        normal = '#7cb375',
+        replace = '#fc735d',
+        visual = '#ffae57',
+        insert = '#88d4ab',
+    },
 }
 
 local THEME = vim.g.tjtheme

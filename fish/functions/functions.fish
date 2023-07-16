@@ -48,6 +48,7 @@ function theme --argument-names 'themename'
     set -a themeslist "catppuccin"
     set -a themeslist "everforest"
     set -a themeslist "ayu"
+    set -a themeslist "midnightclub"
 
     if [ "0" != "$(count $argv)" ]
         if contains $themename $themeslist

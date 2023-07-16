@@ -21,6 +21,7 @@ local themes_list = {
     "catppuccin",
     "everforest",
     "ayu",
+    "midnightclub",
 }
 
 vim.g.tjtheme = os.getenv("COLORS_NAME")
@@ -143,7 +144,10 @@ local colors_table = {
     end,
     ayu = function()
         vim.cmd [[colorscheme ayu]]
-    end
+    end,
+    midnightclub = function()
+        vim.cmd [[colorscheme midnight-club]]
+    end,
 }
 
 local hl_table = {
@@ -415,6 +419,34 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#cb9ff8', bold = true, } },
             { 'NvimTreeExecFile',         { fg = '#b3b1ad', } },
             { 'NvimTreeRootFolder',       { fg = '#ff8f40', bold = true, } },
+        },
+    },
+    midnightclub = {
+        setup = {
+            { 'MatchParen',       { fg = '#00f5d4', } },
+            { 'CursorLineNr',     { fg = '#ffae57', } },
+            { 'StatusLineNC',     { fg = '#2d3541', } },
+            { 'GitSignsAdd',      { fg = '#7cb375', } },
+            { 'GitSignsAddLine',  { fg = '#7cb375', } },
+            { 'GitSignsAddNr',    { fg = '#7cb375', } },
+            { 'GitSignsDelete',   { fg = '#fc735d', } },
+            { 'GitSignsDeleteNr', { fg = '#fc735d', } },
+        },
+        alpha = {
+            { 'AlphaHeader',  { fg = '#88d4ab' } },
+            { 'AlphaFooter1', { fg = '#ffae57' } },
+        },
+        nvim_tree = {
+            { 'NvimTreeFolderIcon',       { fg = '#ffae57', } },
+            { 'NvimTreeNormal',           { fg = '#565656', } },
+            { 'NvimTreeNormalNC',         { fg = '#565656', } },
+            { 'NvimTreeGitNew',           { fg = '#ffae57', } },
+            { 'NvimTreeGitDirty',         { fg = '#fc735d', } },
+            { 'NvimTreeFolderName',       { fg = '#88d4ab', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#00f5d4', bold = true, } },
+            { 'NvimTreeOpenedFile',       { fg = '#c9cba3', bold = true, } },
+            { 'NvimTreeExecFile',         { fg = '#cfdbd5', } },
+            { 'NvimTreeRootFolder',       { fg = '#ffae57', bold = true, } },
         },
     },
 }
