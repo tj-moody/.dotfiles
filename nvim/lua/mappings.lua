@@ -285,7 +285,7 @@ local function toggle_bufferline_show_all()
 end
 m('n', 'Cba', toggle_bufferline_show_all)
 local function toggle_inlay_hints()
-    require('lsp-inlayhints').toggle()
+    vim.lsp.inlay_hint(0, nil)
 end
 m('n', 'Cih', toggle_inlay_hints)
 local function toggle_colorcolumn()
