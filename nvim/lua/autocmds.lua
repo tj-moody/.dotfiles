@@ -43,4 +43,20 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
         vim.opt_local.spell = true
     end,
 })
----
+
+-- Automatically enable inlay hints
+vim.api.nvim_create_augroup("Inlay Hints", {})
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = "Inlay Hints",
+  callback = function(args)
+    if not (args.data and args.data.client_id) then
+      return
+    end
+
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint(bufnr, true)
+    end
+  end,
+})
