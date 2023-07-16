@@ -19,8 +19,7 @@ if status is-interactive
     # Init
     # Starship
     function starship_transient_prompt_func
-        # echo -e "$(starship module directory)$(starship module character)"
-        echo -e "$(starship module directory): "
+        echo -e "$(starship module directory)$(starship module character)"
     end
     # function starship_transient_rprompt_func
     #     echo -e "at \e[1;33m$(date +"%H:%M")\e[0m"
