@@ -23,19 +23,6 @@ local on_attach = function(client, bufnr)
         }
     }, bufnr)
 
-    -- NOTE: Inlay hints on insert mode only
-    -- vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
-    -- vim.api.nvim_create_autocmd("InsertEnter", {
-    --     buffer = bufnr,
-    --     callback = function() vim.lsp.buf.inlay_hint(bufnr, true) end,
-    --     group = "lsp_augroup",
-    -- })
-    -- vim.api.nvim_create_autocmd("InsertLeave", {
-    --     buffer = bufnr,
-    --     callback = function() vim.lsp.buf.inlay_hint(bufnr, false) end,
-    --     group = "lsp_augroup",
-    -- })
-
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -56,10 +43,6 @@ local on_attach = function(client, bufnr)
     map('n', '<leader>df', function()
         vim.lsp.buf.format { async = true }
     end, bufopts)
-
-    -- if client.resolved_capabilities.inlay_hint() then
-    --     vim.lsp.inlay_hint(0, true)
-    -- end
 end
 
 local neodev_opts = {}
