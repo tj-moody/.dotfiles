@@ -5,15 +5,15 @@ vim.g.mapleader = ","
 ---```lua
 ---    opts = { noremap = true, silent = true }
 ---```
----@param m string
+---@param m string | table[string]
 ---@param l string
 ---@param r string | function
-local function m(m, l, r)
+local function map(m, l, r)
     vim.keymap.set(m, l, r, { noremap = true, silent = true })
 end
 
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, `opts`)
----@param m string
+---@param m string | table[string]
 ---@param l string
 ---@param r string | function
 ---@param opts table | nil
@@ -22,41 +22,41 @@ local function m_o(m, l, r, opts)
 end
 
 --- BASICS
-m('n', '<leader>.', ":vsp<CR>:Telescope find_files<CR>")
+map('n', '<leader>.', ":vsp<CR>:Telescope find_files<CR>")
 
-m('n', '<leader>w', ":silent write<CR>")
-m('n', '<leader><leader>x', ":silent write<CR>:source <CR>")
+map('n', '<leader>w', ":silent write<CR>")
+map('n', '<leader><leader>x', ":silent write<CR>:source <CR>")
 
-m('n', '<leader>q', ":q<CR>")
-m('n', '<esc>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
+map('n', '<leader>q', ":q<CR>")
+map('n', '<esc>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
 
-m('v', 'K', ":m '<-2<CR>gv=gv")
-m('v', 'J', ":m '>+1<CR>gv=gv")
+map('v', 'K', ":m '<-2<CR>gv=gv")
+map('v', 'J', ":m '>+1<CR>gv=gv")
 
-m('n', '<CR>', "mzo<esc>`z")
-m('n', '<S-CR>', "mzO<esc>`z")
+map('n', '<CR>', "mzo<esc>`z")
+map('n', '<S-CR>', "mzO<esc>`z")
 
 m_o("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 m_o("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
-m('n', '<leader>=', 'mzgg=G`z')
+map('n', '<leader>=', 'mzgg=G`z')
 
-m('n', 'p', ']p')
-m('v', 'p', '"0p') -- '"0pgv'
+map('n', 'p', ']p')
+map('v', 'p', '"0p') -- '"0pgv'
 
-m('n', 'x', '"_x')
+map('n', 'x', '"_x')
 
-m('n', "J", "mzJ`z")
+map('n', "J", "mzJ`z")
 
-m('n', "<C-d>", "<C-d>zz")
-m('n', "<C-u>", "<C-u>zz")
+map('n', "<C-d>", "<C-d>zz")
+map('n', "<C-u>", "<C-u>zz")
 
-m('n', "n", "nzzzv")
-m('n', "N", "Nzzzv")
+map('n', "n", "nzzzv")
+map('n', "N", "Nzzzv")
 
-m('n', 'sl', ':vsp<CR>')
-m('n', 'sj', ':sp<CR>')
-m('n', 'se', '<c-w>=')
+map('n', 'sl', ':vsp<CR>')
+map('n', 'sj', ':sp<CR>')
+map('n', 'se', '<c-w>=')
 
 local escape_code = vim.api.nvim_replace_termcodes(
     "<Esc>",
@@ -109,7 +109,66 @@ m_o('i', '<BS>', backspace, {
     noremap = true,
     replace_keycodes = false,
 })
-m('i', '<S-BS>', '<BS>')
+map('i', '<S-BS>', '<BS>')
+
+-- adapted from https://vi.stackexchange.com/a/12870
+local next_indent = function()
+    -- Get the current cursor position
+    local current_line, column = unpack(vim.api.nvim_win_get_cursor(0))
+    local match_line = current_line
+    local match_indent = false
+
+    local buf_length = vim.api.nvim_buf_line_count(0)
+
+    -- Look for a line with the same indent level without going out of the buffer
+    while (not match_indent) and (match_line ~= buf_length) do
+        match_line = match_line + 1
+
+        local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
+        -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
+        local match_line_is_whitespace = match_line_str:match("^%s*$")
+
+        match_indent = (vim.fn.indent(match_line) <= vim.fn.indent(current_line))
+            and (not match_line_is_whitespace)
+            -- and (stripped_match_line_str ~= "end")
+            -- and (stripped_match_line_str ~= "}")
+    end
+
+    -- If a line is found go to this line
+    if match_indent or match_line == buf_length then
+        vim.fn.cursor({ match_line, column + 1 })
+    end
+end
+map({ 'n', 'v' }, 'gj', next_indent)
+
+local prev_indent = function()
+    -- Get the current cursor position
+    local current_line, column = unpack(vim.api.nvim_win_get_cursor(0))
+    local match_line = current_line
+    local match_indent = false
+
+    local buf_length = vim.api.nvim_buf_line_count(0)
+
+    -- Look for a line with the same indent level without going out of the buffer
+    while (not match_indent) and (match_line ~= buf_length) do
+        match_line = match_line - 1
+
+        local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
+        -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
+        local match_line_is_whitespace = match_line_str:match("^%s*$")
+
+        match_indent = (vim.fn.indent(match_line) <= vim.fn.indent(current_line))
+            and (not match_line_is_whitespace)
+            -- and (stripped_match_line_str ~= "end")
+            -- and (stripped_match_line_str ~= "}")
+    end
+
+    -- If a line is found go to this line
+    if match_indent or match_line == buf_length then
+        vim.fn.cursor({ match_line, column + 1 })
+    end
+end
+map({ 'n', 'v' }, 'gk', prev_indent)
 
 -- Delete all other open buffers
 local function only_buffer()
@@ -124,21 +183,21 @@ local function only_buffer()
         vim.cmd('bd #')
     end
 end
-m('n', '<leader>O', only_buffer)
-m('n', '<leader>o', ":silent only<CR>")
+map('n', '<leader>O', only_buffer)
+map('n', '<leader>o', ":silent only<CR>")
 
-m('n', '<leader>y', '"+y')
-m('v', '<leader>y', '"+y')
+map('n', '<leader>y', '"+y')
+map('v', '<leader>y', '"+y')
 
-m('v', '<', '<gv4h')
-m('v', '>', '>gv4l')
+map('v', '<', '<gv4h')
+map('v', '>', '>gv4l')
 
-m('n', '<C-C>', '~')
+map('n', '<C-C>', '~')
 
 local function change_theme()
     require('colorscheme').reload()
 end
-m('n', '<leader>ct', change_theme)
+map('n', '<leader>ct', change_theme)
 
 --- PLUGINS
 -- NvimTree
@@ -156,7 +215,7 @@ local function nvimtreetoggle()
     end
     require('colorscheme').setup('nvim_tree')
 end
-m('n', 't', nvimtreetoggle)
+map('n', 't', nvimtreetoggle)
 
 local function nvimtreetogglefloat()
     if vim.g.nvimtreefloat == true then
@@ -169,35 +228,35 @@ local function nvimtreetogglefloat()
         vim.cmd("NvimTreeOpen")
     end
 end
-m('n', 'TT', nvimtreetogglefloat)
+map('n', 'TT', nvimtreetogglefloat)
 
 -- Telescope
-m('n', '<leader>ff', ":Telescope smart_open<CR>")
+map('n', '<leader>ff', ":Telescope smart_open<CR>")
 -- m('n', '<leader>ff', ":Telescope find_files<CR>")
-m('n', '<leader>fh', ":Telescope highlights<CR>")
-m('n', '<leader>fg', ":Telescope live_grep<CR>")
-m('n', '<leader>fk', ":Telescope keymaps<CR>")
+map('n', '<leader>fh', ":Telescope highlights<CR>")
+map('n', '<leader>fg', ":Telescope live_grep<CR>")
+map('n', '<leader>fk', ":Telescope keymaps<CR>")
 -- Bufferline
-m('n', 'H', ":BufferLineCyclePrev<CR>")
-m('n', 'L', ":BufferLineCycleNext<CR>")
-m('n', 'Tq', ":BufferLinePickClose<CR>")
-m('n', 'Ts', ":BufferLineSortByTabs<CR>")
-m('n', 'gb', ":BufferLinePick<CR>")
+map('n', 'H', ":BufferLineCyclePrev<CR>")
+map('n', 'L', ":BufferLineCycleNext<CR>")
+map('n', 'Tq', ":BufferLinePickClose<CR>")
+map('n', 'Ts', ":BufferLineSortByTabs<CR>")
+map('n', 'gb', ":BufferLinePick<CR>")
 
 -- Tabs
-m('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
-m('n', 'T>', ':tabe %<CR>:Telescope find_files<CR>') -- proof for typos
-m('n', 'TL', ':tabnext<CR>')
-m('n', 'Tl', ':tabnext<CR>')
-m('n', 'TH', ':tabprevious<CR>')
-m('n', 'Th', ':tabprevious<CR>')
-m('n', 'TO', ':tabonly<CR>')
-m('n', 'To', ':tabonly<CR>')
-m('n', 'TC', ':tabclose<CR>')
-m('n', 'Tc', ':tabclose<CR>')
+map('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
+map('n', 'T>', ':tabe %<CR>:Telescope find_files<CR>') -- proof for typos
+map('n', 'TL', ':tabnext<CR>')
+map('n', 'Tl', ':tabnext<CR>')
+map('n', 'TH', ':tabprevious<CR>')
+map('n', 'Th', ':tabprevious<CR>')
+map('n', 'TO', ':tabonly<CR>')
+map('n', 'To', ':tabonly<CR>')
+map('n', 'TC', ':tabclose<CR>')
+map('n', 'Tc', ':tabclose<CR>')
 
 -- Lazy
-m('n', '<leader>lz', ":Lazy<CR>")
+map('n', '<leader>lz', ":Lazy<CR>")
 
 -- Toggleterm
 
@@ -215,10 +274,10 @@ end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 -- m('n', '<C-T>', ':ToggleTerm size=40 direction=float<CR>')
-m('n', '<leader>tf', ':ToggleTerm size=40 direction=float<CR>')
-m('n', '<leader>tj', ':ToggleTerm size=20 direction=horizontal<CR>')
-m('n', '<leader>tl', ':ToggleTerm size=60 direction=vertical<CR>')
-m('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
+map('n', '<leader>tf', ':ToggleTerm size=40 direction=float<CR>')
+map('n', '<leader>tj', ':ToggleTerm size=20 direction=horizontal<CR>')
+map('n', '<leader>tl', ':ToggleTerm size=60 direction=vertical<CR>')
+map('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
 
 -- git
 local Terminal = require('toggleterm.terminal').Terminal
@@ -234,28 +293,28 @@ local function lazygit_toggle() -- Wrapped in a function to match `m()` paramete
     lazygit:toggle()
 end
 -- m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
-m('n', '<leader>lg', lazygit_toggle)
-m('n', '<leader>gdo', ':DiffviewOpen<CR>') -- TODO: buffer mapping for ,q to be :DiffviewClose
-m('n', '<leader>gdc', ':DiffviewClose<CR>')
-m('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
-m('n', '<leader>gj', ':Gitsigns prev_hunk<CR>')
+map('n', '<leader>lg', lazygit_toggle)
+map('n', '<leader>gdo', ':DiffviewOpen<CR>') -- TODO: buffer mapping for ,q to be :DiffviewClose
+map('n', '<leader>gdc', ':DiffviewClose<CR>')
+map('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
+map('n', '<leader>gj', ':Gitsigns prev_hunk<CR>')
 
 -- smart-splits
-m('n', '<space>h', require('smart-splits').resize_left)
-m('n', '<space>j', require('smart-splits').resize_down)
-m('n', '<space>k', require('smart-splits').resize_up)
-m('n', '<space>l', require('smart-splits').resize_right)
+map('n', '<space>h', require('smart-splits').resize_left)
+map('n', '<space>j', require('smart-splits').resize_down)
+map('n', '<space>k', require('smart-splits').resize_up)
+map('n', '<space>l', require('smart-splits').resize_right)
 
-m('n', '<C-j>', require('smart-splits').move_cursor_down)
-m('n', '<C-h>', require('smart-splits').move_cursor_left)
-m('n', '<C-k>', require('smart-splits').move_cursor_up)
-m('n', '<C-l>', require('smart-splits').move_cursor_right)
+map('n', '<C-j>', require('smart-splits').move_cursor_down)
+map('n', '<C-h>', require('smart-splits').move_cursor_left)
+map('n', '<C-k>', require('smart-splits').move_cursor_up)
+map('n', '<C-l>', require('smart-splits').move_cursor_right)
 
 -- treesj
-m('n', '<c-s>', ':TSJToggle<CR>')
+map('n', '<c-s>', ':TSJToggle<CR>')
 
 -- alternate-toggler
-m('n', '<leader>ta', ':ToggleAlternate<CR>')
+map('n', '<leader>ta', ':ToggleAlternate<CR>')
 
 --- CONFIG
 local function toggle_lsp_lines()
@@ -266,16 +325,16 @@ local function toggle_lsp_lines()
     })
     -- require('lsp_lines').toggle()
 end
-m('n', 'Cll', toggle_lsp_lines)
+map('n', 'Cll', toggle_lsp_lines)
 local function toggle_relative_number()
     vim.opt.relativenumber = not vim.opt.relativenumber._value
 end
-m('n', 'Crn', toggle_relative_number)
+map('n', 'Crn', toggle_relative_number)
 local function toggle_wrap()
     vim.opt.wrap = not vim.opt.wrap._value
     vim.cmd([[echo " Wrap: ]] .. tostring(vim.opt.wrap._value) .. [["]])
 end
-m('n', 'Cw', toggle_wrap) -- config toggle lsp lines
+map('n', 'Cw', toggle_wrap) -- config toggle lsp lines
 local function toggle_bufferline_show_all()
     vim.g.bufferline_show_all = not vim.g.bufferline_show_all
     vim.cmd([[echo " Bufferline Show All: ]]
@@ -283,16 +342,16 @@ local function toggle_bufferline_show_all()
         .. [["]]
     )
 end
-m('n', 'Cba', toggle_bufferline_show_all)
+map('n', 'Cba', toggle_bufferline_show_all)
 local function toggle_inlay_hints()
     vim.lsp.inlay_hint(0, nil)
 end
-m('n', 'Cih', toggle_inlay_hints)
+map('n', 'Cih', toggle_inlay_hints)
 local function toggle_colorcolumn()
     local cc = vim.wo.colorcolumn
     cc = cc == '80' and '0' or '80'
 end
-m('n', 'Ccc', toggle_colorcolumn)
+map('n', 'Ccc', toggle_colorcolumn)
 
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
