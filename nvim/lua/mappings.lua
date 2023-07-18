@@ -58,6 +58,8 @@ map('n', 'sl', ':vsp<CR>')
 map('n', 'sj', ':sp<CR>')
 map('n', 'se', '<c-w>=')
 
+map('v', 'V', 'j')
+
 local escape_code = vim.api.nvim_replace_termcodes(
     "<Esc>",
     false, false, true
