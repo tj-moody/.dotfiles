@@ -181,3 +181,17 @@ end
 function lavat
     ~/packages/lavat/lavat -c magenta -R 5 -F @%#&I!:.
 end
+
+function projinit
+    if not test -e environment.yml
+        echo > projfile.lua 'return {
+    ["version"] = "0.1.0",
+    ["tasks"] = {
+        ["run"] = [[]],
+        ["test"] = [[]],
+    },
+}'
+    else
+        echo "`projtasks` file already exists."
+    end
+end

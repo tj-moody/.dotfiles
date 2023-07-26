@@ -198,6 +198,12 @@ return {
         event = 'VeryLazy',
         config = function() require('config.alternate-toggler') end,
     },
+    {
+        'tj-moody/projtasks.nvim',
+        dependencies = { 'akinsho/toggleterm.nvim' },
+        event = 'VeryLazy',
+        config = true,
+    },
     --- Git
     {
         'lewis6991/gitsigns.nvim',
