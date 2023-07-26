@@ -89,7 +89,12 @@ require('lspconfig')['lua_ls'].setup {
     settings = {
         Lua = {
             diagnostics = {
-                globals = { 'vim' },
+                globals = {
+                    'vim',
+                },
+                disable = {
+                    "lowercase-global",
+                },
             },
             hint = {
                 enable = true,
