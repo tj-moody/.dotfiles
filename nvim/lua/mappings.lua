@@ -79,113 +79,116 @@ local function viml_backspace()
         ]])
     return vim.g.exprvalue
 end
-local function backspace()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    local before_cursor_is_whitespace = vim.api.nvim_get_current_line()
-        :sub(0, col)
-        :match("^%s*$")
+m_o('i', '<BS>',
+    function()
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        local before_cursor_is_whitespace = vim.api.nvim_get_current_line()
+            :sub(0, col)
+            :match("^%s*$")
 
-    if not before_cursor_is_whitespace then
-        return require('nvim-autopairs').autopairs_bs()
-    end
-    if line == 1 then
-        return viml_backspace()
-    end
-    local correct_indent = require("nvim-treesitter.indent").get_indent(line)
-    local current_indent = vim.fn.indent(line)
-    local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(
-        0, line - 2, line - 1, false
-    )[1]:match("^%s*$")
-    if current_indent == correct_indent then
-        if previous_line_is_whitespace then
+        if not before_cursor_is_whitespace then
+            return require('nvim-autopairs').autopairs_bs()
+        end
+        if line == 1 then
             return viml_backspace()
         end
+        local correct_indent = require("nvim-treesitter.indent").get_indent(line)
+        local current_indent = vim.fn.indent(line)
+        local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(
+            0, line - 2, line - 1, false
+        )[1]:match("^%s*$")
+        if current_indent == correct_indent then
+            if previous_line_is_whitespace then
+                return viml_backspace()
+            end
+            return backspace_code
+        elseif current_indent > correct_indent then
+            return escape_code .. "==0wi"
+        end
         return backspace_code
-    elseif current_indent > correct_indent then
-        return escape_code .. "==0wi"
-    end
-    return backspace_code
-end
-m_o('i', '<BS>', backspace, {
-    expr = true,
-    noremap = true,
-    replace_keycodes = false,
-})
+    end,
+    { expr = true, noremap = true, replace_keycodes = false }
+)
 map('i', '<S-BS>', '<BS>')
 
 -- adapted from https://vi.stackexchange.com/a/12870
-local next_indent = function()
-    -- Get the current cursor position
-    local current_line, column = unpack(vim.api.nvim_win_get_cursor(0))
-    local match_line = current_line
-    local match_indent = false
+map({ 'n', 'v' }, 'gj',
+    -- next indent
+    function()
+        -- Get the current cursor position
+        local current_line, column = unpack(vim.api.nvim_win_get_cursor(0))
+        local match_line = current_line
+        local match_indent = false
 
-    local buf_length = vim.api.nvim_buf_line_count(0)
+        local buf_length = vim.api.nvim_buf_line_count(0)
 
-    -- Look for a line with the same indent level without going out of the buffer
-    while (not match_indent) and (match_line ~= buf_length) do
-        match_line = match_line + 1
+        -- Look for a line with the same indent level without going out of the buffer
+        while (not match_indent) and (match_line ~= buf_length) do
+            match_line = match_line + 1
 
-        local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
-        -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
-        local match_line_is_whitespace = match_line_str:match("^%s*$")
+            local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
+            -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
+            local match_line_is_whitespace = match_line_str:match("^%s*$")
 
-        match_indent = (vim.fn.indent(match_line) <= vim.fn.indent(current_line))
-            and (not match_line_is_whitespace)
+            match_indent = (vim.fn.indent(match_line) <= vim.fn.indent(current_line))
+                and (not match_line_is_whitespace)
             -- and (stripped_match_line_str ~= "end")
             -- and (stripped_match_line_str ~= "}")
+        end
+
+        -- If a line is found go to this line
+        if match_indent or match_line == buf_length then
+            vim.fn.cursor({ match_line, column + 1 })
+        end
     end
+)
 
-    -- If a line is found go to this line
-    if match_indent or match_line == buf_length then
-        vim.fn.cursor({ match_line, column + 1 })
-    end
-end
-map({ 'n', 'v' }, 'gj', next_indent)
+map({ 'n', 'v' }, 'gk',
+    -- prev_indent
+    function()
+        -- Get the current cursor position
+        local current_line, column = unpack(vim.api.nvim_win_get_cursor(0))
+        local match_line = current_line
+        local match_indent = false
 
-local prev_indent = function()
-    -- Get the current cursor position
-    local current_line, column = unpack(vim.api.nvim_win_get_cursor(0))
-    local match_line = current_line
-    local match_indent = false
+        local buf_length = vim.api.nvim_buf_line_count(0)
 
-    local buf_length = vim.api.nvim_buf_line_count(0)
+        -- Look for a line with the same indent level without going out of the buffer
+        while (not match_indent) and (match_line ~= buf_length) do
+            match_line = match_line - 1
 
-    -- Look for a line with the same indent level without going out of the buffer
-    while (not match_indent) and (match_line ~= buf_length) do
-        match_line = match_line - 1
+            local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
+            -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
+            local match_line_is_whitespace = match_line_str:match("^%s*$")
 
-        local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
-        -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
-        local match_line_is_whitespace = match_line_str:match("^%s*$")
-
-        match_indent = (vim.fn.indent(match_line) <= vim.fn.indent(current_line))
-            and (not match_line_is_whitespace)
+            match_indent = (vim.fn.indent(match_line) <= vim.fn.indent(current_line))
+                and (not match_line_is_whitespace)
             -- and (stripped_match_line_str ~= "end")
             -- and (stripped_match_line_str ~= "}")
-    end
+        end
 
-    -- If a line is found go to this line
-    if match_indent or match_line == buf_length then
-        vim.fn.cursor({ match_line, column + 1 })
+        -- If a line is found go to this line
+        if match_indent or match_line == buf_length then
+            vim.fn.cursor({ match_line, column + 1 })
+        end
     end
-end
-map({ 'n', 'v' }, 'gk', prev_indent)
+)
 
--- Delete all other open buffers
-local function only_buffer()
-    if vim.bo.filetype == 'NvimTree' then
-        vim.cmd('only')
-    else
-        vim.cmd('%bd!')
-        vim.cmd(vim.api.nvim_replace_termcodes(
-            'normal <c-o>',
-            true, true, true
-        ))
-        vim.cmd('bd #')
+map('n', '<leader>O',
+    -- Delete all other buffers
+    function()
+        if vim.bo.filetype == 'NvimTree' then
+            vim.cmd('only')
+        else
+            vim.cmd('%bd!')
+            vim.cmd(vim.api.nvim_replace_termcodes(
+                'normal <c-o>',
+                true, true, true
+            ))
+            vim.cmd('bd #')
+        end
     end
-end
-map('n', '<leader>O', only_buffer)
+)
 map('n', '<leader>o', ":silent only<CR>")
 
 map('n', '<leader>y', '"+y')
@@ -196,41 +199,46 @@ map('v', '>', '>gv4l')
 
 map('n', '<C-C>', '~')
 
-local function change_theme()
-    require('colorscheme').reload()
-end
-map('n', '<leader>ct', change_theme)
+map('n', '<leader>ct',
+    function()
+        require('colorscheme').reload()
+    end
+)
 
 --- PLUGINS
 -- NvimTree
 
-local function nvimtreetoggle()
-    if vim.g.nvimtreefloat == true then
-        require('config.nvim-tree').nvim_tree_setup()
-        return
+map('n', 't',
+    -- Toggle NvimTree
+    function()
+        if vim.g.nvimtreefloat == true then
+            require('config.nvim-tree').nvim_tree_setup()
+            return
+        end
+        if vim.bo.filetype == 'NvimTree' then
+            vim.cmd("NvimTreeClose")
+        else
+            vim.cmd("NvimTreeClose")
+            vim.cmd("NvimTreeOpen")
+        end
+        require('colorscheme').setup('nvim_tree')
     end
-    if vim.bo.filetype == 'NvimTree' then
-        vim.cmd("NvimTreeClose")
-    else
-        vim.cmd("NvimTreeClose")
-        vim.cmd("NvimTreeOpen")
-    end
-    require('colorscheme').setup('nvim_tree')
-end
-map('n', 't', nvimtreetoggle)
+)
 
-local function nvimtreetogglefloat()
-    if vim.g.nvimtreefloat == true then
-        vim.g.nvimtreefloat = false
-        vim.cmd("NvimTreeClose")
-        require('config.nvim-tree').nvim_tree_setup()
-    else
-        require('config.nvim-tree').nvim_tree_float_setup()
-        vim.cmd("NvimTreeClose")
-        vim.cmd("NvimTreeOpen")
+map('n', 'TT',
+    -- Toggle NvimTree float
+    function()
+        if vim.g.nvimtreefloat == true then
+            vim.g.nvimtreefloat = false
+            vim.cmd("NvimTreeClose")
+            require('config.nvim-tree').nvim_tree_setup()
+        else
+            require('config.nvim-tree').nvim_tree_float_setup()
+            vim.cmd("NvimTreeClose")
+            vim.cmd("NvimTreeOpen")
+        end
     end
-end
-map('n', 'TT', nvimtreetogglefloat)
+)
 
 -- Telescope
 map('n', '<leader>ff', ":Telescope smart_open<CR>")
@@ -291,11 +299,12 @@ local lazygit  = Terminal:new({
         FloatBorder = { guibg = '' },
     }
 })
-local function lazygit_toggle() -- Wrapped in a function to match `m()` parameter type specifications
-    lazygit:toggle()
-end
 -- m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
-map('n', '<leader>lg', lazygit_toggle)
+map('n', '<leader>lg',
+    function()
+        lazygit:toggle()
+    end
+)
 map('n', '<leader>gdo', ':DiffviewOpen<CR>') -- TODO: buffer mapping for ,q to be :DiffviewClose
 map('n', '<leader>gdc', ':DiffviewClose<CR>')
 map('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
@@ -319,41 +328,58 @@ map('n', '<c-s>', ':TSJToggle<CR>')
 map('n', '<leader>ta', ':ToggleAlternate<CR>')
 
 --- CONFIG
-local function toggle_lsp_lines()
-    local d_conf = vim.diagnostic.config
-    d_conf({
-        virtual_text = not d_conf().virtual_text,
-        virtual_lines = not d_conf().virtual_lines
-    })
-    -- require('lsp_lines').toggle()
-end
-map('n', 'Cll', toggle_lsp_lines)
-local function toggle_relative_number()
-    vim.opt.relativenumber = not vim.opt.relativenumber._value
-end
-map('n', 'Crn', toggle_relative_number)
-local function toggle_wrap()
-    vim.opt.wrap = not vim.opt.wrap._value
-    vim.cmd([[echo " Wrap: ]] .. tostring(vim.opt.wrap._value) .. [["]])
-end
-map('n', 'Cw', toggle_wrap) -- config toggle lsp lines
-local function toggle_bufferline_show_all()
-    vim.g.bufferline_show_all = not vim.g.bufferline_show_all
-    vim.cmd([[echo " Bufferline Show All: ]]
-        .. tostring(vim.g.bufferline_show_all)
-        .. [["]]
-    )
-end
-map('n', 'Cba', toggle_bufferline_show_all)
-local function toggle_inlay_hints()
-    vim.lsp.inlay_hint(0, nil)
-end
-map('n', 'Cih', toggle_inlay_hints)
-local function toggle_colorcolumn()
-    local cc = vim.wo.colorcolumn
-    cc = cc == '80' and '0' or '80'
-end
-map('n', 'Ccc', toggle_colorcolumn)
+
+map('n', 'Cll',
+    -- Toggle LSP Lines
+    function()
+        local d_conf = vim.diagnostic.config
+        d_conf({
+            virtual_text = not d_conf().virtual_text,
+            virtual_lines = not d_conf().virtual_lines
+        })
+    end
+)
+
+map('n', 'Crn',
+    -- Toggle relative number
+    function()
+        vim.opt.relativenumber = not vim.opt.relativenumber._value
+    end
+)
+
+map('n', 'Cw',
+    -- Toggle wrap
+    function()
+        vim.opt.wrap = not vim.opt.wrap._value
+        vim.cmd([[echo " Wrap: ]] .. tostring(vim.opt.wrap._value) .. [["]])
+    end
+)
+
+map('n', 'Cba',
+    -- Toggle Bufferline show all
+    function()
+        vim.g.bufferline_show_all = not vim.g.bufferline_show_all
+        vim.cmd([[echo " Bufferline Show All: ]]
+            .. tostring(vim.g.bufferline_show_all)
+            .. [["]]
+        )
+    end
+)
+
+map('n', 'Cih',
+    -- Toggle inlay hints
+    function()
+        vim.lsp.inlay_hint(0, nil)
+    end
+)
+
+map('n', 'Ccc',
+    -- Toggle Colorcolumn
+    function()
+        local cc = vim.wo.colorcolumn
+        cc = cc == '80' and '0' or '80'
+    end
+)
 
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
