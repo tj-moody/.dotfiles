@@ -63,6 +63,7 @@ return {
             { 'nvim-treesitter/nvim-treesitter-textobjects' },
             { 'Wansmer/treesj' },
             { 'nvim-treesitter/playground' },
+            { 'rush-rs/tree-sitter-asm' },
         },
         config = function() require('config.treesitter') end,
     },
