@@ -327,6 +327,11 @@ map('n', '<c-s>', ':TSJToggle<CR>')
 -- alternate-toggler
 map('n', '<leader>ta', ':ToggleAlternate<CR>')
 
+-- project
+map('n', '<leader>pr', ':ProjtasksRun')
+map('n', '<leader>pt', ':ProjtasksToggle')
+map('n', '<leader>pT', ':ProjtasksTest')
+
 --- CONFIG
 
 map('n', 'Cll',
