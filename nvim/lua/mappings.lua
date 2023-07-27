@@ -386,6 +386,17 @@ map('n', 'Ccc',
     end
 )
 
+map('n', 'Cve',
+    -- Toggle virtual edit
+    function()
+        if vim.opt.virtualedit._value == 'all' then
+            vim.opt.virtualedit = ''
+        else
+            vim.opt.virtualedit = 'all'
+        end
+    end
+)
+
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
