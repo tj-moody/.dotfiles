@@ -308,7 +308,8 @@ map('n', '<leader>lg',
 map('n', '<leader>gdo', ':DiffviewOpen<CR>') -- TODO: buffer mapping for ,q to be :DiffviewClose
 map('n', '<leader>gdc', ':DiffviewClose<CR>')
 map('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
-map('n', '<leader>gj', ':Gitsigns prev_hunk<CR>')
+map('n', '<leader>gk', ':Gitsigns prev_hunk<CR>')
+map('n', '<leader>gb', ':Gitsigns blame_line<CR>')
 
 -- smart-splits
 map('n', '<space>h', require('smart-splits').resize_left)
@@ -394,6 +395,13 @@ map('n', 'Cve',
         else
             vim.opt.virtualedit = 'all'
         end
+    end
+)
+
+map('n', 'Cgb',
+    -- Toggle git blame
+    function()
+        vim.cmd("Gitsigns toggle_current_line_blame")
     end
 )
 
