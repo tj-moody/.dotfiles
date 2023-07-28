@@ -64,10 +64,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         local bufnr = args.buf
         local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        if client.name == "lua_ls" then
+            return
+        end
+
         if client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint(bufnr, true)
         end
     end,
 })
 
-vim.cmd [[autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0]]
+-- Format makefile whitespace properly
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = "Filetype Options",
+    pattern = { 'make' },
+    callback = function(_)
+        vim.bo.expandtab = false
+        vim.bo.shiftwidth = 4
+        vim.bo.softtabstop = 0
+    end,
+})
+-- vim.cmd [[autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0]]
