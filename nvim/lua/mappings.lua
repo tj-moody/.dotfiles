@@ -408,11 +408,9 @@ map('n', 'Cgb',
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
--- Invert horizontal scrolling direction
--- Disable in the future?
-vim.cmd [[inoremap <ScrollWheelLeft>  <ScrollWheelRight>]]
-vim.cmd [[inoremap <ScrollWheelRight> <ScrollWheelLeft> ]]
-vim.cmd [[nnoremap <ScrollWheelLeft>  <ScrollWheelRight>]]
-vim.cmd [[nnoremap <ScrollWheelRight> <ScrollWheelLeft> ]]
-vim.cmd [[vnoremap <ScrollWheelLeft>  <ScrollWheelRight>]]
-vim.cmd [[vnoremap <ScrollWheelRight> <ScrollWheelLeft> ]]
+map('i', '<ScrollWheelLeft>', '')
+map('i', '<ScrollWheelRight>', '')
+map('n', '<ScrollWheelLeft>', '')
+map('n', '<ScrollWheelRight>', '')
+map('v', '<ScrollWheelLeft>', '')
+map('v', '<ScrollWheelRight>', '')
