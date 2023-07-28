@@ -81,10 +81,7 @@ require("rust-tools").setup {
 }
 require('rust-tools').inlay_hints.disable()
 require('lspconfig')['lua_ls'].setup {
-    on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-        require("lsp-inlayhints").on_attach(client, bufnr)
-    end,
+    on_attach = on_attach,
     flags = lsp_flags,
     settings = {
         Lua = {

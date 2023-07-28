@@ -84,10 +84,6 @@ return {
                     { 'folke/neodev.nvim' },
                     { 'ray-x/lsp_signature.nvim' },
                     { 'simrat39/rust-tools.nvim' },
-                    {
-                        'lvimuser/lsp-inlayhints.nvim',
-                        branch = "anticonceal",
-                    },
                 },
             },
             { 'hrsh7th/cmp-nvim-lsp' },
@@ -106,12 +102,6 @@ return {
         "jose-elias-alvarez/null-ls.nvim",
         config = function() require('config.null-ls') end,
         dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    {
-        "willothy/luahint",
-        build = "cargo install --path=./",
-        config = true
-        -- or opts = { ... }
     },
     --- DAP
     --- UTILS
@@ -256,10 +246,6 @@ return {
     {
         'folke/todo-comments.nvim',
         event = 'VeryLazy',
-        config = true,
-    },
-    {
-        'xiyaowong/virtcolumn.nvim',
         config = true,
     },
     fun,
