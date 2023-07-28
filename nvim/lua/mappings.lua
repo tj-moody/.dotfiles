@@ -329,7 +329,7 @@ map('n', '<leader>ta', ':ToggleAlternate<CR>')
 
 -- project
 map('n', '<leader>pr', ':ProjtasksRun<CR>')
-map('n', '<leader>pt', ':ProjtasksToggle<CR>')
+map('n', '<leader>pp', ':ProjtasksToggle<CR>')
 map('n', '<leader>pT', ':ProjtasksTest<CR>')
 
 --- CONFIG
