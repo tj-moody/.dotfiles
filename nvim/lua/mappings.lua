@@ -349,15 +349,15 @@ map('n', 'Cll',
 map('n', 'Crn',
     -- Toggle relative number
     function()
-        vim.opt.relativenumber = not vim.opt.relativenumber._value
+        vim.o.relativenumber = not vim.o.relativenumber
     end
 )
 
 map('n', 'Cw',
     -- Toggle wrap
     function()
-        vim.opt.wrap = not vim.opt.wrap._value
-        vim.cmd([[echo " Wrap: ]] .. tostring(vim.opt.wrap._value) .. [["]])
+        vim.o.wrap = not vim.o.wrap
+        vim.cmd([[echo " Wrap: ]] .. tostring(vim.o.wrap) .. [["]])
     end
 )
 
@@ -390,10 +390,10 @@ map('n', 'Ccc',
 map('n', 'Cve',
     -- Toggle virtual edit
     function()
-        if vim.opt.virtualedit._value == 'all' then
-            vim.opt.virtualedit = ''
+        if vim.o.virtualedit == 'all' then
+            vim.o.virtualedit = ''
         else
-            vim.opt.virtualedit = 'all'
+            vim.o.virtualedit = 'all'
         end
     end
 )
