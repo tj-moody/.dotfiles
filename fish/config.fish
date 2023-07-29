@@ -28,6 +28,9 @@ if status is-interactive
     enable_transience
     zoxide init fish | source
 
+    bind -M insert \ce forward-word
+    bind -M normal \ce forward-word
+
     # Kitty
     set kittypath (which kitty)
     [ ! -z "$kittypath" ] && set -gx TERM xterm-kitty && kitty +kitten themes --reload-in=all $COLORS_NAME
