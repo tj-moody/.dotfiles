@@ -129,7 +129,7 @@ local opts = {
 
 require('alpha').setup(opts)
 
-require('colorscheme').setup('alpha')
+safe_require('colorscheme').setup('alpha')
 
 vim.api.nvim_create_autocmd("User", {
     pattern = "LazyVimStarted",
@@ -138,7 +138,7 @@ vim.api.nvim_create_autocmd("User", {
         local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
         footer2.val = " " .. require("lazy").stats().count
             .. " plugins  󱑎 " .. ms .. "ms"
-        require('colorscheme').setup('alpha')
+        safe_require('colorscheme').setup('alpha')
         pcall(vim.cmd.AlphaRedraw)
     end,
 })

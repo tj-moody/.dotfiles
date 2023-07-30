@@ -201,7 +201,7 @@ map('n', '<C-C>', '~')
 
 map('n', '<leader>ct',
     function()
-        require('colorscheme').reload()
+        safe_require('colorscheme').reload()
     end
 )
 
@@ -212,7 +212,7 @@ map('n', 't',
     -- Toggle NvimTree
     function()
         if vim.g.nvimtreefloat == true then
-            require('config.nvim-tree').nvim_tree_setup()
+            safe_require('config.nvim-tree').nvim_tree_setup()
             return
         end
         if vim.bo.filetype == 'NvimTree' then
@@ -221,7 +221,7 @@ map('n', 't',
             vim.cmd("NvimTreeClose")
             vim.cmd("NvimTreeOpen")
         end
-        require('colorscheme').setup('nvim_tree')
+        safe_require('colorscheme').setup('nvim_tree')
     end
 )
 
@@ -231,9 +231,9 @@ map('n', 'TT',
         if vim.g.nvimtreefloat == true then
             vim.g.nvimtreefloat = false
             vim.cmd("NvimTreeClose")
-            require('config.nvim-tree').nvim_tree_setup()
+            safe_require('config.nvim-tree').nvim_tree_setup()
         else
-            require('config.nvim-tree').nvim_tree_float_setup()
+            safe_require('config.nvim-tree').nvim_tree_float_setup()
             vim.cmd("NvimTreeClose")
             vim.cmd("NvimTreeOpen")
         end

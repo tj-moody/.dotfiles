@@ -88,6 +88,8 @@ require('lspconfig')['lua_ls'].setup {
             diagnostics = {
                 globals = {
                     'vim',
+                    'P',
+                    'safe_require',
                 },
                 disable = {
                     "lowercase-global",

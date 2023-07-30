@@ -1,8 +1,8 @@
-local bgcolor = require("colorscheme").get_color('Normal', 'bg#')
+local bgcolor = safe_require("colorscheme").get_color('Normal', 'bg#')
 local tabline_sel_bg = '#a2b5c1'
 vim.api.nvim_set_hl(0, 'TabLineSel', { fg = tabline_sel_bg, })
 
--- local get_color = require("colorscheme").get_color
+-- local get_color = safe_require("colorscheme").get_color
 -- local error_color = get_color('DiagnosticError', 'fg#')
 -- local warning_color = get_color('DiagnosticWarn', 'fg#')
 -- local hint_color = get_color('DiagnosticHint', 'fg#')
@@ -104,7 +104,7 @@ require("bufferline").setup {
             --     local warning = #vim.diagnostic.get(0, { severity = seve.WARN })
             --     local info = #vim.diagnostic.get(0, { severity = seve.INFO })
             --     local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
-            --     -- local get_color = require("colorscheme").get_color
+            --     -- local get_color = safe_require("colorscheme").get_color
             --     -- local error_color = get_color('DiagnosticError', 'fg#')
             --     -- local warning_color = get_color('DiagnosticWarn', 'fg#')
             --     -- local hint_color = get_color('DiagnosticHint', 'fg#')

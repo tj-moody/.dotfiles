@@ -605,8 +605,8 @@ function M.reload()
     M.setup()
     M.setup('alpha')
     M.setup('nvim_tree')
-    require('config.bufferline')
-    require('config.lualine')
+    safe_require('config.bufferline')
+    safe_require('config.lualine')
 end
 
 print("")

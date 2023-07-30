@@ -31,7 +31,7 @@ return {
             'nyngwang/midnight-club.nvim',
         },
         lazy = false,
-        config = function() require("colorscheme").setup() end,
+        config = function() safe_require("colorscheme").setup() end,
     },
     --- Telescope
     {
@@ -50,7 +50,7 @@ return {
                 },
             },
         },
-        config = function() require('config.telescope') end,
+        config = function() safe_require('config.telescope') end,
     },
     --- Treesitter
     {
@@ -65,7 +65,7 @@ return {
             { 'nvim-treesitter/playground' },
             { 'rush-rs/tree-sitter-asm' },
         },
-        config = function() require('config.treesitter') end,
+        config = function() safe_require('config.treesitter') end,
     },
     --- LSP
     {
@@ -74,12 +74,12 @@ return {
         dependencies = {
             {
                 'neovim/nvim-lspconfig',
-                config = function() require('config.lspconfig') end,
+                config = function() safe_require('config.lspconfig') end,
                 dependencies = {
                     {
                         'williamboman/mason.nvim',
                         dependencies = 'williamboman/mason-lspconfig.nvim',
-                        config = function() require('config.mason') end,
+                        config = function() safe_require('config.mason') end,
                     },
                     { 'folke/neodev.nvim' },
                     { 'ray-x/lsp_signature.nvim' },
@@ -94,13 +94,13 @@ return {
             { 'saadparwaiz1/cmp_luasnip' },
             { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
             { 'onsails/lspkind.nvim' },
-            config = function() require('config.cmp') end,
+            config = function() safe_require('config.cmp') end,
         },
     },
     {
         event = 'VeryLazy',
         "jose-elias-alvarez/null-ls.nvim",
-        config = function() require('config.null-ls') end,
+        config = function() safe_require('config.null-ls') end,
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     --- DAP
@@ -137,14 +137,14 @@ return {
         keys = { '<c-t>', },
         cmd = { 'ToggleTerm' },
         config = function()
-            require('config.toggleterm')
-            require('colorscheme').setup('toggleterm')
+            safe_require('config.toggleterm')
+            safe_require('colorscheme').setup('toggleterm')
         end,
     },
     {
         'numToStr/Comment.nvim',
         event = 'VeryLazy',
-        config = function() require('config.comment') end,
+        config = function() safe_require('config.comment') end,
     },
     {
         'windwp/nvim-autopairs',
@@ -157,22 +157,22 @@ return {
     {
         'norcalli/nvim-colorizer.lua',
         event = 'VeryLazy',
-        config = function() require('config.colorizer') end,
+        config = function() safe_require('config.colorizer') end,
     },
     {
         'mrjones2014/smart-splits.nvim',
         event = 'VeryLazy',
-        config = function() require('config.smart-splits') end
+        config = function() safe_require('config.smart-splits') end
     },
     {
         'chrisgrieser/nvim-various-textobjs',
         event = 'VeryLazy',
-        config = function() require('config.various-textobjs') end
+        config = function() safe_require('config.various-textobjs') end
     },
     {
         'JellyApple102/flote.nvim',
         event = 'VeryLazy',
-        config = function() require('config.flote') end
+        config = function() safe_require('config.flote') end
     },
     {
         'RaafatTurki/hex.nvim',
@@ -186,7 +186,7 @@ return {
     {
         'rmagatti/alternate-toggler',
         event = 'VeryLazy',
-        config = function() require('config.alternate-toggler') end,
+        config = function() safe_require('config.alternate-toggler') end,
     },
     {
         'tj-moody/projtasks.nvim',
@@ -212,36 +212,36 @@ return {
         priority = 100,
         event = "VeryLazy",
         dependencies = 'nvim-tree/nvim-web-devicons',
-        config = function() require('config.bufferline') end,
+        config = function() safe_require('config.bufferline') end,
     },
     {
         'nvim-lualine/lualine.nvim',
         priority = 100,
         event = 'VeryLazy',
-        config = function() require('config.lualine') end,
+        config = function() safe_require('config.lualine') end,
     },
     {
         'nvim-tree/nvim-tree.lua',
         cmd = { 'NvimTreeClose', 'NvimTreeToggle', },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function() require('config.nvim-tree').nvim_tree_setup() end,
+        config = function() safe_require('config.nvim-tree').nvim_tree_setup() end,
     },
     {
         'goolord/alpha-nvim',
         event = 'VimEnter',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function() require('config.alpha') end
+        config = function() safe_require('config.alpha') end
     },
     {
         'j-hui/fidget.nvim',
         tag = 'legacy',
         event = 'VeryLazy',
-        config = function() require('config.fidget') end
+        config = function() safe_require('config.fidget') end
     },
     {
         'folke/which-key.nvim',
         event = 'VeryLazy',
-        config = function() require('config.whichkey') end,
+        config = function() safe_require('config.whichkey') end,
     },
     {
         'folke/todo-comments.nvim',
