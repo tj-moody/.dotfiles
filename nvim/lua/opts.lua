@@ -52,6 +52,7 @@ for k, v in pairs(opts) do
 end
 
 vim.g.bufferline_show_all = false
+vim.g.lualine_verbose = false
 vim.g.have_fun = false
 
 vim.cmd [[set formatoptions-=cro]]

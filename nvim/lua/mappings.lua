@@ -414,6 +414,13 @@ map('n', 'Cgb',
     end
 )
 
+map('n', 'Clv',
+    -- Toggle detailed lualine
+    function()
+        vim.g.lualine_verbose = not vim.g.lualine_verbose
+    end
+)
+
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 

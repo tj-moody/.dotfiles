@@ -77,9 +77,7 @@ if THEME and colors_table[THEME] then
     colors = colors_table[THEME]
 end
 
-local function ts_active()
-    return vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil
-end
+local comment_fg = safe_require('colorscheme').get_color('Comment', 'fg#')
 
 local theme = {
     normal = {
@@ -157,6 +155,46 @@ local lualine_config = {
                 symbols = { added = '', modified = '', removed = '' },
                 padding = 1,
             },
+            {
+                function()
+                    return vim.fn.bufnr(0)
+                end,
+                icon = '',
+                cond = function()
+                    return vim.g.lualine_verbose
+                end,
+                color = { fg = comment_fg },
+            },
+            {
+                function()
+                    local words = vim.fn.wordcount()['words']
+                    return 'wc: ' .. words
+                end,
+                cond = function()
+                    local ft = vim.opt_local.filetype:get()
+                    local count = {
+                        latex = true,
+                        tex = true,
+                        text = true,
+                        markdown = true,
+                        vimwiki = true,
+                    }
+                    return count[ft] ~= nil
+                end,
+                color = { fg = comment_fg },
+            },
+            {
+                -- https://github.com/chrisgrieser/.config/blob/main/nvim/lua/plugins/lualine.lua
+                function()
+                    local isVisualMode = vim.fn.mode():find("[Vv]")
+                    if not isVisualMode then return "" end
+                    local starts = vim.fn.line("v")
+                    local ends = vim.fn.line(".")
+                    local lines = starts <= ends and ends - starts + 1 or starts - ends + 1
+                    return lines .. "L"
+                end,
+                color = { fg = comment_fg },
+            },
         },
         lualine_c = {
             {
@@ -210,7 +248,9 @@ local lualine_config = {
                     return ''
                 end,
                 color = { fg = colors.normal },
-                cond = ts_active,
+                cond = function()
+                    return vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil
+                end,
             },
             {
                 function()
