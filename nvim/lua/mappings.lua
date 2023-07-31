@@ -314,8 +314,15 @@ map('n', '<leader>lg',
         lazygit:toggle()
     end
 )
-map('n', '<leader>gdo', ':DiffviewOpen<CR>') -- TODO: buffer mapping for ,q to be :DiffviewClose
-map('n', '<leader>gdc', ':DiffviewClose<CR>')
+map('n', '<leader>gd',
+    function()
+        if next(require('diffview.lib').views) == nil then
+            vim.cmd('DiffviewOpen')
+        else
+            vim.cmd('DiffviewClose')
+        end
+    end
+)
 map('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
 map('n', '<leader>gk', ':Gitsigns prev_hunk<CR>')
 map('n', '<leader>gb', ':Gitsigns blame_line<CR>')
