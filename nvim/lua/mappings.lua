@@ -214,6 +214,18 @@ map('n', '<leader>ct',
     end
 )
 
+map('n', '<leader>cr',
+    function()
+        vim.cmd [[
+            let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+            for r in regs
+            call setreg(r, [])
+            endfor
+        ]]
+        print('Cleared registers')
+    end
+)
+
 --- PLUGINS
 -- NvimTree
 
@@ -373,7 +385,7 @@ map('n', 'Cw',
     -- Toggle wrap
     function()
         vim.o.wrap = not vim.o.wrap
-        vim.cmd([[echo " Wrap: ]] .. tostring(vim.o.wrap) .. [["]])
+        print("Wrap: " .. tostring(vim.o.wrap))
     end
 )
 
@@ -381,10 +393,7 @@ map('n', 'Cba',
     -- Toggle Bufferline show all
     function()
         vim.g.bufferline_show_all = not vim.g.bufferline_show_all
-        vim.cmd([[echo " Bufferline Show All: ]]
-            .. tostring(vim.g.bufferline_show_all)
-            .. [["]]
-        )
+        print("Bufferline Show All: " .. tostring(vim.g.bufferline_show_all))
     end
 )
 
@@ -411,13 +420,18 @@ map('n', 'Cve',
         else
             vim.o.virtualedit = 'all'
         end
+        if vim.o.virtualedit == 'all' then
+            print("Virtual Edit: true")
+        else
+            print("Virtual Edit: false")
+        end
     end
 )
 
 map('n', 'Cgb',
     -- Toggle git blame
     function()
-        vim.cmd("Gitsigns toggle_current_line_blame")
+         vim.cmd("Gitsigns toggle_current_line_blame")
     end
 )
 
@@ -425,6 +439,7 @@ map('n', 'Clv',
     -- Toggle detailed lualine
     function()
         vim.g.lualine_verbose = not vim.g.lualine_verbose
+        print("Verbose Lualine: " .. tostring(vim.g.lualine_verbose))
     end
 )
 
