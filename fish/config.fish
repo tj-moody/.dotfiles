@@ -39,13 +39,14 @@ if status is-interactive
     # set -gx PS1 "\e[33m\u \e[0;35m\W\e[0m "
 
     # Aliases
-    alias nv "nvim"
-    alias src "source ~/.config/fish/config.fish"
-    alias lg "lazygit"
-    alias gs "git status"
-    alias md "glow"
+    alias nv      "nvim"
+    alias src     "source ~/.config/fish/config.fish"
+    alias lg      "lazygit"
+    alias gs      "git status"
+    alias md      "glow" # https://github.com/charmbracelet/glow
+    alias snip    "nap" # https://github.com/maaslalani/nap
 
-    alias pond "pond -db"
+    alias pond    "pond -db"
     alias arttime "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
 end
 
