@@ -10,7 +10,7 @@ function M.get_color(group, attr)
     return fn.synIDattr(fn.synIDtrans(fn.hlID(group)), attr)
 end
 
-local themes_list = {
+M.themes_list = {
     "noclownfiesta",
     "kanagawa",
     "kanagawa_dark",
@@ -26,12 +26,12 @@ local themes_list = {
 
 vim.g.tjtheme = os.getenv("COLORS_NAME")
 local valid_color = false
-for _, v in ipairs(themes_list) do
+for _, v in ipairs(M.themes_list) do
     if v == vim.g.tjtheme then
         valid_color = true
     end
 end
-if not valid_color then vim.g.tjtheme = "kanagawa" end
+if not valid_color and not vim.g.tjtheme then vim.g.tjtheme = "kanagawa" end
 -- vim.g.THEME = vim.env.COLORS_NAME
 
 local colors_table = {
@@ -479,6 +479,7 @@ local clear_hl_bg_table = {
 
     'NvimTreeNormal',
     'NvimTreeNormalNC',
+    'NvimTreeNormalFloat',
     'ErrorMsg',
     'WarningMsg',
     'Title',

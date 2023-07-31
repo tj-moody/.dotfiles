@@ -201,7 +201,16 @@ map('n', '<C-C>', '~')
 
 map('n', '<leader>ct',
     function()
-        safe_require('colorscheme').reload()
+        vim.ui.select(safe_require('colorscheme').themes_list, {
+                prompt = "Choose theme:",
+            },
+            function(choice)
+                if choice then
+                    vim.g.tjtheme = choice
+                    safe_require('colorscheme').reload()
+                end
+            end
+        )
     end
 )
 
