@@ -54,4 +54,40 @@ set background=dark
 nnoremap j gj
 nnoremap k gk
 
+nnoremap <leader>w :silent write<CR>
+nnoremap <leader><leader>x :silent write<CR>:source<CR>:noh<CR>
+
+nnoremap <leader>q :q<CR>
+nnoremap <esc> :noh<CR>:echo ''<CR>
+
+vnoremap K :m '<-2<CR>gv=gv
+vnoremap J :m '>+1<CR>gv=gv
+
+nnoremap <CR> mzo<esc>`z
+nnoremap <S-CR> mzO<esc>`z
+
+nnoremap p ]p
+vnoremap p "0p
+
+nnoremap x "_x
+
+nnoremap J mzJ`z
+
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+nnoremap sl :vsp<CR>
+nnoremap sj :sp<CR>
+nnoremap se <c-w>=
+
+vnoremap V j
 nnoremap gV `[v`]
+
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+
+vnoremap < <gv4h
+vnoremap > >gv4h

@@ -199,8 +199,6 @@ map('v', '<leader>y', '"+y')
 map('v', '<', '<gv4h')
 map('v', '>', '>gv4l')
 
-map('n', '<C-C>', '~')
-
 map('n', '<leader>ct',
     function()
         vim.ui.select(safe_require('colorscheme').themes_list, {
