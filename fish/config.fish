@@ -39,7 +39,7 @@ if status is-interactive
     # set -gx PS1 "\e[33m\u \e[0;35m\W\e[0m "
 
     # Aliases
-    alias nv      "nvim"
+    alias nv      "/Users/tj/.dotfiles/bash/nv.bash"
     alias src     "source ~/.config/fish/config.fish"
     alias lg      "lazygit"
     alias gs      "git status"
