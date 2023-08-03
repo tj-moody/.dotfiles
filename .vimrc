@@ -51,6 +51,8 @@ set listchars=tab:▸\ ,eol:¬
 set t_Co=256
 set background=dark
 
+nnoremap <leader>. :vsp .<CR>
+
 nnoremap j gj
 nnoremap k gk
 
@@ -86,8 +88,15 @@ nnoremap se <c-w>=
 vnoremap V j
 nnoremap gV `[v`]
 
+nnoremap <leader>o :silent only<CR>
+
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 
 vnoremap < <gv4h
 vnoremap > >gv4h
+
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
