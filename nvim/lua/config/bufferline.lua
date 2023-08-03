@@ -85,7 +85,7 @@ require("bufferline").setup {
         -- separator_style = "thick",
         separator_style = { ' ', ' ' },
         enforce_regular_tabs = false,
-        always_show_bufferline = false,
+        always_show_bufferline = true,
         hover = {
             enabled = true,
             delay = 200,
