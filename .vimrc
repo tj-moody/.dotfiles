@@ -1,8 +1,6 @@
 set nocompatible
 
-
 let mapleader = ","
-
 
 set autoindent
 set expandtab
