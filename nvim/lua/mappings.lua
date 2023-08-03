@@ -226,6 +226,9 @@ map('n', '<leader>cr',
     end
 )
 
+-- Restart nvim
+map('n', '<leader>R', ':wa<CR>:cq<CR>')
+
 --- PLUGINS
 -- NvimTree
 
