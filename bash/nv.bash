@@ -1,8 +1,13 @@
 #!/opt/homebrew/bin/bash
 
-/Users/tj/.local/share/bob/nvim-bin/nvim "$@"
+first="true"
 while true; do
-    /Users/tj/.local/share/bob/nvim-bin/nvim +SessionRestore "$@"  # change path to real nvim binary as necessary
+    if [[ "$first" == "true" ]]; then
+        first="false"
+        /Users/tj/.local/share/bob/nvim-bin/nvim "$@"
+    else
+        /Users/tj/.local/share/bob/nvim-bin/nvim +SessionRestore "$@"
+    fi
     if [ $? -ne 1 ]; then
         break
     fi
