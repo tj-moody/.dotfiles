@@ -56,3 +56,4 @@ vim.g.lualine_verbose = false
 vim.g.have_fun = false
 
 vim.cmd [[set formatoptions-=cro]]
+vim.cmd [[set formatoptions+=j]]

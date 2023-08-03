@@ -1,0 +1,57 @@
+set nocompatible
+
+
+let mapleader = ","
+
+
+set autoindent
+set expandtab
+set shiftround
+set shiftwidth=4
+set smarttab
+set tabstop=4
+
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+
+set lazyredraw
+
+set display+=lastline
+set encoding=utf-8
+set linebreak
+set scrolloff=3
+set sidescrolloff=5
+syntax on
+filetype plugin indent on
+
+set laststatus=3
+set ruler
+set wildmenu
+set cursorline
+set number
+set relativenumber
+set mouse=a
+set title
+set wrap
+
+set backspace=indent,eol,start
+set matchpairs+=<:>
+set confirm
+set formatoptions+=j
+set hidden
+set history=1000
+set nomodeline
+set spell
+set wildignore+=.pyc,.swp
+
+set listchars=tab:▸\ ,eol:¬
+
+set t_Co=256
+set background=dark
+
+nnoremap j gj
+nnoremap k gk
+
+nnoremap gV `[v`]

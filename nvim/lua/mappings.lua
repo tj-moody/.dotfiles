@@ -60,6 +60,8 @@ map('n', 'se', '<c-w>=')
 
 map('v', 'V', 'j')
 
+map('n', 'gV', "`[v`]")
+
 local escape_code = vim.api.nvim_replace_termcodes(
     "<Esc>",
     false, false, true
