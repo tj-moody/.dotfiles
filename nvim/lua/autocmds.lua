@@ -1,6 +1,6 @@
 -- fix filetype.vim format options issue
 vim.api.nvim_create_augroup("Filetype Options", {})
-vim.api.nvim_create_autocmd('Filetype', {
+vim.api.nvim_create_autocmd({ "Filetype" }, {
     group = "Filetype Options",
     callback = function(_)
         vim.cmd("set formatoptions-=cro")
@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 
 -- Automatically enable inlay hints
 vim.api.nvim_create_augroup("Inlay Hints", {})
-vim.api.nvim_create_autocmd("LspAttach", {
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
     group = "Inlay Hints",
     callback = function(args)
         if not (args.data and args.data.client_id) then
@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Format makefile whitespace properly
-vim.api.nvim_create_autocmd("LspAttach", {
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
     group = "Filetype Options",
     pattern = { 'make' },
     callback = function(_)
@@ -86,3 +86,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 -- vim.cmd [[autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0]]
+
+vim.api.nvim_create_augroup("Auto-Session", {})
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+    callback = function(args)
+        if vim.g.in_pager_mode then
+            return
+        end
+        if vim.api.nvim_get_option_value("filetype", { buf = args.buf }) == "alpha" then
+            return
+        end
+        vim.cmd("SessionSave")
+    end,
+
+})

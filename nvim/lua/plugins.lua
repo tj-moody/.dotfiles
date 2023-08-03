@@ -120,7 +120,7 @@ return {
         event = 'VeryLazy',
         cmd = { 'SessionRestore' },
         opts = {
-            auto_save_enabled = true,
+            auto_save_enabled = false,
             auto_restore_enabled = false,
             log_level = "error",
             auto_session_suppress_dirs = {
