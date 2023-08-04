@@ -111,3 +111,9 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
+
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+set timeoutlen=1000
+set ttimeoutlen=5
