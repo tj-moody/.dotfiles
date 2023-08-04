@@ -52,7 +52,9 @@ set formatoptions+=j
 set hidden
 set history=1000
 set nomodeline
-set spell
+autocmd FileType markdown setlocal spell
+autocmd FileType text setlocal spell
+autocmd FileType gitcommit setlocal spell
 set wildignore+=.pyc,.swp
 
 set listchars=tab:▸\ ,eol:¬
