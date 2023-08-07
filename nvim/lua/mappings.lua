@@ -452,7 +452,14 @@ map('v', '<ScrollWheelLeft>', '')
 map('v', '<ScrollWheelRight>', '')
 
 --- Abbreviations
-map('ia', '@@@g', 'tjsmoody@gmail.com')
-m_o('ia', '@@@D', 'strftime("%c")', { expr = true })
-m_o('ia', '@@@d', 'strftime("%m/%d/%y")', { expr = true })
-m_o('ia', '@@@t', 'strftime("%H:%M")', { expr = true })
+-- Two letter identification `@gi@`
+--   - `g` : group
+--   - `i` : item
+
+-- @ - email
+map('ia', '@@g@', 'tjsmoody@gmail.com')
+
+-- d - datetime
+m_o('ia', '@dD@', 'strftime("%c")', { expr = true })
+m_o('ia', '@dd@', 'strftime("%m/%d/%y")', { expr = true })
+m_o('ia', '@dt@', 'strftime("%H:%M")', { expr = true })
