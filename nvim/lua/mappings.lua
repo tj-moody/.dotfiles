@@ -62,6 +62,8 @@ map('v', 'V', 'j')
 
 map('n', 'gV', "`[v`]")
 
+map('i', '<esc>', '<esc>`^')
+
 local escape_code = vim.api.nvim_replace_termcodes(
     "<Esc>",
     false, false, true
