@@ -63,8 +63,9 @@ set wildignore+=.pyc,.swp
 set splitright
 autocmd WinNew * wincmd L
 
-set listchars=tab:▸\ 
+set listchars=tab:▸\
 set fillchars=eob:\ 
+
 
 set t_Co=256
 set background=dark
@@ -157,7 +158,7 @@ set statusline+=%#Comment#%{(&ff=='mac')?'\ \ ':''}
 set statusline+=%=
 
 set statusline +=%#NormalColor#%5l           "current line
-set statusline +=%#Normal#/                  
+set statusline +=%#Normal#/
 set statusline +=%#ReplaceColor#%L           "total lines
 set statusline +=%#NormalColor#%4v           "virtual column number
 
@@ -185,7 +186,7 @@ hi DiffText term=bold guibg=#213352
 hi EndOfBuffer guifg=#504945
 hi ErrorMsg guifg=#fb4934 guibg=NONE
 hi VertSplit guifg=#ebdbb2 guibg=NONE
-" hi Folded	
+" hi Folded
 " hi FoldColumn
 " hi SignColumn
 hi IncSearch guifg=#fe8019
@@ -196,10 +197,10 @@ hi CursorLineNr guifg=#fabd2f
 hi link CursorLineFold FoldColumn
 hi link CursorLineSign SignColumn
 hi MatchParen guifg=#ebdbb2
-hi clear ModeMsg	
+hi clear ModeMsg
 hi MoreMsg guifg=#fabd2f
-hi clear NonText	
-hi Normal guifg=#ebdbb2	
+hi clear NonText
+hi Normal guifg=#ebdbb2
 hi Pmenu guibg=#504945 guifg=#ebdbb2
 hi PmenuSel term=bold guibg=#83a598 guifg=#504945
 hi PmenuSbar guibg=#504945
@@ -237,6 +238,9 @@ hi Special guifg=#fe8019
 hi Underlined term=underline guifg=#83a598
 hi Error term=bold guifg=#fb4934
 hi Todo term=bold,italic guifg=#fbf1c7
+
+""" commentary.vim - copied from vim-commentary with
+""" modifications from tj-moody/vim-commentary fork
 
 " commentary.vim - Comment stuff out
 " Maintainer:   Tim Pope <http://tpo.pe/>
@@ -351,11 +355,9 @@ nnoremap <silent> <Plug>ChangeCommentary c:<C-U>call <SID>textobject(1)<CR>
 nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"<CR>
 
 if !hasmapto('<Plug>Commentary') || maparg('gc','n') ==# ''
-  xmap gc  <Plug>Commentary
-  nmap gc  <Plug>Commentary
-  omap gc  <Plug>Commentary
-  nmap gcc <Plug>CommentaryLine
-  nmap gcu <Plug>Commentary<Plug>Commentary
+  xmap <leader>c  <Plug>Commentary
+  nmap <leader>c  <Plug>Commentary
+  omap ic  <Plug>Commentary
+  nmap <leader>cc <Plug>CommentaryLine
+  nmap <leader>cu <Plug>Commentary<Plug>Commentary
 endif
-
-" vim:set et sw=2:
