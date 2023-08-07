@@ -230,7 +230,7 @@ m_o('v', [["]], [[<Plug>VSurround"]], { noremap = false, })
 m_o('v', [[']], [[<Plug>VSurround']], { noremap = false, })
 m_o('v', [[(]], [[<Plug>VSurround)]], { noremap = false, })
 m_o('v', [[{]], [[<Plug>VSurround)]], { noremap = false, })
--- vim.cmd("unmap [%")
+vim.cmd("unmap [%")
 m_o('v', "[", "<Plug>VSurround]", { noremap = false, })
 
 -- Restart nvim
