@@ -147,7 +147,7 @@ return {
     --     config = function() safe_require('config.comment') end,
     -- },
     {
-        'tpope/vim-commentary',
+        'tj-moody/vim-commentary',
         event = 'VeryLazy',
     },
     {
