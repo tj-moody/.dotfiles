@@ -215,7 +215,10 @@ return {
         'akinsho/bufferline.nvim',
         priority = 100,
         lazy = false,
-        dependencies = 'nvim-tree/nvim-web-devicons',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+            'aktersnurra/no-clown-fiesta.nvim'
+        },
         config = function() safe_require('config.bufferline') end,
     },
     {
