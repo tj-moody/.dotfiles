@@ -214,7 +214,7 @@ return {
     {
         'akinsho/bufferline.nvim',
         priority = 100,
-        event = "VeryLazy",
+        lazy = false,
         dependencies = 'nvim-tree/nvim-web-devicons',
         config = function() safe_require('config.bufferline') end,
     },
