@@ -63,8 +63,8 @@ set wildignore+=.pyc,.swp
 set splitright
 autocmd WinNew * wincmd L
 
-set listchars=tab:▸\
-set fillchars=eob:\ 
+let &listchars ..= ',tab:▸ '
+let &fillchars ..= ',eob: '
 
 
 set t_Co=256
