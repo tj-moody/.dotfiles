@@ -112,7 +112,7 @@ return {
     -- TODO: Investigate - breaks default `%` for some reason? Investigate further
     -- {
     --     'andymass/vim-matchup',
-    --     -- event = 'BufReadPost',
+    --     -- event = 'BufReadPost',g
     --     event = 'VeryLazy',
     -- },
     {
@@ -141,10 +141,14 @@ return {
             safe_require('colorscheme').setup('toggleterm')
         end,
     },
+    -- {
+    --     'numToStr/Comment.nvim',
+    --     event = 'VeryLazy',
+    --     config = function() safe_require('config.comment') end,
+    -- },
     {
-        'numToStr/Comment.nvim',
+        'tpope/vim-commentary',
         event = 'VeryLazy',
-        config = function() safe_require('config.comment') end,
     },
     {
         'windwp/nvim-autopairs',

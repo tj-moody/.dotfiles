@@ -364,6 +364,9 @@ map('n', '<leader>pr', ':ProjtasksRun<CR>')
 map('n', '<leader>pp', ':ProjtasksToggle<CR>')
 map('n', '<leader>pt', ':ProjtasksTest<CR>')
 
+-- commentary
+map('n', 'gcip', 'gcgc')
+
 --- CONFIG
 
 map('n', 'Cll',
