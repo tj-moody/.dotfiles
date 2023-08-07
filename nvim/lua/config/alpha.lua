@@ -65,8 +65,8 @@ local buttons = {
         button("f", "  Find file", ":Telescope smart_open<CR>"),
         button("r", "勒 Restore Session", ':SessionRestore<CR>'),
         button("L", "鈴 Lazy", ':Lazy<CR>'),
-        button("S", "  Sync", ':Lazy<CR>S'),
-        button("P", "󰾆  Profile", ':Lazy<CR>P'),
+        button("S", "  Sync", ':Lazy sync<CR>'),
+        button("P", "󰾆  Profile", ':Lazy profile<CR>'),
         button("q", "  Quit", ':qa<CR>'),
         --  
     },
