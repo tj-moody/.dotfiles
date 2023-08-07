@@ -430,7 +430,7 @@ map('n', 'Cve',
 map('n', 'Cgb',
     -- Toggle git blame
     function()
-         vim.cmd("Gitsigns toggle_current_line_blame")
+        vim.cmd("Gitsigns toggle_current_line_blame")
     end
 )
 
@@ -450,3 +450,9 @@ map('n', '<ScrollWheelLeft>', '')
 map('n', '<ScrollWheelRight>', '')
 map('v', '<ScrollWheelLeft>', '')
 map('v', '<ScrollWheelRight>', '')
+
+--- Abbreviations
+map('ia', '@@@g', 'tjsmoody@gmail.com')
+m_o('ia', '@@@D', 'strftime("%c")', { expr = true })
+m_o('ia', '@@@d', 'strftime("%m/%d/%y")', { expr = true })
+m_o('ia', '@@@t', 'strftime("%H:%M")', { expr = true })
