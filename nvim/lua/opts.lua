@@ -45,6 +45,7 @@ local opts = {
     cursorline = true,
     foldmethod = "marker",
     background = 'dark',
+    virtualedit = "block"
     -- smoothscroll = true,
 }
 for k, v in pairs(opts) do

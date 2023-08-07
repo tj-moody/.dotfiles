@@ -426,7 +426,7 @@ map('n', 'Cve',
     -- Toggle virtual edit
     function()
         if vim.o.virtualedit == 'all' then
-            vim.o.virtualedit = ''
+            vim.o.virtualedit = 'block'
         else
             vim.o.virtualedit = 'all'
         end
