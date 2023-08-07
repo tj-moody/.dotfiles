@@ -279,14 +279,9 @@ map('n', 'gb', ":BufferLinePick<CR>")
 
 -- Tabs
 map('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
-map('n', 'T>', ':tabe %<CR>:Telescope find_files<CR>') -- proof for typos
 map('n', 'TL', ':tabnext<CR>')
-map('n', 'Tl', ':tabnext<CR>')
 map('n', 'TH', ':tabprevious<CR>')
-map('n', 'Th', ':tabprevious<CR>')
-map('n', 'TO', ':tabonly<CR>')
 map('n', 'To', ':tabonly<CR>')
-map('n', 'TC', ':tabclose<CR>')
 map('n', 'Tc', ':tabclose<CR>')
 
 -- Lazy
