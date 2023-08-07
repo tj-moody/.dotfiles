@@ -13,13 +13,13 @@ vim.api.nvim_create_augroup("NvimTree Launch", {})
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
     pattern = { '*' },
     group = "NvimTree Launch",
-    callback = function(args)
-        local directory = vim.fn.isdirectory(args.file) == 1
+    callback = function(opts)
+        local directory = vim.fn.isdirectory(opts.file) == 1
         if not directory then
             return
         end
 
-        vim.cmd.cd(args.file)
+        vim.cmd.cd(opts.file)
         require("nvim-tree.api").tree.open()
         vim.cmd('only')
     end
@@ -30,7 +30,7 @@ vim.api.nvim_create_augroup("LSP Auto Start", {})
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorHold' }, {
     pattern = { '*' },
     group = "LSP Auto Start",
-    callback = function(opts)
+    callback = function(_)
         vim.cmd('LspStart')
     end,
 })
@@ -41,7 +41,7 @@ vim.api.nvim_create_augroup("Format On Save", {})
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     pattern = { '*' },
     group = "Format On Save",
-    callback = function()
+    callback = function(_)
         vim.cmd([[ %s/\s\+$//e ]])
     end,
 })
@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 vim.api.nvim_create_autocmd({ 'FileType' }, {
     group = "Filetype Options",
     pattern = { 'gitcommit', 'markdown', '*.txt' },
-    callback = function()
+    callback = function(_)
         vim.opt_local.wrap = true
         vim.opt_local.spell = true
     end,
@@ -61,13 +61,13 @@ vim.api.nvim_create_augroup("Inlay Hints", {})
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
     pattern = { '*' },
     group = "Inlay Hints",
-    callback = function(args)
-        if not (args.data and args.data.client_id) then
+    callback = function(opts)
+        if not (opts.data and opts.data.client_id) then
             return
         end
 
-        local bufnr = args.buf
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        local bufnr = opts.buf
+        local client = vim.lsp.get_client_by_id(opts.data.client_id)
 
         if client.name == "lua_ls" then
             return
@@ -94,11 +94,11 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 vim.api.nvim_create_augroup("Auto-Session", {})
 vim.api.nvim_create_autocmd({ "VimLeave" }, {
     pattern = { '*' },
-    callback = function(args)
+    callback = function(opts)
         if vim.g.in_pager_mode then
             return
         end
-        if vim.api.nvim_get_option_value("filetype", { buf = args.buf }) == "alpha" then
+        if vim.api.nvim_get_option_value("filetype", { buf = opts.buf }) == "alpha" then
             return
         end
         vim.cmd("SessionSave")
