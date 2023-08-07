@@ -226,6 +226,13 @@ map('n', '<leader>cr',
     end
 )
 
+m_o('v', [["]], [[<Plug>VSurround"]], { noremap = false, })
+m_o('v', [[']], [[<Plug>VSurround']], { noremap = false, })
+m_o('v', [[(]], [[<Plug>VSurround)]], { noremap = false, })
+m_o('v', [[{]], [[<Plug>VSurround)]], { noremap = false, })
+-- vim.cmd("unmap [%")
+m_o('v', "[", "<Plug>VSurround]", { noremap = false, })
+
 -- Restart nvim
 map('n', '<leader>R', ':wa<CR>:cq<CR>')
 
@@ -359,6 +366,10 @@ map('n', '<leader>pr', ':ProjtasksRun<CR>')
 map('n', '<leader>pp', ':ProjtasksToggle<CR>')
 map('n', '<leader>pt', ':ProjtasksTest<CR>')
 
+-- comment
+map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
+map('n', '<leader>cO', 'O_<esc>:norm ,cc<cr>A<bs>')
+map('n', '<leader>cl', [[:execute "norm! A " . substitute(&commentstring, '%s', ' ', '')<CR>A]]) --  https://vi.stackexchange.com/a/19163
 
 --- CONFIG
 
