@@ -1,6 +1,7 @@
 -- fix filetype.vim format options issue
 vim.api.nvim_create_augroup("Filetype Options", {})
 vim.api.nvim_create_autocmd({ "Filetype" }, {
+    pattern = { '*' },
     group = "Filetype Options",
     callback = function(_)
         vim.cmd("set formatoptions-=cro")
@@ -10,6 +11,7 @@ vim.api.nvim_create_autocmd({ "Filetype" }, {
 -- Use nvim-tree when opening a directory on launch
 vim.api.nvim_create_augroup("NvimTree Launch", {})
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
+    pattern = { '*' },
     group = "NvimTree Launch",
     callback = function(args)
         local directory = vim.fn.isdirectory(args.file) == 1
@@ -26,6 +28,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 -- start lsp after loading file to lazyload lsp plugins
 vim.api.nvim_create_augroup("LSP Auto Start", {})
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorHold' }, {
+    pattern = { '*' },
     group = "LSP Auto Start",
     callback = function(opts)
         vim.cmd('LspStart')
@@ -56,6 +59,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 -- Automatically enable inlay hints
 vim.api.nvim_create_augroup("Inlay Hints", {})
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
+    pattern = { '*' },
     group = "Inlay Hints",
     callback = function(args)
         if not (args.data and args.data.client_id) then
@@ -89,6 +93,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 
 vim.api.nvim_create_augroup("Auto-Session", {})
 vim.api.nvim_create_autocmd({ "VimLeave" }, {
+    pattern = { '*' },
     callback = function(args)
         if vim.g.in_pager_mode then
             return
