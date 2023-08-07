@@ -121,7 +121,6 @@ local lualine_config = {
                 function()
                     return ''
                 end,
-                padding = { left = 2, right = 2 },
             }
         },
         lualine_b = {
