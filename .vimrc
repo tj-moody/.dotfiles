@@ -131,6 +131,7 @@ set termguicolors
 
 hi clear signcolumn
 set signcolumn=yes
+set foldcolumn=2
 
 """ Statusline
 set noshowmode
@@ -188,6 +189,7 @@ hi ErrorMsg guifg=#fb4934 guibg=NONE
 hi VertSplit guifg=#ebdbb2 guibg=NONE
 " hi Folded
 " hi FoldColumn
+hi clear FoldColumn
 " hi SignColumn
 hi IncSearch guifg=#fe8019
 hi LineNr guifg=#7c6f64
