@@ -451,15 +451,10 @@ map('n', '<ScrollWheelRight>', '')
 map('v', '<ScrollWheelLeft>', '')
 map('v', '<ScrollWheelRight>', '')
 
---- Abbreviations
--- Two letter identification `@gi@`
---   - `g` : group
---   - `i` : item
+-- email
+map('ia', '@@g', 'tjsmoody@gmail.com')
 
--- @ - email
-map('ia', '@@g@', 'tjsmoody@gmail.com')
-
--- d - datetime
-m_o('ia', '@dD@', 'strftime("%c")', { expr = true })
-m_o('ia', '@dd@', 'strftime("%m/%d/%y")', { expr = true })
-m_o('ia', '@dt@', 'strftime("%H:%M")', { expr = true })
+-- datetime
+m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
+m_o('ia', 'dtdate', 'strftime("%m/%d/%y")', { expr = true })
+m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true })
