@@ -438,7 +438,6 @@ map('n', 'Clv',
     -- Toggle detailed lualine
     function()
         vim.g.lualine_verbose = not vim.g.lualine_verbose
-        print("Verbose Lualine: " .. tostring(vim.g.lualine_verbose))
     end
 )
 
