@@ -6,6 +6,8 @@
 "             |__/
 " Minimal vimrc with no
 " dependencies by TJ Moody
+"   - Uses a modified version
+"     of tpope's vim-commentary
 " https://github.com/tj-moody
 
 
