@@ -260,6 +260,8 @@ local hl_table = {
             { 'Operator',               { fg = '#928374', } },
             { '@punctuation.bracket',   { fg = '#928374', } },
             { '@punctuation.delimiter', { fg = '#928374', } },
+            { 'FloatBorder',            { bg = '#000000', fg = '#665c54' } },
+            { 'FloatTitle',             { bg = '#000000', fg = '#b8bb26', } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#8ec07c' } },
@@ -479,7 +481,7 @@ local clear_hl_bg_table = {
 
     'NvimTreeNormal',
     'NvimTreeNormalNC',
-    'NvimTreeNormalFloat',
+    -- 'NvimTreeNormalFloat',
     'ErrorMsg',
     'WarningMsg',
     'Title',
