@@ -117,7 +117,6 @@ return {
     -- },
     {
         'rmagatti/auto-session',
-        event = 'VeryLazy',
         cmd = { 'SessionRestore' },
         opts = {
             auto_save_enabled = false,
@@ -141,11 +140,6 @@ return {
             safe_require('colorscheme').setup('toggleterm')
         end,
     },
-    -- {
-    --     'numToStr/Comment.nvim',
-    --     event = 'VeryLazy',
-    --     config = function() safe_require('config.comment') end,
-    -- },
     {
         'tj-moody/vim-commentary',
         event = 'VeryLazy',
@@ -175,7 +169,7 @@ return {
     },
     {
         'JellyApple102/flote.nvim',
-        event = 'VeryLazy',
+        cmd = { 'Flote' },
         config = function() safe_require('config.flote') end
     },
     {
@@ -189,13 +183,13 @@ return {
     },
     {
         'rmagatti/alternate-toggler',
-        event = 'VeryLazy',
+        cmd = { 'ToggleAlternate' },
         config = function() safe_require('config.alternate-toggler') end,
     },
     {
         'tj-moody/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },
-        event = 'VeryLazy',
+        cmd = {'ProjtasksToggle', 'ProjtasksRun', 'ProjtasksTest', },
         config = { direction = "vertical" },
     },
     --- Git
