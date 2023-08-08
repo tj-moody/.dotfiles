@@ -172,12 +172,6 @@ set statusline +=%#Normal#/
 set statusline +=%#ReplaceColor#%L           "total lines
 set statusline +=%#NormalColor#%4v           "virtual column number
 
-hi User1 guifg=#eea040
-hi User2 guifg=#dd3333
-hi User3 guifg=#ff66ff
-hi User4 guifg=#a0ee40
-hi User5 guifg=#eeee40
-
 """ Theme
 hi clear CursorLine
 hi clear CursorLineNr
@@ -259,7 +253,7 @@ hi Todo term=bold,italic guifg=#fbf1c7 guibg=NONE
 " GetLatestVimScripts: 3695 1 :AutoInstall: commentary.vim
 
 if exists("g:loaded_commentary") || v:version < 703
-  finish
+  finish " doesn't actually work
 endif
 let g:loaded_commentary = 1
 
