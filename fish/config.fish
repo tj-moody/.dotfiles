@@ -40,6 +40,7 @@ if status is-interactive
 
     # Aliases
     alias nv      "/Users/tj/.dotfiles/bash/nv.bash"
+    alias nvu     "/Users/tj/.dotfiles/bash/nvu.bash"
     alias src     "source ~/.config/fish/config.fish"
     alias lg      "lazygit"
     alias gs      "git status"
