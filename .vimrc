@@ -53,6 +53,8 @@ set confirm
 set formatoptions-=cro
 set formatoptions+=j
 
+set shortmess+=cC
+
 set formatoptions+=j
 set hidden
 set history=1000
@@ -68,6 +70,7 @@ autocmd WinNew * wincmd L
 let &listchars ..= ',tab:▸ '
 let &fillchars ..= ',eob: '
 
+let g:netrw_banner = 0
 
 set t_Co=256
 set background=dark
@@ -121,6 +124,10 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
+
+inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <silent> <c-n> <c-n><c-p>
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
@@ -188,7 +195,7 @@ hi DiffDelete term=bold guibg=#442d30
 hi DiffText term=bold guibg=#213352
 hi EndOfBuffer guifg=#504945
 hi ErrorMsg guifg=#fb4934 guibg=NONE
-hi VertSplit guifg=#ebdbb2 guibg=NONE
+hi VertSplit guifg=#ebdbb2 guibg=NONE term=NONE cterm=NONE
 " hi Folded
 " hi FoldColumn
 hi clear FoldColumn
@@ -212,15 +219,15 @@ hi PmenuThumb guibg=#7c6f64
 hi clear PopupNotification
 hi Question term=bold guifg=#fe8019
 hi QuickFixLine term=bold guibg=#fab2df guifg=#0e1018
-hi Search guifg=#fabd2f
+hi Search guifg=#fabd2f guibg=NONE
 hi link CurSearch IncSearch
 hi SpecialKey guifg=#a89984
 hi SpellBad term=undercurl guisp=#fb4934
 hi SpellCap term=undercurl guisp=#83a598
 hi SpellLocal term=undercurl guisp=#8ec07c
 hi SpellRare term=undercurl guisp=#d3869b
-hi StatusLine guifg=#0e8018
-hi StatusLineNC guifg=#0e8019
+hi StatusLine guifg=#0e8018 guibg=NONE term=NONE cterm=NONE
+hi StatusLineNC guifg=#0e8019 guibg=NONE term=NONE cterm=NONE
 hi link StatusLineTerm Normal
 hi link StatusLineTermNC Normal
 hi TabLine guibg=#3c3836 guifg=#7c6f64
@@ -240,8 +247,8 @@ hi PreProc guifg=#8ec07c
 hi Type guifg=#fabd2f
 hi Special guifg=#fe8019
 hi Underlined term=underline guifg=#83a598
-hi Error term=bold guifg=#fb4934
-hi Todo term=bold,italic guifg=#fbf1c7
+hi Error term=bold guifg=#fb4934 guibg=NONE
+hi Todo term=bold,italic guifg=#fbf1c7 guibg=NONE
 
 """ commentary.vim - copied from vim-commentary with
 """ modifications from tj-moody/vim-commentary fork
