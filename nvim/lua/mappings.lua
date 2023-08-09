@@ -261,7 +261,7 @@ m_o('v', [[{]], [[<Plug>VSurround)]], { noremap = false, })
 m_o('v', "[", "<Plug>VSurround]", { noremap = false, })
 
 -- Restart nvim
-map('n', '<leader>R', ':wa<CR>:cq<CR>')
+map('n', '<leader>R', ':wa<CR>:SessionSave<CR>:cq<CR>')
 
 --- PLUGINS
 -- NvimTree
