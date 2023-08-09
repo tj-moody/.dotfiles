@@ -393,6 +393,8 @@ map('n', '<leader>ta', ':ToggleAlternate<CR>')
 map('n', '<leader>pr', ':ProjtasksRun<CR>')
 map('n', '<leader>pp', ':ProjtasksToggle<CR>')
 map('n', '<leader>pt', ':ProjtasksTest<CR>')
+map('n', '<leader>ps', ':SnipRun<CR>')
+map('v', '<leader>ps', ':SnipRun<CR>')
 
 -- comment
 map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')

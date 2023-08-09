@@ -189,8 +189,17 @@ return {
     {
         'tj-moody/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },
-        cmd = {'ProjtasksToggle', 'ProjtasksRun', 'ProjtasksTest', },
+        cmd = { 'ProjtasksToggle', 'ProjtasksRun', 'ProjtasksTest', },
         config = { direction = "vertical" },
+    },
+    {
+        'michaelb/sniprun',
+        build = 'sh ./install.sh',
+        config = function()
+            vim.api.nvim_set_hl(0, 'SniprunVirtualTextOk',
+                { fg = safe_require('colorscheme').get_color('SniprunVirtualTextOk', 'bg#') })
+        end,
+        event = 'VeryLazy',
     },
     --- Git
     {
