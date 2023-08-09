@@ -22,6 +22,8 @@ local function m_o(m, l, r, opts)
 end
 
 --- BASICS
+map('n', '\\', ',')
+
 map('n', '<leader>.', ":vsp<CR>:Telescope find_files<CR>")
 
 map('n', '<leader>w', ":silent write<CR>")
@@ -83,8 +85,24 @@ local function viml_backspace()
         ]])
     return vim.g.exprvalue
 end
+local indent_unsupported_filetypes = {
+    'asm'
+}
+local indent_based_filetypes = {
+    'python'
+}
 m_o('i', '<BS>',
     function()
+        local unsupported_filetype = false
+        for _, v in ipairs(indent_unsupported_filetypes) do
+            if vim.bo.filetype == v then
+                unsupported_filetype = true
+            end
+        end
+        if unsupported_filetype then
+            return require('nvim-autopairs').autopairs_bs()
+        end
+
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         local before_cursor_is_whitespace = vim.api.nvim_get_current_line()
             :sub(0, col)
@@ -94,24 +112,32 @@ m_o('i', '<BS>',
             return require('nvim-autopairs').autopairs_bs()
         end
         if line == 1 then
-            return viml_backspace()
+            return escape_code .. "==^i"
         end
-        local correct_indent = require("nvim-treesitter.indent").get_indent(line)
-        local current_indent = vim.fn.indent(line)
+
+        local indent_based_filetype = false
+        for _, v in ipairs(indent_based_filetypes) do
+            if vim.bo.filetype == v then
+                print()
+                indent_based_filetype = true
+            end
+        end
+        local correct_indent = require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
+        local current_indent = vim.fn.indent(line) / vim.bo.tabstop
         local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(
             0, line - 2, line - 1, false
         )[1]:match("^%s*$")
         if current_indent == correct_indent then
-            if previous_line_is_whitespace then
+            if previous_line_is_whitespace and not indent_based_filetype then
                 return viml_backspace()
             end
             return backspace_code
         elseif current_indent > correct_indent then
-            return escape_code .. "==0wi"
+            return string.rep(backspace_code, current_indent - correct_indent)
         end
-        return backspace_code
+        return require('nvim-autopairs').autopairs_bs()
     end,
-    { expr = true, noremap = true, replace_keycodes = false }
+    { expr = true, noremap = true, replace_keycodes = false, }
 )
 map('i', '<S-BS>', '<BS>')
 
@@ -129,7 +155,6 @@ map({ 'n', 'v' }, 'gj',
         -- Look for a line with the same indent level without going out of the buffer
         while (not match_indent) and (match_line ~= buf_length) do
             match_line = match_line + 1
-
             local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
             -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
             local match_line_is_whitespace = match_line_str:match("^%s*$")
@@ -232,7 +257,7 @@ m_o('v', [["]], [[<Plug>VSurround"]], { noremap = false, })
 m_o('v', [[']], [[<Plug>VSurround']], { noremap = false, })
 m_o('v', [[(]], [[<Plug>VSurround)]], { noremap = false, })
 m_o('v', [[{]], [[<Plug>VSurround)]], { noremap = false, })
-vim.cmd("unmap [%")
+-- vim.cmd("unmap [%")
 m_o('v', "[", "<Plug>VSurround]", { noremap = false, })
 
 -- Restart nvim
@@ -288,10 +313,11 @@ map('n', 'gb', ":BufferLinePick<CR>")
 
 -- Tabs
 map('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
+map('n', 'Te', ':tabe %<CR>')
 map('n', 'TL', ':tabnext<CR>')
 map('n', 'TH', ':tabprevious<CR>')
 map('n', 'To', ':tabonly<CR>')
-map('n', 'Tc', ':tabclose<CR>')
+map('n', 'Tq', ':tabclose<CR>')
 
 -- Lazy
 map('n', '<leader>lz', ":Lazy<CR>")
