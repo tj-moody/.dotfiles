@@ -117,7 +117,7 @@ return {
     -- },
     {
         'rmagatti/auto-session',
-        cmd = { 'SessionRestore' },
+        cmd = { 'SessionRestore', 'SessionSave' },
         opts = {
             auto_save_enabled = false,
             auto_restore_enabled = false,
