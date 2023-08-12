@@ -1,8 +1,8 @@
 -- via u/pseudometapseudo
 function safe_require(module)
-	local success, req = pcall(require, module)
-	if success then return req end
-	vim.cmd.echoerr ("Error loading " .. module)
+    local success, req = pcall(require, module)
+    if success then return req end
+    vim.cmd.echoerr('Error loading ' .. module)
 end
 
 safe_require('opts')
