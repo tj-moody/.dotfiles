@@ -232,21 +232,6 @@ map('v', '<leader>y', '"+y')
 map('v', '<', '<gv4h')
 map('v', '>', '>gv4l')
 
-map('n', '<leader>ct',
-    function()
-        vim.ui.select(safe_require('colorscheme').themes_list, {
-                prompt = "Choose theme:",
-            },
-            function(choice)
-                if choice then
-                    vim.g.tjtheme = choice
-                    safe_require('colorscheme').reload()
-                end
-            end
-        )
-    end
-)
-
 map('n', '<leader>cr',
     function()
         vim.cmd [[
@@ -313,12 +298,12 @@ map('n', '<leader>fk', ":Telescope keymaps<CR>")
 -- Bufferline
 map('n', 'H', ":BufferLineCyclePrev<CR>")
 map('n', 'L', ":BufferLineCycleNext<CR>")
-map('n', 'Tq', ":BufferLinePickClose<CR>")
-map('n', 'gb', ":BufferLinePick<CR>")
+map('n', 'Tc', ":BufferLinePickClose<CR>")
+map('n', 'Tp', ":BufferLinePick<CR>")
 
 -- Tabs
 map('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
-map('n', 'Te', ':tabe %<CR>')
+map('n', 'Tn', ':tabe %<CR>')
 map('n', 'TL', ':tabnext<CR>')
 map('n', 'TH', ':tabprevious<CR>')
 map('n', 'To', ':tabonly<CR>')
@@ -398,8 +383,8 @@ map('n', '<leader>ta', ':ToggleAlternate<CR>')
 map('n', '<leader>pr', ':ProjtasksRun<CR>')
 map('n', '<leader>pp', ':ProjtasksToggle<CR>')
 map('n', '<leader>pt', ':ProjtasksTest<CR>')
-map('n', '<leader>ps', ':SnipRun<CR>')
-map('v', '<leader>ps', ':SnipRun<CR>')
+map('n', '<leader>pe', ':SnipRun<CR>')
+map('v', '<leader>pe', ':SnipRun<CR>')
 
 -- comment
 map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
@@ -408,6 +393,7 @@ map('n', '<leader>cl', [[:execute "norm! A " . substitute(&commentstring, '%s', 
 
 --- CONFIG
 
+map('n', 'C', '<nop>')
 map('n', 'Cll',
     -- Toggle LSP Lines
     function()
@@ -486,6 +472,22 @@ map('n', 'Clv',
         vim.g.lualine_verbose = not vim.g.lualine_verbose
     end
 )
+map('n', 'Ct',
+    -- Change theme
+    function()
+        vim.ui.select(safe_require('colorscheme').themes_list, {
+                prompt = "Choose theme:",
+            },
+            function(choice)
+                if choice then
+                    vim.g.tjtheme = choice
+                    safe_require('colorscheme').reload()
+                end
+            end
+        )
+    end
+)
+
 
 -- search & replace in word
 -- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
