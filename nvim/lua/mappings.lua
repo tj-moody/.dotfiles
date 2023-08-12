@@ -56,6 +56,11 @@ map('n', "<C-u>", "<C-u>zz")
 map('n', "n", "nzzzv")
 map('n', "N", "Nzzzv")
 
+map('n', 's', '<Plug>Ysurround')
+map('n', 'ss', '<Plug>Yssurround')
+map('v', 's', '<Plug>VSurround')
+-- ^^^ charwise in visual mode, linewise in visual line mode
+
 map('n', 'sl', ':vsp<CR>')
 map('n', 'sj', ':sp<CR>')
 map('n', 'se', '<c-w>=')
