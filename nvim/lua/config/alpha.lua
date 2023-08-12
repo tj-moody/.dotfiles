@@ -1,6 +1,6 @@
 local fortune = require("alpha.fortune")
 
-local headers = require('config.bin.headers')
+local headers = require('config.assets.headers')
 
 local function button(sc, txt, keybind, keybind_opts)
     local sc_ = sc

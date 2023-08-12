@@ -15,4 +15,7 @@ function P(table)
 end
 
 -- TODO: Add extmark to hide folds
--- TODO: Make external file format to automatically run/test code
+-- TODO: Integrate mappings into whickey
+-- TODO: Add better test integration to projtasks.nvim
+-- TODO: Remap H, L to something more useful
+-- TODO: Add tmux integration

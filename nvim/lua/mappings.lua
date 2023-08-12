@@ -66,6 +66,12 @@ map('n', 'gV', "`[v`]")
 
 map('i', '<esc>', '<esc>`^')
 
+map('n', '<TAB>', ':bnext<CR>')
+map('n', '<S-TAB>', ':bprev<CR>')
+
+map('n', '0', '^')
+map('n', '^', '0')
+
 local escape_code = vim.api.nvim_replace_termcodes(
     "<Esc>",
     false, false, true
@@ -308,7 +314,6 @@ map('n', '<leader>fk', ":Telescope keymaps<CR>")
 map('n', 'H', ":BufferLineCyclePrev<CR>")
 map('n', 'L', ":BufferLineCycleNext<CR>")
 map('n', 'Tq', ":BufferLinePickClose<CR>")
-map('n', 'Ts', ":BufferLineSortByTabs<CR>")
 map('n', 'gb', ":BufferLinePick<CR>")
 
 -- Tabs

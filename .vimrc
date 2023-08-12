@@ -55,6 +55,8 @@ set formatoptions+=j
 
 set shortmess+=cC
 
+set path+=**
+
 set formatoptions+=j
 set hidden
 set history=1000
@@ -67,7 +69,9 @@ set wildignore+=.pyc,.swp
 set splitright
 autocmd WinNew * wincmd L
 
-let &listchars ..= ',tab:▸ '
+set list
+
+let &listchars ..= ',eol: ,tab:▸ '
 let &fillchars ..= ',eob: '
 
 let g:netrw_banner = 0
@@ -76,6 +80,8 @@ set t_Co=256
 set background=dark
 
 nnoremap <leader>. :vsp .<CR>
+
+nnoremap <leader>ff :e .<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -125,9 +131,8 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
-inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-inoremap <silent> <c-n> <c-n><c-p>
+nnoremap H :bprev<CR>
+nnoremap L :bnext<CR>
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
