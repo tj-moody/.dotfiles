@@ -13,9 +13,3 @@ safe_require('autocmds')
 function P(table)
     vim.notify(vim.inspect(table), 0)
 end
-
--- TODO: Add extmark to hide folds
--- TODO: Integrate mappings into whickey
--- TODO: Add better test integration to projtasks.nvim
--- TODO: Remap H, L to something more useful
--- TODO: Add tmux integration
