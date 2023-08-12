@@ -256,7 +256,13 @@ return {
     {
         'folke/todo-comments.nvim',
         event = 'VeryLazy',
-        config = true,
+        config = {
+            highlight = { multiline = false },
+            keywords = {
+                ["DONE"] = { icon = " ", color = "#b8bb26", },
+                ["TODO"] = { icon = " ", color = "info" },
+            },
+        },
     },
     fun,
 }

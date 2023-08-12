@@ -74,5 +74,6 @@
         "/Users/tj/.dotfiles/nvim/lua",
         "/Users/tj/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/6f75c826",
         "/Users/tj/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/6c45ca49"
-    ]
+    ],
+    "workspace.checkThirdParty": false
 }

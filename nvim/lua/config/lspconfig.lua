@@ -100,9 +100,10 @@ require('lspconfig')['lua_ls'].setup {
                 arrayIndex = "Disable",
             },
             workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
                 checkThirdParty = false,
+                library = { vim.env.VIMRUNTIME }
+                -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                -- library = vim.api.nvim_get_runtime_file("", true)
             },
         },
     },
