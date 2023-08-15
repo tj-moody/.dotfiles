@@ -366,6 +366,7 @@ map('n', '<leader>gd',
 map('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
 map('n', '<leader>gk', ':Gitsigns prev_hunk<CR>')
 map('n', '<leader>gb', ':Gitsigns blame_line<CR>')
+map('n', '<leader>gB', ':ToggleBlame virtual<CR>')
 
 -- smart-splits
 map('n', '<space>h', require('smart-splits').resize_left)

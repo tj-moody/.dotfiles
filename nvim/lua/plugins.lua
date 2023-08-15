@@ -213,6 +213,10 @@ return {
         cmd = { 'DiffviewOpen', 'DiffviewClose', },
         dependencies = 'nvim-lua/plenary.nvim',
     },
+    {
+        "FabijanZulj/blame.nvim",
+        event = 'VeryLazy',
+    },
     --- UI
     {
         'akinsho/bufferline.nvim',
