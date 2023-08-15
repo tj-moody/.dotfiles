@@ -154,7 +154,7 @@ return {
     },
     {
         'norcalli/nvim-colorizer.lua',
-        event = 'VeryLazy',
+        event = 'BufEnter',
         config = function() safe_require('config.colorizer') end,
     },
     {

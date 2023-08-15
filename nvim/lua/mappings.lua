@@ -1,7 +1,6 @@
 vim.g.mapleader = ","
 
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, opts) with
-
 ---```lua
 ---    opts = { noremap = true, silent = true }
 ---```
@@ -71,8 +70,8 @@ map('n', 'gV', "`[v`]")
 
 map('i', '<esc>', '<esc>`^')
 
-map('n', '<TAB>', ':bnext<CR>')
-map('n', '<S-TAB>', ':bprev<CR>')
+map('n', '<TAB>', ':tabnext<CR>')
+map('n', '<S-TAB>', ':tabprevious<CR>')
 
 map('n', '0', '^')
 map('n', '^', '0')
@@ -396,6 +395,7 @@ map('v', '<leader>pe', ':SnipRun<CR>')
 map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cO', 'O_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cl', [[:execute "norm! A " . substitute(&commentstring, '%s', ' ', '')<CR>A]]) --  https://vi.stackexchange.com/a/19163
+-- TODO: Rewrite to not append commentstring if a comment already exitsts
 
 --- CONFIG
 
@@ -442,6 +442,7 @@ map('n', 'Cih',
 )
 
 map('n', 'Ccc',
+    -- TODO: Make this work
     -- Toggle Colorcolumn
     function()
         local cc = vim.wo.colorcolumn
