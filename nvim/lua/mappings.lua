@@ -414,14 +414,14 @@ map('n', 'Cll',
 map('n', 'Crn',
     -- Toggle relative number
     function()
-        vim.o.relativenumber = not vim.o.relativenumber
+        vim.cmd.set("relativenumber!")
     end
 )
 
 map('n', 'Cw',
     -- Toggle wrap
     function()
-        vim.o.wrap = not vim.o.wrap
+        vim.cmd.set("wrap!")
         print("Wrap: " .. tostring(vim.o.wrap))
     end
 )
