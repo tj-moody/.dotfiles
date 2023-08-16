@@ -64,7 +64,7 @@ function theme --argument-names 'themename'
         return
     end
 
-    bash ~/.dotfiles/bash/theme.bash $COLORS_NAME
+    bash /Users/tj/.dotfiles/bash/theme.bash $COLORS_NAME
 
     set COLORS_NAME (cat ~/.config/.COLORS_NAME.txt)
 end

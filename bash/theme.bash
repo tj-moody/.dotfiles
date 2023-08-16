@@ -38,8 +38,8 @@ declare -a themeslist=(
 MAX_INDEX=$( expr ${#themestrings[@]} - 1 )
 THEME=$1
 
+index=4 # marsbox
 for i in "${!themeslist[@]}"; do
-    index=4 # marsbox
     if [[ "$THEME" == "${themeslist[$i]}" ]]; then
         index=$i
     fi
