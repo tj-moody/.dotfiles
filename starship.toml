@@ -1,5 +1,5 @@
 format = '''
-$username$directory$git_branch$git_status$cmd_duration$fill$jobs$all$memory_usage
+$username$directory$git_branch$git_status$cmd_duration$fill$jobs$all
 $character'''
 add_newline = false
 
@@ -28,32 +28,32 @@ format = '$symbol[$branch(:$remote_branch)]($style) '
 [git_status]
 
 [battery]
-format = '[$symbol$percentage]($style) | '
+format = '[$symbol$percentage]($style) '
 
 [c]
 symbol = ' '
-format = 'via [$symbol($version(-$name) )]($style)| '
+format = 'via [$symbol($version(-$name) )]($style)'
 
 [lua]
 symbol = ' '
 style = "#51a0cf"
-format = 'via [$symbol($version )]($style)| '
+format = 'via [$symbol($version )]($style)'
 
 [python]
 symbol = ' '
-format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)| '
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
 [line_break]
 disabled = true
 
 [memory_usage]
-disabled = false
+disabled = true
 threshold = -1
 # symbol = ''
 symbol = ''
 style = 'green'
 format = '[$symbol](dimmed green)[$ram_pct]($style) '
-# format = 'via $symbol [${ram}( | ${swap})]($style) '
+# format = 'via $symbol [${ram}( ${swap})]($style) '
 
 [fill]
 symbol = ' '
@@ -76,19 +76,19 @@ symbol = " "
 
 [conda]
 symbol = " "
-format = 'in [$symbol$environment ]($style)| '
+format = 'in [$symbol$environment ]($style)'
 
 [dart]
 symbol = " "
-format = 'via [$symbol($version )]($style)| '
+format = 'via [$symbol($version )]($style)'
 
 [docker_context]
 symbol = " "
-format = 'via [$symbol$context]($style)| '
+format = 'via [$symbol$context]($style)'
 
 [elixir]
 symbol = " "
-format = 'via [$symbol($version \(OTP $otp_version\) )]($style)| '
+format = 'via [$symbol($version \(OTP $otp_version\) )]($style)'
 
 [elm]
 symbol = " "
@@ -98,14 +98,14 @@ symbol = " "
 
 [golang]
 symbol = " "
-format = 'via [$symbol($version )]($style)| '
+format = 'via [$symbol($version )]($style)'
 
 [guix_shell]
 symbol = " "
 
 [haskell]
 symbol = " "
-format = 'via [$symbol($version )]($style)| '
+format = 'via [$symbol($version )]($style)'
 
 [haxe]
 symbol = "⌘ "
@@ -115,11 +115,11 @@ symbol = " "
 
 [java]
 symbol = " "
-format = 'via [${symbol}(${version} )]($style)| '
+format = 'via [${symbol}(${version} )]($style)'
 
 [julia]
 symbol = " "
-format = 'via [$symbol($version )]($style)| '
+format = 'via [$symbol($version )]($style)'
 
 [meson]
 symbol = "喝 "
@@ -132,7 +132,7 @@ symbol = " "
 
 [nodejs]
 symbol = " "
-format = 'via [$symbol($version )]($style)| '
+format = 'via [$symbol($version )]($style)'
 
 [os.symbols]
 Alpine = " "
@@ -181,11 +181,11 @@ symbol = "ﳒ "
 
 [ruby]
 symbol = " "
-format = 'via [$symbol($version )]($style)| '
+format = 'via [$symbol($version )]($style)'
 
 [rust]
 symbol = " "
-format = 'via [$symbol($version )]($style)| '
+format = 'via [$symbol($version )]($style)'
 style = '#b7410e'
 
 [scala]
