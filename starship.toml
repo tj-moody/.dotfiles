@@ -1,4 +1,4 @@
-format = "$username[δ ](bright-black)$directory$git_status$character"
+format = "$username[δ ](bold bright-black)$directory$git_status$character"
 right_format = '''$jobs$battery$aws$buf$conda$docker_context$nix_shell$nodejs$package$dotnet$gcloud$hostname$kubernetes$opa$terraform$c$lua$python$dart$elixir$elm$golang$haskell$haxe$java$julia$meson$rlang$ruby$rust$scala$spack$ocaml$swift$zig'''
 
 # π
@@ -21,8 +21,8 @@ format = '[$symbol$number]($style) '
 # vicmd_symbol = '[](bold green) '
 
 vicmd_symbol = '[::](bold green)'
-success_symbol = '[::](bright-black)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
-error_symbol = '[::](bright-black)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+success_symbol = '[::](bold bright-black)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[::](bold bright-black)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 
 vimcmd_replace_one_symbol = '[::](red)'
 vimcmd_replace_symbol = '[::](red)'
