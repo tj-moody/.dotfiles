@@ -1,10 +1,15 @@
-format = '''
-$username$directory$git_branch$git_status$cmd_duration$fill$jobs$all
-$character'''
+format = "$username[δ ](#928374)$directory$git_status$character"
+right_format = '''$jobs$battery$aws$buf$conda$docker_context$nix_shell$nodejs$package$dotnet$gcloud$hostname$kubernetes$opa$terraform$c$lua$python$dart$elixir$elm$golang$haskell$haxe$java$julia$meson$rlang$ruby$rust$scala$spack$ocaml$swift$zig'''
+
+# π
+# format = '''
+# '''
+# $username$directory$git_branch$git_status$cmd_duration$fill$jobs$all
+
 add_newline = false
 
 [jobs]
-format = '[$symbol$number]($style) | '
+format = '[$symbol$number]($style) '
 
 [character] # The name of the module we are configuring is 'character'
 # success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
@@ -15,15 +20,20 @@ format = '[$symbol$number]($style) | '
 
 # vicmd_symbol = '[](bold green) '
 
-vicmd_symbol = '[➜](bold green)'
-success_symbol = '[➜](bold blue)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
-error_symbol = '[➜](bold red)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+vicmd_symbol = '[::](bold green)'
+success_symbol = '[::](#928374)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[::](#928374)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+vimcmd_replace_one_symbol = '[::](red)'
+vimcmd_replace_symbol = '[::](red)'
+vimcmd_visual_symbol = '[::](yellow)'
 
 [git_branch]
 # symbol = ' '
 symbol = ' '
 style = 'bold cyan'
 format = '$symbol[$branch(:$remote_branch)]($style) '
+disabled = true
 
 [git_status]
 
@@ -60,7 +70,7 @@ symbol = ' '
 
 [username]
 disabled = false
-show_always = true
+show_always = false
 format = '[$user]($style) '
 
 [directory]
