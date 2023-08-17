@@ -1,4 +1,4 @@
-format = "$username[δ ](bold bright-black)$directory$git_status$character"
+format = "$username[δ ](bold bright-black)$directory$git_branch$git_status$character"
 right_format = '''$jobs$battery$aws$buf$conda$docker_context$nix_shell$nodejs$package$dotnet$gcloud$hostname$kubernetes$opa$terraform$c$lua$python$dart$elixir$elm$golang$haskell$haxe$java$julia$meson$rlang$ruby$rust$scala$spack$ocaml$swift$zig'''
 
 # π
@@ -33,7 +33,8 @@ vimcmd_visual_symbol = '[::](yellow)'
 symbol = ' '
 style = 'bold cyan'
 format = '$symbol[$branch(:$remote_branch)]($style) '
-disabled = true
+ignore_branches = ['main', 'master']
+disabled = false
 
 [git_status]
 

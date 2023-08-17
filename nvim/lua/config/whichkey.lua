@@ -19,6 +19,8 @@ require('which-key').register {
             ["c"] = "Comment Line",
             ["u"] = "Uncomment Block",
             ["l"] = "Append Comment",
+            ["j"] = "Next Diagnostic",
+            ["k"] = "Prev Diagnostic",
         },
         ["d"] = {
             name = "+diagnostics",

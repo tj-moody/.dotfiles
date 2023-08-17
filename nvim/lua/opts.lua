@@ -51,6 +51,7 @@ local opts = {
     background = 'dark',
     virtualedit = 'block',
     matchpairs = "(:),{:},[:],<:>",
+    undofile = true,
     -- smoothscroll = true,
 }
 for k, v in pairs(opts) do

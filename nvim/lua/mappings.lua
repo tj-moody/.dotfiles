@@ -394,7 +394,7 @@ map('v', '<leader>pe', ':SnipRun<CR>')
 -- comment
 map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cO', 'O_<esc>:norm ,cc<cr>A<bs>')
-map('n', '<leader>cl', [[:execute "norm! A " . substitute(&commentstring, '%s', ' ', '')<CR>A]]) --  https://vi.stackexchange.com/a/19163
+map('n', '<leader>cl', [[:execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]) --  https://vi.stackexchange.com/a/19163
 -- TODO: Rewrite to not append commentstring if a comment already exitsts
 
 --- CONFIG

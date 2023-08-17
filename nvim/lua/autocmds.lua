@@ -112,14 +112,19 @@ vim.api.nvim_create_augroup("Line Break Extmarks", {})
 vim.api.nvim_create_autocmd({ "InsertLeave", "BufEnter" }, {
     pattern = { '*.py', '*.bash', '*.fish', '*.sh' }, --  Shell filetypes?
     callback = function(opts)
-        for line = 0, vim.api.nvim_buf_line_count(opts.buf)-1, 1 do
+        for line = 0, vim.api.nvim_buf_line_count(opts.buf) - 1, 1 do
             local ns_id = vim.api.nvim_create_namespace("Line Break Extmarks")
             if vim.api.nvim_buf_get_lines(opts.buf, line, line + 1, true)[1]:sub(-1) == '\\' then
-                vim.api.nvim_buf_set_extmark(opts.buf, ns_id, line + 1, vim.fn.indent(line+2), {
-                    virt_text = { { '󰘍', 'Normal' } },
-                    virt_text_win_col = vim.fn.indent(line+2) - 2,
-                    id = line,
-                })
+                vim.api.nvim_buf_set_extmark(
+                    opts.buf,
+                    ns_id,
+                    line + 1,
+                    vim.fn.indent(line + 2),
+                    {
+                        virt_text = { { '󰘍', 'Normal' } },
+                        virt_text_win_col = vim.fn.indent(line + 2) - 2,
+                        id = line,
+                    })
             else
                 vim.api.nvim_buf_del_extmark(opts.buf, ns_id, line)
             end

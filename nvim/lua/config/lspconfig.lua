@@ -4,8 +4,8 @@ local map = vim.keymap.set
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local map_opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float, map_opts)
-vim.keymap.set('n', 'dk', vim.diagnostic.goto_prev, map_opts)
-vim.keymap.set('n', 'dj', vim.diagnostic.goto_next, map_opts)
+vim.keymap.set('n', '<leader>dk', vim.diagnostic.goto_prev, map_opts)
+vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_next, map_opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
