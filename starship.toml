@@ -37,6 +37,11 @@ ignore_branches = ['main', 'master']
 disabled = false
 
 [git_status]
+ahead = ">"
+behind = "<"
+diverged = "<>"
+renamed = "r"
+deleted = "x"
 
 [battery]
 format = '[$symbol$percentage]($style) '
