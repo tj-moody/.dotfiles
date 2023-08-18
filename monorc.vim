@@ -184,7 +184,7 @@ augroup END
 
 set statusline+=%#Normal#%{g:gitbranch}
 
-set statusline+=%#NormalColor#\ %F           "file name
+set statusline+=%#NormalColor#%F           "file name
 set statusline+=%#Comment#\ %y
 set statusline+=%#ReplaceColor#%m\ \         "modified flag
 
