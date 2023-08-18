@@ -54,6 +54,7 @@ format = 'via [$symbol($version(-$name) )]($style)'
 symbol = ' '
 style = "#51a0cf"
 format = 'via [$symbol($version )]($style)'
+detect_files = ['!projfile.lua']
 
 [python]
 symbol = ' '
