@@ -13,7 +13,7 @@ end
 function cleard
     clear
     for line in (seq $LINES)
-		# echo -ne "\n"
+        # echo -ne "\n"
         printf "\n"
     end
 end
