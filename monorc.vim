@@ -160,6 +160,7 @@ set statusline+=%#InsertColor#%{(mode()==#'i')?'\ \ \ \ \ ':''}
 set statusline+=%#ReplaceColor#%{(mode()==#'R')?'\ \ \ \ \ ':''}
 set statusline+=%#VisualColor#%{(mode()==#'v')?'\ \ \ \ \ ':''}
 
+let g:gitbranch=""
 function! StatuslineGitBranch()
     let g:gitbranch=""
     if &modifiable
@@ -175,11 +176,10 @@ function! StatuslineGitBranch()
         endif
     endif
 endfunction
-call StatuslineGitBranch()
 
 augroup GetGitBranch
     autocmd!
-    autocmd VimEnter,WinEnter,BufEnter * call StatuslineGitBranch()
+    autocmd WinEnter * call StatuslineGitBranch()
 augroup END
 
 set statusline+=%#Normal#%{g:gitbranch}
