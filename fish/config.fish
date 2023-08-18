@@ -15,6 +15,7 @@ if status is-interactive
     set PATH /opt/homebrew/anaconda3/bin/ $PATH
     set PATH /Qt/5.15.2/clang_64/bin/ $PATH
     set PATH ~/go/bin/ $PATH
+    set PATH ~/packages/potion/bin $PATH
 
     # Init
     # Starship

@@ -101,6 +101,10 @@ function proj
     cd ~/projects/"$argv"
 end
 
+function pack
+    cd ~/packages/"$argv"
+end
+
 function colortest
     bash /Users/tj/.dotfiles/bash/colortest.bash
 end
