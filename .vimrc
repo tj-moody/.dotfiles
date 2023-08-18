@@ -166,7 +166,7 @@ set statusline+=%#ReplaceColor#%m\ \         "modified flag
 
 set statusline+=%#Normal#%{%'\ %n\ \ '%}
 
-set statusline+=%#Comment#%{(&ff=='dos')?'󰖳\ \ ':''}
+set statusline+=%#Comment#%{(&ff=='dos')?'\ \ ':''}
 set statusline+=%#Comment#%{(&ff=='unix')?'\ \ ':''}
 set statusline+=%#Comment#%{(&ff=='mac')?'\ \ ':''}
 
