@@ -155,12 +155,34 @@ hi InsertColor guifg=#83a598
 hi ReplaceColor guifg=#fb4934
 hi VisualColor guifg=#fe8019
 
-set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ \ \ \ ':''}
-set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ \ \ \ ':''}
-set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ \ \ \ ':''}
-set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ \ \ \ ':''}
+set statusline+=%#NormalColor#%{(mode()==#'n')?'\ \ \ \ \ ':''}
+set statusline+=%#InsertColor#%{(mode()==#'i')?'\ \ \ \ \ ':''}
+set statusline+=%#ReplaceColor#%{(mode()==#'R')?'\ \ \ \ \ ':''}
+set statusline+=%#VisualColor#%{(mode()==#'v')?'\ \ \ \ \ ':''}
 
-set statusline+=%#NormalColor#%{system("git rev-parse --abbrev-ref HEAD")}
+function! StatuslineGitBranch()
+    let g:gitbranch=""
+    if &modifiable
+        try
+            lcd %:p:h
+        catch
+            return
+        endtry
+        silent let l:gitrevparse=system("git rev-parse --abbrev-ref HEAD")
+        lcd -
+        if l:gitrevparse!~"fatal: not a git repository"
+            let g:gitbranch=" ".substitute(l:gitrevparse, '\n', '', 'g')
+        endif
+    endif
+endfunction
+call StatuslineGitBranch()
+
+augroup GetGitBranch
+    autocmd!
+    autocmd VimEnter,WinEnter,BufEnter * call StatuslineGitBranch()
+augroup END
+
+set statusline+=%#Normal#%{g:gitbranch}
 
 set statusline+=%#NormalColor#\ %F           "file name
 set statusline+=%#Comment#\ %y
