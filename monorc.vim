@@ -155,10 +155,12 @@ hi InsertColor guifg=#83a598
 hi ReplaceColor guifg=#fb4934
 hi VisualColor guifg=#fe8019
 
-set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ \ \ \ \ ':''}
-set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ \ \ \ \ ':''}
-set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ \ \ \ \ ':''}
-set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ \ \ \ \ ':''}
+set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ \ \ \ ':''}
+set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ \ \ \ ':''}
+set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ \ \ \ ':''}
+set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ \ \ \ ':''}
+
+set statusline+=%#NormalColor#%{system("git rev-parse --abbrev-ref HEAD")}
 
 set statusline+=%#NormalColor#\ %F           "file name
 set statusline+=%#Comment#\ %y
