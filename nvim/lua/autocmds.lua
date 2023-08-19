@@ -31,6 +31,15 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorHold' }, {
     pattern = { '*' },
     group = "LSP Auto Start",
     callback = function(_)
+        if vim.bo.filetype == "term" then
+            return
+        end
+        if vim.bo.filetype == "toggleterm" then
+            return
+        end
+        if vim.bo.filetype == "projterm" then
+            return
+        end
         vim.cmd('LspStart')
     end,
 })

@@ -203,7 +203,7 @@ return {
     {
         'willothy/flatten.nvim',
         config = {
-            window = { open = 'vsplit' },
+            window = { open = 'alternate' },
         },
         lazy = false,
     },
