@@ -202,8 +202,10 @@ return {
     },
     {
         'willothy/flatten.nvim',
-        config = true,
-        event = 'VeryLazy',
+        config = {
+            window = { open = 'vsplit' },
+        },
+        lazy = false,
     },
     --- Git
     {
