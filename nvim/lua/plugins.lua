@@ -1,19 +1,18 @@
 local fun = {}
-if vim.g.have_fun then
-    fun = {
-        {
-            "giusgad/pets.nvim",
-            event = 'VeryLazy',
-            dependencies = {
-                "MunifTanjim/nui.nvim",
-                "giusgad/hologram.nvim",
-            },
-            opts = {
-                popup = { avoid_statusline = true },
-            }
+fun = {
+    {
+        "giusgad/pets.nvim",
+        event = 'VeryLazy',
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "giusgad/hologram.nvim",
         },
-    }
-end
+        opts = {
+            popup = { avoid_statusline = true },
+        },
+        cond = vim.g.have_fun,
+    },
+}
 return {
     --- Colorscheme
     {
