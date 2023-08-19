@@ -200,6 +200,11 @@ return {
         end,
         event = 'VeryLazy',
     },
+    {
+        'willothy/flatten.nvim',
+        config = true,
+        event = 'VeryLazy',
+    },
     --- Git
     {
         'lewis6991/gitsigns.nvim',
