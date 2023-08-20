@@ -142,3 +142,55 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "BufEnter" }, {
         end
     end
 })
+
+-- Hide fold markers
+-- Note: Broken by inlay hints
+vim.api.nvim_create_augroup("Line Break Extmarks", {})
+vim.api.nvim_create_autocmd({ "InsertCharPre", "InsertLeave", "BufEnter" }, {
+    pattern = { '*', }, --  Shell filetypes?
+    callback = function(opts)
+        local ns_id = vim.api.nvim_create_namespace("Fold Hide Extmarks")
+        vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
+        for linenr, line in ipairs(vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)) do
+            (function()
+                local pattern = ""
+                if line:sub(-1) == '{' then
+                    pattern = "{+"
+                elseif line:sub(-1) == '}' then
+                    pattern = "}+"
+                else
+                    return
+                end
+
+                if pattern == "" then return end
+                last_match = nil
+                last_position = nil
+
+                local commentstring = vim.bo.commentstring:sub(1, -3)
+
+                for match in line:gmatch(pattern) do
+                    if #match >= 3 then
+                        last_match = match
+                        last_position = line:find(match, last_position, true)
+                    end
+                    if #match % 3 ~= 0 and last_position then
+                        last_position = last_position + #match % 3
+                    end
+                end
+                if not last_position or vim.fn.foldclosed(linenr) ~= -1 then return end
+                if line:sub(last_position - #commentstring, last_position - 1) == commentstring then
+                    last_position = last_position - #commentstring
+                end
+                vim.api.nvim_buf_set_extmark(
+                    opts.buf,
+                    ns_id,
+                    linenr - 1,
+                    0,
+                    {
+                        virt_text = { { string.rep(' ', #line - last_position + 1), 'Normal' } },
+                        virt_text_win_col = last_position - 1,
+                    })
+            end)()
+        end
+    end
+})
