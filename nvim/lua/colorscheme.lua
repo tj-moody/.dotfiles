@@ -262,6 +262,7 @@ local hl_table = {
             { '@punctuation.delimiter', { fg = '#928374', } },
             { 'FloatBorder',            { bg = '#000000', fg = '#665c54' } },
             { 'FloatTitle',             { bg = '#000000', fg = '#b8bb26', } },
+            { 'DiffDelete',             { fg = '#A03B32' } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#8ec07c' } },
