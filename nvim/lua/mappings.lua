@@ -73,9 +73,6 @@ map('i', '<esc>', '<esc>`^')
 map('n', '<TAB>', ':tabnext<CR>')
 map('n', '<S-TAB>', ':tabprevious<CR>')
 
-map('n', '0', '^')
-map('n', '^', '0')
-
 local escape_code = vim.api.nvim_replace_termcodes(
     "<Esc>",
     false, false, true
@@ -412,7 +409,60 @@ map('v', '<leader>pe', ':SnipRun<CR>')
 -- comment
 map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cO', 'O_<esc>:norm ,cc<cr>A<bs>')
-map('n', '<leader>cl', [[:execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]) --  https://vi.stackexchange.com/a/19163
+map('n', '<leader>cl', [[:execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]) -- https://vi.stackexchange.com/a/19163
+map('n', '<leader>cs',
+    -- comment split below
+    function()
+        local line = vim.api.nvim_get_current_line()
+
+        local commentstring = vim.bo.commentstring:sub(1, -3)
+        escaped_commentstring = string.gsub(commentstring, '-', '%%-') -- escape commentstring
+
+        local _, count = string.gsub(line, escaped_commentstring, escaped_commentstring)
+        if count == 0 then return end
+
+        local last_position = nil
+        for match in line:gmatch(escaped_commentstring) do
+            last_position = line:find(match, last_position, true)
+        end
+        if not last_position then return end
+
+        local linenr, _ = unpack(vim.api.nvim_win_get_cursor(0))
+        vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[li\<BS>\<CR>"]])
+        if vim.fn.indent(linenr) ~= 0 then
+            vim.cmd([[norm! ]] .. string.rep('<<', vim.fn.indent(linenr)))
+            vim.cmd([[execute "norm! 0]] .. vim.fn.indent(linenr) .. [[i \<ESC>"]])
+        end
+        vim.cmd([[execute "norm! ^]] .. #commentstring .. [[l"]])
+    end
+)
+map('n', '<leader>cS',
+    -- comment split above
+    function()
+        local line = vim.api.nvim_get_current_line()
+
+        local commentstring = vim.bo.commentstring:sub(1, -3)
+        escaped_commentstring = string.gsub(commentstring, '-', '%%-') -- escape commentstring
+
+        local _, count = string.gsub(line, escaped_commentstring, escaped_commentstring)
+        if count == 0 then return end
+
+        local last_position = nil
+        for match in line:gmatch(escaped_commentstring) do
+            last_position = line:find(match, last_position, true)
+        end
+        if not last_position then return end
+
+        local linenr, _ = unpack(vim.api.nvim_win_get_cursor(0))
+        vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[li\<BS>\<CR>"]])
+        vim.cmd([[execute "norm VK\<ESC>"]])
+        if vim.fn.indent(linenr + 1) ~= 0 then
+            vim.cmd([[norm! ]] .. string.rep('<<', vim.fn.indent(linenr)))
+            vim.cmd([[execute "norm! 0]] .. vim.fn.indent(linenr + 1) .. [[i \<ESC>"]])
+        end
+        vim.cmd([[execute "norm! ^]] .. #commentstring .. [[l"]])
+    end
+)
 -- TODO: Rewrite to not append commentstring if a comment already exitsts
 
 --- CONFIG

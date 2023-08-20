@@ -165,14 +165,12 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged', 'TextChangedI', 'Tex
                 end
 
                 if pattern == '' then return end
-                last_match = nil
-                last_position = nil
+                local last_position = nil
 
                 local commentstring = vim.bo.commentstring:sub(1, -3)
 
                 for match in line:gmatch(pattern) do
                     if #match >= 3 then
-                        last_match = match
                         last_position = line:find(match, last_position, true)
                     end
                     if #match % 3 ~= 0 and last_position then
