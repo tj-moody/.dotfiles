@@ -126,12 +126,12 @@ m_o('i', '<BS>',
         end
 
         local indent_based_filetype = false
-        for _, v in ipairs(indent_based_filetypes) do-- {{{
+        for _, v in ipairs(indent_based_filetypes) do -- {{{
             if vim.bo.filetype == v then
                 print()
                 indent_based_filetype = true
             end
-        end-- }}}
+        end -- }}}
         local correct_indent = require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
         local current_indent = vim.fn.indent(line) / vim.bo.tabstop
         local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(
@@ -219,12 +219,21 @@ map('n', '<leader>O',
         if vim.bo.filetype == 'NvimTree' then
             vim.cmd('only')
         else
-            vim.cmd('%bd!')
-            vim.cmd(vim.api.nvim_replace_termcodes(
-                'normal <c-o>',
-                true, true, true
-            ))
-            vim.cmd('bd #')
+            local invisible_buffers = {}
+
+            for buffer = 1, vim.fn.bufnr('$') do
+                if vim.fn.buflisted(buffer) == 1 then
+                    invisible_buffers[tostring(buffer)] = true
+                    for _, v in ipairs(vim.fn.tabpagebuflist()) do
+                        if buffer == v then invisible_buffers[tostring(buffer)] = false end
+                    end
+                end
+            end
+            for buffer, invisible in pairs(invisible_buffers) do
+                if invisible then
+                    vim.cmd.bdelete(tonumber(buffer))
+                end
+            end
         end
     end
 )
