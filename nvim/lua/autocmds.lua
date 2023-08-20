@@ -1,18 +1,18 @@
 -- fix filetype.vim format options issue
-vim.api.nvim_create_augroup("Filetype Options", {})
-vim.api.nvim_create_autocmd({ "Filetype" }, {
+vim.api.nvim_create_augroup('Filetype Options', {})
+vim.api.nvim_create_autocmd({ 'Filetype' }, {
     pattern = { '*' },
-    group = "Filetype Options",
+    group = 'Filetype Options',
     callback = function(_)
-        vim.cmd("set formatoptions-=cro")
+        vim.cmd('set formatoptions-=cro')
     end,
 })
 
 -- Use nvim-tree when opening a directory on launch
-vim.api.nvim_create_augroup("NvimTree Launch", {})
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
+vim.api.nvim_create_augroup('NvimTree Launch', {})
+vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     pattern = { '*' },
-    group = "NvimTree Launch",
+    group = 'NvimTree Launch',
     callback = function(opts)
         local directory = vim.fn.isdirectory(opts.file) == 1
         if not directory then
@@ -20,24 +20,24 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
         end
 
         vim.cmd.cd(opts.file)
-        require("nvim-tree.api").tree.open()
+        require('nvim-tree.api').tree.open()
         vim.cmd('only')
     end
 })
 
 -- start lsp after loading file to lazyload lsp plugins
-vim.api.nvim_create_augroup("LSP Auto Start", {})
+vim.api.nvim_create_augroup('LSP Auto Start', {})
 vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
     pattern = { '*' },
-    group = "LSP Auto Start",
+    group = 'LSP Auto Start',
     callback = function(_)
-        if vim.bo.filetype == "term" then
+        if vim.bo.filetype == 'term' then
             return
         end
-        if vim.bo.filetype == "toggleterm" then
+        if vim.bo.filetype == 'toggleterm' then
             return
         end
-        if vim.bo.filetype == "projterm" then
+        if vim.bo.filetype == 'projterm' then
             return
         end
         vim.cmd('LspStart')
@@ -46,10 +46,10 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
 
 --- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
 -- Strip trailing spaces before write
-vim.api.nvim_create_augroup("Format On Save", {})
+vim.api.nvim_create_augroup('Format On Save', {})
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     pattern = { '*' },
-    group = "Format On Save",
+    group = 'Format On Save',
     callback = function(_)
         local save = vim.fn.winsaveview()
         vim.cmd([[ %s/\s\+$//e ]])
@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 
 -- Enable spellcheck on gitcommit and markdown
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-    group = "Filetype Options",
+    group = 'Filetype Options',
     pattern = { 'gitcommit', 'markdown', '*.txt' },
     callback = function(_)
         vim.opt_local.wrap = true
@@ -68,10 +68,10 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 -- Automatically enable inlay hints
-vim.api.nvim_create_augroup("Inlay Hints", {})
-vim.api.nvim_create_autocmd({ "LspAttach" }, {
+vim.api.nvim_create_augroup('Inlay Hints', {})
+vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     pattern = { '*' },
-    group = "Inlay Hints",
+    group = 'Inlay Hints',
     callback = function(opts)
         if not (opts.data and opts.data.client_id) then
             return
@@ -80,7 +80,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
         local bufnr = opts.buf
         local client = vim.lsp.get_client_by_id(opts.data.client_id)
 
-        if client.name == "lua_ls" then
+        if client.name == 'lua_ls' then
             return
         end
 
@@ -91,8 +91,8 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 })
 
 -- Format makefile whitespace properly
-vim.api.nvim_create_autocmd({ "LspAttach" }, {
-    group = "Filetype Options",
+vim.api.nvim_create_autocmd({ 'LspAttach' }, {
+    group = 'Filetype Options',
     pattern = { 'make' },
     callback = function(_)
         vim.bo.expandtab = false
@@ -102,17 +102,17 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 })
 -- vim.cmd [[autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0]]
 
-vim.api.nvim_create_augroup("Auto-Session", {})
-vim.api.nvim_create_autocmd({ "VimLeave" }, {
+vim.api.nvim_create_augroup('Auto-Session', {})
+vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     pattern = { '*' },
     callback = function(opts)
         if vim.g.in_pager_mode then
             return
         end
-        if vim.api.nvim_get_option_value("filetype", { buf = opts.buf }) == "alpha" then
+        if vim.api.nvim_get_option_value('filetype', { buf = opts.buf }) == 'alpha' then
             return
         end
-        vim.cmd("SessionSave")
+        vim.cmd('SessionSave')
     end,
 
 })
@@ -120,11 +120,11 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
 -- Display '󰘍' before lines that are wrapped by a `\` character
 -- Pretty cool feature
 -- TODO: Optimize to only check modified lines?
-vim.api.nvim_create_augroup("Line Break Extmarks", {})
-vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "TextChangedP", "BufEnter" }, {
+vim.api.nvim_create_augroup('Line Break Extmarks', {})
+vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP', 'BufEnter' }, {
     pattern = { '*', }, --  Exclude/include certain filetypes?
     callback = function(opts)
-        local ns_id = vim.api.nvim_create_namespace("Line Break Extmarks")
+        local ns_id = vim.api.nvim_create_namespace('Line Break Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
         for linenr, line in ipairs(vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)) do
             (function()
@@ -146,25 +146,25 @@ vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "TextChangedP", "Bu
 
 -- Hide fold markers
 -- Note: Broken by inlay hints
-vim.api.nvim_create_augroup("Line Break Extmarks", {})
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI", "TextChangedP", "BufEnter" }, {
+vim.api.nvim_create_augroup('Line Break Extmarks', {})
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged', 'TextChangedI', 'TextChangedP', 'BufEnter' }, {
     -- Add `FoldChanged` event when (if) implemented https://github.com/neovim/neovim/pull/24279
     pattern = { '*', }, --  Shell filetypes?
     callback = function(opts)
-        local ns_id = vim.api.nvim_create_namespace("Fold Hide Extmarks")
+        local ns_id = vim.api.nvim_create_namespace('Fold Hide Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
         for linenr, line in ipairs(vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)) do
             (function()
-                local pattern = ""
+                local pattern = ''
                 if line:sub(-1) == '{' then
-                    pattern = "{+"
+                    pattern = '{+'
                 elseif line:sub(-1) == '}' then
-                    pattern = "}+"
+                    pattern = '}+'
                 else
                     return
                 end
 
-                if pattern == "" then return end
+                if pattern == '' then return end
                 last_match = nil
                 last_position = nil
 
