@@ -216,7 +216,7 @@ return {
     },
     {
         'sindrets/diffview.nvim',
-        cmd = { 'DiffviewOpen', 'DiffviewClose', },
+        cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewFileHistory' },
         dependencies = 'nvim-lua/plenary.nvim',
     },
     {

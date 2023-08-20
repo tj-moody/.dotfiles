@@ -362,6 +362,15 @@ map('n', '<leader>gd',
         end
     end
 )
+map('n', '<leader>gh',
+    function()
+        if next(require('diffview.lib').views) == nil then
+            vim.cmd('DiffviewFileHistory')
+        else
+            vim.cmd('DiffviewClose')
+        end
+    end
+)
 map('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
 map('n', '<leader>gk', ':Gitsigns prev_hunk<CR>')
 map('n', '<leader>gb', ':Gitsigns blame_line<CR>')
