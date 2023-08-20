@@ -126,12 +126,12 @@ m_o('i', '<BS>',
         end
 
         local indent_based_filetype = false
-        for _, v in ipairs(indent_based_filetypes) do
+        for _, v in ipairs(indent_based_filetypes) do-- {{{
             if vim.bo.filetype == v then
                 print()
                 indent_based_filetype = true
             end
-        end
+        end-- }}}
         local correct_indent = require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
         local current_indent = vim.fn.indent(line) / vim.bo.tabstop
         local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(

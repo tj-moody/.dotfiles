@@ -262,7 +262,8 @@ local hl_table = {
             { '@punctuation.delimiter', { fg = '#928374', } },
             { 'FloatBorder',            { bg = '#000000', fg = '#665c54' } },
             { 'FloatTitle',             { bg = '#000000', fg = '#b8bb26', } },
-            { 'DiffDelete',             { fg = '#A03B32' } },
+            { 'DiffDelete',             { fg = '#A03B32', } },
+            { 'Folded',                 { fg = '#81878f', } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#8ec07c' } },
@@ -359,7 +360,7 @@ local hl_table = {
             { 'NvimTreeFolderName',       { fg = '#94e2d5', } },
             { 'NvimTreeOpenedFolderName', { fg = '#89b4fa', } },
             { 'NvimTreeNormal',           { fg = '#6c7086', } },
-            { 'NvimTreeNormalNC',         { fg = '#6c7086', } },
+
             { 'NvimTreeEndOfBuffer',      { fg = '#6c7086', } },
             { 'NvimTreeExecFile',         { fg = '#cdd6f4', } },
             { 'NvimTreeGitNew',           { fg = '#f9e2af', } },
@@ -504,6 +505,8 @@ local clear_hl_bg_table = {
     'DiagnosticSignWarn',
     'DiagnosticSignInfo',
     'DiagnosticSignHint',
+
+    'Folded',
 }
 local clear_hl_table = {
     'CursorLine',
@@ -515,6 +518,7 @@ local mod_hl_table = {
     { 'Statement', { bold = false, } },
     { 'Keyword',   { bold = false, italic = true, } },
     { '@keyword',  { bold = false, italic = true, } },
+    { 'Folded',    { bold = true, } },
 }
 
 ---Remove background from highlight group `hl`
@@ -544,17 +548,18 @@ function M.clear_hl(hl)
     vim.api.nvim_set_hl(0, hl, {})
 end
 
--- u/lkhphuc
 ---Applies `opts` to `hl` without modifying `hl` otherwise
 ---
 ---Example:
 --- ```lua
----    mod_hl('Normal', {fg = '#XXXXXX', bold = true})
+---    mod_hl('Normal', { fg = '#XXXXXX', bold = true })
 --- ```
 ---@param hl_name string
 ---@param opts table
+---
+---Credit: u/lkhphuc
 function M.mod_hl(hl_name, opts)
-    local is_ok, hl_def = pcall(vim.api.nvim_get_hl, hl_name, true)
+    local is_ok, hl_def = pcall(vim.api.nvim_get_hl, 0, { name = hl_name, link = true })
     if is_ok then
         for k, v in pairs(opts) do hl_def[k] = v end
         vim.api.nvim_set_hl(0, hl_name, hl_def)
@@ -590,9 +595,8 @@ end
 ---@param category? string
 function M.setup(category)
     if not category or category == "setup" then
-        colors_table[vim.g.tjtheme]()
-        setup_hls()
         category = "setup"
+        colors_table[vim.g.tjtheme]()
     end
     local colorscheme = hl_table[vim.g.tjtheme]
     if colorscheme[category] then
@@ -602,6 +606,7 @@ function M.setup(category)
             end
         end
     end
+    if category == "setup" then setup_hls() end
 end
 
 ---Reload all fields of 'hl_table' and files affected by colorscheme
@@ -613,5 +618,4 @@ function M.reload()
     safe_require('config.lualine')
 end
 
-print("")
 return M

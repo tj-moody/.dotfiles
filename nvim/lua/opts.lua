@@ -1,5 +1,27 @@
+function _G.custom_fold_text()
+    local line = vim.fn.getline(vim.v.foldstart)
+    line = string.gsub(line, '{{{', "") --}}}
+
+    local commentstring = vim.bo.commentstring:sub(1, -3)
+    commentstring = string.gsub(commentstring, '-', '%%-') -- escape commentstring
+    line = string.gsub(line, commentstring, "")
+
+    line = string.gsub(line, '[ \t]+%f[\r\n%z]', '') -- remove trailing whitespace (via cyclaminist on stackoverflow)
+
+    -- if line:sub(-1) == '{' then
+    --     line = line .. '...}'
+    -- else
+    --     line = line .. ' ...'
+    -- end
+
+    line = line .. (line:sub(-1) == '{' and '...}' or ' ...')
+
+    return line .. ' '
+end
+
+vim.opt.foldtext = 'v:lua.custom_fold_text()'
 local opts = {
-    fillchars = {
+    fillchars = { -- {{{
         stl = ' ',
         stlnc = ' ',
         foldopen = '',
@@ -19,7 +41,8 @@ local opts = {
         -- vertright = ' ',
         -- verthoriz = ' ',
 
-    },
+    }, -- }}}
+    foldtext = 'v:lua.custom_fold_text()',
     listchars = {
         tab = '▸ ',
     },
@@ -50,7 +73,7 @@ local opts = {
     foldmethod = 'marker',
     background = 'dark',
     virtualedit = 'block',
-    matchpairs = "(:),{:},[:],<:>",
+    matchpairs = '(:),{:},[:],<:>',
     undofile = true,
     -- smoothscroll = true,
 }
