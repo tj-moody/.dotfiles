@@ -23,7 +23,7 @@ end
 --- BASICS
 map('n', '\\', ',')
 
-map('n', '<leader>.', ":vsp<CR>:Telescope find_files<CR>")
+map('n', '<leader>.', ":vsp<CR>:Telescope smart_open<CR>")
 
 map('n', '<leader>w', ":silent write<CR>")
 map('n', '<leader><leader>x', ":silent write<CR>:source <CR>")
@@ -315,7 +315,7 @@ map('n', 'Tc', ":BufferLinePickClose<CR>")
 map('n', 'Tp', ":BufferLinePick<CR>")
 
 -- Tabs
-map('n', 'T.', ':tabe %<CR>:Telescope find_files<CR>')
+map('n', 'T.', ':tabe %<CR>:Telescope smart_open<CR>')
 map('n', 'Tn', ':tabe %<CR>')
 map('n', 'TL', ':tabnext<CR>')
 map('n', 'TH', ':tabprevious<CR>')
