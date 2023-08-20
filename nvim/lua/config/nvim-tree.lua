@@ -11,11 +11,6 @@ function M.nvim_tree_setup()
         },
         view = {
             cursorline = false,
-            mappings = {
-                custom_only = false,
-                list = {
-                }
-            },
         },
     }
 
