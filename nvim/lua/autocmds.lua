@@ -120,25 +120,25 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
 -- Display '󰘍' before lines that are wrapped by a `\` character
 -- Pretty cool feature
 vim.api.nvim_create_augroup("Line Break Extmarks", {})
-vim.api.nvim_create_autocmd({ "InsertLeave", "BufEnter" }, {
-    pattern = { '*.py', '*.bash', '*.fish', '*.sh' }, --  Shell filetypes?
+vim.api.nvim_create_autocmd({ "InsertCharPre", "InsertLeave", "BufEnter" }, {
+    pattern = { '*', }, --  Exclude/include certain filetypes?
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace("Line Break Extmarks")
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
-        for line = 0, vim.api.nvim_buf_line_count(opts.buf) - 1, 1 do
-            if vim.api.nvim_buf_get_lines(opts.buf, line, line + 1, true)[1]:sub(-1) == '\\' then
+        for linenr, line in ipairs(vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)) do
+            (function()
+                if line:sub(-1) ~= '\\' then return end
+                if vim.fn.indent(linenr + 1) < 2 then return end
                 vim.api.nvim_buf_set_extmark(
-                    opts.buf,
-                    ns_id,
-                    line + 1,
-                    vim.fn.indent(line + 2),
+                    opts.buf, ns_id,
+                    linenr,
+                    0,
                     {
                         virt_text = { { '󰘍', 'Normal' } },
-                        virt_text_win_col = vim.fn.indent(line + 2) - 2,
-                        id = line,
+                        virt_text_win_col = vim.fn.indent(linenr + 1) - 2,
                     })
-                vim.api.nvim_buf_del_extmark(opts.buf, ns_id, line)
-            end
+                vim.api.nvim_buf_del_extmark(opts.buf, ns_id, linenr)
+            end)()
         end
     end
 })
