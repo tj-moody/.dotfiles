@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 
 -- start lsp after loading file to lazyload lsp plugins
 vim.api.nvim_create_augroup("LSP Auto Start", {})
-vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorHold' }, {
+vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
     pattern = { '*' },
     group = "LSP Auto Start",
     callback = function(_)
