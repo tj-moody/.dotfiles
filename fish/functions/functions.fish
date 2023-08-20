@@ -203,3 +203,7 @@ function projinit
         echo "`projtasks` file already exists."
     end
 end
+
+function silent_push
+    git push 2> /dev/null > /dev/null &
+end
