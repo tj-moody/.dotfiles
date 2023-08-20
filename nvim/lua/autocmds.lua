@@ -119,8 +119,9 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
 
 -- Display '󰘍' before lines that are wrapped by a `\` character
 -- Pretty cool feature
+-- TODO: Optimize to only check modified lines?
 vim.api.nvim_create_augroup("Line Break Extmarks", {})
-vim.api.nvim_create_autocmd({ "InsertCharPre", "InsertLeave", "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "TextChangedP", "BufEnter" }, {
     pattern = { '*', }, --  Exclude/include certain filetypes?
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace("Line Break Extmarks")
@@ -146,7 +147,8 @@ vim.api.nvim_create_autocmd({ "InsertCharPre", "InsertLeave", "BufEnter" }, {
 -- Hide fold markers
 -- Note: Broken by inlay hints
 vim.api.nvim_create_augroup("Line Break Extmarks", {})
-vim.api.nvim_create_autocmd({ "InsertCharPre", "InsertLeave", "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI", "TextChangedP", "BufEnter" }, {
+    -- Add `FoldChanged` event when (if) implemented https://github.com/neovim/neovim/pull/24279
     pattern = { '*', }, --  Shell filetypes?
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace("Fold Hide Extmarks")
