@@ -123,12 +123,11 @@ m_o('i', '<BS>',
         end
 
         local indent_based_filetype = false
-        for _, v in ipairs(indent_based_filetypes) do -- {{{
+        for _, v in ipairs(indent_based_filetypes) do
             if vim.bo.filetype == v then
-                print()
                 indent_based_filetype = true
             end
-        end -- }}}
+        end
         local correct_indent = require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
         local current_indent = vim.fn.indent(line) / vim.bo.tabstop
         local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(
@@ -428,7 +427,11 @@ map('n', '<leader>cs',
         if not last_position then return end
 
         local linenr, _ = unpack(vim.api.nvim_win_get_cursor(0))
-        vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[li\<BS>\<CR>"]])
+        vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
+        if line:sub(-1) == " " then
+            vim.cmd([[execute "norm! i\<BS>"]])
+        end
+        vim.cmd([[execute "norm! i\<CR>"]])
         if vim.fn.indent(linenr) ~= 0 then
             vim.cmd([[norm! ]] .. string.rep('<<', vim.fn.indent(linenr)))
             vim.cmd([[execute "norm! 0]] .. vim.fn.indent(linenr) .. [[i \<ESC>"]])
@@ -454,7 +457,11 @@ map('n', '<leader>cS',
         if not last_position then return end
 
         local linenr, _ = unpack(vim.api.nvim_win_get_cursor(0))
-        vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[li\<BS>\<CR>"]])
+        vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
+        if line:sub(-1) == " " then
+            vim.cmd([[execute "norm! i\<BS>"]])
+        end
+        vim.cmd([[execute "norm! i\<CR>"]])
         vim.cmd([[execute "norm VK\<ESC>"]])
         if vim.fn.indent(linenr + 1) ~= 0 then
             vim.cmd([[norm! ]] .. string.rep('<<', vim.fn.indent(linenr)))

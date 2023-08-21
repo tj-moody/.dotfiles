@@ -21,7 +21,7 @@ end
 
 vim.opt.foldtext = 'v:lua.custom_fold_text()'
 local opts = {
-    fillchars = { -- {{{
+    fillchars = {
         stl = ' ',
         stlnc = ' ',
         foldopen = '',
@@ -41,7 +41,7 @@ local opts = {
         -- vertright = ' ',
         -- verthoriz = ' ',
 
-    }, -- }}}
+    },
     foldtext = 'v:lua.custom_fold_text()',
     listchars = {
         tab = '▸ ',
