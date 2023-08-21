@@ -146,7 +146,7 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP', 'Bu
 
 -- Hide fold markers
 -- Note: Broken by inlay hints
-vim.api.nvim_create_augroup('Line Break Extmarks', {})
+vim.api.nvim_create_augroup('Fold Hide Extmarks', {})
 vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged', 'TextChangedI', 'TextChangedP', 'BufEnter' }, {
     -- Add `FoldChanged` event when (if) implemented https://github.com/neovim/neovim/pull/24279
     pattern = { '*', }, --  Shell filetypes?
@@ -166,16 +166,22 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged', 'TextChangedI', 'Tex
 
                 if pattern == '' then return end
                 local last_position = nil
+                local last_match = nil
 
                 local commentstring = vim.bo.commentstring:sub(1, -3)
 
                 for match in line:gmatch(pattern) do
                     if #match >= 3 then
+                        last_match = match
                         last_position = line:find(match, last_position, true)
                     end
                     if #match % 3 ~= 0 and last_position then
                         last_position = last_position + #match % 3
                     end
+                end
+                if pattern == '}+' and last_match then
+                    print(line:sub(-2 * #last_match, -#last_match))
+                    if line:sub(-2 * #last_match, -#last_match - 1) == string.rep('{', #last_match) then return end
                 end
                 if not last_position or vim.fn.foldclosed(linenr) ~= -1 then return end
                 if line:sub(last_position - #commentstring, last_position - 1) == commentstring then
