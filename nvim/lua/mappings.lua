@@ -394,13 +394,13 @@ map('n', '<leader>gb', ':Gitsigns blame_line<CR>')
 map('n', '<leader>gB', ':ToggleBlame virtual<CR>')
 
 -- smart-splits
-map('n', '<space>h', require('smart-splits').resize_left)
-map('n', '<space>j', require('smart-splits').resize_down)
-map('n', '<space>k', require('smart-splits').resize_up)
-map('n', '<space>l', require('smart-splits').resize_right)
+map('n', '<left>', require('smart-splits').resize_left)
+map('n', '<down>', require('smart-splits').resize_down)
+map('n', '<up>', require('smart-splits').resize_up)
+map('n', '<right>', require('smart-splits').resize_right)
 
-map('n', '<C-j>', require('smart-splits').move_cursor_down)
 map('n', '<C-h>', require('smart-splits').move_cursor_left)
+map('n', '<C-j>', require('smart-splits').move_cursor_down)
 map('n', '<C-k>', require('smart-splits').move_cursor_up)
 map('n', '<C-l>', require('smart-splits').move_cursor_right)
 
