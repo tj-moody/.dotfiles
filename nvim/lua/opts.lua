@@ -1,19 +1,17 @@
 local o = vim.opt
 function _G.custom_fold_text()
     local line = vim.fn.getline(vim.v.foldstart)
-    line = string.gsub(line, '{{{', "") --}}}
+    line = string.gsub(line, '{{{', "")-- }}}
 
     local commentstring = vim.bo.commentstring:sub(1, -3)
-    commentstring = string.gsub(commentstring, '-', '%%-') -- escape commentstring
-    line = string.gsub(line, commentstring, "")
+    escaped_commentstring = string.gsub(commentstring, '-', '%%-')
 
-    line = string.gsub(line, '[ \t]+%f[\r\n%z]', '') -- remove trailing whitespace (via cyclaminist on stackoverflow)
+    if line:find(commentstring) == vim.fn.indent(vim.v.foldstart) - 1 then
+        line = string.gsub(line, escaped_commentstring, "")
+    end
 
-    -- if line:sub(-1) == '{' then
-    --     line = line .. '...}'
-    -- else
-    --     line = line .. ' ...'
-    -- end
+    line = string.gsub(line, '[ \t]+%f[\r\n%z]', '')
+    -- remove trailing whitespace (via cyclaminist on stackoverflow)
 
     line = line .. (line:sub(-1) == '{' and ' … }' or ' …')
 
