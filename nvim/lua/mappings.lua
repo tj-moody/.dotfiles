@@ -1,5 +1,8 @@
 vim.g.mapleader = ","
 
+local fn = vim.fn
+local api = vim.api
+
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, opts) with
 ---```lua
 ---    opts = { noremap = true, silent = true }
@@ -73,11 +76,11 @@ map('i', '<esc>', '<esc>`^')
 map('n', '<TAB>', ':tabnext<CR>')
 map('n', '<S-TAB>', ':tabprevious<CR>')
 
-local escape_code = vim.api.nvim_replace_termcodes(
+local escape_code = api.nvim_replace_termcodes(
     "<Esc>",
     false, false, true
 )
-local backspace_code = vim.api.nvim_replace_termcodes(
+local backspace_code = api.nvim_replace_termcodes(
     "<BS>",
     false, false, true
 )
@@ -110,8 +113,8 @@ m_o('i', '<BS>',
             return require('nvim-autopairs').autopairs_bs()
         end
 
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        local before_cursor_is_whitespace = vim.api.nvim_get_current_line()
+        local line, col = unpack(api.nvim_win_get_cursor(0))
+        local before_cursor_is_whitespace = api.nvim_get_current_line()
             :sub(0, col)
             :match("^%s*$")
 
@@ -128,9 +131,10 @@ m_o('i', '<BS>',
                 indent_based_filetype = true
             end
         end
-        local correct_indent = require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
-        local current_indent = vim.fn.indent(line) / vim.bo.tabstop
-        local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(
+        local correct_indent = require("nvim-treesitter.indent")
+            .get_indent(line) / vim.bo.tabstop
+        local current_indent = fn.indent(line) / vim.bo.tabstop
+        local previous_line_is_whitespace = api.nvim_buf_get_lines(
             0, line - 2, line - 1, false
         )[1]:match("^%s*$")
         if current_indent == correct_indent then
@@ -152,20 +156,22 @@ map({ 'n', 'v' }, 'gj',
     -- next indent
     function()
         -- Get the current cursor position
-        local current_line, column = unpack(vim.api.nvim_win_get_cursor(0))
+        local current_line, column = unpack(api.nvim_win_get_cursor(0))
         local match_line = current_line
         local match_indent = false
 
-        local buf_length = vim.api.nvim_buf_line_count(0)
+        local buf_length = api.nvim_buf_line_count(0)
 
-        -- Look for a line with the same indent level without going out of the buffer
+        -- Look for a line with the same indent level
+        -- without going out of the buffer
         while (not match_indent) and (match_line ~= buf_length) do
             match_line = match_line + 1
-            local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
+            local match_line_str = api.nvim_buf_get_lines(
+                0, match_line - 1, match_line, false)[1] .. ' '
             -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
             local match_line_is_whitespace = match_line_str:match("^%s*$")
 
-            match_indent = (vim.fn.indent(match_line) <= vim.fn.indent(current_line))
+            match_indent = (fn.indent(match_line) <= fn.indent(current_line))
                 and (not match_line_is_whitespace)
             -- and (stripped_match_line_str ~= "end")
             -- and (stripped_match_line_str ~= "}")
@@ -173,7 +179,7 @@ map({ 'n', 'v' }, 'gj',
 
         -- If a line is found go to this line
         if match_indent or match_line == buf_length then
-            vim.fn.cursor({ match_line, column + 1 })
+            fn.cursor({ match_line, column + 1 })
         end
     end
 )
@@ -182,21 +188,24 @@ map({ 'n', 'v' }, 'gk',
     -- prev_indent
     function()
         -- Get the current cursor position
-        local current_line, column = unpack(vim.api.nvim_win_get_cursor(0))
+        local current_line, column = unpack(api.nvim_win_get_cursor(0))
         local match_line = current_line
         local match_indent = false
 
-        local buf_length = vim.api.nvim_buf_line_count(0)
+        local buf_length = api.nvim_buf_line_count(0)
 
-        -- Look for a line with the same indent level without going out of the buffer
+        -- Look for a line with the same indent level
+        -- without going out of the buffer
         while (not match_indent) and (match_line ~= buf_length) do
             match_line = match_line - 1
 
-            local match_line_str = vim.api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1] .. ' '
+            local match_line_str = api.nvim_buf_get_lines(
+                0, match_line - 1, match_line, false
+            )[1] .. ' '
             -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
             local match_line_is_whitespace = match_line_str:match("^%s*$")
 
-            match_indent = (vim.fn.indent(match_line) <= vim.fn.indent(current_line))
+            match_indent = (fn.indent(match_line) <= fn.indent(current_line))
                 and (not match_line_is_whitespace)
             -- and (stripped_match_line_str ~= "end")
             -- and (stripped_match_line_str ~= "}")
@@ -204,7 +213,7 @@ map({ 'n', 'v' }, 'gk',
 
         -- If a line is found go to this line
         if match_indent or match_line == buf_length then
-            vim.fn.cursor({ match_line, column + 1 })
+            fn.cursor({ match_line, column + 1 })
         end
     end
 )
@@ -217,11 +226,13 @@ map('n', '<leader>O',
         else
             local invisible_buffers = {}
 
-            for buffer = 1, vim.fn.bufnr('$') do
-                if vim.fn.buflisted(buffer) == 1 then
+            for buffer = 1, fn.bufnr('$') do
+                if fn.buflisted(buffer) == 1 then
                     invisible_buffers[tostring(buffer)] = true
-                    for _, v in ipairs(vim.fn.tabpagebuflist()) do
-                        if buffer == v then invisible_buffers[tostring(buffer)] = false end
+                    for _, v in ipairs(fn.tabpagebuflist()) do
+                        if buffer == v then
+                            invisible_buffers[tostring(buffer)] = false
+                        end
                     end
                 end
             end
@@ -230,7 +241,7 @@ map('n', '<leader>O',
                     vim.cmd.bdelete(tonumber(buffer))
                 end
             end
-            vim.cmd[[redrawtabline]]
+            vim.cmd [[redrawtabline]]
         end
     end
 )
@@ -264,9 +275,8 @@ m_o('v', "[", "<Plug>VSurround]", { noremap = false, })
 map('n', 'r<CR>',
     function()
         local node = vim.treesitter.get_node():type()
-        print(node)
-        vim.cmd[[execute "norm! r\<CR>"]]
-        if node =="comment_content" then
+        vim.cmd [[execute "norm! r\<CR>"]]
+        if node == "comment_content" then
             vim.cmd([[norm! ^i]] .. vim.bo.commentstring:sub(1, -3))
         end
     end
@@ -420,16 +430,22 @@ map('v', '<leader>pe', ':SnipRun<CR>')
 -- comment
 map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cO', 'O_<esc>:norm ,cc<cr>A<bs>')
-map('n', '<leader>cl', [[:execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]) -- https://vi.stackexchange.com/a/19163
+map('n', '<leader>cl',
+    [[:execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]
+) -- https://vi.stackexchange.com/a/19163
 map('n', '<leader>cs',
     -- comment split below
     function()
-        local line = vim.api.nvim_get_current_line()
+        local line = api.nvim_get_current_line()
 
         local commentstring = vim.bo.commentstring:sub(1, -3)
-        escaped_commentstring = string.gsub(commentstring, '-', '%%-') -- escape commentstring
+        escaped_commentstring = string.gsub(commentstring, '-', '%%-')
 
-        local _, count = string.gsub(line, escaped_commentstring, escaped_commentstring)
+        local _, count = string.gsub(
+            line,
+            escaped_commentstring,
+            escaped_commentstring
+        )
         if count == 0 then return end
 
         local last_position = nil
@@ -438,28 +454,38 @@ map('n', '<leader>cs',
         end
         if not last_position then return end
 
-        local linenr, _ = unpack(vim.api.nvim_win_get_cursor(0))
+        local linenr, _ = unpack(api.nvim_win_get_cursor(0))
         vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
         if line:sub(-1) == " " then
             vim.cmd([[execute "norm! i\<BS>"]])
         end
         vim.cmd([[execute "norm! i\<CR>"]])
-        if vim.fn.indent(linenr) ~= 0 then
-            vim.cmd([[norm! ]] .. string.rep('<<', vim.fn.indent(linenr)))
-            vim.cmd([[execute "norm! 0]] .. vim.fn.indent(linenr) .. [[i \<ESC>"]])
+        if fn.indent(linenr) ~= 0 then
+            vim.cmd([[norm! ]] .. string.rep('<<', fn.indent(linenr)))
+            vim.cmd([[execute "norm! 0]]
+                .. fn.indent(linenr)
+                .. [[i \<ESC>"]]
+            )
         end
-        vim.cmd([[execute "norm! ^]] .. #commentstring .. [[l"]])
+        vim.cmd([[execute "norm! ^]]
+            .. #commentstring
+            .. [[l"]]
+        )
     end
 )
 map('n', '<leader>cS',
     -- comment split above
     function()
-        local line = vim.api.nvim_get_current_line()
+        local line = api.nvim_get_current_line()
 
         local commentstring = vim.bo.commentstring:sub(1, -3)
-        escaped_commentstring = string.gsub(commentstring, '-', '%%-') -- escape commentstring
+        escaped_commentstring = string.gsub(commentstring, '-', '%%-')
 
-        local _, count = string.gsub(line, escaped_commentstring, escaped_commentstring)
+        local _, count = string.gsub(
+            line,
+            escaped_commentstring,
+            escaped_commentstring
+        )
         if count == 0 then return end
 
         local last_position = nil
@@ -468,16 +494,19 @@ map('n', '<leader>cS',
         end
         if not last_position then return end
 
-        local linenr, _ = unpack(vim.api.nvim_win_get_cursor(0))
+        local linenr, _ = unpack(api.nvim_win_get_cursor(0))
         vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
         if line:sub(-1) == " " then
             vim.cmd([[execute "norm! i\<BS>"]])
         end
         vim.cmd([[execute "norm! i\<CR>"]])
         vim.cmd([[execute "norm VK\<ESC>"]])
-        if vim.fn.indent(linenr + 1) ~= 0 then
-            vim.cmd([[norm! ]] .. string.rep('<<', vim.fn.indent(linenr)))
-            vim.cmd([[execute "norm! 0]] .. vim.fn.indent(linenr + 1) .. [[i \<ESC>"]])
+        if fn.indent(linenr + 1) ~= 0 then
+            vim.cmd([[norm! ]] .. string.rep('<<', fn.indent(linenr)))
+            vim.cmd([[execute "norm! 0]]
+                .. fn.indent(linenr + 1)
+                .. [[i \<ESC>"]]
+            )
         end
         vim.cmd([[execute "norm! ^]] .. #commentstring .. [[l"]])
     end

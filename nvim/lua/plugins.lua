@@ -44,7 +44,10 @@ return {
                 branch = "0.2.x",
                 dependencies = {
                     { "kkharji/sqlite.lua" },
-                    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+                    {
+                        "nvim-telescope/telescope-fzf-native.nvim",
+                        build = "make",
+                    },
                     { "nvim-telescope/telescope-fzy-native.nvim" },
                 },
             },
@@ -108,7 +111,7 @@ return {
         'tpope/vim-surround',
         event = 'VeryLazy',
     },
-    -- TODO: Investigate - breaks default `%` for some reason? Investigate further
+    -- TODO: Investigate - breaks default `%` for some reason?
     -- {
     --     'andymass/vim-matchup',
     --     -- event = 'BufReadPost',g
@@ -196,7 +199,10 @@ return {
         build = 'sh ./install.sh',
         config = function()
             vim.api.nvim_set_hl(0, 'SniprunVirtualTextOk',
-                { fg = safe_require('colorscheme').get_color('SniprunVirtualTextOk', 'bg#') })
+                {
+                    fg = safe_require('colorscheme')
+                        .get_color('SniprunVirtualTextOk', 'bg#')
+                })
         end,
         event = 'VeryLazy',
     },
@@ -244,7 +250,9 @@ return {
         'nvim-tree/nvim-tree.lua',
         cmd = { 'NvimTreeClose', 'NvimTreeToggle', },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function() safe_require('config.nvim-tree').nvim_tree_setup() end,
+        config = function()
+            safe_require('config.nvim-tree').nvim_tree_setup()
+        end,
     },
     {
         'goolord/alpha-nvim',

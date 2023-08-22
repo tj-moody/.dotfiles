@@ -185,7 +185,8 @@ function! StatuslineGitBranch()
         silent let l:gitrevparse=system("git rev-parse --abbrev-ref HEAD")
         lcd -
         if l:gitrevparse!~"fatal: not a git repository"
-            let g:gitbranch="\ua0".substitute(l:gitrevparse, '\n', '', 'g') . "\ua0──\ua0"
+            let g:gitbranch="\ua0".substitute(l:gitrevparse, '\n', '', 'g')
+                \ . "\ua0──\ua0"
             let g:ingit="true"
         else
             let g:ingit="false"

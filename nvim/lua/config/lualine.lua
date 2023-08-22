@@ -189,7 +189,9 @@ local lualine_config = {
                     if not isVisualMode then return "" end
                     local starts = vim.fn.line("v")
                     local ends = vim.fn.line(".")
-                    local lines = starts <= ends and ends - starts + 1 or starts - ends + 1
+                    local lines = starts <= ends
+                        and ends - starts + 1
+                        or starts - ends + 1
                     return lines .. "L"
                 end,
                 color = { fg = comment_fg },

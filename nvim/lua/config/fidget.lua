@@ -47,4 +47,6 @@ require('fidget').setup {
 local clear_hl_bg = safe_require('colorscheme').clear_hl_bg
 clear_hl_bg('FidgetTitle')
 clear_hl_bg('FidgetTask')
-vim.api.nvim_set_hl(0, 'FidgetTask', { fg = safe_require('colorscheme').get_color('NormalFloat', 'fg#') })
+vim.api.nvim_set_hl(0, 'FidgetTask', {
+    fg = safe_require('colorscheme').get_color('NormalFloat', 'fg#'),
+})

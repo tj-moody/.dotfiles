@@ -3,7 +3,8 @@ function l
 end
 
 function lt
-    exa -al --tree --icons --group-directories-first --ignore-glob="*.git*" $argv
+    exa -al --tree --icons --group-directories-first \
+    --ignore-glob="*.git*" $argv
 end
 
 function lds

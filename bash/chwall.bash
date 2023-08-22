@@ -65,19 +65,24 @@ PHOTOS_PATH="~/Documents/tjwallpapers/used/"
 write_wall_path() {
     case $1 in
         4)
-            echo -e "${PHOTOS_PATH}mountains1.jpg\n$1" > ~/.config/.WallPath.txt
+            echo -e "${PHOTOS_PATH}mountains1.jpg\n$1" \
+                > ~/.config/.WallPath.txt
             ;;
         3)
-            echo -e "${PHOTOS_PATH}plains1.jpg\n$1" > ~/.config/.WallPath.txt
+            echo -e "${PHOTOS_PATH}plains1.jpg\n$1" \
+                > ~/.config/.WallPath.txt
             ;;
         2)
-            echo -e "${PHOTOS_PATH}redcloudysunset.jpg\n$1" > ~/.config/.WallPath.txt
+            echo -e "${PHOTOS_PATH}redcloudysunset.jpg\n$1" \
+                > ~/.config/.WallPath.txt
             ;;
         1)
-            echo -e "${PHOTOS_PATH}bigsurnightsucculents.heic\n$1" > ~/.config/.WallPath.txt
+            echo -e "${PHOTOS_PATH}bigsurnightsucculents.heic\n$1" \
+                > ~/.config/.WallPath.txt
             ;;
         0)
-            echo -e "${PHOTOS_PATH}purpleclouds.jpg\n$1" > ~/.config/.WallPath.txt
+            echo -e "${PHOTOS_PATH}purpleclouds.jpg\n$1" \
+                > ~/.config/.WallPath.txt
             ;;
     esac
 }

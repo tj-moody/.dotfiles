@@ -109,7 +109,10 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
         if vim.g.in_pager_mode then
             return
         end
-        if vim.api.nvim_get_option_value('filetype', { buf = opts.buf }) == 'alpha' then
+        if vim.api.nvim_get_option_value(
+                'filetype',
+                { buf = opts.buf }
+            ) == 'alpha' then
             return
         end
         vim.cmd('SessionSave')
@@ -121,12 +124,19 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 -- Pretty cool feature
 -- TODO: Optimize to only check modified lines?
 vim.api.nvim_create_augroup('Line Break Extmarks', {})
-vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP', 'BufEnter' }, {
+vim.api.nvim_create_autocmd({
+    'TextChanged',
+    'TextChangedI',
+    'TextChangedP',
+    'BufEnter',
+}, {
     pattern = { '*', }, --  Exclude/include certain filetypes?
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Line Break Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
-        for linenr, line in ipairs(vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)) do
+        for linenr, line in ipairs(
+            vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
+        ) do
             (function()
                 if line:sub(-1) ~= '\\' then return end
                 if vim.fn.indent(linenr + 1) < 2 then return end
@@ -147,13 +157,22 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP', 'Bu
 -- Hide fold markers
 -- Note: Broken by inlay hints
 vim.api.nvim_create_augroup('Fold Hide Extmarks', {})
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged', 'TextChangedI', 'TextChangedP', 'BufEnter' }, {
-    -- Add `FoldChanged` event when (if) implemented https://github.com/neovim/neovim/pull/24279
-    pattern = { '*', }, --  Shell filetypes?
+vim.api.nvim_create_autocmd({
+    'InsertLeave',
+    'TextChanged',
+    'TextChangedI',
+    'TextChangedP',
+    'BufEnter',
+}, {
+    -- Add `FoldChanged` event when (if) implemented
+    -- https://github.com/neovim/neovim/pull/24279
+    pattern = { '*', }, -- Shell filetypes?
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Fold Hide Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
-        for linenr, line in ipairs(vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)) do
+        for linenr, line in ipairs(
+            vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
+        ) do
             (function()
                 local pattern = ''
                 if line:sub(-1) == '{' then
@@ -180,21 +199,29 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged', 'TextChangedI', 'Tex
                     end
                 end
                 if pattern == '}+' and last_match then
-                    print(line:sub(-2 * #last_match, -#last_match))
-                    if line:sub(-2 * #last_match, -#last_match - 1) == string.rep('{', #last_match) then return end
+                    if line:sub(-2 * #last_match, - #last_match - 1)
+                        == string.rep('{', #last_match) then
+                        return
+                    end
                 end
-                if not last_position or vim.fn.foldclosed(linenr) ~= -1 then return end
-                if line:sub(last_position - #commentstring, last_position - 1) == commentstring then
+                if not last_position
+                    or vim.fn.foldclosed(linenr) ~= -1 then
+                    return
+                end
+                if line:sub(
+                        last_position - #commentstring,
+                        last_position - 1
+                    ) == commentstring then
                     last_position = last_position - #commentstring
                 end
                 vim.api.nvim_buf_set_extmark(
-                    opts.buf,
-                    ns_id,
-                    linenr - 1,
-                    0,
-                    {
-                        virt_text = { { ' …' .. string.rep(' ', #line - last_position - 1), 'LineNr' } },
-                        virt_text_win_col = last_position - 1 + (vim.fn.virtcol({linenr, #line}) - #line),
+                    opts.buf, ns_id, linenr - 1, 0, {
+                        virt_text = { {
+                            ' …' .. string.rep(' ', #line - last_position - 1),
+                            'LineNr',
+                        } },
+                        virt_text_win_col = last_position - 1
+                            + (vim.fn.virtcol({ linenr, #line }) - #line),
                     })
             end)()
         end
