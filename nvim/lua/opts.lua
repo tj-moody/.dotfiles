@@ -15,7 +15,7 @@ function _G.custom_fold_text()
     --     line = line .. ' ...'
     -- end
 
-    line = line .. (line:sub(-1) == '{' and '...}' or ' ...')
+    line = line .. (line:sub(-1) == '{' and ' … }' or ' …')
 
     return line .. ' '
 end

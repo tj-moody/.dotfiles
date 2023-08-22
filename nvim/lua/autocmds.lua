@@ -193,8 +193,8 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged', 'TextChangedI', 'Tex
                     linenr - 1,
                     0,
                     {
-                        virt_text = { { string.rep(' ', #line - last_position + 1), 'Normal' } },
-                        virt_text_win_col = last_position - 1,
+                        virt_text = { { ' …' .. string.rep(' ', #line - last_position - 1), 'LineNr' } },
+                        virt_text_win_col = last_position - 1 + (vim.fn.virtcol({linenr, #line}) - #line),
                     })
             end)()
         end
