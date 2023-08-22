@@ -66,18 +66,18 @@ autocmd FileType text setlocal spell
 autocmd FileType gitcommit setlocal spell
 set wildignore+=.pyc,.swp
 
-set splitright
-autocmd WinNew * wincmd L
+set splitbelow
 
 set list
 
 let &listchars ..= ',eol: ,tab:▸ '
-let &fillchars ..= ',eob: '
+let &fillchars ..= ',eob: ,fold: ,stl:-,stlnc:-'
 
 let g:netrw_banner = 0
 
 set t_Co=256
 set background=dark
+
 
 nnoremap <leader>. :vsp .<CR>
 
@@ -150,17 +150,43 @@ set foldcolumn=2
 """ Statusline
 set noshowmode
 set statusline=
+
 hi NormalColor guifg=#b8bb26
 hi InsertColor guifg=#83a598
 hi ReplaceColor guifg=#fb4934
 hi VisualColor guifg=#fe8019
 
-set statusline+=%#NormalColor#%{(mode()==#'n')?'\ \ \ \ \ ':''}
-set statusline+=%#InsertColor#%{(mode()==#'i')?'\ \ \ \ \ ':''}
-set statusline+=%#ReplaceColor#%{(mode()==#'R')?'\ \ \ \ \ ':''}
-set statusline+=%#VisualColor#%{(mode()==#'v')?'\ \ \ \ \ ':''}
+hi link ModeColor NormalColor
+
+hi clear StatusLineNC
+hi StatusLineNC guifg=#ebddb2
+hi clear StatusLine
+hi StatusLine guifg=#ebddb3
+
+" set statusline+=\ "
+" set statusline+=%#ModeColor#%{''}
+" set statusline+=\ \ \ "
+
+set statusline+=%#Normal#%{'-----'}
+set statusline+=\ "
+
+function! StlMode()
+    if mode() ==? 'c'
+        hi link ModeColor NormalColor
+    elseif mode() ==? 'r'
+        hi link ModeColor ReplaceColor
+    elseif mode() ==? 'v'
+        hi link ModeColor VisualColor
+    elseif mode() ==? 'i'
+        hi link ModeColor InsertColor
+    else
+        hi link ModeColor NormalColor
+    endif
+endfunction
+au ModeChanged * call StlMode()
 
 let g:gitbranch=""
+let g:ingit="false"
 function! StatuslineGitBranch()
     let g:gitbranch=""
     if &modifiable
@@ -172,7 +198,10 @@ function! StatuslineGitBranch()
         silent let l:gitrevparse=system("git rev-parse --abbrev-ref HEAD")
         lcd -
         if l:gitrevparse!~"fatal: not a git repository"
-            let g:gitbranch=" ".substitute(l:gitrevparse, '\n', '', 'g')
+            let g:gitbranch="\ua0".substitute(l:gitrevparse, '\n', '', 'g') . "\ua0"
+            let g:ingit="true"
+        else
+            let g:ingit="false"
         endif
     endif
 endfunction
@@ -188,13 +217,13 @@ set statusline+=%#NormalColor#%F           "file name
 set statusline+=%#Comment#\ %y
 set statusline+=%#ReplaceColor#%m\ \         "modified flag
 
-set statusline+=%#Normal#%{%'\ %n\ \ '%}
+set statusline+=%#Normal#%{%'\ %n\ '%}
 
-set statusline+=%#Comment#%{(&ff=='dos')?'\ \ ':''}
-set statusline+=%#Comment#%{(&ff=='unix')?'\ \ ':''}
-set statusline+=%#Comment#%{(&ff=='mac')?'\ \ ':''}
+set statusline+=%#Comment#%{%(&ff=='dos')?'':''%}\ "
+set statusline+=%#Comment#%{%(&ff=='unix')?'':''%}\ "
+set statusline+=%#Comment#%{%(&ff=='mac')?'':''%}\ "
 
-set statusline+=%=
+set statusline+=%#Normal#%=
 
 set statusline +=%#NormalColor#%5l           "current line
 set statusline +=%#Normal#/
@@ -249,8 +278,6 @@ hi SpellBad term=undercurl guisp=#fb4934
 hi SpellCap term=undercurl guisp=#83a598
 hi SpellLocal term=undercurl guisp=#8ec07c
 hi SpellRare term=undercurl guisp=#d3869b
-hi StatusLine guifg=#0e8018 guibg=NONE term=NONE cterm=NONE
-hi StatusLineNC guifg=#0e8019 guibg=NONE term=NONE cterm=NONE
 hi link StatusLineTerm Normal
 hi link StatusLineTermNC Normal
 hi TabLine guibg=#3c3836 guifg=#7c6f64
@@ -269,9 +296,13 @@ hi Statement guifg=#fb4934
 hi PreProc guifg=#8ec07c
 hi Type guifg=#fabd2f
 hi Special guifg=#fe8019
+hi Operator guifg=#928374
+hi Delimiter guifg=#928374
+hi Function guifg=#b8bb26
 hi Underlined term=underline guifg=#83a598
 hi Error term=bold guifg=#fb4934 guibg=NONE
 hi Todo term=bold,italic guifg=#fbf1c7 guibg=NONE
+hi Folded term=bold guifg=#81878f guibg=NONE
 
 """ commentary.vim - copied from vim-commentary with
 """ modifications from tj-moody/vim-commentary fork

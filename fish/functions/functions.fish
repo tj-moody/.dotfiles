@@ -86,7 +86,7 @@ function cppcompile
 end
 
 function dev
-    cd ~/Documents/dev/"$argv"
+    cd ~/dev/"$argv"
 end
 
 function dot

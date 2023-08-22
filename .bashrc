@@ -26,4 +26,4 @@ alias src="source /Users/tj/.bashrc"
 alias lg="lazygit"
 alias gs="git status"
 
-. /Users/tj/.dotfiles/bash/functions.bash
+. /Users/tj/.dotfiles/bash/*.bash
