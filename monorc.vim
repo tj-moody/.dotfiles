@@ -145,7 +145,14 @@ set termguicolors
 
 hi clear signcolumn
 set signcolumn=yes
-set foldcolumn=2
+set foldcolumn=3
+set numberwidth=3
+
+function! CustomFoldText()
+    return getline(v:foldstart)
+endfunction
+
+set foldtext=CustomFoldText()
 
 """ Statusline
 set noshowmode

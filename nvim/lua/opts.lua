@@ -47,7 +47,8 @@ o.listchars = {
     tab = '▸ ▸',
 }
 o.list = true
-o.foldcolumn = '2'
+o.foldcolumn = '3'
+o.numberwidth = 3
 o.signcolumn = 'yes:1'
 o.number = true
 o.relativenumber = true
