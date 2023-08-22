@@ -237,9 +237,7 @@ map('n', '<leader>O',
                 end
             end
             for buffer, invisible in pairs(invisible_buffers) do
-                if invisible then
-                    vim.cmd.bdelete(tonumber(buffer))
-                end
+                if invisible then vim.cmd.bdelete(tonumber(buffer)) end
             end
             vim.cmd [[redrawtabline]]
         end

@@ -4,9 +4,9 @@ function _G.custom_fold_text()
     line = string.gsub(line, '{{{', "")-- }}}
 
     local commentstring = vim.bo.commentstring:sub(1, -3)
-    escaped_commentstring = string.gsub(commentstring, '-', '%%-')
+    local escaped_commentstring = string.gsub(commentstring, '-', '%%-')
 
-    if line:find(commentstring) == vim.fn.indent(vim.v.foldstart) - 1 then
+    if line:find(escaped_commentstring) == vim.fn.indent(vim.v.foldstart) - 1 then
         line = string.gsub(line, escaped_commentstring, "")
     end
 
