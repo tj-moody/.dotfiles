@@ -57,7 +57,6 @@ set shortmess+=cC
 
 set path+=**
 
-set formatoptions+=j
 set hidden
 set history=1000
 set nomodeline
@@ -71,7 +70,7 @@ set splitbelow
 set list
 
 let &listchars ..= ',eol: ,tab:▸ '
-let &fillchars ..= ',eob: ,fold: ,stl:-,stlnc:-'
+let &fillchars ..= ',eob: ,fold: ,stl:─,stlnc:─,vert:│'
 
 let g:netrw_banner = 0
 
@@ -170,27 +169,8 @@ hi StatusLineNC guifg=#ebddb2
 hi clear StatusLine
 hi StatusLine guifg=#ebddb3
 
-" set statusline+=\ "
-" set statusline+=%#ModeColor#%{''}
-" set statusline+=\ \ \ "
-
-set statusline+=%#Normal#%{'-----'}
+set statusline+=%#Normal#%{'─────'}
 set statusline+=\ "
-
-function! StlMode()
-    if mode() ==? 'c'
-        hi link ModeColor NormalColor
-    elseif mode() ==? 'r'
-        hi link ModeColor ReplaceColor
-    elseif mode() ==? 'v'
-        hi link ModeColor VisualColor
-    elseif mode() ==? 'i'
-        hi link ModeColor InsertColor
-    else
-        hi link ModeColor NormalColor
-    endif
-endfunction
-au ModeChanged * call StlMode()
 
 let g:gitbranch=""
 let g:ingit="false"
@@ -205,7 +185,7 @@ function! StatuslineGitBranch()
         silent let l:gitrevparse=system("git rev-parse --abbrev-ref HEAD")
         lcd -
         if l:gitrevparse!~"fatal: not a git repository"
-            let g:gitbranch="\ua0".substitute(l:gitrevparse, '\n', '', 'g') . "\ua0"
+            let g:gitbranch="\ua0".substitute(l:gitrevparse, '\n', '', 'g') . "\ua0──\ua0"
             let g:ingit="true"
         else
             let g:ingit="false"
@@ -220,22 +200,20 @@ augroup END
 
 set statusline+=%#Normal#%{g:gitbranch}
 
-set statusline+=%#NormalColor#%F           "file name
-set statusline+=%#Comment#\ %y
-set statusline+=%#ReplaceColor#%m\ \         "modified flag
-
-set statusline+=%#Normal#%{%'\ %n\ '%}
-
-set statusline+=%#Comment#%{%(&ff=='dos')?'':''%}\ "
-set statusline+=%#Comment#%{%(&ff=='unix')?'':''%}\ "
-set statusline+=%#Comment#%{%(&ff=='mac')?'':''%}\ "
+set statusline+=%#Normal#%f            "file name
+set statusline+=%#ReplaceColor#%m\     "modified flag
 
 set statusline+=%#Normal#%=
 
-set statusline +=%#NormalColor#%5l           "current line
-set statusline +=%#Normal#/
-set statusline +=%#ReplaceColor#%L           "total lines
-set statusline +=%#NormalColor#%4v           "virtual column number
+set statusline+=\  "
+set statusline+=%#Normal#%{%'\ %n'%}
+
+set statusline+=%##%{&termencoding}
+set statusline+=%#Comment#%{%(&ff=='dos')?'[]':''%}\ "
+set statusline+=%#Normal#%{%(&ff=='unix')?'':''%}\ "
+set statusline+=%#Comment#%{%(&ff=='mac')?'[]':''%}\ "
+
+set statusline+=%#Normal#%{'─────'}
 
 """ Theme
 hi clear CursorLine

@@ -230,6 +230,7 @@ map('n', '<leader>O',
                     vim.cmd.bdelete(tonumber(buffer))
                 end
             end
+            vim.cmd[[redrawtabline]]
         end
     end
 )
