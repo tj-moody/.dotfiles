@@ -6,9 +6,7 @@ function _G.custom_fold_text()
     local commentstring = vim.bo.commentstring:sub(1, -3)
     local escaped_commentstring = string.gsub(commentstring, '-', '%%-')
 
-    -- if line:find(escaped_commentstring) == vim.fn.indent(vim.v.foldstart) - 1 then
-    line = string.gsub(line, escaped_commentstring, "")
-    -- end
+    line = string.gsub(line, escaped_commentstring .. "[% {]*$", "")
 
     line = string.gsub(line, '[ \t]+%f[\r\n%z]', '')
     -- remove trailing whitespace (via cyclaminist on stackoverflow)
