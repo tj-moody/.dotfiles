@@ -119,20 +119,31 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 })
 
 -- Display '󰘍' before lines that are wrapped by a `\` character
--- Pretty cool feature
+-- Pretty cool feature!
 -- TODO: Optimize to only check modified lines?
-local function linebreak_extmark(ns_id, buf, linenr, line)
-    if line:sub(-1) ~= '\\' then return end
-    if vim.fn.indent(linenr + 1) < 2 then return end
+local function make_linebreak_extmark(buf, ns_id, linenr, line_offset)
+    if vim.fn.indent(linenr + line_offset) < 2 then return end
     vim.api.nvim_buf_set_extmark(
         buf, ns_id,
-        linenr,
+        linenr - 1 + line_offset,
         0,
         {
-            virt_text = { { '󰘍', 'Normal' } },
-            virt_text_win_col = vim.fn.indent(linenr + 1) - 2,
+            virt_text = { { '󰘍', 'LineNr' } },
+            virt_text_win_col = vim.fn.indent(linenr + line_offset) - 2,
         })
-    vim.api.nvim_buf_del_extmark(buf, ns_id, linenr)
+end
+local function linebreak_extmark(ns_id, buf, linenr, line)
+    local next_line_escaped = false
+    local cur_line_escaped = false
+    if line:sub(-1) == [[\]] then next_line_escaped = true end
+    if line:find([[^%s*\]]) then cur_line_escaped = true end
+
+    if cur_line_escaped then
+        make_linebreak_extmark(buf, ns_id, linenr, 0)
+    end
+    if next_line_escaped then
+        make_linebreak_extmark(buf, ns_id, linenr, 1)
+    end
 end
 vim.api.nvim_create_augroup('Line Break Extmarks', {})
 vim.api.nvim_create_autocmd({
