@@ -47,6 +47,7 @@ if status is-interactive
     alias gs      "git status"
     alias md      "glow" # https://github.com/charmbracelet/glow
     alias snip    "nap" # https://github.com/maaslalani/nap
+    alias rm      "trash"
 
     alias pond    "pond -db"
     alias arttime "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
