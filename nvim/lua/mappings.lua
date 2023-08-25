@@ -621,7 +621,7 @@ map('v', '<ScrollWheelLeft>', '')
 map('v', '<ScrollWheelRight>', '')
 
 -- email
-map('ia', '@@g', 'tjsmoody@gmail.com')
+map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
 
 -- datetime
 m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
