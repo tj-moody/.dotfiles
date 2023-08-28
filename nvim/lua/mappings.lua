@@ -415,11 +415,6 @@ map('n', '<leader>gb', ':Gitsigns blame_line<CR>')
 map('n', '<leader>gB', ':ToggleBlame virtual<CR>')
 -- }}}
 ----- Splits{{{
-map('n', '<left>', require('smart-splits').resize_left)
-map('n', '<down>', require('smart-splits').resize_down)
-map('n', '<up>', require('smart-splits').resize_up)
-map('n', '<right>', require('smart-splits').resize_right)
-
 map('n', '<C-h>', require('smart-splits').move_cursor_left)
 map('n', '<C-j>', require('smart-splits').move_cursor_down)
 map('n', '<C-k>', require('smart-splits').move_cursor_up)
@@ -429,6 +424,8 @@ map('n', '<Space>h', '<C-w>H')
 map('n', '<Space>j', '<C-w>J')
 map('n', '<Space>k', '<C-w>K')
 map('n', '<Space>l', '<C-w>L')
+
+map('n', 'sr', require('smart-splits').start_resize_mode)
 -- }}}
 ----- TreeSJ{{{
 map('n', '<c-s>', ':TSJToggle<CR>')
