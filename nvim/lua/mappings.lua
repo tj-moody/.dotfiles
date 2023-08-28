@@ -332,7 +332,6 @@ map('n', 'TT',
 -- }}}
 ----- Telescope{{{
 map('n', '<leader>ff', ":Telescope smart_open<CR>")
--- m('n', '<leader>ff', ":Telescope find_files<CR>")
 map('n', '<leader>fh', ":Telescope highlights<CR>")
 map('n', '<leader>fg', ":Telescope live_grep<CR>")
 map('n', '<leader>fk', ":Telescope keymaps<CR>")

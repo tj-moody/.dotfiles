@@ -165,7 +165,7 @@ local lualine_config = {
             },
             {
                 function()
-                    return vim.fn.bufnr(0)
+                    return vim.fn.bufnr()
                 end,
                 icon = '',
                 cond = function()
