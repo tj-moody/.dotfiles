@@ -135,8 +135,7 @@ return {
     {
         'akinsho/toggleterm.nvim',
         version = '*',
-        keys = { '<c-t>', },
-        cmd = { 'ToggleTerm' },
+        event = 'VeryLazy',
         config = function()
             safe_require('config.toggleterm')
             safe_require('colorscheme').setup('toggleterm')
@@ -156,7 +155,7 @@ return {
     },
     {
         'norcalli/nvim-colorizer.lua',
-        event = 'BufEnter',
+        event = 'VeryLazy',
         config = function() safe_require('config.colorizer') end,
     },
     {
