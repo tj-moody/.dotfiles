@@ -1,5 +1,7 @@
 vim.g.mapleader = ","
 
+--- FUNCTIONS{{{
+
 local fn = vim.fn
 local api = vim.api
 
@@ -22,9 +24,28 @@ end
 local function m_o(m, l, r, opts)
     vim.keymap.set(m, l, r, opts)
 end
-
---- BASICS
+-- }}}
+--- VANILLA{{{
+----- Remapped Defaults{{{
 map('n', '\\', ',')
+
+m_o("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+m_o("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+map('n', 'p', ']p')
+map('v', 'p', '"0p') -- '"0pgv'
+
+map('n', 'x', '"_x')
+
+map('n', "<C-d>", "<C-d>zz")
+map('n', "<C-u>", "<C-u>zz")
+
+map('n', "n", "nzzzv")
+map('n', "N", "Nzzzv")
+
+map('i', '<esc>', '<esc>`^')
+-- }}}
+----- Basics{{{
 
 map('n', '<leader>.', ":vsp<CR>:Telescope smart_open<CR>")
 
@@ -40,23 +61,7 @@ map('v', 'J', ":m '>+1<CR>gv=gv")
 map('n', '<CR>', "mzo<esc>`z")
 map('n', '<S-CR>', "mzO<esc>`z")
 
-m_o("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-m_o("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
-map('n', '<leader>=', 'mzgg=G`z')
-
-map('n', 'p', ']p')
-map('v', 'p', '"0p') -- '"0pgv'
-
-map('n', 'x', '"_x')
-
 map('n', "J", "mzJ`z")
-
-map('n', "<C-d>", "<C-d>zz")
-map('n', "<C-u>", "<C-u>zz")
-
-map('n', "n", "nzzzv")
-map('n', "N", "Nzzzv")
 
 map('n', 's', '<Plug>Ysurround')
 map('n', 'ss', '<Plug>Yssurround')
@@ -71,11 +76,10 @@ map('v', 'V', 'j')
 
 map('n', 'gV', "`[v`]")
 
-map('i', '<esc>', '<esc>`^')
-
 map('n', '<TAB>', ':tabnext<CR>')
 map('n', '<S-TAB>', ':tabprevious<CR>')
 
+-- Backspace helper values{{{
 local escape_code = api.nvim_replace_termcodes(
     "<Esc>",
     false, false, true
@@ -100,8 +104,8 @@ local indent_unsupported_filetypes = {
 }
 local indent_based_filetypes = {
     'python'
-}
-m_o('i', '<BS>',
+}-- }}}
+m_o('i', '<BS>',-- {{{
     function()
         local unsupported_filetype = false
         for _, v in ipairs(indent_unsupported_filetypes) do
@@ -149,10 +153,10 @@ m_o('i', '<BS>',
     end,
     { expr = true, noremap = true, replace_keycodes = false, }
 )
-map('i', '<S-BS>', '<BS>')
+map('i', '<S-BS>', '<BS>')-- }}}
 
 -- adapted from https://vi.stackexchange.com/a/12870
-map({ 'n', 'v' }, 'gj',
+map({ 'n', 'v' }, 'gj',-- {{{
     -- next indent
     function()
         -- Get the current cursor position
@@ -183,8 +187,8 @@ map({ 'n', 'v' }, 'gj',
         end
     end
 )
-
-map({ 'n', 'v' }, 'gk',
+-- }}}
+map({ 'n', 'v' }, 'gk',-- {{{
     -- prev_indent
     function()
         -- Get the current cursor position
@@ -216,9 +220,9 @@ map({ 'n', 'v' }, 'gk',
             fn.cursor({ match_line, column + 1 })
         end
     end
-)
+)-- }}}
 
-map('n', '<leader>O',
+map('n', '<leader>O',-- {{{
     -- Delete all other buffers
     function()
         if vim.bo.filetype == 'NvimTree' then
@@ -242,7 +246,7 @@ map('n', '<leader>O',
             vim.cmd [[redrawtabline]]
         end
     end
-)
+)-- }}}
 map('n', '<leader>o', ":silent only<CR>")
 
 map('n', '<leader>y', '"+y')
@@ -283,8 +287,16 @@ map('n', 'r<CR>',
 -- Restart nvim
 map('n', '<leader>R', ':wa<CR>:SessionSave<CR>:cq<CR>')
 
---- PLUGINS
--- NvimTree
+map('i', '<ScrollWheelLeft>', '')
+map('i', '<ScrollWheelRight>', '')
+map('n', '<ScrollWheelLeft>', '')
+map('n', '<ScrollWheelRight>', '')
+map('v', '<ScrollWheelLeft>', '')
+map('v', '<ScrollWheelRight>', '')
+
+-- }}}}}}
+--- PLUGINS{{{
+----- NvimTree{{{
 
 map('n', 't',
     -- Toggle NvimTree
@@ -317,32 +329,32 @@ map('n', 'TT',
         end
     end
 )
-
--- Telescope
+-- }}}
+----- Telescope{{{
 map('n', '<leader>ff', ":Telescope smart_open<CR>")
 -- m('n', '<leader>ff', ":Telescope find_files<CR>")
 map('n', '<leader>fh', ":Telescope highlights<CR>")
 map('n', '<leader>fg', ":Telescope live_grep<CR>")
 map('n', '<leader>fk', ":Telescope keymaps<CR>")
--- Bufferline
+-- }}}
+----- Bufferline{{{
 map('n', 'H', ":BufferLineCyclePrev<CR>")
 map('n', 'L', ":BufferLineCycleNext<CR>")
 map('n', 'Tc', ":BufferLinePickClose<CR>")
 map('n', 'Tp', ":BufferLinePick<CR>")
-
--- Tabs
-
+-- }}}
+----- Tabs{{{
 map('n', 'T.', ':tabe %<CR>:Telescope smart_open<CR>')
 map('n', 'Tn', ':tabe %<CR>')
 map('n', 'TL', ':tabnext<CR>')
 map('n', 'TH', ':tabprevious<CR>')
 map('n', 'To', ':tabonly<CR>')
 map('n', 'Tq', ':tabclose<CR>')
-
--- Lazy
+-- }}}
+----- Lazy{{{
 map('n', '<leader>lz', ":Lazy<CR>")
-
--- Toggleterm
+-- }}}
+----- Toggleterm{{{
 
 -- Set keymaps to align with normal navigation in terminal buffers
 function _G.set_terminal_keymaps()
@@ -362,8 +374,8 @@ map('n', '<leader>tf', ':ToggleTerm size=40 direction=float<CR>')
 map('n', '<leader>tj', ':ToggleTerm size=20 direction=horizontal<CR>')
 map('n', '<leader>tl', ':ToggleTerm size=60 direction=vertical<CR>')
 map('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
-
--- git
+-- }}}
+----- Git{{{
 local Terminal = require('toggleterm.terminal').Terminal
 local lazygit  = Terminal:new({
     cmd = "lazygit",
@@ -401,8 +413,8 @@ map('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
 map('n', '<leader>gk', ':Gitsigns prev_hunk<CR>')
 map('n', '<leader>gb', ':Gitsigns blame_line<CR>')
 map('n', '<leader>gB', ':ToggleBlame virtual<CR>')
-
--- smart-splits
+-- }}}
+----- Splits{{{
 map('n', '<left>', require('smart-splits').resize_left)
 map('n', '<down>', require('smart-splits').resize_down)
 map('n', '<up>', require('smart-splits').resize_up)
@@ -413,26 +425,31 @@ map('n', '<C-j>', require('smart-splits').move_cursor_down)
 map('n', '<C-k>', require('smart-splits').move_cursor_up)
 map('n', '<C-l>', require('smart-splits').move_cursor_right)
 
--- treesj
+map('n', '<Space>h', '<C-w>H')
+map('n', '<Space>j', '<C-w>J')
+map('n', '<Space>k', '<C-w>K')
+map('n', '<Space>l', '<C-w>L')
+-- }}}
+----- TreeSJ{{{
 map('n', '<c-s>', ':TSJToggle<CR>')
-
--- alternate-toggler
+-- }}}
+----- Alternate-Toggler{{{
 map('n', '<leader>ta', ':ToggleAlternate<CR>')
-
--- project
+-- }}}
+----- Project{{{
 map('n', '<leader>pr', ':ProjtasksRun<CR>')
 map('n', '<leader>pp', ':ProjtasksToggle<CR>')
 map('n', '<leader>pt', ':ProjtasksTest<CR>')
 map('n', '<leader>pe', ':SnipRun<CR>')
 map('v', '<leader>pe', ':SnipRun<CR>')
-
--- comment
+-- }}}
+----- Comment{{{
 map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cO', 'O_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cl',
     [[:execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]
 ) -- https://vi.stackexchange.com/a/19163
-map('n', '<leader>cs',
+map('n', '<leader>cs',-- {{{
     -- comment split below
     function()
         local line = api.nvim_get_current_line()
@@ -471,8 +488,8 @@ map('n', '<leader>cs',
             .. [[l"]]
         )
     end
-)
-map('n', '<leader>cS',
+)-- }}}
+map('n', '<leader>cS',-- {{{
     -- comment split above
     function()
         local line = api.nvim_get_current_line()
@@ -510,9 +527,9 @@ map('n', '<leader>cS',
         vim.cmd([[execute "norm! ^]] .. #commentstring .. [[l"]])
     end
 )
--- TODO: Rewrite to not append commentstring if a comment already exitsts
-
---- CONFIG
+-- TODO: Rewrite to not append commentstring if a comment already exitsts}}}
+-- }}}}}}
+--- CONFIG{{{
 
 map('n', 'C', '<nop>')
 map('n', 'Cll',
@@ -610,21 +627,12 @@ map('n', 'Ct',
     end
 )
 
-
--- search & replace in word
--- m('n', '<leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
-map('i', '<ScrollWheelLeft>', '')
-map('i', '<ScrollWheelRight>', '')
-map('n', '<ScrollWheelLeft>', '')
-map('n', '<ScrollWheelRight>', '')
-map('v', '<ScrollWheelLeft>', '')
-map('v', '<ScrollWheelRight>', '')
-
+-- }}}
+--- ABBREVIATIONS{{{
 -- email
 map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
 
 -- datetime
 m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
 m_o('ia', 'dtdate', 'strftime("%m/%d/%y")', { expr = true })
-m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true })
+m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true })-- }}}

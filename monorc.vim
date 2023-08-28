@@ -10,7 +10,7 @@
 "     of tpope's vim-commentary
 " https://github.com/tj-moody
 
-
+""" Opts"{{{
 set nocompatible
 
 let mapleader = ","
@@ -76,8 +76,8 @@ let g:netrw_banner = 0
 
 set t_Co=256
 set background=dark
-
-
+"}}}
+""" Mappings"{{{
 nnoremap <leader>. :vsp .<CR>
 
 nnoremap <leader>ff :e .<CR>
@@ -138,8 +138,8 @@ let &t_EI = "\e[2 q"
 
 set timeoutlen=1000
 set ttimeoutlen=5
-
-" Appearance
+"}}}
+""" Appearance"{{{
 set termguicolors
 
 hi clear signcolumn
@@ -152,8 +152,8 @@ function! CustomFoldText()
 endfunction
 
 set foldtext=CustomFoldText()
-
-""" Statusline
+"}}}
+""" Statusline"{{{
 set noshowmode
 set statusline=
 
@@ -215,8 +215,8 @@ set statusline+=%#Normal#%{%(&ff=='unix')?'':''%}\ "
 set statusline+=%#Comment#%{%(&ff=='mac')?'[]':''%}\ "
 
 set statusline+=%#Normal#%{'─────'}
-
-""" Theme
+"}}}
+""" Theme"{{{
 hi clear CursorLine
 hi clear CursorLineNr
 
@@ -289,9 +289,11 @@ hi Underlined term=underline guifg=#83a598
 hi Error term=bold guifg=#fb4934 guibg=NONE
 hi Todo term=bold,italic guifg=#fbf1c7 guibg=NONE
 hi Folded term=bold guifg=#81878f guibg=NONE
+"}}}
+""" Commentary"{{{
 
-""" commentary.vim - copied from vim-commentary with
-""" modifications from tj-moody/vim-commentary fork
+"" commentary.vim - copied from vim-commentary with
+"" modifications from tj-moody/vim-commentary fork
 
 " commentary.vim - Comment stuff out
 " Maintainer:   Tim Pope <http://tpo.pe/>
@@ -412,3 +414,4 @@ if !hasmapto('<Plug>Commentary') || maparg('gc','n') ==# ''
   nmap <leader>cc <Plug>CommentaryLine
   nmap <leader>cu <Plug>Commentary<Plug>Commentary
 endif
+"}}}

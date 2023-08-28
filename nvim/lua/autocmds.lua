@@ -1,4 +1,4 @@
--- fix filetype.vim format options issue
+-- Fix filetype.vim format options issue{{{
 vim.api.nvim_create_augroup('Filetype Options', {})
 vim.api.nvim_create_autocmd({ 'Filetype' }, {
     pattern = { '*' },
@@ -7,8 +7,8 @@ vim.api.nvim_create_autocmd({ 'Filetype' }, {
         vim.cmd('set formatoptions-=cro')
     end,
 })
-
--- Use nvim-tree when opening a directory on launch
+-- }}}
+-- Use nvim-tree when opening a directory on launch{{{
 vim.api.nvim_create_augroup('NvimTree Launch', {})
 vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     pattern = { '*' },
@@ -24,8 +24,8 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
         vim.cmd('only')
     end
 })
-
--- start lsp after loading file to lazyload lsp plugins
+-- }}}
+-- start lsp after loading file to lazyload lsp plugins{{{
 vim.api.nvim_create_augroup('LSP Auto Start', {})
 vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
     pattern = { '*' },
@@ -43,9 +43,9 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
         vim.cmd('LspStart')
     end,
 })
-
---- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
--- Strip trailing spaces before write
+-- }}}
+-- Strip trailing spaces before write{{{
+-- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
 vim.api.nvim_create_augroup('Format On Save', {})
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     pattern = { '*' },
@@ -56,8 +56,8 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
         vim.fn.winrestview(save)
     end,
 })
-
--- Enable spellcheck on gitcommit and markdown
+-- }}}
+-- Enable spellcheck on gitcommit and markdown{{{
 vim.api.nvim_create_autocmd({ 'FileType' }, {
     group = 'Filetype Options',
     pattern = { 'gitcommit', 'markdown', '*.txt' },
@@ -66,8 +66,8 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
         vim.opt_local.spell = true
     end,
 })
-
--- Automatically enable inlay hints
+-- }}}
+-- Automatically enable inlay hints{{{
 vim.api.nvim_create_augroup('Inlay Hints', {})
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     pattern = { '*' },
@@ -89,8 +89,8 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
         end
     end,
 })
-
--- Format makefile whitespace properly
+-- }}}
+-- Format makefile whitespace properly{{{
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     group = 'Filetype Options',
     pattern = { 'make' },
@@ -100,7 +100,8 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
         vim.bo.softtabstop = 0
     end,
 })
-
+-- }}}
+-- Auto-restore session{{{
 vim.api.nvim_create_augroup('Auto-Session', {})
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     pattern = { '*' },
@@ -117,8 +118,8 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     end,
 
 })
-
--- Display '󰘍' before lines that are wrapped by a `\` character
+-- }}}
+-- Display '󰘍' before lines that are wrapped by a `\` character{{{
 -- Pretty cool feature!
 -- TODO: Optimize to only check modified lines?
 local function make_linebreak_extmark(buf, ns_id, linenr, line_offset, col)
@@ -166,8 +167,8 @@ vim.api.nvim_create_autocmd({
         end
     end
 })
-
-
+-- }}}
+-- Display '󰘍' before lines that are part of a multi-line if statement{{{
 local function check_multiline_if(buf, ns_id, lang)
     local parser = vim.treesitter.get_parser(buf, lang)
     local root = parser:parse()[1]:root()
@@ -217,9 +218,8 @@ vim.api.nvim_create_autocmd({
         end
     end
 })
-
--- Hide fold markers
--- Note: Broken by inlay hints
+-- }}}
+-- Hide fold markers{{{
 local function make_fold_extmarks(ns_id, buf, linenr, line)
     local pattern = ''
     if line:sub(-1) == '{' then
@@ -293,7 +293,7 @@ local function make_fold_extmarks(ns_id, buf, linenr, line)
         buf, ns_id, linenr - 1, 0, {
             virt_text = { {
                 ' …' .. string.rep(' ', #line - fold_pos),
-                'LineNr',
+                'Folded',
             } },
             virt_text_win_col = col,
         })
@@ -318,4 +318,4 @@ vim.api.nvim_create_autocmd({
             make_fold_extmarks(ns_id, opts.buf, linenr, line)
         end
     end
-})
+})-- }}}

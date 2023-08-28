@@ -1,5 +1,5 @@
 local fun = {}
-fun = {
+fun = {-- {{{
     {
         "giusgad/pets.nvim",
         event = 'VeryLazy',
@@ -12,9 +12,9 @@ fun = {
         },
         cond = vim.g.have_fun,
     },
-}
+}-- }}}
 return {
-    --- Colorscheme
+    --- Colorscheme{{{
     {
         'aktersnurra/no-clown-fiesta.nvim',
         dependencies = {
@@ -31,8 +31,8 @@ return {
         },
         lazy = false,
         config = function() safe_require("colorscheme").setup() end,
-    },
-    --- Telescope
+    },-- }}}
+    --- Telescope{{{
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
@@ -53,8 +53,8 @@ return {
             },
         },
         config = function() safe_require('config.telescope') end,
-    },
-    --- Treesitter
+    },-- }}}
+    --- Treesitter{{{
     {
         'nvim-treesitter/nvim-treesitter',
         event = 'VeryLazy',
@@ -68,8 +68,8 @@ return {
             { 'rush-rs/tree-sitter-asm' },
         },
         config = function() safe_require('config.treesitter') end,
-    },
-    --- LSP
+    },-- }}}
+    --- LSP{{{
     {
         'hrsh7th/nvim-cmp',
         event = 'VeryLazy',
@@ -104,9 +104,9 @@ return {
         "jose-elias-alvarez/null-ls.nvim",
         config = function() safe_require('config.null-ls') end,
         dependencies = { "nvim-lua/plenary.nvim" },
-    },
+    },-- }}}
     --- DAP
-    --- UTILS
+    --- UTILS{{{
     {
         'tpope/vim-surround',
         event = 'VeryLazy',
@@ -212,8 +212,8 @@ return {
             window = { open = 'alternate' },
         },
         lazy = false,
-    },
-    --- Git
+    },-- }}}
+    --- Git{{{
     {
         'lewis6991/gitsigns.nvim',
         priority = 100,
@@ -228,8 +228,8 @@ return {
     {
         "FabijanZulj/blame.nvim",
         event = 'VeryLazy',
-    },
-    --- UI
+    },-- }}}
+    --- UI{{{
     {
         'akinsho/bufferline.nvim',
         priority = 100,
@@ -286,6 +286,6 @@ return {
         'karb94/neoscroll.nvim',
         event = 'VeryLazy',
         config = true,
-    },
+    },-- }}}
     fun,
 }

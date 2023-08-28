@@ -26,17 +26,6 @@ o.fillchars = {
     foldsep = ' ',
     diff = '╱',
     eob = ' ',
-
-    -- -- horiz = ' ',
-    -- horizup = '─',
-    -- horizdown = '─',
-    -- -- horizup = ' ',
-    -- -- horizdown = ' ',
-    -- vert = ' ',
-    -- vertleft = ' ',
-    -- vertright = ' ',
-    -- verthoriz = ' ',
-
 }
 o.foldtext = 'v:lua.custom_fold_text()'
 o.listchars = {
