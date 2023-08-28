@@ -53,7 +53,7 @@ map('n', '<leader>w', ":silent update<CR>")
 map('n', '<leader><leader>x', ":silent write<CR>:source <CR>")
 
 map('n', '<leader>q', ":q<CR>")
-map('n', '<esc>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
+map('n', '<ESC>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
 
 map('v', 'K', ":m '<-2<CR>gv=gv")
 map('v', 'J', ":m '>+1<CR>gv=gv")
@@ -71,6 +71,7 @@ map('v', 's', '<Plug>VSurround')
 map('n', 'sl', ':vsp<CR>')
 map('n', 'sj', ':sp<CR>')
 map('n', 'se', '<c-w>=')
+map('n', 'sr', require('smart-splits').start_resize_mode)
 
 map('v', 'V', 'j')
 
