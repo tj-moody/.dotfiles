@@ -156,6 +156,15 @@ local lualine_config = {
             },
             {
                 function()
+                    return '[' .. vim.bo.filetype .. ']'
+                end,
+                cond = function()
+                    return vim.g.lualine_verbose
+                end,
+                color = { fg = comment_fg },
+            },
+            {
+                function()
                     return vim.fn.bufnr(0)
                 end,
                 icon = '',
