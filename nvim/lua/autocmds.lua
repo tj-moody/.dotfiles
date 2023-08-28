@@ -1,18 +1,16 @@
 -- Fix filetype.vim format options issue{{{
-vim.api.nvim_create_augroup('Filetype Options', {})
 vim.api.nvim_create_autocmd({ 'Filetype' }, {
     pattern = { '*' },
-    group = 'Filetype Options',
+    group = vim.api.nvim_create_augroup('Filetype Options', {}),
     callback = function(_)
         vim.cmd('set formatoptions-=cro')
     end,
 })
 -- }}}
 -- Use nvim-tree when opening a directory on launch{{{
-vim.api.nvim_create_augroup('NvimTree Launch', {})
 vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     pattern = { '*' },
-    group = 'NvimTree Launch',
+    group = vim.api.nvim_create_augroup('NvimTree Launch', {}),
     callback = function(opts)
         local directory = vim.fn.isdirectory(opts.file) == 1
         if not directory then
@@ -25,11 +23,10 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     end
 })
 -- }}}
--- start lsp after loading file to lazyload lsp plugins{{{
-vim.api.nvim_create_augroup('LSP Auto Start', {})
+-- Start lsp after loading file to lazyload lsp plugins{{{
 vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
     pattern = { '*' },
-    group = 'LSP Auto Start',
+    group = vim.api.nvim_create_augroup('LSP Auto Start', {}),
     callback = function(_)
         if vim.bo.filetype == 'term' then
             return
@@ -46,10 +43,9 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
 -- }}}
 -- Strip trailing spaces before write{{{
 -- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
-vim.api.nvim_create_augroup('Format On Save', {})
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     pattern = { '*' },
-    group = 'Format On Save',
+    group = vim.api.nvim_create_augroup('Format On Save', {}),
     callback = function(_)
         local save = vim.fn.winsaveview()
         vim.cmd([[ %s/\s\+$//e ]])
@@ -59,7 +55,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
 -- }}}
 -- Enable spellcheck on gitcommit and markdown{{{
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-    group = 'Filetype Options',
+    group = vim.api.nvim_create_augroup('Filetype Options', {}),
     pattern = { 'gitcommit', 'markdown', '*.txt' },
     callback = function(_)
         vim.opt_local.wrap = true
@@ -68,10 +64,9 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 -- }}}
 -- Automatically enable inlay hints{{{
-vim.api.nvim_create_augroup('Inlay Hints', {})
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     pattern = { '*' },
-    group = 'Inlay Hints',
+    group = vim.api.nvim_create_augroup('Inlay Hints', {}),
     callback = function(opts)
         if not (opts.data and opts.data.client_id) then
             return
@@ -92,7 +87,7 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
 -- }}}
 -- Format makefile whitespace properly{{{
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
-    group = 'Filetype Options',
+    group = vim.api.nvim_create_augroup('Filetype Options', {}),
     pattern = { 'make' },
     callback = function(_)
         vim.bo.expandtab = false
@@ -102,9 +97,9 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
 })
 -- }}}
 -- Auto-restore session{{{
-vim.api.nvim_create_augroup('Auto-Session', {})
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     pattern = { '*' },
+    group = vim.api.nvim_create_augroup('Auto-Session', {}),
     callback = function(opts)
         if vim.g.in_pager_mode then
             return
@@ -149,7 +144,6 @@ local function check_escaped_line(buf, ns_id, linenr, line)
         make_linebreak_extmark(buf, ns_id, linenr, 1)
     end
 end
-vim.api.nvim_create_augroup('Line Break Extmarks', {})
 vim.api.nvim_create_autocmd({
     'TextChanged',
     'TextChangedI',
@@ -157,6 +151,7 @@ vim.api.nvim_create_autocmd({
     'BufEnter',
 }, {
     pattern = { '*' },
+    group = vim.api.nvim_create_augroup('Line Break Extmarks', {}),
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Line Break Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
@@ -194,7 +189,6 @@ local function check_multiline_if(buf, ns_id, lang)
 end
 -- TODO: Don't evaluate on events, switch to
 -- timer or other more performat solution
-vim.api.nvim_create_augroup('Multiline If Extmarks', {})
 vim.api.nvim_create_autocmd({
     'TextChanged',
     'TextChangedI',
@@ -202,6 +196,7 @@ vim.api.nvim_create_autocmd({
     'BufEnter',
 }, {
     pattern = { '*' },
+    group = vim.api.nvim_create_augroup('Multiline If Extmarks', {}),
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Line Break Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
@@ -298,7 +293,6 @@ local function make_fold_extmarks(ns_id, buf, linenr, line)
             virt_text_win_col = col,
         })
 end
-vim.api.nvim_create_augroup('Fold Hide Extmarks', {})
 vim.api.nvim_create_autocmd({
     'InsertLeave',
     'TextChanged',
@@ -309,6 +303,7 @@ vim.api.nvim_create_autocmd({
     -- Add `FoldChanged` event when (if) implemented
     -- https://github.com/neovim/neovim/pull/24279
     pattern = { '*', }, -- Shell filetypes?
+    group = vim.api.nvim_create_augroup('Fold Hide Extmarks', {}),
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Fold Hide Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
@@ -318,4 +313,4 @@ vim.api.nvim_create_autocmd({
             make_fold_extmarks(ns_id, opts.buf, linenr, line)
         end
     end
-})-- }}}
+}) -- }}}
