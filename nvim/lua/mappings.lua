@@ -49,7 +49,7 @@ map('i', '<esc>', '<esc>`^')
 
 map('n', '<leader>.', ":vsp<CR>:Telescope smart_open<CR>")
 
-map('n', '<leader>w', ":silent write<CR>")
+map('n', '<leader>w', ":silent update<CR>")
 map('n', '<leader><leader>x', ":silent write<CR>:source <CR>")
 
 map('n', '<leader>q', ":q<CR>")
@@ -295,7 +295,7 @@ map('v', '<ScrollWheelLeft>', '')
 map('v', '<ScrollWheelRight>', '')
 
 -- }}}}}}
---- PLUGINS{{{
+--- GROUPS{{{
 ----- NvimTree{{{
 
 map('n', 't',
@@ -529,6 +529,7 @@ map('n', '<leader>cS',-- {{{
 )
 -- TODO: Rewrite to not append commentstring if a comment already exitsts}}}
 -- }}}}}}
+----- FOLDS
 --- CONFIG{{{
 
 map('n', 'C', '<nop>')
