@@ -35,7 +35,10 @@ m_o("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'p', ']p')
 map('v', 'p', '"0p') -- '"0pgv'
 
-map('n', 'x', '"_x')
+map({ 'n', 'v' }, 'x', '"_x')
+map({ 'n', 'v' }, 'd', '"_d')
+map({ 'n', 'v' }, 'c', '"_c')
+map('n', 'S', '"_S')
 
 map('n', "<C-d>", "<C-d>zz")
 map('n', "<C-u>", "<C-u>zz")
@@ -105,8 +108,8 @@ local indent_unsupported_filetypes = {
 }
 local indent_based_filetypes = {
     'python'
-}-- }}}
-m_o('i', '<BS>',-- {{{
+}                -- }}}
+m_o('i', '<BS>', -- {{{
     function()
         local unsupported_filetype = false
         for _, v in ipairs(indent_unsupported_filetypes) do
@@ -154,76 +157,51 @@ m_o('i', '<BS>',-- {{{
     end,
     { expr = true, noremap = true, replace_keycodes = false, }
 )
-map('i', '<S-BS>', '<BS>')-- }}}
+map('i', '<S-BS>', '<BS>') -- }}}
 
 -- adapted from https://vi.stackexchange.com/a/12870
-map({ 'n', 'v' }, 'gj',-- {{{
-    -- next indent
-    function()
+local function indent_traverse(direction, equal)-- {{{
+    return function()
         -- Get the current cursor position
         local current_line, column = unpack(api.nvim_win_get_cursor(0))
         local match_line = current_line
         local match_indent = false
+        local match = false
 
         local buf_length = api.nvim_buf_line_count(0)
 
         -- Look for a line with the same indent level
         -- without going out of the buffer
-        while (not match_indent) and (match_line ~= buf_length) do
-            match_line = match_line + 1
+        while (not match) and (match_line ~= buf_length) do
+            match_line = match_line + direction
             local match_line_str = api.nvim_buf_get_lines(
                 0, match_line - 1, match_line, false)[1] .. ' '
             -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
             local match_line_is_whitespace = match_line_str:match("^%s*$")
 
-            match_indent = (fn.indent(match_line) <= fn.indent(current_line))
-                and (not match_line_is_whitespace)
+            if equal then
+                match_indent = fn.indent(match_line) <= fn.indent(current_line)
+            else
+                match_indent = fn.indent(match_line) < fn.indent(current_line)
+            end
+            match = match_indent and not match_line_is_whitespace
             -- and (stripped_match_line_str ~= "end")
             -- and (stripped_match_line_str ~= "}")
         end
 
         -- If a line is found go to this line
-        if match_indent or match_line == buf_length then
+        if match or match_line == buf_length then
             fn.cursor({ match_line, column + 1 })
         end
     end
-)
--- }}}
-map({ 'n', 'v' }, 'gk',-- {{{
-    -- prev_indent
-    function()
-        -- Get the current cursor position
-        local current_line, column = unpack(api.nvim_win_get_cursor(0))
-        local match_line = current_line
-        local match_indent = false
+end-- }}}
+map({ 'n', 'v' }, 'gj', indent_traverse(1, true))   -- next equal indent
+map({ 'n', 'v' }, 'gk', indent_traverse(-1, true))  -- previous equal indent
 
-        local buf_length = api.nvim_buf_line_count(0)
+map({ 'n', 'v' }, 'gJ', indent_traverse(1, false))  -- next equal indent
+map({ 'n', 'v' }, 'gK', indent_traverse(-1, false)) -- previous equal indent
 
-        -- Look for a line with the same indent level
-        -- without going out of the buffer
-        while (not match_indent) and (match_line ~= buf_length) do
-            match_line = match_line - 1
-
-            local match_line_str = api.nvim_buf_get_lines(
-                0, match_line - 1, match_line, false
-            )[1] .. ' '
-            -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
-            local match_line_is_whitespace = match_line_str:match("^%s*$")
-
-            match_indent = (fn.indent(match_line) <= fn.indent(current_line))
-                and (not match_line_is_whitespace)
-            -- and (stripped_match_line_str ~= "end")
-            -- and (stripped_match_line_str ~= "}")
-        end
-
-        -- If a line is found go to this line
-        if match_indent or match_line == buf_length then
-            fn.cursor({ match_line, column + 1 })
-        end
-    end
-)-- }}}
-
-map('n', '<leader>O',-- {{{
+map('n', '<leader>O',                               -- {{{
     -- Delete all other buffers
     function()
         if vim.bo.filetype == 'NvimTree' then
@@ -247,7 +225,7 @@ map('n', '<leader>O',-- {{{
             vim.cmd [[redrawtabline]]
         end
     end
-)-- }}}
+) -- }}}
 map('n', '<leader>o', ":silent only<CR>")
 
 map('n', '<leader>y', '"+y')
@@ -445,8 +423,8 @@ map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cO', 'O_<esc>:norm ,cc<cr>A<bs>')
 map('n', '<leader>cl',
     [[:execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]
-) -- https://vi.stackexchange.com/a/19163
-map('n', '<leader>cs',-- {{{
+)                      -- https://vi.stackexchange.com/a/19163
+map('n', '<leader>cs', -- {{{
     -- comment split below
     function()
         local line = api.nvim_get_current_line()
@@ -485,8 +463,8 @@ map('n', '<leader>cs',-- {{{
             .. [[l"]]
         )
     end
-)-- }}}
-map('n', '<leader>cS',-- {{{
+)                      -- }}}
+map('n', '<leader>cS', -- {{{
     -- comment split above
     function()
         local line = api.nvim_get_current_line()
@@ -526,8 +504,8 @@ map('n', '<leader>cS',-- {{{
 )
 -- TODO: Rewrite to not append commentstring if a comment already exitsts}}}
 -- }}}
------ FOLDS
--- }}}
+----- FOLDS{{{
+-- }}}}}}
 --- CONFIG{{{
 
 map('n', 'C', '<nop>')
@@ -640,4 +618,4 @@ map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
 -- datetime
 m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
 m_o('ia', 'dtdate', 'strftime("%m/%d/%y")', { expr = true })
-m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true })-- }}}
+m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true }) -- }}}
