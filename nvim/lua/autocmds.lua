@@ -167,6 +167,7 @@ vim.api.nvim_create_autocmd({
     end
 })
 
+
 local function check_multiline_if(buf, ns_id, lang)
     local parser = vim.treesitter.get_parser(buf, lang)
     local root = parser:parse()[1]:root()
@@ -190,6 +191,8 @@ local function check_multiline_if(buf, ns_id, lang)
         end
     end
 end
+-- TODO: Don't evaluate on events, switch to
+-- timer or other more performat solution
 vim.api.nvim_create_augroup('Multiline If Extmarks', {})
 vim.api.nvim_create_autocmd({
     'TextChanged',
@@ -217,7 +220,7 @@ vim.api.nvim_create_autocmd({
 
 -- Hide fold markers
 -- Note: Broken by inlay hints
-local function fold_extmarks(ns_id, buf, linenr, line)
+local function make_fold_extmarks(ns_id, buf, linenr, line)
     local pattern = ''
     if line:sub(-1) == '{' then
         pattern = '{+'
@@ -228,44 +231,71 @@ local function fold_extmarks(ns_id, buf, linenr, line)
     end
 
     if pattern == '' then return end
-    local last_position = nil
+    local fold_pos = nil
     local last_match = nil
 
-    local commentstring = vim.bo.commentstring:sub(1, -3)
+    local commentstr = vim.bo.commentstring:sub(1, -3)
 
     for match in line:gmatch(pattern) do
         if #match >= 3 then
             last_match = match
-            last_position = line:find(match, last_position, true)
+            fold_pos = line:find(match, fold_pos, true)
         end
-        if #match % 3 ~= 0 and last_position then
-            last_position = last_position + #match % 3
+        -- Only accept multiples of 3 curly braces
+        if #match % 3 ~= 0 and fold_pos then
+            fold_pos = fold_pos + #match % 3
         end
     end
+
+    -- Don't hide multilpes of standalone fold pattern `{{{}}}`
     if pattern == '}+' and last_match then
         if line:sub(-2 * #last_match, - #last_match - 1)
             == string.rep('{', #last_match) then
             return
         end
     end
-    if not last_position
-        or vim.fn.foldclosed(linenr) ~= -1 then
+
+    if not fold_pos or vim.fn.foldclosed(linenr) ~= -1 then
         return
     end
-    if line:sub(
-            last_position - #commentstring,
-            last_position - 1
-        ) == commentstring then
-        last_position = last_position - #commentstring
+
+    -- Include comment directly proceeding fold marker in extmark
+    local preceding_comment = false
+
+    local comment_pos = fold_pos - #commentstr + 1
+    local comment_match = line:sub(comment_pos, fold_pos - 1)
+    if comment_match == commentstr:sub(1, -2) then
+        fold_pos = comment_pos
+        preceding_comment = true
     end
+
+    -- Account for space between commentstring and marker, ie `-- {{{`}}}
+    if not preceding_comment then
+        comment_pos = comment_pos - 1
+        comment_match = line:sub(comment_pos, fold_pos - 1)
+        if comment_match == commentstr then
+            fold_pos = comment_pos
+            preceding_comment = true
+        end
+    end
+
+    -- Account for inlay text in column
+    local col = fold_pos - 1 + (vim.fn.virtcol({ linenr, #line }) - #line)
+
+    if preceding_comment then
+        local char_before_comment = line:sub(comment_pos - 1, comment_pos - 1)
+        if char_before_comment == ' ' then
+            col = col - 1
+        end
+    end
+
     vim.api.nvim_buf_set_extmark(
         buf, ns_id, linenr - 1, 0, {
             virt_text = { {
-                ' …' .. string.rep(' ', #line - last_position - 1),
+                ' …' .. string.rep(' ', #line - fold_pos),
                 'LineNr',
             } },
-            virt_text_win_col = last_position - 1
-                + (vim.fn.virtcol({ linenr, #line }) - #line),
+            virt_text_win_col = col,
         })
 end
 vim.api.nvim_create_augroup('Fold Hide Extmarks', {})
@@ -285,7 +315,7 @@ vim.api.nvim_create_autocmd({
         for linenr, line in ipairs(
             vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
         ) do
-            fold_extmarks(ns_id, opts.buf, linenr, line)
+            make_fold_extmarks(ns_id, opts.buf, linenr, line)
         end
     end
 })
