@@ -287,7 +287,8 @@ local function make_fold_extmarks(ns_id, buf, linenr, line)
     vim.api.nvim_buf_set_extmark(
         buf, ns_id, linenr - 1, 0, {
             virt_text = { {
-                ' …' .. string.rep(' ', #line - fold_pos),
+                -- ' …' .. string.rep(' ', #line - fold_pos),
+                '  ' .. string.rep(' ', #line - fold_pos),
                 'Folded',
             } },
             virt_text_win_col = col,
@@ -307,6 +308,7 @@ vim.api.nvim_create_autocmd({
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Fold Hide Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
+        if not vim.g.hide_folds then return end
         for linenr, line in ipairs(
             vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
         ) do

@@ -528,8 +528,9 @@ map('n', '<leader>cS',-- {{{
     end
 )
 -- TODO: Rewrite to not append commentstring if a comment already exitsts}}}
--- }}}}}}
+-- }}}
 ----- FOLDS
+-- }}}
 --- CONFIG{{{
 
 map('n', 'C', '<nop>')
@@ -625,6 +626,12 @@ map('n', 'Ct',
                 end
             end
         )
+    end
+)
+map('n', 'Chf',
+    function()
+        vim.g.hide_folds = not vim.g.hide_folds
+        print("Hide Folds: " .. tostring(vim.g.hide_folds))
     end
 )
 
