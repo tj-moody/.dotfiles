@@ -274,7 +274,7 @@ map('n', 'r<CR>',
     function()
         local node = vim.treesitter.get_node():type()
         vim.cmd [[execute "norm! r\<CR>"]]
-        if node == "comment_content" then
+        if node == "comment_content" or node == "comment" then
             vim.cmd([[norm! ^i]] .. vim.bo.commentstring:sub(1, -3))
         end
     end
@@ -331,6 +331,7 @@ map('n', 'Tc', ":BufferLinePickClose<CR>")
 map('n', 'Tp', ":BufferLinePick<CR>")
 
 -- Tabs
+
 map('n', 'T.', ':tabe %<CR>:Telescope smart_open<CR>')
 map('n', 'Tn', ':tabe %<CR>')
 map('n', 'TL', ':tabnext<CR>')
