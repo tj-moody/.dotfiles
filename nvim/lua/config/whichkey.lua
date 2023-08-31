@@ -102,6 +102,10 @@ require('which-key').register {
             ["b"] = "git blame",
         },
         ["t"] = { name = "theme" },
+        ["h"] = {
+            name = "hide folds",
+            ["f"] = "hide folds",
+        },
     },
     ["g"] = {
         ["d"] = "Go to Definition",
@@ -109,8 +113,10 @@ require('which-key').register {
         ["I"] = "Go to Implementation",
         ["r"] = "Go to References",
         ["s"] = "Show Signature",
-        ["j"] = "Next Matching Indent",
-        ["k"] = "Prev Matching Indent",
+        ["j"] = "Next Equal Indent",
+        ["k"] = "Prev Equal Indent",
+        ["J"] = "Next Greater Indent",
+        ["K"] = "Prev Greater Indent",
     },
     ["<SPACE>"] = {
         ["h"] = "Resize Left",
