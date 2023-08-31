@@ -29,8 +29,8 @@ end
 ----- Remapped Defaults{{{
 map('n', '\\', ',')
 
-m_o("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-m_o("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+m_o('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+m_o('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 map('n', 'p', ']p')
 map('v', 'p', '"0p') -- '"0pgv'
@@ -40,31 +40,31 @@ map({ 'n', 'v' }, 'd', '"_d')
 map({ 'n', 'v' }, 'c', '"_c')
 map('n', 'S', '"_S')
 
-map('n', "<C-d>", "<C-d>zz")
-map('n', "<C-u>", "<C-u>zz")
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
 
-map('n', "n", "nzzzv")
-map('n', "N", "Nzzzv")
+map('n', 'n', 'nzzzv')
+map('n', 'N', 'Nzzzv')
 
 map('i', '<esc>', '<esc>`^')
 -- }}}
 ----- Basics{{{
 
-map('n', '<leader>.', ":vsp<CR>:Telescope smart_open<CR>")
+map('n', '<leader>.', ':vsp<CR>:Telescope smart_open<CR>')
 
-map('n', '<leader>w', ":silent update<CR>")
-map('n', '<leader><leader>x', ":silent write<CR>:source <CR>")
+map('n', '<leader>w', ':silent update<CR>')
+map('n', '<leader><leader>x', ':silent write<CR>:source <CR>')
 
-map('n', '<leader>q', ":q<CR>")
+map('n', '<leader>q', ':q<CR>')
 map('n', '<ESC>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
 
 map('v', 'K', ":m '<-2<CR>gv=gv")
 map('v', 'J', ":m '>+1<CR>gv=gv")
 
-map('n', '<CR>', "mzo<esc>`z")
-map('n', '<S-CR>', "mzO<esc>`z")
+map('n', '<CR>', 'mzo<esc>`z')
+map('n', '<S-CR>', 'mzO<esc>`z')
 
-map('n', "J", "mzJ`z")
+map('n', 'J', 'mzJ`z')
 
 map('n', 's', '<Plug>Ysurround')
 map('n', 'ss', '<Plug>Yssurround')
@@ -78,18 +78,18 @@ map('n', 'sr', require('smart-splits').start_resize_mode)
 
 map('v', 'V', 'j')
 
-map('n', 'gV', "`[v`]")
+map('n', 'gV', '`[v`]')
 
 map('n', '<TAB>', ':tabnext<CR>')
 map('n', '<S-TAB>', ':tabprevious<CR>')
 
 -- Backspace helper values{{{
 local escape_code = api.nvim_replace_termcodes(
-    "<Esc>",
+    '<Esc>',
     false, false, true
 )
 local backspace_code = api.nvim_replace_termcodes(
-    "<BS>",
+    '<BS>',
     false, false, true
 )
 local function viml_backspace()
@@ -124,13 +124,13 @@ m_o('i', '<BS>', -- {{{
         local line, col = unpack(api.nvim_win_get_cursor(0))
         local before_cursor_is_whitespace = api.nvim_get_current_line()
             :sub(0, col)
-            :match("^%s*$")
+            :match('^%s*$')
 
         if not before_cursor_is_whitespace then
             return require('nvim-autopairs').autopairs_bs()
         end
         if line == 1 then
-            return escape_code .. "==^i"
+            return escape_code .. '==^i'
         end
 
         local indent_based_filetype = false
@@ -139,12 +139,12 @@ m_o('i', '<BS>', -- {{{
                 indent_based_filetype = true
             end
         end
-        local correct_indent = require("nvim-treesitter.indent")
+        local correct_indent = require('nvim-treesitter.indent')
             .get_indent(line) / vim.bo.tabstop
         local current_indent = fn.indent(line) / vim.bo.tabstop
         local previous_line_is_whitespace = api.nvim_buf_get_lines(
             0, line - 2, line - 1, false
-        )[1]:match("^%s*$")
+        )[1]:match('^%s*$')
         if current_indent == correct_indent then
             if previous_line_is_whitespace and not indent_based_filetype then
                 return viml_backspace()
@@ -160,7 +160,7 @@ m_o('i', '<BS>', -- {{{
 map('i', '<S-BS>', '<BS>') -- }}}
 
 -- adapted from https://vi.stackexchange.com/a/12870
-local function indent_traverse(direction, equal)-- {{{
+local function indent_traverse(direction, equal) -- {{{
     return function()
         -- Get the current cursor position
         local current_line, column = unpack(api.nvim_win_get_cursor(0))
@@ -170,14 +170,12 @@ local function indent_traverse(direction, equal)-- {{{
 
         local buf_length = api.nvim_buf_line_count(0)
 
-        -- Look for a line with the same indent level
-        -- without going out of the buffer
+        -- Look for a line of appropriate indent
+        -- level without going out of the buffer
         while (not match) and (match_line ~= buf_length) do
             match_line = match_line + direction
-            local match_line_str = api.nvim_buf_get_lines(
-                0, match_line - 1, match_line, false)[1] .. ' '
-            -- local stripped_match_line_str = match_line_str:gsub("%s+", "")
-            local match_line_is_whitespace = match_line_str:match("^%s*$")
+            local match_line_str = api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1]
+            local match_line_is_whitespace = match_line_str:match('^%s*$')
 
             if equal then
                 match_indent = fn.indent(match_line) <= fn.indent(current_line)
@@ -185,17 +183,15 @@ local function indent_traverse(direction, equal)-- {{{
                 match_indent = fn.indent(match_line) < fn.indent(current_line)
             end
             match = match_indent and not match_line_is_whitespace
-            -- and (stripped_match_line_str ~= "end")
-            -- and (stripped_match_line_str ~= "}")
         end
 
-        -- If a line is found go to this line
+        -- If a line is found go to line
         if match or match_line == buf_length then
             fn.cursor({ match_line, column + 1 })
         end
     end
-end-- }}}
-map({ 'n', 'v' }, 'gj', indent_traverse(1, true))   -- next equal indent
+end                                                 -- }}}
+map({ 'n', 'v' }, "gj", indent_traverse(1, true))   -- next equal indent
 map({ 'n', 'v' }, 'gk', indent_traverse(-1, true))  -- previous equal indent
 
 map({ 'n', 'v' }, 'gJ', indent_traverse(1, false))  -- next equal indent
@@ -226,7 +222,7 @@ map('n', '<leader>O',                               -- {{{
         end
     end
 ) -- }}}
-map('n', '<leader>o', ":silent only<CR>")
+map('n', '<leader>o', ':silent only<CR>')
 
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
@@ -250,14 +246,14 @@ m_o('v', [["]], [[<Plug>VSurround"]], { noremap = false, })
 m_o('v', [[']], [[<Plug>VSurround']], { noremap = false, })
 m_o('v', [[(]], [[<Plug>VSurround)]], { noremap = false, })
 m_o('v', [[{]], [[<Plug>VSurround)]], { noremap = false, })
-vim.cmd("unmap [%")
-m_o('v', "[", "<Plug>VSurround]", { noremap = false, })
+vim.cmd('unmap [%')
+m_o('v', '[', '<Plug>VSurround]', { noremap = false, })
 
 map('n', 'r<CR>',
     function()
         local node = vim.treesitter.get_node():type()
         vim.cmd [[execute "norm! r\<CR>"]]
-        if node == "comment_content" or node == "comment" then
+        if node == 'comment_content' or node == 'comment' then
             vim.cmd([[norm! ^i]] .. vim.bo.commentstring:sub(1, -3))
         end
     end
@@ -285,10 +281,10 @@ map('n', 't',
             return
         end
         if vim.bo.filetype == 'NvimTree' then
-            vim.cmd("NvimTreeClose")
+            vim.cmd('NvimTreeClose')
         else
-            vim.cmd("NvimTreeClose")
-            vim.cmd("NvimTreeOpen")
+            vim.cmd('NvimTreeClose')
+            vim.cmd('NvimTreeOpen')
         end
         safe_require('colorscheme').setup('nvim_tree')
     end
@@ -299,27 +295,27 @@ map('n', 'TT',
     function()
         if vim.g.nvimtreefloat == true then
             vim.g.nvimtreefloat = false
-            vim.cmd("NvimTreeClose")
+            vim.cmd('NvimTreeClose')
             safe_require('config.nvim-tree').nvim_tree_setup()
         else
             safe_require('config.nvim-tree').nvim_tree_float_setup()
-            vim.cmd("NvimTreeClose")
-            vim.cmd("NvimTreeOpen")
+            vim.cmd('NvimTreeClose')
+            vim.cmd('NvimTreeOpen')
         end
     end
 )
 -- }}}
 ----- Telescope{{{
-map('n', '<leader>ff', ":Telescope smart_open<CR>")
-map('n', '<leader>fh', ":Telescope highlights<CR>")
-map('n', '<leader>fg', ":Telescope live_grep<CR>")
-map('n', '<leader>fk', ":Telescope keymaps<CR>")
+map('n', '<leader>ff', ':Telescope smart_open<CR>')
+map('n', '<leader>fh', ':Telescope highlights<CR>')
+map('n', '<leader>fg', ':Telescope live_grep<CR>')
+map('n', '<leader>fk', ':Telescope keymaps<CR>')
 -- }}}
 ----- Bufferline{{{
-map('n', 'H', ":BufferLineCyclePrev<CR>")
-map('n', 'L', ":BufferLineCycleNext<CR>")
-map('n', 'Tc', ":BufferLinePickClose<CR>")
-map('n', 'Tp', ":BufferLinePick<CR>")
+map('n', 'H', ':BufferLineCyclePrev<CR>')
+map('n', 'L', ':BufferLineCycleNext<CR>')
+map('n', 'Tc', ':BufferLinePickClose<CR>')
+map('n', 'Tp', ':BufferLinePick<CR>')
 -- }}}
 ----- Tabs{{{
 map('n', 'T.', ':tabe %<CR>:Telescope smart_open<CR>')
@@ -330,7 +326,7 @@ map('n', 'To', ':tabonly<CR>')
 map('n', 'Tq', ':tabclose<CR>')
 -- }}}
 ----- Lazy{{{
-map('n', '<leader>lz', ":Lazy<CR>")
+map('n', '<leader>lz', ':Lazy<CR>')
 -- }}}
 ----- Toggleterm{{{
 
@@ -356,7 +352,7 @@ map('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
 ----- Git{{{
 local Terminal = require('toggleterm.terminal').Terminal
 local lazygit  = Terminal:new({
-    cmd = "lazygit",
+    cmd = 'lazygit',
     hidden = true,
     highlights = {
         NormalFloat = { guibg = '', guifg = '' },
@@ -447,7 +443,7 @@ map('n', '<leader>cs', -- {{{
 
         local linenr, _ = unpack(api.nvim_win_get_cursor(0))
         vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
-        if line:sub(-1) == " " then
+        if line:sub(-1) == ' ' then
             vim.cmd([[execute "norm! i\<BS>"]])
         end
         vim.cmd([[execute "norm! i\<CR>"]])
@@ -487,7 +483,7 @@ map('n', '<leader>cS', -- {{{
 
         local linenr, _ = unpack(api.nvim_win_get_cursor(0))
         vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
-        if line:sub(-1) == " " then
+        if line:sub(-1) == ' ' then
             vim.cmd([[execute "norm! i\<BS>"]])
         end
         vim.cmd([[execute "norm! i\<CR>"]])
@@ -523,15 +519,15 @@ map('n', 'Cll',
 map('n', 'Crn',
     -- Toggle relative number
     function()
-        vim.cmd.set("relativenumber!")
+        vim.cmd.set('relativenumber!')
     end
 )
 
 map('n', 'Cw',
     -- Toggle wrap
     function()
-        vim.cmd.set("wrap!")
-        print("Wrap: " .. tostring(vim.o.wrap))
+        vim.cmd.set('wrap!')
+        print('Wrap: ' .. tostring(vim.o.wrap))
     end
 )
 
@@ -539,7 +535,7 @@ map('n', 'Cba',
     -- Toggle Bufferline show all
     function()
         vim.g.bufferline_show_all = not vim.g.bufferline_show_all
-        print("Bufferline Show All: " .. tostring(vim.g.bufferline_show_all))
+        print('Bufferline Show All: ' .. tostring(vim.g.bufferline_show_all))
     end
 )
 
@@ -568,9 +564,9 @@ map('n', 'Cve',
             vim.o.virtualedit = 'all'
         end
         if vim.o.virtualedit == 'all' then
-            print("Virtual Edit: true")
+            print('Virtual Edit: true')
         else
-            print("Virtual Edit: false")
+            print('Virtual Edit: false')
         end
     end
 )
@@ -578,7 +574,7 @@ map('n', 'Cve',
 map('n', 'Cgb',
     -- Toggle git blame
     function()
-        vim.cmd("Gitsigns toggle_current_line_blame")
+        vim.cmd('Gitsigns toggle_current_line_blame')
     end
 )
 
@@ -592,7 +588,7 @@ map('n', 'Ct',
     -- Change theme
     function()
         vim.ui.select(safe_require('colorscheme').themes_list, {
-                prompt = "Choose theme:",
+                prompt = 'Choose theme:',
             },
             function(choice)
                 if choice then
@@ -606,7 +602,7 @@ map('n', 'Ct',
 map('n', 'Chf',
     function()
         vim.g.hide_folds = not vim.g.hide_folds
-        print("Hide Folds: " .. tostring(vim.g.hide_folds))
+        print('Hide Folds: ' .. tostring(vim.g.hide_folds))
     end
 )
 
