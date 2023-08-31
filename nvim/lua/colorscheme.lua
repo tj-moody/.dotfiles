@@ -453,6 +453,8 @@ local hl_table = {
 local clear_hl_bg_table = {-- {{{
     'Normal',
     'NormalNC',
+    'NormalSB',
+    'SignColumnSB',
     'EndOfBuffer',
     'StatusColumn',
     'SignColumn',

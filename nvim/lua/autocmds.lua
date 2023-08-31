@@ -114,10 +114,8 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 
 })
 -- }}}
--- Display '󰘍' before lines that are wrapped by a `\` character{{{
--- Pretty cool feature!
--- TODO: Optimize to only check modified lines?
-local function make_linebreak_extmark(buf, ns_id, linenr, line_offset, col)
+-- Per-line Extmarks{{{
+local function set_linebreak_extmark(buf, ns_id, linenr, line_offset, col) -- {{{
     if not line_offset then line_offset = 0 end
     if not col then col = vim.fn.indent(linenr + line_offset) end
 
@@ -130,92 +128,41 @@ local function make_linebreak_extmark(buf, ns_id, linenr, line_offset, col)
             virt_text = { { '󰘍', 'LineNr' } },
             virt_text_win_col = col - 2,
         })
-end
-local function check_escaped_line(buf, ns_id, linenr, line)
+end                                                           -- }}}
+local function line_escaped_extmark(buf, ns_id, linenr, line) -- {{{
     local next_line_escaped = false
     local cur_line_escaped = false
     if line:sub(-1) == [[\]] then next_line_escaped = true end
     if line:find([[^%s*\]]) then cur_line_escaped = true end
 
     if cur_line_escaped then
-        make_linebreak_extmark(buf, ns_id, linenr, 0)
+        set_linebreak_extmark(buf, ns_id, linenr, 0)
     end
     if next_line_escaped then
-        make_linebreak_extmark(buf, ns_id, linenr, 1)
+        set_linebreak_extmark(buf, ns_id, linenr, 1)
     end
-end
-vim.api.nvim_create_autocmd({
-    'TextChanged',
-    'TextChangedI',
-    'TextChangedP',
-    'BufEnter',
-}, {
-    pattern = { '*' },
-    group = vim.api.nvim_create_augroup('Line Break Extmarks', {}),
-    callback = function(opts)
-        local ns_id = vim.api.nvim_create_namespace('Line Break Extmarks')
-        vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
-        for linenr, line in ipairs(
-            vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
-        ) do
-            check_escaped_line(opts.buf, ns_id, linenr, line)
-        end
-    end
-})
--- }}}
--- Display '󰘍' before lines that are part of a multi-line if statement{{{
-local function check_multiline_if(buf, ns_id, lang)
-    local parser = vim.treesitter.get_parser(buf, lang)
-    local root = parser:parse()[1]:root()
-    local multiline_if = vim.treesitter.query.parse(
-        "lua",
-        [[
-            (if_statement
-              condition: (expression) @cond
-              (#contains? @cond "\n" )
-              (#offset! @cond 0 1 0 1)
-            )
-        ]]
-    )
-    for id, node in multiline_if:iter_captures(root, buf, 0, -1) do
-        local name = multiline_if.captures[id]
-        if name == "cond" then
-            local range = { node:range() }
-            for linenr = range[1] + 2, range[3] + 1 do
-                make_linebreak_extmark(buf, ns_id, linenr, 0, range[2] + 1)
+end                                                          -- }}}
+-- FIX: Currently loops over every line of a multiline if,
+-- refactor to avoid this issue
+local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
+    local node = vim.treesitter.get_node({
+        bufnr = buf,
+        pos = { linenr, vim.fn.indent(linenr) + 4 }
+    })
+    while node do
+        if node:type() == 'if_statement' then
+            local conditions = node:field('condition')
+            if conditions == {} then return end
+            local condition = conditions[1]
+            local range = { condition:range() }
+            for nr = range[1] + 2, range[3] + 1 do
+                set_linebreak_extmark(buf, ns_id, nr, 0, range[2] + 1)
             end
         end
+        node = node:parent()
     end
-end
--- TODO: Don't evaluate on events, switch to
--- timer or other more performat solution
-vim.api.nvim_create_autocmd({
-    'TextChanged',
-    'TextChangedI',
-    'TextChangedP',
-    'BufEnter',
-}, {
-    pattern = { '*' },
-    group = vim.api.nvim_create_augroup('Multiline If Extmarks', {}),
-    callback = function(opts)
-        local ns_id = vim.api.nvim_create_namespace('Line Break Extmarks')
-        vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
-        local filetype = vim.bo[opts.buf].filetype
-        -- TODO: Migrate to pattern, find better solution
-        local allowed_languages = {
-            "lua",
-            "python",
-        }
-        for _, v in ipairs(allowed_languages) do
-            if filetype == v then
-                check_multiline_if(opts.buf, ns_id, filetype)
-            end
-        end
-    end
-})
--- }}}
--- Hide fold markers{{{
-local function make_fold_extmarks(ns_id, buf, linenr, line)
+end                                                        -- }}}
+local function line_fold_extmark(buf, ns_id, linenr, line) -- {{{
     local pattern = ''
     if line:sub(-1) == '{' then
         pattern = '{+'
@@ -293,26 +240,37 @@ local function make_fold_extmarks(ns_id, buf, linenr, line)
             } },
             virt_text_win_col = col,
         })
-end
+end -- }}}
+-- Display '󰘍' before lines that are wrapped by a `\` character
+-- Display '󰘍' before lines that are part of a multi-line if statement
+-- Hide fold markers
+-- TODO: Disable based on file length?
 vim.api.nvim_create_autocmd({
     'InsertLeave',
     'TextChanged',
     'TextChangedI',
     'TextChangedP',
     'BufEnter',
+    'BufWritePre',
 }, {
     -- Add `FoldChanged` event when (if) implemented
     -- https://github.com/neovim/neovim/pull/24279
     pattern = { '*', }, -- Shell filetypes?
     group = vim.api.nvim_create_augroup('Fold Hide Extmarks', {}),
     callback = function(opts)
-        local ns_id = vim.api.nvim_create_namespace('Fold Hide Extmarks')
+        local ns_id = vim.api.nvim_create_namespace('Custom Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
         if not vim.g.hide_folds then return end
         for linenr, line in ipairs(
             vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
         ) do
-            make_fold_extmarks(ns_id, opts.buf, linenr, line)
+            line_fold_extmark(opts.buf, ns_id, linenr, line)
+            line_escaped_extmark(opts.buf, ns_id, linenr, line)
+            local has_parser = require "nvim-treesitter.parsers".has_parser()
+            -- Treesitter parser does not exist on startup
+            if opts.event ~= "BufEnter" and has_parser then
+                line_multiline_if_extmark(opts.buf, ns_id, linenr)
+            end
         end
     end
 }) -- }}}
