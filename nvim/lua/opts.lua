@@ -63,10 +63,8 @@ o.matchpairs = '(:),{:},[:],<:>'
 o.undofile = true
 -- o.smoothscroll = true
 o.textwidth = 80
+o.formatoptions = "crjql"
 
 vim.g.bufferline_show_all = false
 vim.g.lualine_verbose = false
 vim.g.have_fun = false
-
-vim.cmd [[set formatoptions-=cro]]
-vim.cmd [[set formatoptions+=j]]

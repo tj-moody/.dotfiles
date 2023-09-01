@@ -61,8 +61,8 @@ map('n', '<ESC>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
 map('v', 'K', ":m '<-2<CR>gv=gv")
 map('v', 'J', ":m '>+1<CR>gv=gv")
 
-map('n', '<CR>', 'mzo<esc>`z')
-map('n', '<S-CR>', 'mzO<esc>`z')
+map('n', '<CR>', 'mz<CMD>a<CR><CR>.<CR>`z')
+map('n', '<S-CR>', 'mz<CMD>i<CR><CR>.<CR>`z')
 
 map('n', 'J', 'mzJ`z')
 

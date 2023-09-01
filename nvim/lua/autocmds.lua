@@ -1,12 +1,3 @@
--- Fix filetype.vim format options issue{{{
-vim.api.nvim_create_autocmd({ 'Filetype' }, {
-    pattern = { '*' },
-    group = vim.api.nvim_create_augroup('Filetype Options', {}),
-    callback = function(_)
-        vim.cmd('set formatoptions-=cro')
-    end,
-})
--- }}}
 -- Use nvim-tree when opening a directory on launch{{{
 vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     pattern = { '*' },
