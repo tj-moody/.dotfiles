@@ -40,6 +40,10 @@ map({ 'n', 'v' }, 'd', '"_d')
 map({ 'n', 'v' }, 'c', '"_c')
 map('n', 'S', '"_S')
 
+map('n', 'Y', 'yy')
+map('n', 'D', '"_dd')
+map('n', 'X', 'dd')
+
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 
