@@ -62,6 +62,7 @@ o.virtualedit = 'block'
 o.matchpairs = '(:),{:},[:],<:>'
 o.undofile = true
 -- o.smoothscroll = true
+o.textwidth = 80
 
 vim.g.bufferline_show_all = false
 vim.g.lualine_verbose = false
