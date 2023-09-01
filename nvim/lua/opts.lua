@@ -1,7 +1,7 @@
 local o = vim.opt
 function _G.custom_fold_text()
     local line = vim.fn.getline(vim.v.foldstart)
-    line = string.gsub(line, '{{{', "")-- }}}
+    line = string.gsub(line, '{{{%d?', "")-- }}}
 
     local commentstring = vim.bo.commentstring:sub(1, -3)
     local escaped_commentstring = string.gsub(commentstring, '-', '%%-')
