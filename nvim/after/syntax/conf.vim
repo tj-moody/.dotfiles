@@ -1,3 +1,3 @@
-execute 'syntax match Operator "\v('
-\ . substitute(&commentstring, " *%s$", "", "")
-\ . ')? ?[\{\}]{-3,}" conceal containedin=confComment'
+syntax match Operator "\v(# ?)?[\{\}]{-3,}" conceal containedin=confComment
+
+set conceallevel=2
