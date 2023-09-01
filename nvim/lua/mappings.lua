@@ -50,16 +50,16 @@ map('i', '<esc>', '<esc>`^')
 -- }}}
 ----- Basics{{{
 
-map('n', '<leader>.', ':vsp<CR>:Telescope smart_open<CR>')
+map('n', '<leader>.', '<CMD>vsp<CR><CMD>Telescope smart_open<CR>')
 
-map('n', '<leader>w', ':silent update<CR>')
-map('n', '<leader><leader>x', ':silent write<CR>:source <CR>')
+map('n', '<leader>w', '<CMD>silent update<CR>')
+map('n', '<leader><leader>x', '<CMD>silent write<CR><CMD>source <CR>')
 
-map('n', '<leader>q', ':q<CR>')
-map('n', '<ESC>', ":noh<CR>:ColorizerReloadAllBuffers<CR>:echo ''<CR>")
+map('n', '<leader>q', '<CMD>q<CR>')
+map('n', '<ESC>', "<CMD>noh<CR><CMD>ColorizerReloadAllBuffers<CR><CMD>echo ''<CR>")
 
-map('v', 'K', ":m '<-2<CR>gv=gv")
-map('v', 'J', ":m '>+1<CR>gv=gv")
+map('v', 'K', "<CMD>m '<-2<CR>gv=gv")
+map('v', 'J', "<CMD>m '>+1<CR>gv=gv")
 
 map('n', '<CR>', 'mz<CMD>a<CR><CR>.<CR>`z')
 map('n', '<S-CR>', 'mz<CMD>i<CR><CR>.<CR>`z')
@@ -71,8 +71,8 @@ map('n', 'ss', '<Plug>Yssurround')
 map('v', 's', '<Plug>VSurround')
 -- ^^^ charwise in visual mode, linewise in visual line mode
 
-map('n', 'sl', ':vsp<CR>')
-map('n', 'sj', ':sp<CR>')
+map('n', 'sl', '<CMD>vsp<CR>')
+map('n', 'sj', '<CMD>sp<CR>')
 map('n', 'se', '<c-w>=')
 map('n', 'sr', require('smart-splits').start_resize_mode)
 
@@ -80,8 +80,8 @@ map('v', 'V', 'j')
 
 map('n', 'gV', '`[v`]')
 
-map('n', '<TAB>', ':tabnext<CR>')
-map('n', '<S-TAB>', ':tabprevious<CR>')
+map('n', '<TAB>', '<CMD>tabnext<CR>')
+map('n', '<S-TAB>', '<CMD>tabprevious<CR>')
 
 -- Backspace helper values{{{
 local escape_code = api.nvim_replace_termcodes(
@@ -222,7 +222,7 @@ map('n', '<leader>O',                               -- {{{
         end
     end
 ) -- }}}
-map('n', '<leader>o', ':silent only<CR>')
+map('n', '<leader>o', '<CMD>silent only<CR>')
 
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
@@ -260,7 +260,7 @@ map('n', 'r<CR>',
 )
 
 -- Restart nvim
-map('n', '<leader>R', ':wa<CR>:SessionSave<CR>:cq<CR>')
+map('n', '<leader>R', '<CMD>wa<CR><CMD>SessionSave<CR><CMD>cq<CR>')
 
 map('i', '<ScrollWheelLeft>', '')
 map('i', '<ScrollWheelRight>', '')
@@ -306,27 +306,27 @@ map('n', 'TT',
 )
 -- }}}
 ----- Telescope{{{
-map('n', '<leader>ff', ':Telescope smart_open<CR>')
-map('n', '<leader>fh', ':Telescope highlights<CR>')
-map('n', '<leader>fg', ':Telescope live_grep<CR>')
-map('n', '<leader>fk', ':Telescope keymaps<CR>')
+map('n', '<leader>ff', '<CMD>Telescope smart_open<CR>')
+map('n', '<leader>fh', '<CMD>Telescope highlights<CR>')
+map('n', '<leader>fg', '<CMD>Telescope live_grep<CR>')
+map('n', '<leader>fk', '<CMD>Telescope keymaps<CR>')
 -- }}}
 ----- Bufferline{{{
-map('n', 'H', ':BufferLineCyclePrev<CR>')
-map('n', 'L', ':BufferLineCycleNext<CR>')
-map('n', 'Tc', ':BufferLinePickClose<CR>')
-map('n', 'Tp', ':BufferLinePick<CR>')
+map('n', 'H', '<CMD>BufferLineCyclePrev<CR>')
+map('n', 'L', '<CMD>BufferLineCycleNext<CR>')
+map('n', 'Tc', '<CMD>BufferLinePickClose<CR>')
+map('n', 'Tp', '<CMD>BufferLinePick<CR>')
 -- }}}
 ----- Tabs{{{
-map('n', 'T.', ':tabe %<CR>:Telescope smart_open<CR>')
-map('n', 'Tn', ':tabe %<CR>')
-map('n', 'TL', ':tabnext<CR>')
-map('n', 'TH', ':tabprevious<CR>')
-map('n', 'To', ':tabonly<CR>')
-map('n', 'Tq', ':tabclose<CR>')
+map('n', 'T.', '<CMD>tabe %<CR><CMD>Telescope smart_open<CR>')
+map('n', 'Tn', '<CMD>tabe %<CR>')
+map('n', 'TL', '<CMD>tabnext<CR>')
+map('n', 'TH', '<CMD>tabprevious<CR>')
+map('n', 'To', '<CMD>tabonly<CR>')
+map('n', 'Tq', '<CMD>tabclose<CR>')
 -- }}}
 ----- Lazy{{{
-map('n', '<leader>lz', ':Lazy<CR>')
+map('n', '<leader>lz', '<CMD>Lazy<CR>')
 -- }}}
 ----- Toggleterm{{{
 
@@ -343,11 +343,11 @@ end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
--- m('n', '<C-T>', ':ToggleTerm size=40 direction=float<CR>')
-map('n', '<leader>tf', ':ToggleTerm size=40 direction=float<CR>')
-map('n', '<leader>tj', ':ToggleTerm size=20 direction=horizontal<CR>')
-map('n', '<leader>tl', ':ToggleTerm size=60 direction=vertical<CR>')
-map('t', '<C-T>', [[<C-\><C-n>:q<CR>]])
+-- m('n', '<C-T>', '<CMD>ToggleTerm size=40 direction=float<CR>')
+map('n', '<leader>tf', '<CMD>ToggleTerm size=40 direction=float<CR>')
+map('n', '<leader>tj', '<CMD>ToggleTerm size=20 direction=horizontal<CR>')
+map('n', '<leader>tl', '<CMD>ToggleTerm size=60 direction=vertical<CR>')
+map('t', '<C-T>', [[<C-\><C-n><CMD>q<CR>]])
 -- }}}
 ----- Git{{{
 local Terminal = require('toggleterm.terminal').Terminal
@@ -359,7 +359,7 @@ local lazygit  = Terminal:new({
         FloatBorder = { guibg = '' },
     }
 })
--- m('n', '<leader>lg', ':ToggleTerm size=40 direction=float<CR>lazygit<CR>')
+-- m('n', '<leader>lg', '<CMD>ToggleTerm size=40 direction=float<CR>lazygit<CR>')
 map('n', '<leader>lg',
     function()
         lazygit:toggle()
@@ -383,10 +383,10 @@ map('n', '<leader>gh',
         end
     end
 )
-map('n', '<leader>gj', ':Gitsigns next_hunk<CR>')
-map('n', '<leader>gk', ':Gitsigns prev_hunk<CR>')
-map('n', '<leader>gb', ':Gitsigns blame_line<CR>')
-map('n', '<leader>gB', ':ToggleBlame virtual<CR>')
+map('n', '<leader>gj', '<CMD>Gitsigns next_hunk<CR>')
+map('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>')
+map('n', '<leader>gb', '<CMD>Gitsigns blame_line<CR>')
+map('n', '<leader>gB', '<CMD>ToggleBlame virtual<CR>')
 -- }}}
 ----- Splits{{{
 map('n', '<C-h>', require('smart-splits').move_cursor_left)
@@ -402,23 +402,23 @@ map('n', '<Space>l', '<C-w>L')
 map('n', 'sr', require('smart-splits').start_resize_mode)
 -- }}}
 ----- TreeSJ{{{
-map('n', '<c-s>', ':TSJToggle<CR>')
+map('n', '<c-s>', '<CMD>TSJToggle<CR>')
 -- }}}
 ----- Alternate-Toggler{{{
-map('n', '<leader>ta', ':ToggleAlternate<CR>')
+map('n', '<leader>ta', '<CMD>ToggleAlternate<CR>')
 -- }}}
 ----- Project{{{
-map('n', '<leader>pr', ':ProjtasksRun<CR>')
-map('n', '<leader>pp', ':ProjtasksToggle<CR>')
-map('n', '<leader>pt', ':ProjtasksTest<CR>')
-map('n', '<leader>pe', ':SnipRun<CR>')
-map('v', '<leader>pe', ':SnipRun<CR>')
+map('n', '<leader>pr', '<CMD>ProjtasksRun<CR>')
+map('n', '<leader>pp', '<CMD>ProjtasksToggle<CR>')
+map('n', '<leader>pt', '<CMD>ProjtasksTest<CR>')
+map('n', '<leader>pe', '<CMD>SnipRun<CR>')
+map('v', '<leader>pe', '<CMD>SnipRun<CR>')
 -- }}}
 ----- Comment{{{
-map('n', '<leader>co', 'o_<esc>:norm ,cc<cr>A<bs>')
-map('n', '<leader>cO', 'O_<esc>:norm ,cc<cr>A<bs>')
+map('n', '<leader>co', 'o_<esc><CMD>norm ,cc<cr>A<bs>')
+map('n', '<leader>cO', 'O_<esc><CMD>norm ,cc<cr>A<bs>')
 map('n', '<leader>cl',
-    [[:execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]
+    [[<CMD>execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]
 )                      -- https://vi.stackexchange.com/a/19163
 map('n', '<leader>cs', -- {{{
     -- comment split below
