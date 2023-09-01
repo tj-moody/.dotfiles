@@ -102,10 +102,6 @@ require('which-key').register {
             ["b"] = "git blame",
         },
         ["t"] = { name = "theme" },
-        ["h"] = {
-            name = "hide folds",
-            ["f"] = "hide folds",
-        },
     },
     ["g"] = {
         ["d"] = "Go to Definition",

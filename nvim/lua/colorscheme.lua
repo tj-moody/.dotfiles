@@ -35,13 +35,13 @@ if not valid_color and not vim.g.tjtheme then vim.g.tjtheme = "kanagawa" end
 -- vim.g.THEME = vim.env.COLORS_NAME
 
 local colors_table = {
-    noclownfiesta = function()-- {{{
+    noclownfiesta = function() -- {{{
         require("no-clown-fiesta").setup {
             transparent = true,
         }
         vim.cmd [[colorscheme no-clown-fiesta]]
-    end,-- }}}
-    kanagawa = function()-- {{{
+    end,                      -- }}}
+    kanagawa = function()     -- {{{
         require('kanagawa').setup({
             compile = false,  -- enable compiling the colorscheme
             undercurl = true, -- enable undercurls
@@ -69,11 +69,11 @@ local colors_table = {
 
         -- setup must be called before loading
         vim.cmd("colorscheme kanagawa")
-    end,-- }}}
-    kanagawa_dark = function()-- {{{
+    end,                       -- }}}
+    kanagawa_dark = function() -- {{{
         require('kanagawa').setup({
-            compile = false,  -- enable compiling the colorscheme
-            undercurl = true, -- enable undercurls
+            compile = false,   -- enable compiling the colorscheme
+            undercurl = true,  -- enable undercurls
             commentStyle = { italic = true },
             functionStyle = {},
             keywordStyle = { italic = true },
@@ -98,19 +98,19 @@ local colors_table = {
 
         -- setup must be called before loading
         vim.cmd [[colorscheme kanagawa]]
-    end,-- }}}
-    gruvbox = function()-- {{{
+    end,                 -- }}}
+    gruvbox = function() -- {{{
         vim.g.gruvbox_material_background = 'hard'
         vim.g.gruvbox_material_better_performance = 1
         vim.g.gruvbox_material_foreground = 'material'
 
         vim.cmd [[colorscheme gruvbox-material]]
-    end,-- }}}
-    marsbox = function()-- {{{
+    end,                 -- }}}
+    marsbox = function() -- {{{
         require('marsbox').setup {}
         vim.cmd("colorscheme marsbox")
-    end,-- }}}
-    tokyonight = function()-- {{{
+    end,                    -- }}}
+    tokyonight = function() -- {{{
         -- vim.g.tokyonight_colors = {
         --     ["bg_dark"] = "#16161F",
         --     ["bg_popup"] = "#16161F",
@@ -122,31 +122,31 @@ local colors_table = {
             style = "night",
         }
         vim.cmd [[colorscheme tokyonight]]
-    end,-- }}}
-    oxocarbon = function()-- {{{
+    end,                   -- }}}
+    oxocarbon = function() -- {{{
         require('nightfox').setup {}
         vim.cmd [[colorscheme carbonfox]]
-    end,-- }}}
-    catppuccin = function()-- {{{
+    end,                    -- }}}
+    catppuccin = function() -- {{{
         require('catppuccin').setup {
             flavour = "mocha",
         }
         vim.cmd [[colorscheme catppuccin]]
-    end,-- }}}
-    everforest = function()-- {{{
+    end,                    -- }}}
+    everforest = function() -- {{{
         vim.g.everforest_background = 'dark'
         vim.cmd [[colorscheme everforest]]
-    end,-- }}}
-    ayu = function()-- {{{
+    end,                      -- }}}
+    ayu = function()          -- {{{
         vim.cmd [[colorscheme ayu]]
-    end,-- }}}
-    midnightclub = function()-- {{{
+    end,                      -- }}}
+    midnightclub = function() -- {{{
         vim.cmd [[colorscheme midnight-club]]
-    end,-- }}}
+    end,                      -- }}}
 }
 
 local hl_table = {
-    noclownfiesta = {-- {{{
+    noclownfiesta = { -- {{{
         setup = {
             { 'CursorLineNr',           { fg = '#afafaf' } },
             { 'DiagnosticInfo',         { fg = '#a2b5c1', } },
@@ -168,8 +168,8 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#bad7ff', } },
             { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
-    },-- }}}
-    kanagawa = {-- {{{
+    },           -- }}}
+    kanagawa = { -- {{{
         setup = {
             { 'Operator',               { fg = '#727169', } },
             { '@punctuation.bracket',   { fg = '#727169', } },
@@ -191,8 +191,8 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#957fb8', bold = true, } },
             -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
-    },-- }}}
-    kanagawa_dark = {-- {{{
+    },                -- }}}
+    kanagawa_dark = { -- {{{
         setup = {
             { 'Operator',               { fg = '#737c73', } },
             { '@punctuation.bracket',   { fg = '#737c73', } },
@@ -225,8 +225,8 @@ local hl_table = {
             -- { 'NvimTreeOpenedFile',       { fg = '#a292a3', } },
             -- -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
-    },-- }}}
-    gruvbox = {-- {{{
+    },          -- }}}
+    gruvbox = { -- {{{
         setup = {
             { 'Operator',               { fg = '#81878f', } },
             { '@punctuation.bracket',   { fg = '#81878f', } },
@@ -249,8 +249,8 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#d3869b', bold = true, } },
             { 'NvimTreeRootFolder',       { fg = '#d4be98', bold = true, } },
         },
-    },-- }}}
-    marsbox = {-- {{{
+    },          -- }}}
+    marsbox = { -- {{{
         setup = {
             { 'Operator',               { fg = '#928374', } },
             { '@punctuation.bracket',   { fg = '#928374', } },
@@ -276,8 +276,8 @@ local hl_table = {
             { 'NvimTreeExecFile',         { fg = '#fbf1c7', } },
             { 'NvimTreeRootFolder',       { fg = '#fe8019', bold = true, } },
         }
-    },-- }}}
-    tokyonight = {-- {{{
+    },             -- }}}
+    tokyonight = { -- {{{
         setup = {
             { "DiffAdd",                { bg = '#283B4D', } },
             { "DiffChange",             { bg = '#28304d', } },
@@ -308,8 +308,8 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#bb9af7', bold = true, } },
             { 'NvimTreeRootFolder',       { fg = '#c0caf5', } },
         },
-    },-- }}}
-    oxocarbon = {-- {{{
+    },            -- }}}
+    oxocarbon = { -- {{{
         setup = {
             { 'WinSeparator',           { fg = '#6e6f70' } },
             { 'Operator',               { fg = '#6e6f70', } },
@@ -335,8 +335,8 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#c8a5ff', } },
             { 'NvimTreeRootFolder',       { fg = '#f2f4f8', } },
         },
-    },-- }}}
-    catppuccin = {-- {{{
+    },             -- }}}
+    catppuccin = { -- {{{
         setup = {
             { 'WinSeparator',           { fg = '#6c7086' } },
             { 'Operator',               { fg = '#6c7086', } },
@@ -363,8 +363,8 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#cba6f7', } },
             { 'NvimTreeRootFolder',       { fg = '#cdd6f4', } },
         },
-    },-- }}}
-    everforest = {-- {{{
+    },             -- }}}
+    everforest = { -- {{{
         setup = {
             { 'StatusLineNC',           { fg = '#859288' } },
             { 'Operator',               { fg = '#859288', } },
@@ -390,8 +390,8 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#d699b6', } },
             { 'NvimTreeRootFolder',       { fg = '#d3c6aa', } },
         },
-    },-- }}}
-    ayu = {-- {{{
+    },      -- }}}
+    ayu = { -- {{{
         setup = {
             { 'Operator',               { fg = '#626a73', } },
             { '@punctuation.bracket',   { fg = '#626a73', } },
@@ -419,8 +419,8 @@ local hl_table = {
             { 'NvimTreeExecFile',         { fg = '#b3b1ad', } },
             { 'NvimTreeRootFolder',       { fg = '#ff8f40', bold = true, } },
         },
-    },-- }}}
-    midnightclub = {-- {{{
+    },               -- }}}
+    midnightclub = { -- {{{
         setup = {
             { 'MatchParen',       { fg = '#00f5d4', } },
             { 'CursorLineNr',     { fg = '#ffae57', } },
@@ -447,10 +447,10 @@ local hl_table = {
             { 'NvimTreeExecFile',         { fg = '#cfdbd5', } },
             { 'NvimTreeRootFolder',       { fg = '#ffae57', bold = true, } },
         },
-    },-- }}}
+    }, -- }}}
 }
 
-local clear_hl_bg_table = {-- {{{
+local clear_hl_bg_table = { -- {{{
     'Normal',
     'NormalNC',
     'NormalSB',
@@ -504,19 +504,20 @@ local clear_hl_bg_table = {-- {{{
     'DiagnosticSignHint',
 
     'Folded',
-}-- }}}
-local clear_hl_table = {-- {{{
+}                        -- }}}
+local clear_hl_table = { -- {{{
     'CursorLine',
     'NonText',
-}-- }}}
-local mod_hl_table = {-- {{{
+}                      -- }}}
+local mod_hl_table = { -- {{{
     { 'Comment',   { italic = true, } },
     { '@comment',  { italic = true, } },
     { 'Statement', { bold = false, } },
     { 'Keyword',   { bold = false, italic = true, } },
     { '@keyword',  { bold = false, italic = true, } },
     { 'Folded',    { bold = true, } },
-}-- }}}
+    { 'Conceal',   { link = 'Operator' } },
+} -- }}}
 
 ---Remove background from highlight group `hl`
 ---@param hl string

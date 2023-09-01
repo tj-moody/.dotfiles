@@ -66,7 +66,6 @@ o.undofile = true
 vim.g.bufferline_show_all = false
 vim.g.lualine_verbose = false
 vim.g.have_fun = false
-vim.g.hide_folds = true
 
 vim.cmd [[set formatoptions-=cro]]
 vim.cmd [[set formatoptions+=j]]

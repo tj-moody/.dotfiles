@@ -130,6 +130,8 @@ local function set_linebreak_extmark(buf, ns_id, linenr, line_offset, col) -- {{
         })
 end                                                           -- }}}
 local function line_escaped_extmark(buf, ns_id, linenr, line) -- {{{
+    -- TODO: Possibly transition to syntax match conceal
+    -- based system?
     local next_line_escaped = false
     local cur_line_escaped = false
     if line:sub(-1) == [[\]] then next_line_escaped = true end
@@ -141,7 +143,7 @@ local function line_escaped_extmark(buf, ns_id, linenr, line) -- {{{
     if next_line_escaped then
         set_linebreak_extmark(buf, ns_id, linenr, 1)
     end
-end                                                          -- }}}
+end -- }}}
 -- FIX: Currently loops over every line of a multiline if,
 -- refactor to avoid this issue
 local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
@@ -161,85 +163,6 @@ local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
         end
         node = node:parent()
     end
-end                                                        -- }}}
-local function line_fold_extmark(buf, ns_id, linenr, line) -- {{{
-    local pattern = ''
-    if line:sub(-1) == '{' then
-        pattern = '{+'
-    elseif line:sub(-1) == '}' then
-        pattern = '}+'
-    else
-        return
-    end
-
-    if pattern == '' then return end
-    local fold_pos = nil
-    local last_match = nil
-
-    local commentstr = vim.bo.commentstring:sub(1, -3)
-
-    for match in line:gmatch(pattern) do
-        if #match >= 3 then
-            last_match = match
-            fold_pos = line:find(match, fold_pos, true)
-        end
-        -- Only accept multiples of 3 curly braces
-        if #match % 3 ~= 0 and fold_pos then
-            fold_pos = fold_pos + #match % 3
-        end
-    end
-
-    -- Don't hide multilpes of standalone fold pattern `{{{}}}`
-    if pattern == '}+' and last_match then
-        if line:sub(-2 * #last_match, - #last_match - 1)
-            == string.rep('{', #last_match) then
-            return
-        end
-    end
-
-    if not fold_pos or vim.fn.foldclosed(linenr) ~= -1 then
-        return
-    end
-
-    -- Include comment directly proceeding fold marker in extmark
-    local preceding_comment = false
-
-    local comment_pos = fold_pos - #commentstr + 1
-    local comment_match = line:sub(comment_pos, fold_pos - 1)
-    if comment_match == commentstr:sub(1, -2) then
-        fold_pos = comment_pos
-        preceding_comment = true
-    end
-
-    -- Account for space between commentstring and marker, ie `-- {{{`}}}
-    if not preceding_comment then
-        comment_pos = comment_pos - 1
-        comment_match = line:sub(comment_pos, fold_pos - 1)
-        if comment_match == commentstr then
-            fold_pos = comment_pos
-            preceding_comment = true
-        end
-    end
-
-    -- Account for inlay text in column
-    local col = fold_pos - 1 + (vim.fn.virtcol({ linenr, #line }) - #line)
-
-    if preceding_comment then
-        local char_before_comment = line:sub(comment_pos - 1, comment_pos - 1)
-        if char_before_comment == ' ' then
-            col = col - 1
-        end
-    end
-
-    vim.api.nvim_buf_set_extmark(
-        buf, ns_id, linenr - 1, 0, {
-            virt_text = { {
-                -- ' …' .. string.rep(' ', #line - fold_pos),
-                '  ' .. string.rep(' ', #line - fold_pos),
-                'Folded',
-            } },
-            virt_text_win_col = col,
-        })
 end -- }}}
 -- Display '󰘍' before lines that are wrapped by a `\` character
 -- Display '󰘍' before lines that are part of a multi-line if statement
@@ -260,13 +183,11 @@ vim.api.nvim_create_autocmd({
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Custom Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
-        if not vim.g.hide_folds then return end
+        local has_parser = require('nvim-treesitter.parsers').has_parser()
         for linenr, line in ipairs(
             vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
         ) do
-            line_fold_extmark(opts.buf, ns_id, linenr, line)
             line_escaped_extmark(opts.buf, ns_id, linenr, line)
-            local has_parser = require "nvim-treesitter.parsers".has_parser()
             -- Treesitter parser does not exist on startup
             if opts.event ~= "BufEnter" and has_parser then
                 line_multiline_if_extmark(opts.buf, ns_id, linenr)

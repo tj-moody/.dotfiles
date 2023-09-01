@@ -599,12 +599,6 @@ map('n', 'Ct',
         )
     end
 )
-map('n', 'Chf',
-    function()
-        vim.g.hide_folds = not vim.g.hide_folds
-        print('Hide Folds: ' .. tostring(vim.g.hide_folds))
-    end
-)
 
 -- }}}
 --- ABBREVIATIONS{{{
