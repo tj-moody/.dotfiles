@@ -1,5 +1,4 @@
-local fun = {}
-fun = {-- {{{
+local fun = {-- {{{
     {
         "giusgad/pets.nvim",
         event = 'VeryLazy',
