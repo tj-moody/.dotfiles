@@ -36,112 +36,38 @@ if not valid_color and not vim.g.tjtheme then vim.g.tjtheme = "kanagawa" end
 
 local colors_table = {
     noclownfiesta = function() -- {{{
-        require("no-clown-fiesta").setup {
-            transparent = true,
-        }
-        vim.cmd [[colorscheme no-clown-fiesta]]
-    end,                      -- }}}
-    kanagawa = function()     -- {{{
-        require('kanagawa').setup({
-            compile = false,  -- enable compiling the colorscheme
-            undercurl = true, -- enable undercurls
-            commentStyle = { italic = true },
-            functionStyle = {},
-            keywordStyle = { italic = true },
-            statementStyle = { bold = true },
-            typeStyle = {},
-            transparent = false,   -- do not set background color
-            dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
-            terminalColors = true, -- define vim.g.terminal_color_{0,17}
-            colors = {             -- add/modify theme and palette colors
-                palette = {},
-            },
-            -- overrides = function(colors) -- add/modify highlights
-            --     return {}
-            -- end,
-            theme = "wave",
-            background = {
-                -- map the value of 'background' option to a theme
-                dark = "wave", -- try "dragon" !
-                light = "lotus"
-            },
-        })
-
-        -- setup must be called before loading
-        vim.cmd("colorscheme kanagawa")
+        vim.cmd.colorscheme("no-clown-fiesta")
+    end,                       -- }}}
+    kanagawa = function()      -- {{{
+        vim.cmd.colorscheme("kanagawa")
     end,                       -- }}}
     kanagawa_dark = function() -- {{{
-        require('kanagawa').setup({
-            compile = false,   -- enable compiling the colorscheme
-            undercurl = true,  -- enable undercurls
-            commentStyle = { italic = true },
-            functionStyle = {},
-            keywordStyle = { italic = true },
-            statementStyle = { bold = true },
-            typeStyle = {},
-            transparent = false,   -- do not set background color
-            dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
-            terminalColors = true, -- define vim.g.terminal_color_{0,17}
-            colors = {             -- add/modify theme and palette colors
-                palette = {},
-            },
-            -- overrides = function(colors) -- add/modify highlights
-            --     return {}
-            -- end,
-            theme = "wave",
-            background = {
-                -- map the value of 'background' option to a theme
-                dark = "wave", -- try "dragon" !
-                light = "lotus"
-            },
-        })
-
-        -- setup must be called before loading
-        vim.cmd [[colorscheme kanagawa]]
-    end,                 -- }}}
-    gruvbox = function() -- {{{
-        vim.g.gruvbox_material_background = 'hard'
+        vim.cmd.colorscheme("kanagawa")
+    end,                       -- }}}
+    gruvbox = function()       -- {{{
         vim.g.gruvbox_material_better_performance = 1
-        vim.g.gruvbox_material_foreground = 'material'
-
-        vim.cmd [[colorscheme gruvbox-material]]
-    end,                 -- }}}
-    marsbox = function() -- {{{
-        require('marsbox').setup {}
-        vim.cmd("colorscheme marsbox")
-    end,                    -- }}}
-    tokyonight = function() -- {{{
-        -- vim.g.tokyonight_colors = {
-        --     ["bg_dark"] = "#16161F",
-        --     ["bg_popup"] = "#16161F",
-        --     ["bg_statusline"] = "#16161F",
-        --     ["bg_sidebar"] = "#16161F",
-        --     ["bg_float"] = "#16161F",
-        -- }
-        require('tokyonight').setup {
-            style = "night",
-        }
-        vim.cmd [[colorscheme tokyonight]]
-    end,                   -- }}}
-    oxocarbon = function() -- {{{
-        require('nightfox').setup {}
-        vim.cmd [[colorscheme carbonfox]]
-    end,                    -- }}}
-    catppuccin = function() -- {{{
-        require('catppuccin').setup {
-            flavour = "mocha",
-        }
-        vim.cmd [[colorscheme catppuccin]]
-    end,                    -- }}}
-    everforest = function() -- {{{
-        vim.g.everforest_background = 'dark'
-        vim.cmd [[colorscheme everforest]]
+        vim.cmd.colorscheme("gruvbox-material")
+    end,                      -- }}}
+    marsbox = function()      -- {{{
+        vim.cmd.colorscheme("marsbox")
+    end,                      -- }}}
+    tokyonight = function()   -- {{{
+        vim.cmd.colorscheme("tokyonight")
+    end,                      -- }}}
+    oxocarbon = function()    -- {{{
+        vim.cmd.colorscheme("carbonfox")
+    end,                      -- }}}
+    catppuccin = function()   -- {{{
+        vim.cmd.colorscheme("catppuccin")
+    end,                      -- }}}
+    everforest = function()   -- {{{
+        vim.cmd("colorscheme everforest")
     end,                      -- }}}
     ayu = function()          -- {{{
-        vim.cmd [[colorscheme ayu]]
+        vim.cmd.colorscheme("ayu")
     end,                      -- }}}
     midnightclub = function() -- {{{
-        vim.cmd [[colorscheme midnight-club]]
+        vim.cmd.colorscheme(" midnight-club")
     end,                      -- }}}
 }
 

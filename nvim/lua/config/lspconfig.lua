@@ -41,7 +41,9 @@ local on_attach = function(_, bufnr)
     -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     map('n', 'gr', vim.lsp.buf.references, bufopts)
     map('n', '<leader>df', function()
+        local save = vim.fn.winsaveview()
         vim.lsp.buf.format { async = true }
+        vim.fn.winrestview(save)
     end, bufopts)
 end
 
