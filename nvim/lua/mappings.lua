@@ -604,6 +604,18 @@ map('n', 'Ct',
     end
 )
 
+map('n', 'Ccl',
+    -- Toggle conceallevel
+    function()
+        if vim.o.conceallevel == 2 then
+            vim.o.conceallevel = 0
+        else
+            vim.o.conceallevel = 2
+        end
+        print('Conceal: ' .. (vim.o.conceallevel == 2 and "true" or "false"))
+    end
+)
+
 -- }}}
 --- ABBREVIATIONS{{{
 -- email
