@@ -174,13 +174,16 @@ vim.api.nvim_create_autocmd({
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Custom Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
-        local has_parser = require('nvim-treesitter.parsers').has_parser()
+            local has_parser = false
+            if opts.event ~= "BufEnter" then
+                has_parser = require('nvim-treesitter.parsers').has_parser()
+            end
         for linenr, line in ipairs(
             vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
         ) do
             line_escaped_extmark(opts.buf, ns_id, linenr, line)
             -- Treesitter parser does not exist on startup
-            if opts.event ~= "BufEnter" and has_parser then
+            if has_parser then
                 line_multiline_if_extmark(opts.buf, ns_id, linenr)
             end
         end

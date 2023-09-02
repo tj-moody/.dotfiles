@@ -29,7 +29,6 @@ return {
             'Shatur/neovim-ayu',
             'nyngwang/midnight-club.nvim',
         },
-        lazy = true,
         config = function() safe_require("colorscheme").setup() end,
     },-- }}}
     --- Telescope{{{
