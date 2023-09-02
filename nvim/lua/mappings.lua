@@ -163,11 +163,11 @@ m_o('i', '<BS>', -- {{{
 )
 map('i', '<S-BS>', '<BS>') -- }}}
 
----Adapted from https://vi.stackexchange.com/a/12870{{{
+---Adapted from https://vi.stackexchange.com/a/12870
 ---Traverse to indent >= or > current indent
 ---@param direction integer 1 - forwards | -1 - backwards
 ---@param equal boolean include lines equal to current indent in search?
-local function indent_traverse(direction, equal)
+local function indent_traverse(direction, equal)-- {{{
     return function()
         -- Get the current cursor position
         local current_line, column = unpack(api.nvim_win_get_cursor(0))

@@ -106,20 +106,31 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 })
 -- }}}
 -- Per-line Extmarks{{{
-local function set_linebreak_extmark(buf, ns_id, linenr, line_offset, col) -- {{{
-    if not line_offset then line_offset = 0 end
-    if not col then col = vim.fn.indent(linenr + line_offset) end
 
-    if vim.fn.indent(linenr + line_offset) < 2 then return end
+---Create an extmark of '󰘍' before the contents of a line
+---@param buf integer Buffer number
+---@param ns_id integer Namespace id
+---@param linenr integer Line number (1-indexed)
+---@param col? integer Column number (0-indexed)
+local function set_linebreak_extmark(buf, ns_id, linenr, col) -- {{{
+    if not col then col = vim.fn.indent(linenr) end
+    if vim.fn.indent(linenr) < 2 then return end
     vim.api.nvim_buf_set_extmark(
         buf, ns_id,
-        linenr - 1 + line_offset,
+        linenr - 1,
         0,
         {
             virt_text = { { '󰘍', 'LineNr' } },
             virt_text_win_col = col - 2,
         })
 end                                                           -- }}}
+
+---Create an extmark on a line or the line below
+---if either are wrapped by a `\` character
+---@param buf integer Buffer number
+---@param ns_id integer Namespace id
+---@param linenr integer Line number (1-indexed)
+---@param line string Content of current line
 local function line_escaped_extmark(buf, ns_id, linenr, line) -- {{{
     -- TODO: Possibly transition to syntax match conceal
     -- based system?
@@ -129,15 +140,20 @@ local function line_escaped_extmark(buf, ns_id, linenr, line) -- {{{
     if line:find([[^%s*\]]) then cur_line_escaped = true end
 
     if cur_line_escaped then
-        set_linebreak_extmark(buf, ns_id, linenr, 0)
+        set_linebreak_extmark(buf, ns_id, linenr)
     end
     if next_line_escaped then
-        set_linebreak_extmark(buf, ns_id, linenr, 1)
+        set_linebreak_extmark(buf, ns_id, linenr + 1)
     end
 end -- }}}
--- FIX: Currently loops over every line of a multiline if,
--- refactor to avoid this issue
+
+---Create an extmark on a line if part of a multiline if-statement
+---@param buf integer Buffer number
+---@param ns_id integer Namespace id
+---@param linenr integer Line Number (1-indexed)
 local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
+    -- FIX: Currently loops over every line of a multiline if,
+    -- refactor to avoid this issue
     local node = vim.treesitter.get_node({
         bufnr = buf,
         pos = { linenr, vim.fn.indent(linenr) + 4 }
@@ -149,15 +165,15 @@ local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
             local condition = conditions[1]
             local range = { condition:range() }
             for nr = range[1] + 2, range[3] + 1 do
-                set_linebreak_extmark(buf, ns_id, nr, 0, range[2] + 1)
+                set_linebreak_extmark(buf, ns_id, nr, range[2] + 1)
             end
         end
         node = node:parent()
     end
 end -- }}}
+
 -- Display '󰘍' before lines that are wrapped by a `\` character
 -- Display '󰘍' before lines that are part of a multi-line if statement
--- Hide fold markers
 -- TODO: Disable based on file length?
 vim.api.nvim_create_autocmd({
     'InsertLeave',
