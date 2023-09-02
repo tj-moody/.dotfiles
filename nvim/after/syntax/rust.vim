@@ -1,1 +1,1 @@
-syntax match Operator "\v(// ?)?[\{\}]{-3,}\d?$" conceal containedin=rustLineComment
+syntax match Operator "\v(//\s*)?[\{\}]{-3,}\d?$" conceal containedin=rustLineComment

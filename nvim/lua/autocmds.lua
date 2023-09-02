@@ -1,4 +1,4 @@
--- Use nvim-tree when opening a directory on launch{{{
+---- Use nvim-tree when opening a directory on launch{{{
 vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     pattern = { '*' },
     group = vim.api.nvim_create_augroup('NvimTree Launch', {}),
@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     end
 })
 -- }}}
--- Start lsp after loading file to lazyload lsp plugins{{{
+---- Start lsp after loading file to lazyload lsp plugins{{{
 vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
     pattern = { '*' },
     group = vim.api.nvim_create_augroup('LSP Auto Start', {}),
@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
     end,
 })
 -- }}}
--- Strip trailing spaces before write{{{
+---- Strip trailing spaces before write{{{
 -- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     pattern = { '*' },
@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     end,
 })
 -- }}}
--- Enable spellcheck on gitcommit and markdown{{{
+---- Enable spellcheck on gitcommit and markdown{{{
 vim.api.nvim_create_autocmd({ 'FileType' }, {
     group = vim.api.nvim_create_augroup('Filetype Options', {}),
     pattern = { 'gitcommit', 'markdown', '*.txt' },
@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     end,
 })
 -- }}}
--- Automatically enable inlay hints{{{
+---- Automatically enable inlay hints{{{
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     pattern = { '*' },
     group = vim.api.nvim_create_augroup('Inlay Hints', {}),
@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     end,
 })
 -- }}}
--- Format makefile whitespace properly{{{
+---- Format makefile whitespace properly{{{
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     group = vim.api.nvim_create_augroup('Filetype Options', {}),
     pattern = { 'make' },
@@ -87,7 +87,7 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     end,
 })
 -- }}}
--- Auto-restore session{{{
+---- Auto-restore session{{{
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     pattern = { '*' },
     group = vim.api.nvim_create_augroup('Auto-Session', {}),
@@ -105,7 +105,7 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 
 })
 -- }}}
--- Per-line Extmarks{{{
+---- Per-line Extmarks{{{
 
 ---Create an extmark of '󰘍' before the contents of a line
 ---@param buf integer Buffer number
@@ -123,7 +123,7 @@ local function set_linebreak_extmark(buf, ns_id, linenr, col) -- {{{
             virt_text = { { '󰘍', 'LineNr' } },
             virt_text_win_col = col - 2,
         })
-end                                                           -- }}}
+end -- }}}
 
 ---Create an extmark on a line or the line below
 ---if either are wrapped by a `\` character
@@ -183,17 +183,19 @@ vim.api.nvim_create_autocmd({
     'BufEnter',
     'BufWritePre',
 }, {
-    -- Add `FoldChanged` event when (if) implemented
     -- https://github.com/neovim/neovim/pull/24279
     pattern = { '*', }, -- Shell filetypes?
     group = vim.api.nvim_create_augroup('Fold Hide Extmarks', {}),
     callback = function(opts)
         local ns_id = vim.api.nvim_create_namespace('Custom Extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
-            local has_parser = false
-            if opts.event ~= "BufEnter" then
-                has_parser = require('nvim-treesitter.parsers').has_parser()
-            end
+
+        local has_parser = false
+        -- avoid loading treesitter on startup
+        if opts.event ~= "BufEnter" then
+            has_parser = require('nvim-treesitter.parsers').has_parser()
+        end
+
         for linenr, line in ipairs(
             vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)
         ) do
