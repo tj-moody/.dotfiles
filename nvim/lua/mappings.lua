@@ -62,8 +62,8 @@ map('n', '<leader><leader>x', '<CMD>silent write<CR><CMD>source <CR>')
 map('n', '<leader>q', '<CMD>q<CR>')
 map('n', '<ESC>', "<CMD>noh<CR><CMD>ColorizerReloadAllBuffers<CR><CMD>echo ''<CR>")
 
-map('v', 'K', "<CMD>m '<-2<CR>gv=gv")
-map('v', 'J', "<CMD>m '>+1<CR>gv=gv")
+map('v', 'K', ":m '<-2<CR>gv=gv")
+map('v', 'J', ":m '>+1<CR>gv=gv")
 
 map('n', '<CR>', 'mz<CMD>a<CR><CR>.<CR>`z')
 map('n', '<S-CR>', 'mz<CMD>i<CR><CR>.<CR>`z')
