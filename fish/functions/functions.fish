@@ -208,3 +208,12 @@ end
 function silent_push
     git push 2> /dev/null > /dev/null &
 end
+
+function ssh
+    # #191a1c
+    # #181a29
+    # #371929
+    printf '\x1b]11;#0a0c1a\x1b\\'
+    /usr/bin/ssh "$argv"
+    printf '\x1b]11;#0e0f17\x1b\\'
+end

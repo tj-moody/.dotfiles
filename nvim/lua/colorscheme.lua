@@ -11,63 +11,63 @@ function M.get_color(group, attr)
 end
 
 M.themes_list = {
-    "noclownfiesta",
-    "kanagawa",
-    "kanagawa_dark",
-    "gruvbox",
-    "marsbox",
-    "tokyonight",
-    "oxocarbon",
-    "catppuccin",
-    "everforest",
-    "ayu",
-    "midnightclub",
+    'noclownfiesta',
+    'kanagawa',
+    'kanagawa_dark',
+    'gruvbox',
+    'marsbox',
+    'tokyonight',
+    'oxocarbon',
+    'catppuccin',
+    'everforest',
+    'ayu',
+    'midnightclub',
 }
 
-vim.g.tjtheme = os.getenv("COLORS_NAME")
+vim.g.tjtheme = os.getenv('COLORS_NAME')
 local valid_color = false
 for _, v in ipairs(M.themes_list) do
     if v == vim.g.tjtheme then
         valid_color = true
     end
 end
-if not valid_color and not vim.g.tjtheme then vim.g.tjtheme = "kanagawa" end
+if not valid_color and not vim.g.tjtheme then vim.g.tjtheme = 'kanagawa' end
 -- vim.g.THEME = vim.env.COLORS_NAME
 
 local colors_table = {
     noclownfiesta = function() -- {{{
-        vim.cmd.colorscheme("no-clown-fiesta")
+        vim.cmd.colorscheme('no-clown-fiesta')
     end,                       -- }}}
     kanagawa = function()      -- {{{
-        vim.cmd.colorscheme("kanagawa")
+        vim.cmd.colorscheme('kanagawa')
     end,                       -- }}}
     kanagawa_dark = function() -- {{{
-        vim.cmd.colorscheme("kanagawa")
+        vim.cmd.colorscheme('kanagawa')
     end,                       -- }}}
     gruvbox = function()       -- {{{
         vim.g.gruvbox_material_better_performance = 1
-        vim.cmd.colorscheme("gruvbox-material")
+        vim.cmd.colorscheme('gruvbox-material')
     end,                      -- }}}
     marsbox = function()      -- {{{
-        vim.cmd.colorscheme("marsbox")
+        vim.cmd.colorscheme('marsbox')
     end,                      -- }}}
     tokyonight = function()   -- {{{
-        vim.cmd.colorscheme("tokyonight")
+        vim.cmd.colorscheme('tokyonight')
     end,                      -- }}}
     oxocarbon = function()    -- {{{
-        vim.cmd.colorscheme("carbonfox")
+        vim.cmd.colorscheme('carbonfox')
     end,                      -- }}}
     catppuccin = function()   -- {{{
-        vim.cmd.colorscheme("catppuccin")
+        vim.cmd.colorscheme('catppuccin')
     end,                      -- }}}
     everforest = function()   -- {{{
-        vim.cmd("colorscheme everforest")
+        vim.cmd('colorscheme everforest')
     end,                      -- }}}
     ayu = function()          -- {{{
-        vim.cmd.colorscheme("ayu")
+        vim.cmd.colorscheme('ayu')
     end,                      -- }}}
     midnightclub = function() -- {{{
-        vim.cmd.colorscheme(" midnight-club")
+        vim.cmd.colorscheme(' midnight-club')
     end,                      -- }}}
 }
 
@@ -205,16 +205,17 @@ local hl_table = {
     },             -- }}}
     tokyonight = { -- {{{
         setup = {
-            { "DiffAdd",                { bg = '#283B4D', } },
-            { "DiffChange",             { bg = '#28304d', } },
-            { "DiffText",               { bg = '#36426b', } },
-            { "DiffDelete",             { bg = "#37222c", fg = '#37222c', } },
+            { 'DiffAdd',                { bg = '#283B4D', } },
+            { 'DiffChange',             { bg = '#28304d', } },
+            { 'DiffText',               { bg = '#36426b', } },
+            { 'DiffDelete',             { bg = '#37222c', fg = '#37222c', } },
             { 'WinSeparator',           { fg = '#3b4261', } },
             { 'Operator',               { fg = '#3b4261', } },
             { '@operator',              { fg = '#3b4261', } },
             { '@punctuation.bracket',   { fg = '#3b4261', } },
             { '@punctuation.delimiter', { fg = '#3b4261', } },
             { 'TelescopeBorder',        { fg = '#3b4261', } },
+            { 'LspInlayHint',           { fg = '#2ac3de', } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#2ac3de' } },
@@ -449,11 +450,11 @@ local mod_hl_table = { -- {{{
 ---@param hl string
 function M.clear_hl_bg(hl)
     local fgcolor = M.get_color(hl, 'fg#')
-    if hl == "Normal" then
+    if hl == 'Normal' then
         vim.api.nvim_set_hl(0, hl, { fg = fgcolor, bg = '' })
         return
     end
-    if fgcolor ~= "" then
+    if fgcolor ~= '' then
         vim.api.nvim_set_hl(0, hl, {
             fg = fgcolor,
             bg = M.get_color('Normal', 'bg#'),
@@ -521,8 +522,8 @@ end
 --- ```
 ---@param category? string
 function M.setup(category)
-    if not category or category == "setup" then
-        category = "setup"
+    if not category or category == 'setup' then
+        category = 'setup'
         colors_table[vim.g.tjtheme]()
     end
     local colorscheme = hl_table[vim.g.tjtheme]
@@ -533,7 +534,7 @@ function M.setup(category)
             end
         end
     end
-    if category == "setup" then setup_hls() end
+    if category == 'setup' then setup_hls() end
 end
 
 ---Reload all fields of 'hl_table' and files affected by colorscheme

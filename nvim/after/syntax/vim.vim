@@ -1,3 +1,3 @@
-syntax match Operator "\v(\"\s*)?[\{\}]{-3,}\d?$" conceal containedin=vimLineComment
+syntax match Operator "\v(\"\s*)?((\{\{\{)|(\}\}\}))+\d?$" conceal containedin=vimLineComment
 
 set conceallevel=2

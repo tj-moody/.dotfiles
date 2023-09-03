@@ -275,7 +275,7 @@ return {
             highlight = { multiline = true },
             keywords = {
                 ["DONE"] = { icon = " ", color = "#b8bb26", },
-                ["TODO"] = { icon = " ", color = "info" },
+                ["TODO"] = { icon = " ", color = "info" },
             },
         },
     },
