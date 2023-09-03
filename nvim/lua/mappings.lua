@@ -263,16 +263,6 @@ m_o('v', [[{]], [[<Plug>VSurround)]], { noremap = false, })
 vim.cmd('unmap [%')
 m_o('v', '[', '<Plug>VSurround]', { noremap = false, })
 
-map('n', 'r<CR>',
-    function()
-        local node = vim.treesitter.get_node():type()
-        vim.cmd [[execute "norm! r\<CR>"]]
-        if node == 'comment_content' or node == 'comment' then
-            vim.cmd([[norm! ^i]] .. vim.bo.commentstring:sub(1, -3))
-        end
-    end
-)
-
 -- Restart nvim
 map('n', '<leader>R', '<CMD>wa<CR><CMD>SessionSave<CR><CMD>cq<CR>')
 
