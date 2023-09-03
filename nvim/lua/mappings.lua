@@ -629,6 +629,12 @@ map('n', 'Ccl',
         print('Conceal: ' .. (vim.o.conceallevel == 2 and "true" or "false"))
     end
 )
+
+map('n', 'Ccr',
+    function()
+        require('colorscheme').reload()
+    end
+)
 -- }}}
 
 --- ABBREVIATIONS{{{

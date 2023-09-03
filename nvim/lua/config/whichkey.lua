@@ -90,9 +90,10 @@ require('which-key').register {
             ["h"] = "inlay hints",
         },
         ["c"] = {
-            name = "colorcolumn, conceallevel",
+            name = "colorcolumn, conceallevel, colorscheme",
             ["c"] = "colorcolumn",
             ["l"] = "conceallevel",
+            ["r"] = "reload theme",
         },
         ["v"] = {
             name = "virtual edit",
