@@ -14,6 +14,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     end
 })
 -- }}}
+
 ---- Start lsp after loading file to lazyload lsp plugins{{{
 vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
     pattern = { '*' },
@@ -32,6 +33,7 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
     end,
 })
 -- }}}
+
 ---- Strip trailing spaces before write{{{
 -- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
@@ -44,6 +46,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     end,
 })
 -- }}}
+
 ---- Enable spellcheck on gitcommit and markdown{{{
 vim.api.nvim_create_autocmd({ 'FileType' }, {
     group = vim.api.nvim_create_augroup('Filetype Options', {}),
@@ -54,6 +57,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     end,
 })
 -- }}}
+
 ---- Automatically enable inlay hints{{{
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     pattern = { '*' },
@@ -76,6 +80,7 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     end,
 })
 -- }}}
+
 ---- Format makefile whitespace properly{{{
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     group = vim.api.nvim_create_augroup('Filetype Options', {}),
@@ -87,6 +92,7 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     end,
 })
 -- }}}
+
 ---- Auto-restore session{{{
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     pattern = { '*' },
@@ -105,6 +111,7 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 
 })
 -- }}}
+
 ---- Per-line Extmarks{{{
 
 ---Create an extmark of '󰘍' before the contents of a line

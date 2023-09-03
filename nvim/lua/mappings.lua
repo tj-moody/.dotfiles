@@ -25,8 +25,10 @@ local function m_o(m, l, r, opts)
     vim.keymap.set(m, l, r, opts)
 end
 -- }}}
+
 --- VANILLA{{{
 ----- Remapped Defaults{{{
+
 map('n', '\\', ',')
 
 m_o('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -51,6 +53,7 @@ map('n', 'n', 'nzzzv')
 map('n', 'N', 'Nzzzv')
 
 map('i', '<esc>', '<esc>`^')
+
 -- }}}
 ----- Basics{{{
 
@@ -279,7 +282,9 @@ map('n', '<ScrollWheelRight>', '')
 map('v', '<ScrollWheelLeft>', '')
 map('v', '<ScrollWheelRight>', '')
 
--- }}}}}}
+-- }}}
+-- }}}
+
 --- GROUPS{{{
 ----- NvimTree{{{
 
@@ -510,8 +515,10 @@ map('n', '<leader>cS', -- {{{
 )
 -- TODO: Rewrite to not append commentstring if a comment already exitsts}}}
 -- }}}
------ FOLDS{{{
--- }}}}}}
+----- Folds{{{
+-- }}}
+-- }}}
+
 --- CONFIG{{{
 
 map('n', 'C', '<nop>')
@@ -621,8 +628,8 @@ map('n', 'Ccl',
         print('Conceal: ' .. (vim.o.conceallevel == 2 and "true" or "false"))
     end
 )
-
 -- }}}
+
 --- ABBREVIATIONS{{{
 -- email
 map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
@@ -630,4 +637,5 @@ map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
 -- datetime
 m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
 m_o('ia', 'dtdate', 'strftime("%m/%d/%y")', { expr = true })
-m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true }) -- }}}
+m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true })
+-- }}}
