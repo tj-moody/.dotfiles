@@ -179,10 +179,13 @@ local function indent_traverse(direction, equal) -- {{{
 
         -- Look for a line of appropriate indent
         -- level without going out of the buffer
-        while (not match) and (match_line ~= buf_length) do
+        if (not match)
+            and (match_line ~= buf_length)
+            and (match_line ~= 1)
+        then
             match_line = match_line + direction
             local match_line_str = api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1]
-            local match_line_is_whitespace = match_line_str:match('^%s*$')
+            local match_line_is_whitespace = match_line_str and match_line_str:match('^%s*$')
 
             if equal then
                 match_indent = fn.indent(match_line) <= fn.indent(current_line)

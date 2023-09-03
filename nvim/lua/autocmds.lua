@@ -193,7 +193,7 @@ vim.api.nvim_create_autocmd({
         local has_parser = false
         -- avoid loading treesitter on startup
         if opts.event ~= "BufEnter" then
-            -- has_parser = require('nvim-treesitter.parsers').has_parser()
+            has_parser = require('nvim-treesitter.parsers').has_parser()
         end
 
         for linenr, line in ipairs(
