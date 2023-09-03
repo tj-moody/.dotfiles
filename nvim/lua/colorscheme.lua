@@ -216,6 +216,8 @@ local hl_table = {
             { '@punctuation.delimiter', { fg = '#3b4261', } },
             { 'TelescopeBorder',        { fg = '#3b4261', } },
             { 'LspInlayHint',           { fg = '#2ac3de', } },
+            { 'NormalFloat',            { bg = '#060911', } },
+            { 'Normal',                 { bg = '#0e0f17', } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#2ac3de' } },
