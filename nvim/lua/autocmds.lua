@@ -166,11 +166,26 @@ local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
         pos = { linenr, vim.fn.indent(linenr) + 4 }
     })
     while node do
-        if node:type() == 'if_statement' then
+        while true
+            and false
+        do
+        end
+        if node:type() == 'if_statement'
+            or node:type() == 'while_statement'
+        then
             local conditions = node:field('condition')
             if conditions == {} then return end
             local condition = conditions[1]
             local range = { condition:range() }
+
+            if range[1] == range[3] then return end
+
+            -- while statements for some reason handle ranges differently?
+            -- ranges begin 3 columns after they should
+            if node:type() == 'while_statement' then
+                range[2] = range[2] - 3
+            end
+
             for nr = range[1] + 2, range[3] + 1 do
                 set_linebreak_extmark(buf, ns_id, nr, range[2] + 1)
             end

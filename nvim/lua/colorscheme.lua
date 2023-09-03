@@ -218,6 +218,7 @@ local hl_table = {
             { 'LspInlayHint',           { fg = '#2ac3de', } },
             { 'NormalFloat',            { bg = '#060911', } },
             { 'Normal',                 { bg = '#0e0f17', } },
+            -- { 'TreesitterContext',      {} },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#2ac3de' } },
@@ -469,12 +470,6 @@ function M.clear_hl_bg(hl)
     end
 end
 
----Clear highlight group `hl`
----@param hl string
-function M.clear_hl(hl)
-    vim.api.nvim_set_hl(0, hl, {})
-end
-
 ---Applies `opts` to `hl` without modifying `hl` otherwise
 ---
 ---Example:
@@ -487,8 +482,7 @@ end
 ---Credit: u/lkhphuc
 function M.mod_hl(hl_name, opts)
     local is_ok, hl_def = pcall(
-        vim.api.nvim_get_hl, 0,
-        { name = hl_name, link = true }
+        vim.api.nvim_get_hl, 0, { name = hl_name, link = true }
     )
     if is_ok then
         for k, v in pairs(opts) do hl_def[k] = v end
@@ -505,7 +499,7 @@ local function setup_hls()
         M.clear_hl_bg(v)
     end
     for _, v in ipairs(clear_hl_table) do
-        M.clear_hl(v)
+        vim.api.nvim_set_hl(0, v, {})
     end
     for _, v in ipairs(mod_hl_table) do
         M.mod_hl(v[1], v[2])
