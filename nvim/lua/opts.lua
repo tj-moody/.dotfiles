@@ -65,6 +65,6 @@ o.undofile = true
 o.textwidth = 80
 o.formatoptions = "crjql"
 
-vim.g.bufferline_show_all = false
+vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false
 vim.g.have_fun = false
