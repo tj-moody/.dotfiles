@@ -7,14 +7,12 @@ fi
 tput civis
 
 declare -a wallstrings=(
-    "\e[1;36mmountains1   \e[0m"
-    "\e[1;33mplains1      \e[0m"
+    "\e[1;31mcloudtakeoff \e[0m"
     "\e[1;36mredsunset    \e[0m"
-    "\e[0;34msucculents   \e[0m"
-    "\e[1;36mpurpleclouds \e[0m"
+    "\e[1;35mpurpleclouds \e[0m"
 )
 
-MAX_INDEX=4
+MAX_INDEX=$(( ${#wallstrings[@]} - 1 ))
 
 INDEX=$(sed '2q;d' ~/.config/.WallPath.txt)
 index=$INDEX
@@ -35,22 +33,14 @@ PHOTOS_PATH="$HOME/Documents/tjwallpapers/used/"
 change_wallpaper() {
     case $1 in
         0)
-            echo -e "${PHOTOS_PATH}mountains1.jpg\n$1" \
+            echo -e "${PHOTOS_PATH}cloudtakeoff.jpg\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
         1)
-            echo -e "${PHOTOS_PATH}plains1.jpg\n$1" \
-                > ~/.config/.WallPath.txt
-            ;;
-        2)
             echo -e "${PHOTOS_PATH}redcloudysunset.jpg\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
-        3)
-            echo -e "${PHOTOS_PATH}succulents.jpg\n$1" \
-                > ~/.config/.WallPath.txt
-            ;;
-        4)
+        2)
             echo -e "${PHOTOS_PATH}purpleclouds.jpg\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
