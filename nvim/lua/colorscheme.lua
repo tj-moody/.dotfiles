@@ -67,7 +67,7 @@ local colors_table = {
         vim.cmd.colorscheme('ayu')
     end,                      -- }}}
     midnightclub = function() -- {{{
-        vim.cmd.colorscheme(' midnight-club')
+        vim.cmd.colorscheme('midnight-club')
     end,                      -- }}}
 }
 
