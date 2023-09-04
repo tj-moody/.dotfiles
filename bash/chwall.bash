@@ -5,70 +5,40 @@ if [[ $# -ne 0 ]]; then
 fi
 
 tput civis
-printf '\e[?1049h'
+
+declare -a wallstrings=(
+    "\e[1;36mmountains1   \e[0m"
+    "\e[1;33mplains1      \e[0m"
+    "\e[1;36mredsunset    \e[0m"
+    "\e[0;34msucculents   \e[0m"
+    "\e[1;36mpurpleclouds \e[0m"
+)
 
 MAX_INDEX=4
 
 INDEX=$(sed '2q;d' ~/.config/.WallPath.txt)
 index=$INDEX
 
-cleard() {
-    clear
-    for (( i=0; i<LINES; i++)); do
-        # echo -ne "\n"
-        printf "\n"
-    done
-}
-cleard
-
 print_walls() {
-    case $1 in
-        4)
-            echo -e "> \e[1;36m mountains1   \e[0m"
-            echo -e "  \e[1;33m plains1      \e[0m"
-            echo -e "  \e[1;36m redsunset    \e[0m"
-            echo -e "  \e[0;34m succulents   \e[0m"
-            echo -e "  \e[1;36m purpleclouds \e[0m"
-            ;;
-        3)
-            echo -e "  \e[1;36m mountains1   \e[0m"
-            echo -e "> \e[1;33m plains1      \e[0m"
-            echo -e "  \e[1;36m redsunset    \e[0m"
-            echo -e "  \e[0;34m succulents   \e[0m"
-            echo -e "  \e[1;36m purpleclouds \e[0m"
-            ;;
-        2)
-            echo -e "  \e[1;36m mountains1   \e[0m"
-            echo -e "  \e[1;33m plains1      \e[0m"
-            echo -e "> \e[1;36m redsunset    \e[0m"
-            echo -e "  \e[0;34m succulents   \e[0m"
-            echo -e "  \e[1;36m purpleclouds \e[0m"
-            ;;
-        1)
-            echo -e "  \e[1;36m mountains1   \e[0m"
-            echo -e "  \e[1;33m plains1      \e[0m"
-            echo -e "  \e[1;36m redsunset    \e[0m"
-            echo -e "> \e[0;34m succulents   \e[0m"
-            echo -e "  \e[1;36m purpleclouds \e[0m"
-            ;;
-        0)
-            echo -e "  \e[1;36m mountains1   \e[0m"
-            echo -e "  \e[1;33m plains1      \e[0m"
-            echo -e "  \e[1;36m redsunset    \e[0m"
-            echo -e "  \e[0;34m succulents   \e[0m"
-            echo -e "> \e[1;36m purpleclouds \e[0m"
-            ;;
-    esac
+    index=$1
+    for i in "${!wallstrings[@]}"; do
+        if [[ $i -eq $index ]]; then
+            echo -n "> "
+        else
+            echo -n "  "
+        fi
+        echo -e "${wallstrings[$i]}"
+    done
 }
 
 PHOTOS_PATH="$HOME/Documents/tjwallpapers/used/"
-write_wall_path() {
+change_wallpaper() {
     case $1 in
-        4)
+        0)
             echo -e "${PHOTOS_PATH}mountains1.jpg\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
-        3)
+        1)
             echo -e "${PHOTOS_PATH}plains1.jpg\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
@@ -76,44 +46,43 @@ write_wall_path() {
             echo -e "${PHOTOS_PATH}redcloudysunset.jpg\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
-        1)
+        3)
             echo -e "${PHOTOS_PATH}bigsurnightsucculents.heic\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
-        0)
+        4)
             echo -e "${PHOTOS_PATH}purpleclouds.jpg\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
     esac
+    m wallpaper "$(sed '1q;d' ~/.config/.WallPath.txt)"
 }
-print_walls "$index"
 
 while : ; do
-    cleard
     print_walls "$index"
+    echo -ne "\e[${MAX_INDEX}A"
+    echo -ne "\e[1A"
     read -sr -p "" -n 1 key
     case $key in
         'j')
-            if [[ $index -gt 0 ]]; then
-                index=$((index-1))
-            else
-                index=$MAX_INDEX
-            fi
-            ;;
-        'k')
             if [[ $index -lt $MAX_INDEX ]]; then
                 index=$((index+1))
             else
                 index=0
             fi
             ;;
+        'k')
+            if [[ $index -gt 0 ]]; then
+                index=$((index-1))
+            else
+                index=$MAX_INDEX
+            fi
+            ;;
         '')
-            write_wall_path "$index"
-            m wallpaper "$(sed '1q;d' ~/.config/.WallPath.txt)"
+            change_wallpaper "$index"
             ;;
         'q')
-            tput cnorm
-            printf '\e[?1049l'
+            echo -e "${wallstrings[$index]}"
             break
             ;;
         *)
@@ -121,3 +90,5 @@ while : ; do
             ;;
     esac
 done
+
+tput cnorm

@@ -71,7 +71,6 @@ exit_loop() {
     fi
 
     echo -e "${themestrings[$index]}"
-    tput cnorm
 }
 
 while : ; do
@@ -118,3 +117,5 @@ while : ; do
             ;;
     esac
 done
+
+tput cnorm
