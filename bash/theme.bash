@@ -70,6 +70,11 @@ exit_loop() {
         kitty +kitten themes --reload-in=all "$THEME"
     fi
 
+    for i in "${!themeslist[@]}"; do
+        if [[ "$THEME" == "${themeslist[$i]}" ]]; then
+            index=$i
+        fi
+    done
     echo -e "${themestrings[$index]}"
 }
 

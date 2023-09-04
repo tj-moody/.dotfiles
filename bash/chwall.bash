@@ -47,7 +47,7 @@ change_wallpaper() {
                 > ~/.config/.WallPath.txt
             ;;
         3)
-            echo -e "${PHOTOS_PATH}bigsurnightsucculents.heic\n$1" \
+            echo -e "${PHOTOS_PATH}succulents.jpg\n$1" \
                 > ~/.config/.WallPath.txt
             ;;
         4)
