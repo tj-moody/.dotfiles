@@ -34,7 +34,7 @@ declare -a themeslist=(
     "midnightclub"
 )
 
-MAX_INDEX=$( expr ${#themestrings[@]} - 1 )
+MAX_INDEX=$(( ${#themestrings[@]} - 1 ))
 THEME=$1
 LIVE_UPDATE=false
 
@@ -60,14 +60,14 @@ print_themes() {
         echo -e "${themestrings[$i]}"
     done
     if [[ "$LIVE_UPDATE" == "true" ]]; then
-        echo -ne "\033]50;SetProfile=$(index_to_theme $1)\a"
+        echo -ne "\033]50;SetProfile=$(index_to_theme "$1")\a"
     fi
 }
 
 exit_loop() {
     echo -ne "\033]50;SetProfile=$THEME\a"
     if [[ "$TERM" == "xterm-kitty" ]]; then
-        kitty +kitten themes --reload-in=all $THEME
+        kitty +kitten themes --reload-in=all "$THEME"
     fi
 
     echo -e "${themestrings[$index]}"
@@ -75,10 +75,10 @@ exit_loop() {
 }
 
 while : ; do
-    print_themes $index
+    print_themes "$index"
     echo -ne "\e[${MAX_INDEX}A"
     echo -ne "\e[1A"
-    read -s -p "" -n 1 key
+    read -sr -p "" -n 1 key
     case $key in
         'j')
             if [[ $index -lt $MAX_INDEX ]]; then
@@ -95,8 +95,8 @@ while : ; do
             fi
             ;;
         '')
-            THEME=$(index_to_theme $index)
-            echo $THEME > ~/.config/.COLORS_NAME.txt
+            THEME=$(index_to_theme "$index")
+            echo "$THEME" > ~/.config/.COLORS_NAME.txt
 
             exit_loop
             break

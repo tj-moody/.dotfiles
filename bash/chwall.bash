@@ -14,7 +14,7 @@ index=$INDEX
 
 cleard() {
     clear
-    for (( i=0; i<$LINES; i++)); do
+    for (( i=0; i<LINES; i++)); do
         # echo -ne "\n"
         printf "\n"
     done
@@ -61,7 +61,7 @@ print_walls() {
     esac
 }
 
-PHOTOS_PATH="~/Documents/tjwallpapers/used/"
+PHOTOS_PATH="$HOME/Documents/tjwallpapers/used/"
 write_wall_path() {
     case $1 in
         4)
@@ -86,12 +86,12 @@ write_wall_path() {
             ;;
     esac
 }
-print_walls $index
+print_walls "$index"
 
 while : ; do
     cleard
-    print_walls $index
-    read -s -p "" -n 1 key
+    print_walls "$index"
+    read -sr -p "" -n 1 key
     case $key in
         'j')
             if [[ $index -gt 0 ]]; then
@@ -108,8 +108,8 @@ while : ; do
             fi
             ;;
         '')
-            write_wall_path $index
-            m wallpaper $(sed '1q;d' ~/.config/.WallPath.txt)
+            write_wall_path "$index"
+            m wallpaper "$(sed '1q;d' ~/.config/.WallPath.txt)"
             ;;
         'q')
             tput cnorm
