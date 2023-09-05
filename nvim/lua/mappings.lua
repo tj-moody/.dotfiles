@@ -4,6 +4,7 @@ vim.g.mapleader = ","
 
 local fn = vim.fn
 local api = vim.api
+local cmd = vim.cmd
 
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, opts) with
 ---```lua
@@ -102,7 +103,7 @@ local backspace_code = api.nvim_replace_termcodes(
 )
 local function viml_backspace()
     -- expression from a deleted reddit user
-    vim.cmd([[
+    cmd([[
         let g:exprvalue =
         \ (&indentexpr isnot '' ? &indentkeys : &cinkeys) =~? '!\^F' &&
         \ &backspace =~? '.*eol\&.*start\&.*indent\&' &&
@@ -216,7 +217,7 @@ map('n', '<leader>O',                               -- {{{
     -- Delete all other buffers
     function()
         if vim.bo.filetype == 'NvimTree' then
-            vim.cmd('only')
+            cmd('only')
         else
             local invisible_buffers = {}
 
@@ -231,9 +232,9 @@ map('n', '<leader>O',                               -- {{{
                 end
             end
             for buffer, invisible in pairs(invisible_buffers) do
-                if invisible then vim.cmd.bdelete(tonumber(buffer)) end
+                if invisible then cmd.bdelete(tonumber(buffer)) end
             end
-            vim.cmd [[redrawtabline]]
+            cmd [[redrawtabline]]
         end
     end
 ) -- }}}
@@ -247,7 +248,7 @@ map('v', '>', '>gv4l')
 
 map('n', '<leader>cr',
     function()
-        vim.cmd [[
+        cmd [[
             let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
             for r in regs
             call setreg(r, [])
@@ -261,7 +262,7 @@ m_o('v', [["]], [[<Plug>VSurround"]], { noremap = false, })
 m_o('v', [[']], [[<Plug>VSurround']], { noremap = false, })
 m_o('v', [[(]], [[<Plug>VSurround)]], { noremap = false, })
 m_o('v', [[{]], [[<Plug>VSurround)]], { noremap = false, })
-vim.cmd('unmap [%')
+cmd('unmap [%')
 m_o('v', '[', '<Plug>VSurround]', { noremap = false, })
 
 -- Restart nvim
@@ -288,10 +289,10 @@ map('n', 't',
             return
         end
         if vim.bo.filetype == 'NvimTree' then
-            vim.cmd('NvimTreeClose')
+            cmd('NvimTreeClose')
         else
-            vim.cmd('NvimTreeClose')
-            vim.cmd('NvimTreeOpen')
+            cmd('NvimTreeClose')
+            cmd('NvimTreeOpen')
         end
         safe_require('colorscheme').setup('nvim_tree')
     end
@@ -302,12 +303,12 @@ map('n', 'TT',
     function()
         if vim.g.nvimtreefloat == true then
             vim.g.nvimtreefloat = false
-            vim.cmd('NvimTreeClose')
+            cmd('NvimTreeClose')
             safe_require('config.nvim-tree').nvim_tree_setup()
         else
             safe_require('config.nvim-tree').nvim_tree_float_setup()
-            vim.cmd('NvimTreeClose')
-            vim.cmd('NvimTreeOpen')
+            cmd('NvimTreeClose')
+            cmd('NvimTreeOpen')
         end
     end
 )
@@ -348,7 +349,7 @@ function _G.set_terminal_keymaps()
     vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 end
 
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 -- m('n', '<C-T>', '<CMD>ToggleTerm size=40 direction=float<CR>')
 map('n', '<leader>tf', '<CMD>ToggleTerm size=40 direction=float<CR>')
@@ -375,18 +376,18 @@ map('n', '<leader>lg',
 map('n', '<leader>gd',
     function()
         if next(require('diffview.lib').views) == nil then
-            vim.cmd('DiffviewOpen')
+            cmd('DiffviewOpen')
         else
-            vim.cmd('DiffviewClose')
+            cmd('DiffviewClose')
         end
     end
 )
 map('n', '<leader>gh',
     function()
         if next(require('diffview.lib').views) == nil then
-            vim.cmd('DiffviewFileHistory')
+            cmd('DiffviewFileHistory')
         else
-            vim.cmd('DiffviewClose')
+            cmd('DiffviewClose')
         end
     end
 )
@@ -449,19 +450,19 @@ map('n', '<leader>cs', -- {{{
         if not last_position then return end
 
         local linenr, _ = unpack(api.nvim_win_get_cursor(0))
-        vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
+        cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
         if line:sub(-1) == ' ' then
-            vim.cmd([[execute "norm! i\<BS>"]])
+            cmd([[execute "norm! i\<BS>"]])
         end
-        vim.cmd([[execute "norm! i\<CR>"]])
+        cmd([[execute "norm! i\<CR>"]])
         if fn.indent(linenr) ~= 0 then
-            vim.cmd([[norm! ]] .. string.rep('<<', fn.indent(linenr)))
-            vim.cmd([[execute "norm! 0]]
+            cmd([[norm! ]] .. string.rep('<<', fn.indent(linenr)))
+            cmd([[execute "norm! 0]]
                 .. fn.indent(linenr)
                 .. [[i \<ESC>"]]
             )
         end
-        vim.cmd([[execute "norm! ^]]
+        cmd([[execute "norm! ^]]
             .. #commentstring
             .. [[l"]]
         )
@@ -489,24 +490,28 @@ map('n', '<leader>cS', -- {{{
         if not last_position then return end
 
         local linenr, _ = unpack(api.nvim_win_get_cursor(0))
-        vim.cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
+        cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
         if line:sub(-1) == ' ' then
-            vim.cmd([[execute "norm! i\<BS>"]])
+            cmd([[execute "norm! i\<BS>"]])
         end
-        vim.cmd([[execute "norm! i\<CR>"]])
-        vim.cmd([[execute "norm VK\<ESC>"]])
+        cmd([[execute "norm! i\<CR>"]])
+        cmd([[execute "norm VK\<ESC>"]])
         if fn.indent(linenr + 1) ~= 0 then
-            vim.cmd([[norm! ]] .. string.rep('<<', fn.indent(linenr)))
-            vim.cmd([[execute "norm! 0]]
+            cmd([[norm! ]] .. string.rep('<<', fn.indent(linenr)))
+            cmd([[execute "norm! 0]]
                 .. fn.indent(linenr + 1)
                 .. [[i \<ESC>"]]
             )
         end
-        vim.cmd([[execute "norm! ^]] .. #commentstring .. [[l"]])
+        cmd([[execute "norm! ^]] .. #commentstring .. [[l"]])
     end
 )
 -- TODO: Rewrite to not append commentstring if a comment already exitsts}}}
+
+-- Adapted from u/alphabet_american
+map('v', '<leader>rc', [[y`>pgv:norm ,cc<CR>`>j^]])
 -- }}}
+
 ----- Folds{{{
 -- }}}
 -- }}}
@@ -528,14 +533,14 @@ map('n', 'Cll',
 map('n', 'Crn',
     -- Toggle relative number
     function()
-        vim.cmd.set('relativenumber!')
+        cmd.set('relativenumber!')
     end
 )
 
 map('n', 'Cw',
     -- Toggle wrap
     function()
-        vim.cmd.set('wrap!')
+        cmd.set('wrap!')
         print('Wrap: ' .. tostring(vim.o.wrap))
     end
 )
@@ -583,7 +588,7 @@ map('n', 'Cve',
 map('n', 'Cgb',
     -- Toggle git blame
     function()
-        vim.cmd('Gitsigns toggle_current_line_blame')
+        cmd('Gitsigns toggle_current_line_blame')
     end
 )
 

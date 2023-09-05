@@ -147,7 +147,10 @@ return {
         'windwp/nvim-autopairs',
         event = 'VeryLazy',
         config = function()
-            require("nvim-autopairs").setup { map_bs = false }
+            require("nvim-autopairs").setup {
+                map_bs = false,
+                disable_filetype = { "TelescopePrompt", "text" }
+            }
             vim.cmd [[set formatoptions-=cro]]
         end,
     },
