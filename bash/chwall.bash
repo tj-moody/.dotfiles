@@ -72,7 +72,7 @@ while : ; do
             change_wallpaper "$index"
             ;;
         'q')
-            echo -e "${wallstrings[$index]}"
+            echo -e "${wallstrings[$index]}          "
             break
             ;;
         *)
