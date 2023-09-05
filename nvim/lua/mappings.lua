@@ -36,11 +36,11 @@ m_o('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 m_o('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 map('n', 'p', ']p')
-map('v', 'p', '"0p') -- '"0pgv'
+map('x', 'p', '"0p')
 
-map({ 'n', 'v' }, 'x', '"_x')
-map({ 'n', 'v' }, 'd', '"_d')
-map({ 'n', 'v' }, 'c', '"_c')
+map({ 'n', 'x' }, 'x', '"_x')
+map({ 'n', 'x' }, 'd', '"_d')
+map({ 'n', 'x' }, 'c', '"_c')
 map('n', 'S', '"_S')
 
 map('n', 'dd', 'dd')
@@ -67,8 +67,8 @@ map('n', '<leader><leader>x', '<CMD>silent write<CR><CMD>source <CR>')
 map('n', '<leader>q', '<CMD>q<CR>')
 map('n', '<ESC>', "<CMD>noh<CR><CMD>ColorizerReloadAllBuffers<CR><CMD>echo ''<CR>")
 
-map('v', 'K', ":m '<-2<CR>gv=gv")
-map('v', 'J', ":m '>+1<CR>gv=gv")
+map('x', 'K', ":m '<-2<CR>gv=gv")
+map('x', 'J', ":m '>+1<CR>gv=gv")
 
 map('n', '<CR>', 'mz<CMD>a<CR><CR>.<CR>`z')
 map('n', '<S-CR>', 'mz<CMD>i<CR><CR>.<CR>`z')
@@ -77,7 +77,7 @@ map('n', 'J', 'mzJ`z')
 
 map('n', 's', '<Plug>Ysurround')
 map('n', 'ss', '<Plug>Yssurround')
-map('v', 's', '<Plug>VSurround')
+map('x', 's', '<Plug>VSurround')
 -- ^^^ charwise in visual mode, linewise in visual line mode
 
 map('n', 'sl', '<CMD>vsp<CR>')
@@ -85,7 +85,7 @@ map('n', 'sj', '<CMD>sp<CR>')
 map('n', 'se', '<c-w>=')
 map('n', 'sr', require('smart-splits').start_resize_mode)
 
-map('v', 'V', 'j')
+map('x', 'V', 'j')
 
 map('n', 'gV', '`[v`]')
 
@@ -207,11 +207,11 @@ local function indent_traverse(direction, equal) -- {{{
         end
     end
 end                                                 -- }}}
-map({ 'n', 'v' }, "gj", indent_traverse(1, true))   -- next equal indent
-map({ 'n', 'v' }, 'gk', indent_traverse(-1, true))  -- previous equal indent
+map({ 'n', 'x' }, "gj", indent_traverse(1, true))   -- next equal indent
+map({ 'n', 'x' }, 'gk', indent_traverse(-1, true))  -- previous equal indent
 
-map({ 'n', 'v' }, 'gJ', indent_traverse(1, false))  -- next equal indent
-map({ 'n', 'v' }, 'gK', indent_traverse(-1, false)) -- previous equal indent
+map({ 'n', 'x' }, 'gJ', indent_traverse(1, false))  -- next equal indent
+map({ 'n', 'x' }, 'gK', indent_traverse(-1, false)) -- previous equal indent
 
 map('n', '<leader>O',                               -- {{{
     -- Delete all other buffers
@@ -241,10 +241,10 @@ map('n', '<leader>O',                               -- {{{
 map('n', '<leader>o', '<CMD>silent only<CR>')
 
 map('n', '<leader>y', '"+y')
-map('v', '<leader>y', '"+y')
+map('x', '<leader>y', '"+y')
 
-map('v', '<', '<gv4h')
-map('v', '>', '>gv4l')
+map('x', '<', '<gv4h')
+map('x', '>', '>gv4l')
 
 map('n', '<leader>cr',
     function()
@@ -258,12 +258,12 @@ map('n', '<leader>cr',
     end
 )
 
-m_o('v', [["]], [[<Plug>VSurround"]], { noremap = false, })
-m_o('v', [[']], [[<Plug>VSurround']], { noremap = false, })
-m_o('v', [[(]], [[<Plug>VSurround)]], { noremap = false, })
-m_o('v', [[{]], [[<Plug>VSurround)]], { noremap = false, })
+m_o('x', [["]], [[<Plug>VSurround"]], { noremap = false, })
+m_o('x', [[']], [[<Plug>VSurround']], { noremap = false, })
+m_o('x', [[(]], [[<Plug>VSurround)]], { noremap = false, })
+m_o('x', [[{]], [[<Plug>VSurround)]], { noremap = false, })
 cmd('unmap [%')
-m_o('v', '[', '<Plug>VSurround]', { noremap = false, })
+m_o('x', '[', '<Plug>VSurround]', { noremap = false, })
 
 -- Restart nvim
 map('n', '<leader>R', '<CMD>wa<CR><CMD>SessionSave<CR><CMD>cq<CR>')
@@ -272,8 +272,8 @@ map('i', '<ScrollWheelLeft>', '')
 map('i', '<ScrollWheelRight>', '')
 map('n', '<ScrollWheelLeft>', '')
 map('n', '<ScrollWheelRight>', '')
-map('v', '<ScrollWheelLeft>', '')
-map('v', '<ScrollWheelRight>', '')
+map('x', '<ScrollWheelLeft>', '')
+map('x', '<ScrollWheelRight>', '')
 
 -- }}}
 -- }}}
@@ -420,7 +420,7 @@ map('n', '<leader>pr', '<CMD>ProjtasksRun<CR>')
 map('n', '<leader>pp', '<CMD>ProjtasksToggle<CR>')
 map('n', '<leader>pt', '<CMD>ProjtasksTest<CR>')
 map('n', '<leader>pe', '<CMD>SnipRun<CR>')
-map('v', '<leader>pe', '<CMD>SnipRun<CR>')
+map('x', '<leader>pe', '<CMD>SnipRun<CR>')
 -- }}}
 ----- Comment{{{
 map('n', '<leader>co', 'o_<esc><CMD>norm ,cc<cr>A<bs>')
@@ -509,7 +509,7 @@ map('n', '<leader>cS', -- {{{
 -- TODO: Rewrite to not append commentstring if a comment already exitsts}}}
 
 -- Adapted from u/alphabet_american
-map('v', '<leader>rc', [[y`>pgv:norm ,cc<CR>`>j^]])
+map('x', '<leader>rc', [[y`>pgv:norm ,cc<CR>`>j^]])
 -- }}}
 
 ----- Folds{{{

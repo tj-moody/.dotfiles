@@ -95,7 +95,7 @@ cmp.setup({
         end, { "i", "s" }),
         ["<C-P>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.select_next_item()
+                cmp.select_prev_item()
             else
                 fallback()
             end
