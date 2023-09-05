@@ -25,7 +25,3 @@ require('toggleterm').setup {
         border = 'single',
     },
 }
-
-local cursor_hl = { bg = vim.g.normalfg, fg = vim.g.normalbg }
-vim.api.nvim_set_hl(0, 'TermCursor', cursor_hl)
-vim.api.nvim_set_hl(0, 'TermCursorNC', cursor_hl)

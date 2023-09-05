@@ -440,13 +440,15 @@ local clear_hl_table = { -- {{{
     'NonText',
 }                      -- }}}
 local mod_hl_table = { -- {{{
-    { 'Comment',   { italic = true, } },
-    { '@comment',  { italic = true, } },
-    { 'Statement', { bold = false, } },
-    { 'Keyword',   { bold = false, italic = true, } },
-    { '@keyword',  { bold = false, italic = true, } },
-    { 'Folded',    { bold = true, } },
-    { 'Conceal',   { link = 'Operator' } },
+    { 'Comment',      { italic = true, } },
+    { '@comment',     { italic = true, } },
+    { 'Statement',    { bold = false, } },
+    { 'Keyword',      { bold = false, italic = true, } },
+    { '@keyword',     { bold = false, italic = true, } },
+    { 'Folded',       { bold = true, } },
+    { 'Conceal',      { link = 'Operator' } },
+    { 'TermCursor',   { link = 'Cursor' } },
+    { 'TermCursorNC', { link = 'TermCursor' } },
 } -- }}}
 
 ---Remove background from highlight group `hl`
