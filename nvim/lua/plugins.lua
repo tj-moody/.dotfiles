@@ -189,7 +189,7 @@ return {
         config = function() safe_require('config.alternate-toggler') end,
     },
     {
-        'tj-moody/projtasks.nvim',
+        dir = '~/projects/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },
         cmd = { 'ProjtasksToggle', 'ProjtasksRun', 'ProjtasksTest', },
         config = { direction = "vertical" },
