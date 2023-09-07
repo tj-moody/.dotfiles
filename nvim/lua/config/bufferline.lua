@@ -52,6 +52,7 @@ require("bufferline").setup {
                 return { { text = ' ', bg = '', fg = '', } }
             end,
             -- FIX: All diagnostics only use hint color
+
             -- right = function()
             --     local result = {}
             --     local seve = vim.diagnostic.severity

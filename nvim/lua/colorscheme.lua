@@ -446,7 +446,6 @@ local mod_hl_table = { -- {{{
     { 'Keyword',      { bold = false, italic = true, } },
     { '@keyword',     { bold = false, italic = true, } },
     { 'Folded',       { bold = true, } },
-    { 'Conceal',      { link = 'Operator' } },
     { 'TermCursor',   { link = 'Cursor' } },
     { 'TermCursorNC', { link = 'TermCursor' } },
 } -- }}}
