@@ -18,7 +18,7 @@ export EDITOR="vim"
 # Path
 export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="/Users/tj/.local/share/bob/nvim-bin/:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/opt/homebrew/bin/:$PATH"
 export PATH="$HOME/go/bin/:$PATH"

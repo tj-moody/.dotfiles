@@ -5,12 +5,12 @@ cd || return
 
 if ! [ -x "$(command -v wget)" ]; then
   echo 'Error: wget is not installed.' >&2
-  popd
+  popd || return
   return
 fi
 
-wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monorc.vim
-wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig.bash
+wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monorc.vim
+wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monorc.bash
 
 [ -r ~/.vimrc ] && cp ~/.vimrc ~/.vimrc.bak \
     && echo ".vimrc copied to .vimrc.bak" \
@@ -28,8 +28,8 @@ echo "Installation successful"
 
 popd || return
 
-source ~/.bashrc
+source "$HOME/.bashrc"
 
 return
 # One-liner to execute this program:
-wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monobootstrap.bash && . ./monobootstrap.bash && rm ./monobootstrap.bash
+wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monobootstrap.bash && . ./monobootstrap.bash && rm ./monobootstrap.bash
