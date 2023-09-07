@@ -161,6 +161,8 @@ end -- }}}
 local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
     -- FIX: Currently loops over every line of a multiline if,
     -- refactor to avoid this issue
+    -- FIX: Additionally, looping continues until root unconditionally,
+    -- address this issue if possible
     local node = vim.treesitter.get_node({
         bufnr = buf,
         pos = { linenr, vim.fn.indent(linenr) + 4 }
@@ -178,6 +180,7 @@ local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
 
             -- while statements for some reason handle ranges differently?
             -- ranges begin 3 columns after they should
+            -- TODO: File issue in lua ts parser?
             if node:type() == 'while_statement' then
                 range[2] = range[2] - 3
             end
@@ -195,9 +198,6 @@ end -- }}}
 -- TODO: Disable based on file length?
 vim.api.nvim_create_autocmd({
     'InsertLeave',
-    'TextChanged',
-    'TextChangedI',
-    'TextChangedP',
     'BufEnter',
     'BufWritePre',
 }, {
