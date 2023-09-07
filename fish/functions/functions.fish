@@ -183,5 +183,5 @@ end
 function ssh
     printf '\x1b]11;#0a0c1a\x1b\\'
     /usr/bin/ssh "$argv"
-    printf '\x1b]11;#0e0f17\x1b\\'
+    echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
 end

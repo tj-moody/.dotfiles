@@ -166,10 +166,6 @@ local function line_multiline_if_extmark(buf, ns_id, linenr) -- {{{
         pos = { linenr, vim.fn.indent(linenr) + 4 }
     })
     while node do
-        while true
-            and false
-        do
-        end
         if node:type() == 'if_statement'
             or node:type() == 'while_statement'
         then
