@@ -10,7 +10,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 source "$HOME/.cargo/env"
 export PATH="/Users/tj/.local/share/bob/nvim-bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
-export PATH="/Users/tj/.dotfiles/bash/*.bash:$PATH"
 
 # PROMPT
 export PS1="\[\033[33m\]\u \[\033[0;35m\]\W\[\033[0m\] "

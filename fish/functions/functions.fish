@@ -137,27 +137,6 @@ function git-status-chsh
     echo -e "$clear_text"
 end
 
-function fish_mode_prompt
-    switch $fish_bind_mode
-        case default
-        set_color --bold red
-        echo 'N'
-        case insert
-        set_color --bold green
-        echo 'I'
-        case replace_one
-        set_color --bold green
-        echo 'R'
-        case visual
-        set_color --bold brmagenta
-        echo 'V'
-        case '*'
-        set_color --bold red
-        echo '?'
-    end
-    set_color normal
-end
-
 function ipglobal
     curl https://ipinfo.io/ip
 end
@@ -190,7 +169,7 @@ end
 function projinit
     if not test -e environment.yml
         echo > projfile.lua 'return {
-    ["version"] = "0.1.0",
+    ["version"] = "0.0.1",
     ["tasks"] = {
         ["run"] = [[]],
         ["test"] = [[]],
@@ -201,14 +180,7 @@ function projinit
     end
 end
 
-function silent_push
-    git push 2> /dev/null > /dev/null &
-end
-
 function ssh
-    # #191a1c
-    # #181a29
-    # #371929
     printf '\x1b]11;#0a0c1a\x1b\\'
     /usr/bin/ssh "$argv"
     printf '\x1b]11;#0e0f17\x1b\\'
