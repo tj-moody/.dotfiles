@@ -8,14 +8,14 @@ if status is-interactive
 
     # Path
     set PATH /usr/local/bin $PATH
-    set PATH ~/.local/bin $PATH
+    set PATH $HOME/.local/bin $PATH
     set PATH /Users/tj/.local/share/bob/nvim-bin/ $PATH
     set PATH $HOME/.cargo/bin $PATH
     set PATH /opt/homebrew/bin/ $PATH
     set PATH /opt/homebrew/anaconda3/bin/ $PATH
     set PATH /Qt/5.15.2/clang_64/bin/ $PATH
-    set PATH ~/go/bin/ $PATH
-    set PATH ~/packages/potion/bin $PATH
+    set PATH $HOME/go/bin/ $PATH
+    set PATH $HOME/packages/potion/bin $PATH
 
     # Init
     # Starship
@@ -31,10 +31,7 @@ if status is-interactive
 
     # Kitty
     set kittypath (which kitty)
-    [ ! -z "$kittypath" ] && set -gx TERM xterm-kitty && kitty +kitten themes --reload-in=all $COLORS_NAME
-
-    # Prompt
-    # set -gx PS1 "\e[33m\u \e[0;35m\W\e[0m "
+    [ -n "$kittypath" ] && set -gx TERM xterm-kitty && kitty +kitten themes --reload-in=all $COLORS_NAME
 
     # Aliases
     alias nv      "/Users/tj/.dotfiles/bash/nv.bash"
