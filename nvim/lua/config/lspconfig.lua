@@ -146,5 +146,9 @@ require('lspconfig')['asm_lsp'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
+require('lspconfig')['texlab'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
 
 vim.cmd('source ~/.dotfiles/nvim/lua/config/cmp.lua')

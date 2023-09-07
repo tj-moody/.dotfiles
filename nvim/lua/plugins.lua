@@ -103,6 +103,13 @@ return {
         config = function() safe_require('config.null-ls') end,
         dependencies = { "nvim-lua/plenary.nvim" },
     },-- }}}
+    --- Languages{{{
+    ----- LaTeX{{{
+    {
+        'lervag/vimtex',
+        event = 'VeryLazy',
+
+    },-- }}}}}}
     --- DAP
     --- UTILS{{{
     {
