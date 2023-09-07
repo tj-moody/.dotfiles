@@ -1,4 +1,4 @@
-local colors_table = {
+local colors_table = {-- {{{
     noclownfiesta = {
         normal = '#90a959',
         replace = '#b46958',
@@ -69,7 +69,7 @@ local colors_table = {
         visual = '#ffae57',
         insert = '#88d4ab',
     },
-}
+}-- }}}
 
 local THEME = vim.g.tjtheme
 local colors = colors_table.noclownfiesta

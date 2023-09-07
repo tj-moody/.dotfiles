@@ -10,6 +10,7 @@ vim.api.nvim_set_hl(0, 'TabLineSel', { fg = tabline_sel_bg, })
 
 require("bufferline").setup {
     options = {
+        style_preset = require("bufferline").style_preset.minimal,
         custom_filter = function(buf)
             if vim.g.bufferline_show_all then
                 return true
