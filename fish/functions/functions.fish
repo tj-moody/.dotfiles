@@ -34,10 +34,6 @@ function wallpaper
     m wallpaper $argv[1]
 end
 
-function speedtest
-    speedtest-rs
-end
-
 function theme --argument-names 'themename'
     set themeslist "noclownfiesta"
     set -a themeslist "kanagawa"
