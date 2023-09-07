@@ -20,8 +20,8 @@ wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monorc
     && echo ".bashrc copied to .bashrc.bak" \
     && rm ~/.bashrc
 
-cat ~/monorc.vim > ~/.vimrc && rm ~/monorc.vim
-cat ~/monorc.bash > ~/.bashrc && rm ~/monorc.bash
+cat ~/monorc.vim > ~/.vimrc && rm ~/monorc.vim*
+cat ~/monorc.bash > ~/.bashrc && rm ~/monorc.bash*
 echo "[ -r ~/.bashrc ] && . \"$HOME/.bashrc\"" >> ~/.bash_profile
 
 echo "Installation successful"
