@@ -21,7 +21,7 @@ wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monorc
     && rm ~/.bashrc
 
 cat ~/monorc.vim > ~/.vimrc && rm ~/monorc.vim
-cat ~/monoconfig.bash > ~/.bashrc && rm ~/monoconfig.bash
+cat ~/monorc.bash > ~/.bashrc && rm ~/monorc.bash
 echo "[ -r ~/.bashrc ] && . \"$HOME/.bashrc\"" >> ~/.bash_profile
 
 echo "Installation successful"
