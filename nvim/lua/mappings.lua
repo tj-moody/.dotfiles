@@ -28,7 +28,7 @@ local function m_o(m, l, r, opts)
 end
 -- }}}
 
---- VANILLA{{{
+--- VANILLA
 ----- Remapped Defaults{{{
 
 map('n', '\\', ',')
@@ -277,9 +277,9 @@ map('x', '<ScrollWheelLeft>', '')
 map('x', '<ScrollWheelRight>', '')
 
 -- }}}
--- }}}
 
---- GROUPS{{{
+
+--- GROUPS
 ----- NvimTree{{{
 
 map('n', 't',
@@ -515,9 +515,9 @@ map('x', '<leader>rc', [[y`>pgv:norm ,cc<CR>`>j^]])
 
 ----- Folds{{{
 -- }}}
--- }}}
 
---- CONFIG{{{
+
+--- CONFIG
 
 map('n', 'C', '<nop>')
 map('n', 'Cll',
@@ -632,9 +632,9 @@ map('n', 'Ccr',
         require('colorscheme').reload()
     end
 )
--- }}}
 
---- ABBREVIATIONS{{{
+
+--- ABBREVIATIONS
 -- email
 map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
 
@@ -642,4 +642,3 @@ map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
 m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
 m_o('ia', 'dtdate', 'strftime("%m/%d/%y")', { expr = true })
 m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true })
--- }}}

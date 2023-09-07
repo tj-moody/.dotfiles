@@ -1,4 +1,4 @@
----- Use nvim-tree when opening a directory on launch{{{
+---- Use nvim-tree when opening a directory on launch
 vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     pattern = { '*' },
     group = vim.api.nvim_create_augroup('NvimTree Launch', {}),
@@ -13,10 +13,10 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
         vim.cmd('only')
     end
 })
--- }}}
 
----- Start lsp after loading file to lazyload lsp plugins{{{
-vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
+
+---- Start lsp after loading file to lazyload lsp plugins
+vim.api.nvim_create_autocmd({ 'InsertEnter', 'BufWritePre', }, {
     pattern = { '*' },
     group = vim.api.nvim_create_augroup('LSP Auto Start', {}),
     callback = function(_)
@@ -32,9 +32,9 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', }, {
         vim.cmd('LspStart')
     end,
 })
--- }}}
 
----- Strip trailing spaces before write{{{
+
+---- Strip trailing spaces before write
 -- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     pattern = { '*' },
@@ -45,9 +45,9 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
         vim.fn.winrestview(save)
     end,
 })
--- }}}
 
----- Enable spellcheck on gitcommit and markdown{{{
+
+---- Enable spellcheck on gitcommit and markdown
 vim.api.nvim_create_autocmd({ 'FileType' }, {
     group = vim.api.nvim_create_augroup('Filetype Options', {}),
     pattern = { 'gitcommit', 'markdown', '*.txt' },
@@ -56,9 +56,9 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
         vim.opt_local.spell = true
     end,
 })
--- }}}
 
----- Automatically enable inlay hints{{{
+
+---- Automatically enable inlay hints
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     pattern = { '*' },
     group = vim.api.nvim_create_augroup('Inlay Hints', {}),
@@ -79,9 +79,9 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
         end
     end,
 })
--- }}}
 
----- Format makefile whitespace properly{{{
+
+---- Format makefile whitespace properly
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     group = vim.api.nvim_create_augroup('Filetype Options', {}),
     pattern = { 'make' },
@@ -91,9 +91,9 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
         vim.bo.softtabstop = 0
     end,
 })
--- }}}
 
----- Auto-restore session{{{
+
+---- Auto-restore session
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     pattern = { '*' },
     group = vim.api.nvim_create_augroup('Auto-Session', {}),
@@ -110,9 +110,9 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     end,
 
 })
--- }}}
 
----- Per-line Extmarks{{{
+
+---- Per-line Extmarks
 
 ---Create an extmark of '󰘍' before the contents of a line
 ---@param buf integer Buffer number
@@ -224,4 +224,4 @@ vim.api.nvim_create_autocmd({
             end
         end
     end
-}) -- }}}
+})
