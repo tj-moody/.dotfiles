@@ -177,11 +177,6 @@ return {
         config = function() safe_require('config.various-textobjs') end
     },
     {
-        'JellyApple102/flote.nvim',
-        cmd = { 'Flote' },
-        config = function() safe_require('config.flote') end
-    },
-    {
         'RaafatTurki/hex.nvim',
         event = 'VeryLazy',
         config = true,
