@@ -47,8 +47,9 @@ local on_attach = function(_, bufnr)
     end, bufopts)
 end
 
-local neodev_opts = {}
-require("neodev").setup(neodev_opts)
+require("neodev").setup {
+    library = { plugins = { "neotest" }, types = true },
+}
 
 local lsp_flags = {
     -- This is the default in Nvim 0.7+

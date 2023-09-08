@@ -1,4 +1,4 @@
-local fun = {-- {{{
+local fun = { -- {{{
     {
         "giusgad/pets.nvim",
         event = 'VeryLazy',
@@ -11,7 +11,7 @@ local fun = {-- {{{
         },
         cond = vim.g.have_fun,
     },
-}-- }}}
+} -- }}}
 return {
     --- Colorscheme{{{
     {
@@ -29,7 +29,7 @@ return {
             'nyngwang/midnight-club.nvim',
         },
         config = function() safe_require("colorscheme").setup() end,
-    },-- }}}
+    }, -- }}}
     --- Telescope{{{
     {
         'nvim-telescope/telescope.nvim',
@@ -51,7 +51,7 @@ return {
             },
         },
         config = function() safe_require('config.telescope') end,
-    },-- }}}
+    }, -- }}}
     --- Treesitter{{{
     {
         'nvim-treesitter/nvim-treesitter',
@@ -66,7 +66,7 @@ return {
             { 'rush-rs/tree-sitter-asm' },
         },
         config = function() safe_require('config.treesitter') end,
-    },-- }}}
+    }, -- }}}
     --- LSP{{{
     {
         'hrsh7th/nvim-cmp',
@@ -102,14 +102,14 @@ return {
         "jose-elias-alvarez/null-ls.nvim",
         config = function() safe_require('config.null-ls') end,
         dependencies = { "nvim-lua/plenary.nvim" },
-    },-- }}}
+    }, -- }}}
     --- Languages{{{
     ----- LaTeX{{{
     {
         'lervag/vimtex',
         event = 'VeryLazy',
 
-    },-- }}}}}}
+    }, -- }}}}}}
     --- DAP
     --- UTILS{{{
     {
@@ -191,12 +191,6 @@ return {
         config = function() safe_require('config.alternate-toggler') end,
     },
     {
-        dir = '~/projects/projtasks.nvim',
-        dependencies = { 'akinsho/toggleterm.nvim' },
-        cmd = { 'ProjtasksToggle', 'ProjtasksRun', 'ProjtasksTest', },
-        config = { direction = "vertical" },
-    },
-    {
         'michaelb/sniprun',
         build = 'sh ./install.sh',
         config = function()
@@ -214,7 +208,7 @@ return {
             window = { open = 'alternate' },
         },
         lazy = false,
-    },-- }}}
+    }, -- }}}
     --- Git{{{
     {
         'lewis6991/gitsigns.nvim',
@@ -230,7 +224,7 @@ return {
     {
         "FabijanZulj/blame.nvim",
         event = 'VeryLazy',
-    },-- }}}
+    }, -- }}}
     --- UI{{{
     {
         'akinsho/bufferline.nvim',
@@ -288,6 +282,24 @@ return {
         'karb94/neoscroll.nvim',
         event = 'VeryLazy',
         config = true,
-    },-- }}}
+    }, -- }}}
+    --- Project
+    {
+        dir = '~/projects/projtasks.nvim',
+        dependencies = { 'akinsho/toggleterm.nvim' },
+        cmd = { 'ProjtasksToggle', 'ProjtasksRun', 'ProjtasksTest', },
+        config = { direction = "vertical" },
+    },
+    {
+        'nvim-neotest/neotest',
+        event = 'VeryLazy',
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "antoinemadec/FixCursorHold.nvim",
+            "rouge8/neotest-rust",
+        },
+        config = function() safe_require('config.neotest') end,
+    },
     fun,
 }

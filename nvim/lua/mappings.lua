@@ -422,6 +422,10 @@ map('n', '<leader>pp', '<CMD>ProjtasksToggle<CR>')
 map('n', '<leader>pt', '<CMD>ProjtasksTest<CR>')
 map('n', '<leader>pe', '<CMD>SnipRun<CR>')
 map('x', '<leader>pe', '<CMD>SnipRun<CR>')
+map('n', '<leader>pnt', require('neotest').summary.toggle)
+map('n', '<leader>pnr', require('neotest').run.run)
+map('n', '<leader>pnf', "<CMD>lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
+map('n', '<leader>pnh',  require('neotest').output.open)
 -- }}}
   --- Comment{{{
 map('n', '<leader>co', 'o_<esc><CMD>norm ,cc<cr>A<bs>')

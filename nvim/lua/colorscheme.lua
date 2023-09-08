@@ -534,11 +534,14 @@ function M.setup(category)
     if category == 'setup' then setup_hls() end
 end
 
----Reload all fields of 'hl_table' and files affected by colorscheme
-function M.reload()
+function M.safe_reload()
     M.setup()
     M.setup('alpha')
     M.setup('nvim_tree')
+end
+---Reload all fields of 'hl_table' and files affected by colorscheme
+function M.reload()
+    M.safe_reload()
     safe_require('config.bufferline')
     safe_require('config.lualine')
 end

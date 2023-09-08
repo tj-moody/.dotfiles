@@ -9,6 +9,7 @@ safe_require('opts')
 safe_require('config.lazy')
 safe_require('mappings')
 safe_require('autocmds')
+safe_require('colorscheme').safe_reload()
 
 function P(table)
     vim.notify(vim.inspect(table), 0)
