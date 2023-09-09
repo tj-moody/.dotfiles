@@ -8,6 +8,7 @@ vim.api.nvim_set_hl(0, 'TabLineSel', { fg = tabline_sel_bg, })
 -- local hint_color = get_color('DiagnosticHint', 'fg#')
 -- local info_color = getrcolor('DiagnosticInfo', 'fg#')
 
+---@diagnostic disable missing-fields
 require("bufferline").setup {
     options = {
         style_preset = require("bufferline").style_preset.minimal,

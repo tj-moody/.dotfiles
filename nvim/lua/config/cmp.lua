@@ -37,6 +37,7 @@ end
 
 local cmp = require('cmp')
 
+---@diagnostic disable missing-fields
 cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine

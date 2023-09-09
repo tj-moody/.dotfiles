@@ -7,6 +7,7 @@ local fn = vim.fn
 ---@param attr 'bg#' | 'fg#'
 ---@return string color color of attr '#XXXXXX'
 function M.get_color(group, attr)
+    ---@diagnostic disable-next-line return-type-mismatch
     return fn.synIDattr(fn.synIDtrans(fn.hlID(group)), attr)
 end
 
