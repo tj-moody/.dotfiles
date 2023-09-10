@@ -228,7 +228,6 @@ return {
     --- UI{{{
     {
         'akinsho/bufferline.nvim',
-        priority = 100,
         lazy = false,
         dependencies = {
             'nvim-tree/nvim-web-devicons',
