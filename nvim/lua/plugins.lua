@@ -300,6 +300,6 @@ return {
             "rouge8/neotest-rust",
         },
         config = function() safe_require('config.neotest') end,
-    },-- }}}
+    }, -- }}}
     fun,
 }
