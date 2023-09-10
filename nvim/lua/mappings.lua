@@ -263,7 +263,7 @@ m_o('x', [["]], [[<Plug>VSurround"]], { noremap = false, })
 m_o('x', [[']], [[<Plug>VSurround']], { noremap = false, })
 m_o('x', [[(]], [[<Plug>VSurround)]], { noremap = false, })
 m_o('x', [[{]], [[<Plug>VSurround)]], { noremap = false, })
-cmd('unmap [%')
+-- cmd('unmap [%')
 m_o('x', '[', '<Plug>VSurround]', { noremap = false, })
 
 -- Restart nvim
@@ -422,10 +422,10 @@ map('n', '<leader>pp', '<CMD>ProjtasksToggle<CR>')
 map('n', '<leader>pt', '<CMD>ProjtasksTest<CR>')
 map('n', '<leader>pe', '<CMD>SnipRun<CR>')
 map('x', '<leader>pe', '<CMD>SnipRun<CR>')
-map('n', '<leader>pnt', require('neotest').summary.toggle)
-map('n', '<leader>pnr', require('neotest').run.run)
+map('n', '<leader>pnt', "<CMD>lua require('neotest').summary.toggle<CR>")
+map('n', '<leader>pnr', "<CMD>lua require('neotest').run.run()<CR>")
 map('n', '<leader>pnf', "<CMD>lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
-map('n', '<leader>pnh',  require('neotest').output.open)
+map('n', '<leader>pnh', "<CMD>lua require('neotest').output.open()<CR>")
 -- }}}
   --- Comment{{{
 map('n', '<leader>co', 'o_<esc><CMD>norm ,cc<cr>A<bs>')

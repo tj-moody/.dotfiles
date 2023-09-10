@@ -283,7 +283,7 @@ return {
         event = 'VeryLazy',
         config = true,
     }, -- }}}
-    --- Project
+    --- Project{{{
     {
         dir = '~/projects/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },
@@ -300,6 +300,6 @@ return {
             "rouge8/neotest-rust",
         },
         config = function() safe_require('config.neotest') end,
-    },
+    },-- }}}
     fun,
 }
