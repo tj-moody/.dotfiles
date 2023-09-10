@@ -1,4 +1,4 @@
-syntax match Operator "\v(--\s*)?((\{\{\{)|(\}\}\}))+\d?$" conceal containedin=luaComment
+syntax match luaOperator "\v(--\s*)?((\{\{\{)|(\}\}\}))+\d?$" conceal containedin=luaComment
 
 hi link luaOperator Operator
 
