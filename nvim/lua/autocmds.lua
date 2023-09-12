@@ -106,6 +106,12 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
         if filetype == 'alpha' then
             return
         end
+
+        for _, buf in ipairs(vim.fn.tabpagebuflist()) do
+            if vim.fn.bufname(buf):sub(1, 7) == "term://" then
+                vim.cmd("bd! " .. buf)
+            end
+        end
         vim.cmd('SessionSave')
     end,
 
