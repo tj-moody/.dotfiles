@@ -108,7 +108,6 @@ return {
     {
         'lervag/vimtex',
         event = 'VeryLazy',
-
     }, -- }}}}}}
     --- DAP
     --- UTILS{{{

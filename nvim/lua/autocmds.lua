@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     callback = function(_)
         local save = vim.fn.winsaveview()
         vim.cmd([[ %s/\s\+$//e ]])
-        vim.fn.winrestview(save)
+        vim.fn.winrestview(save) ---@diagnostic disable-line
     end,
 })
 
@@ -224,4 +224,13 @@ vim.api.nvim_create_autocmd({
             end
         end
     end
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = { "*" },
+    callback = function()
+        if vim.fn.expand('%:p'):sub(1, 7) == "term://" then
+            vim.cmd("setlocal nonumber norelativenumber nobuflisted")
+        end
+    end,
 })
