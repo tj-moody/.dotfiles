@@ -216,6 +216,10 @@ return {
         config = {
             prompt_end = ':: ',
         }
+    },
+    {
+       'yuttie/comfortable-motion.vim',
+        event = 'VeryLazy',
     }, -- }}}
     --- Git{{{
     {
@@ -284,11 +288,6 @@ return {
                 ["TODO"] = { icon = " ", color = "info" },
             },
         },
-    },
-    {
-        'karb94/neoscroll.nvim',
-        event = 'VeryLazy',
-        config = true,
     }, -- }}}
     --- Project{{{
     {
