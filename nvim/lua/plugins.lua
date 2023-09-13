@@ -208,6 +208,14 @@ return {
             window = { open = 'alternate' },
         },
         lazy = false,
+    },
+    {
+        'chomosuke/term-edit.nvim',
+        event = 'VeryLazy',
+        version = '1.*',
+        config = {
+            prompt_end = ':: ',
+        }
     }, -- }}}
     --- Git{{{
     {
