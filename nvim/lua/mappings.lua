@@ -186,8 +186,8 @@ local function indent_traverse(direction, equal) -- {{{
         -- Look for a line of appropriate indent
         -- level without going out of the buffer
         while (not match)
-            and (match_line ~= buf_length)
-            and (match_line ~= 1)
+            and (match_line <= buf_length)
+            and (match_line > 1)
         do
             match_line = match_line + direction
             local match_line_str = api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1]
