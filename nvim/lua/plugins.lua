@@ -86,6 +86,7 @@ return {
                     { 'simrat39/rust-tools.nvim' },
                 },
             },
+            { "lewis6991/hover.nvim", },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-path' },

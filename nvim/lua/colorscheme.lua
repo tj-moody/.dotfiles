@@ -219,6 +219,8 @@ local hl_table = {
             { 'LspInlayHint',           { fg = '#2ac3de', } },
             { 'NormalFloat',            { bg = '#060911', } },
             { 'Normal',                 { bg = '#0e0f17', } },
+            { 'FloatBorder',            { bg = '#060911', fg = '#29a4bd' } },
+            { 'FloatTitle',             { bg = '#060911', fg = '#29a4bd', } },
             -- { 'TreesitterContext',      {} },
         },
         alpha = {

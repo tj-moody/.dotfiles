@@ -6,10 +6,33 @@ local map_opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float, map_opts)
 vim.keymap.set('n', '<leader>dk', vim.diagnostic.goto_prev, map_opts)
 vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_next, map_opts)
--- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
+
+require("hover").setup {
+    init = function()
+        -- Require providers
+        require("hover.providers.lsp")
+        require('hover.providers.gh')
+        require('hover.providers.dictionary')
+        -- require('hover.providers.gh_user')
+        -- require('hover.providers.jira')
+        -- require('hover.providers.man')
+    end,
+    preview_opts = {
+        border = nil
+    },
+    -- Whether the contents of a currently open hover window should be moved
+    -- to a :h preview-window when pressing the hover keymap.
+    preview_window = false,
+    title = true
+}
+
+-- Setup keymaps
+vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
+vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
 
 local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
@@ -28,7 +51,7 @@ local on_attach = function(_, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
-    map('n', 'K', vim.lsp.buf.hover, bufopts)
+    -- map('n', 'K', vim.lsp.buf.hover, bufopts)
     map('n', 'gi', vim.lsp.buf.implementation, bufopts)
     map('n', 'gs', vim.lsp.buf.signature_help, bufopts) -- "go type"
     -- map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
