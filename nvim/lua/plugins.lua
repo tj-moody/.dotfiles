@@ -308,5 +308,10 @@ return {
         },
         config = function() safe_require('config.neotest') end,
     }, -- }}}
+    {
+        'shortcuts/no-neck-pain.nvim',
+        event = 'VeryLazy',
+        config = function() safe_require('config.no-neck-pain') end,
+    },
     fun,
 }

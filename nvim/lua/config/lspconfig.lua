@@ -31,8 +31,8 @@ require("hover").setup {
 }
 
 -- Setup keymaps
-vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
-vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
+-- vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
+-- vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
 
 local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
@@ -51,7 +51,8 @@ local on_attach = function(_, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
-    -- map('n', 'K', vim.lsp.buf.hover, bufopts)
+    map('n', 'K', require("hover").hover, bufopts)
+    map('n', 'gK', require("hover").hover_select, bufopts)
     map('n', 'gi', vim.lsp.buf.implementation, bufopts)
     map('n', 'gs', vim.lsp.buf.signature_help, bufopts) -- "go type"
     -- map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)

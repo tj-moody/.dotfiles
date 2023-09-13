@@ -46,6 +46,12 @@ require("bufferline").setup {
                 text_align = "center",
                 separator = ' ',
             },
+            {
+                filetype = "markdown.projpad",
+                text = "",
+                text_align = "center",
+                separator = ' ',
+            }
         },
         separator_style = { ' ', ' ' },
         custom_areas = {
