@@ -534,13 +534,15 @@ function M.setup(category)
     end
 end
 
+---Reload all colorscheme customizations that do not require a plugin
+---@return nil
 function M.safe_reload()
     M.setup()
     setup_hls()
     M.setup('alpha')
     M.setup('nvim_tree')
 end
----Reload all fields of 'hl_table' and files affected by colorscheme
+---Reload all colorscheme customizations
 function M.reload()
     M.safe_reload()
     safe_require('config.bufferline')

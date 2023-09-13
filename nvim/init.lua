@@ -1,4 +1,6 @@
--- via u/pseudometapseudo
+---via u/pseudometapseudo
+---@param module string
+---@return nil
 function safe_require(module)
     local success, req = pcall(require, module)
     if success then return req end
