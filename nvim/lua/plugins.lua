@@ -111,7 +111,7 @@ return {
         event = 'VeryLazy',
     }, -- }}}}}}
     --- DAP
-    --- UTILS{{{
+    --- Utils{{{
     {
         'tpope/vim-surround',
         event = 'VeryLazy',
@@ -306,11 +306,11 @@ return {
             "rouge8/neotest-rust",
         },
         config = function() safe_require('config.neotest') end,
-    }, -- }}}
+    },
     {
         'shortcuts/no-neck-pain.nvim',
         event = 'VeryLazy',
         config = function() safe_require('config.no-neck-pain') end,
-    },
+    }, -- }}}
     fun,
 }
