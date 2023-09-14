@@ -13,7 +13,7 @@ local fun = { -- {{{
     },
 } -- }}}
 return {
-    --- Colorscheme{{{
+    --- Colorscheme{{{1
     {
         'aktersnurra/no-clown-fiesta.nvim',
         dependencies = {
@@ -30,7 +30,7 @@ return {
         },
         config = function() safe_require("colorscheme").setup() end,
     }, -- }}}
-    --- Telescope{{{
+    --- Telescope{{{1
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
@@ -52,7 +52,7 @@ return {
         },
         config = function() safe_require('config.telescope') end,
     }, -- }}}
-    --- Treesitter{{{
+    --- Treesitter{{{1
     {
         'nvim-treesitter/nvim-treesitter',
         event = 'VeryLazy',
@@ -67,7 +67,7 @@ return {
         },
         config = function() safe_require('config.treesitter') end,
     }, -- }}}
-    --- LSP{{{
+    --- LSP{{{1
     {
         'hrsh7th/nvim-cmp',
         event = 'VeryLazy',
@@ -104,14 +104,15 @@ return {
         config = function() safe_require('config.null-ls') end,
         dependencies = { "nvim-lua/plenary.nvim" },
     }, -- }}}
-    --- Languages{{{
-    ----- LaTeX{{{
+    --- Languages{{{1
+    ----- LaTeX{{{2
     {
         'lervag/vimtex',
         event = 'VeryLazy',
-    }, -- }}}}}}
-    --- DAP
-    --- Utils{{{
+    },
+    --- DAP {{{1
+    -- }}}
+    --- Utils{{{1
     {
         'tpope/vim-surround',
         event = 'VeryLazy',
@@ -220,8 +221,8 @@ return {
     {
         'yuttie/comfortable-motion.vim',
         event = 'VeryLazy',
-    }, -- }}}
-    --- Git{{{
+    },
+    --- Git{{{1
     {
         'lewis6991/gitsigns.nvim',
         priority = 100,
@@ -241,8 +242,8 @@ return {
         'rbong/vim-flog',
         dependencies = { 'tpope/vim-fugitive', },
         event = 'VeryLazy',
-    }, -- }}}
-    --- UI{{{
+    },
+    --- UI{{{1
     {
         'akinsho/bufferline.nvim',
         lazy = false,
@@ -294,8 +295,8 @@ return {
                 ["TODO"] = { icon = " ", color = "info" },
             },
         },
-    }, -- }}}
-    --- Project{{{
+    },
+    --- Project{{{1
     {
         dir = '~/projects/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },
@@ -317,6 +318,7 @@ return {
         'shortcuts/no-neck-pain.nvim',
         event = 'VeryLazy',
         config = function() safe_require('config.no-neck-pain') end,
-    }, -- }}}
+    },
+    -- }}}1
     fun,
 }
