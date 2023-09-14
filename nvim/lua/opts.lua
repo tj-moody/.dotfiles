@@ -61,7 +61,7 @@ o.background = 'dark'
 o.virtualedit = 'block'
 o.matchpairs = '(:),{:},[:],<:>'
 o.undofile = true
--- o.smoothscroll = true
+o.smoothscroll = true
 o.textwidth = 80
 o.formatoptions = "crjql"
 
