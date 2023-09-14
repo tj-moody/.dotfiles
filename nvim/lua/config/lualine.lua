@@ -1,4 +1,31 @@
-local colors_table = {-- {{{
+require("pigeon").setup {
+    os = "osx",              -- windows, osx
+    plugin_manager = "lazy", -- packer, paq, vim-plug
+    callbacks = {
+        killing_pigeon = nil,
+        respawning_pigeon = nil,
+    },
+    datetime = {
+        enabled = true,
+        time = {
+            enabled = true,
+            format = "%H:%M",
+            posttext = "hrs",
+            icon = "󰃰 ",
+        },
+        day = {
+            enabled = true,
+            format = "%A",
+            icon = "󰃶 ",
+        },
+        date = {
+            enabled = true,
+            format = "%m-%d",
+            icon = "",
+        },
+    },
+}
+local colors_table = { -- {{{
     noclownfiesta = {
         normal = '#90a959',
         replace = '#b46958',
@@ -69,7 +96,7 @@ local colors_table = {-- {{{
         visual = '#ffae57',
         insert = '#88d4ab',
     },
-}-- }}}
+} -- }}}
 
 local THEME = vim.g.tjtheme
 local colors = colors_table.noclownfiesta
@@ -161,7 +188,7 @@ local lualine_config = {
                 cond = function()
                     return vim.g.lualine_verbose
                 end,
-                color = { fg = comment_fg },
+                color = 'Keyword',
             },
             {
                 function()
@@ -294,6 +321,15 @@ local lualine_config = {
                 end,
                 color = { fg = colors.normal },
                 padding = { left = 2, right = 1 },
+            },
+            {
+                function()
+                    return require('pigeon.datetime').current_day()
+                        .. ' '
+                        .. require('pigeon.datetime').current_date()
+                end,
+                cond = function() return vim.g.lualine_verbose end,
+                color = 'Statement',
             },
         },
     },

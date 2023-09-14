@@ -218,7 +218,7 @@ return {
         }
     },
     {
-       'yuttie/comfortable-motion.vim',
+        'yuttie/comfortable-motion.vim',
         event = 'VeryLazy',
     }, -- }}}
     --- Git{{{
@@ -236,6 +236,11 @@ return {
     {
         "FabijanZulj/blame.nvim",
         event = 'VeryLazy',
+    },
+    {
+        'rbong/vim-flog',
+        dependencies = { 'tpope/vim-fugitive', },
+        event = 'VeryLazy',
     }, -- }}}
     --- UI{{{
     {
@@ -252,6 +257,7 @@ return {
         priority = 100,
         event = 'VeryLazy',
         config = function() safe_require('config.lualine') end,
+        dependencies = { "Pheon-Dev/pigeon", },
     },
     {
         'nvim-tree/nvim-tree.lua',
