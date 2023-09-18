@@ -451,6 +451,7 @@ local mod_hl_table = { -- {{{
     { 'Folded',       { bold = true, } },
     { 'TermCursor',   { link = 'Cursor' } },
     { 'TermCursorNC', { link = 'TermCursor' } },
+    { 'TabLineFill',  { link = 'NormalFloat', } },
 } -- }}}
 
 ---Remove background from highlight group `hl`
@@ -544,6 +545,7 @@ function M.safe_reload()
     M.setup('alpha')
     M.setup('nvim_tree')
 end
+
 ---Reload all colorscheme customizations
 function M.reload()
     M.safe_reload()
