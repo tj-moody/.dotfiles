@@ -37,22 +37,26 @@ require("hover").setup {
 local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    require("lsp_signature").on_attach({
-        hint_scheme = 'Normal',
-        hint_prefix = " ",
-        bind = true,
-        handler_opts = {
-            border = "rounded"
-        }
-    }, bufnr)
+    -- FIX: lsp_signature broken by commit cfd4a9dfaf5fd900264a946ca33c4a4f26f66a49
+    -- TODO: File issue on lsp_signature to fix this
+    -- require("lsp_signature").on_attach({
+    --     hint_scheme = 'Normal',
+    --     hint_prefix = " ",
+    --     bind = true,
+    --     handler_opts = {
+    --         border = "rounded"
+    --     }
+    -- }, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
-    map('n', 'K', require("hover").hover, bufopts)
-    map('n', 'gK', require("hover").hover_select, bufopts)
+    map('n', 'K', vim.lsp.buf.hover, bufopts)
+    -- Possibly switch back to hover if builtin prettier hover is integrated
+    -- map('n', 'K', require("hover").hover, bufopts)
+    -- map('n', 'gK', require("hover").hover_select, bufopts)
     map('n', 'gi', vim.lsp.buf.implementation, bufopts)
     map('n', 'gs', vim.lsp.buf.signature_help, bufopts) -- "go type"
     -- map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
