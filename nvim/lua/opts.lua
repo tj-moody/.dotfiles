@@ -29,7 +29,7 @@ o.fillchars = {
 }
 o.foldtext = 'v:lua.custom_fold_text()'
 o.listchars = {
-    tab = '▸ ▸',
+    tab = '▸ ',
 }
 o.list = true
 o.foldcolumn = '3'

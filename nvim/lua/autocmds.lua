@@ -209,9 +209,9 @@ vim.api.nvim_create_autocmd({
 }, {
     -- https://github.com/neovim/neovim/pull/24279
     pattern = { '*', }, -- Shell filetypes?
-    group = vim.api.nvim_create_augroup('Fold Hide Extmarks', {}),
+    group = vim.api.nvim_create_augroup('custom_extmarks', {}),
     callback = function(opts)
-        local ns_id = vim.api.nvim_create_namespace('Custom Extmarks')
+        local ns_id = vim.api.nvim_create_namespace('tj_custom_extmarks')
         vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, 0, -1)
 
         local has_parser = false

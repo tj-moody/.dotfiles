@@ -179,13 +179,6 @@ vim.diagnostic.config {
     underline = true,
 }
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-    vim.lsp.handlers.hover, {
-        border = "single",
-        title = "  "
-    }
-)
-
 require("lsp_lines").setup()
 
 local signs = {
