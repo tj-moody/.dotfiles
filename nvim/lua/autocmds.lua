@@ -29,6 +29,9 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'BufWritePre', }, {
         if vim.bo.filetype == 'projterm' then
             return
         end
+        if vim.bo.filetype == 'NvimTree' then
+            return
+        end
         vim.cmd('LspStart')
     end,
 })
@@ -109,6 +112,9 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 
         for _, buf in ipairs(vim.fn.tabpagebuflist()) do
             if vim.fn.bufname(buf):sub(1, 7) == "term://" then
+                vim.cmd("bd! " .. buf)
+            end
+            if vim.bo[buf].filetype == "NvimTree" then
                 vim.cmd("bd! " .. buf)
             end
         end
