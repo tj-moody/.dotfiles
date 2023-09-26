@@ -39,8 +39,8 @@ m_o('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'p', ']p')
 map('x', 'p', '"0p')
 
-map({ 'n', 'x' }, 'x', '"_x')
-map({ 'n', 'x' }, 'd', '"_d')
+map('n', 'X', '"_dd')
+map('x', 'x', '"_d')
 map({ 'n', 'x' }, 'c', '"_c')
 map('n', 'S', '"_S')
 

@@ -15,28 +15,6 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
 })
 
 
----- Start lsp after loading file to lazyload lsp plugins
-vim.api.nvim_create_autocmd({ 'InsertEnter', 'BufWritePre', }, {
-    pattern = { '*' },
-    group = vim.api.nvim_create_augroup('LSP Auto Start', {}),
-    callback = function(_)
-        if vim.bo.filetype == 'term' then
-            return
-        end
-        if vim.bo.filetype == 'toggleterm' then
-            return
-        end
-        if vim.bo.filetype == 'projterm' then
-            return
-        end
-        if vim.bo.filetype == 'NvimTree' then
-            return
-        end
-        vim.cmd('LspStart')
-    end,
-})
-
-
 ---- Strip trailing spaces before write
 -- https://github.com/2KAbhishek/nvim2k/blob/main/lua/nvim2k/autocmd.lua
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
@@ -115,6 +93,9 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
                 vim.cmd("bd! " .. buf)
             end
             if vim.bo[buf].filetype == "NvimTree" then
+                vim.cmd("bd! " .. buf)
+            end
+            if vim.bo[buf].filetype == "toggleterm" then
                 vim.cmd("bd! " .. buf)
             end
         end

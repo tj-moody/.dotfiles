@@ -296,6 +296,11 @@ return {
             },
         },
     },
+    {
+        'yorickpeterse/nvim-pqf',
+        event = 'VeryLazy',
+        config = true,
+    },
     --- Project{{{1
     {
         dir = '~/projects/projtasks.nvim',
