@@ -13,7 +13,7 @@ local fun = { -- {{{
     },
 } -- }}}
 return {
-    --- Colorscheme{{{1
+    -- Colorscheme{{{1
     {
         'aktersnurra/no-clown-fiesta.nvim',
         dependencies = {
@@ -30,7 +30,7 @@ return {
         },
         config = function() safe_require("colorscheme").setup() end,
     }, -- }}}
-    --- Telescope{{{1
+    -- Telescope{{{1
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
@@ -52,7 +52,7 @@ return {
         },
         config = function() safe_require('config.telescope') end,
     }, -- }}}
-    --- Treesitter{{{1
+    -- Treesitter{{{1
     {
         'nvim-treesitter/nvim-treesitter',
         event = 'VeryLazy',
@@ -67,7 +67,7 @@ return {
         },
         config = function() safe_require('config.treesitter') end,
     }, -- }}}
-    --- LSP{{{1
+    -- LSP{{{1
     {
         'hrsh7th/nvim-cmp',
         event = 'VeryLazy',
@@ -104,15 +104,15 @@ return {
         config = function() safe_require('config.null-ls') end,
         dependencies = { "nvim-lua/plenary.nvim" },
     }, -- }}}
-    --- Languages{{{1
-    ----- LaTeX{{{2
+    -- Languages{{{1
+    ---- LaTeX{{{2
     {
         'lervag/vimtex',
         event = 'VeryLazy',
     },
-    --- DAP {{{1
+    -- DAP {{{1
     -- }}}
-    --- Utils{{{1
+    -- Utils{{{1
     {
         'tpope/vim-surround',
         event = 'VeryLazy',
@@ -222,7 +222,7 @@ return {
         'yuttie/comfortable-motion.vim',
         event = 'VeryLazy',
     },
-    --- Git{{{1
+    -- Git{{{1
     {
         'lewis6991/gitsigns.nvim',
         priority = 100,
@@ -243,7 +243,7 @@ return {
         dependencies = { 'tpope/vim-fugitive', },
         event = 'VeryLazy',
     },
-    --- UI{{{1
+    -- UI{{{1
     {
         'akinsho/bufferline.nvim',
         lazy = false,
@@ -301,7 +301,7 @@ return {
         event = 'VeryLazy',
         config = true,
     },
-    --- Project{{{1
+    -- Project{{{1
     {
         dir = '~/projects/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },

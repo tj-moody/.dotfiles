@@ -1,7 +1,7 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
---- FUNCTIONS{{{
+-- FUNCTIONS{{{
 
 local fn = vim.fn
 local api = vim.api
@@ -29,7 +29,7 @@ end
 -- }}}
 
 --- VANILLA
-  --- Remapped Defaults{{{
+  -- Remapped Defaults{{{
 
 map('n', '\\', ',')
 
@@ -58,7 +58,7 @@ map('n', 'N', 'Nzzzv')
 map('i', '<esc>', '<esc>`^')
 
 -- }}}
-  --- Basics{{{
+  -- Basics{{{
 
 map('n', '<leader>.', '<CMD>vsp<CR><CMD>Telescope smart_open<CR>')
 
@@ -280,7 +280,7 @@ map('x', '<ScrollWheelRight>', '')
 
 
 --- GROUPS
-  --- NvimTree{{{
+  -- NvimTree{{{
 
 map('n', 't',
     -- Toggle NvimTree
@@ -314,19 +314,19 @@ map('n', 'TT',
     end
 )
 -- }}}
-  --- Telescope{{{
+  -- Telescope{{{
 map('n', '<leader>ff', '<CMD>Telescope smart_open<CR>')
 map('n', '<leader>fh', '<CMD>Telescope highlights<CR>')
 map('n', '<leader>fg', '<CMD>Telescope live_grep<CR>')
 map('n', '<leader>fk', '<CMD>Telescope keymaps<CR>')
 -- }}}
-  --- Bufferline{{{
+  -- Bufferline{{{
 map('n', 'H', '<CMD>BufferLineCyclePrev<CR>')
 map('n', 'L', '<CMD>BufferLineCycleNext<CR>')
 map('n', 'Tc', '<CMD>BufferLinePickClose<CR>')
 map('n', 'Tp', '<CMD>BufferLinePick<CR>')
 -- }}}
-  --- Tabs{{{
+  -- Tabs{{{
 map('n', 'T.', '<CMD>tabe %<CR><CMD>Telescope smart_open<CR>')
 map('n', 'Tn', '<CMD>tabe %<CR>')
 map('n', 'TL', '<CMD>tabnext<CR>')
@@ -334,10 +334,10 @@ map('n', 'TH', '<CMD>tabprevious<CR>')
 map('n', 'To', '<CMD>tabonly<CR>')
 map('n', 'Tq', '<CMD>tabclose<CR>')
 -- }}}
-  --- Lazy{{{
+  -- Lazy{{{
 map('n', '<leader>lz', '<CMD>Lazy<CR>')
 -- }}}
-  --- Toggleterm{{{
+  -- Toggleterm{{{
 
 -- Set keymaps to align with normal navigation in terminal buffers
 function _G.set_terminal_keymaps()
@@ -358,7 +358,7 @@ map('n', '<leader>tj', '<CMD>ToggleTerm size=20 direction=horizontal<CR>')
 map('n', '<leader>tl', '<CMD>ToggleTerm size=60 direction=vertical<CR>')
 map('t', '<C-T>', [[<C-\><C-n><CMD>q<CR>]])
 -- }}}
-  --- Git{{{
+  -- Git{{{
 local Terminal = require('toggleterm.terminal').Terminal
 local lazygit  = Terminal:new({
     cmd = 'lazygit',
@@ -397,7 +397,7 @@ map('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>')
 map('n', '<leader>gb', '<CMD>Gitsigns blame_line<CR>')
 map('n', '<leader>gB', '<CMD>ToggleBlame virtual<CR>')
 -- }}}
-  --- Splits{{{
+  -- Splits{{{
 map('n', '<C-h>', require('smart-splits').move_cursor_left)
 map('n', '<C-j>', require('smart-splits').move_cursor_down)
 map('n', '<C-k>', require('smart-splits').move_cursor_up)
@@ -410,13 +410,13 @@ map('n', '<Space>l', '<C-w>L')
 
 map('n', 'sr', require('smart-splits').start_resize_mode)
 -- }}}
-  --- TreeSJ{{{
+  -- TreeSJ{{{
 map('n', '<c-s>', '<CMD>TSJToggle<CR>')
 -- }}}
-  --- Alternate-Toggler{{{
+  -- Alternate-Toggler{{{
 map('n', '<leader>ta', '<CMD>ToggleAlternate<CR>')
 -- }}}
-  --- Project{{{
+  -- Project{{{
 map('n', '<leader>pr', '<CMD>ProjtasksRun<CR>')
 map('n', '<leader>pp', '<CMD>ProjtasksToggle<CR>')
 map('n', '<leader>pt', '<CMD>ProjtasksTest<CR>')
@@ -428,7 +428,7 @@ map('n', '<leader>pTf', "<CMD>lua require('neotest').run.run(vim.fn.expand('%'))
 map('n', '<leader>pTh', "<CMD>lua require('neotest').output.open()<CR>")
 map('n', '<leader>pn', "<CMD>NoNeckPain<CR>")
 -- }}}
-  --- Comment{{{
+  -- Comment{{{
 map('n', '<leader>co', 'o_<esc><CMD>norm ,cc<cr>A<bs>')
 map('n', '<leader>cO', 'O_<esc><CMD>norm ,cc<cr>A<bs>')
 map('n', '<leader>cl',
@@ -517,7 +517,7 @@ map('n', '<leader>cS', -- {{{
 -- Adapted from u/alphabet_american
 map('x', '<leader>rc', [[y`>pgv:norm ,cc<CR>`>j^]])
 -- }}}
-  --- Folds{{{
+  -- Folds{{{
 -- }}}
 
 

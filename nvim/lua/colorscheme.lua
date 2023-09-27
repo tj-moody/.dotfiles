@@ -39,13 +39,13 @@ local colors_table = {
     noclownfiesta = function() -- {{{
         vim.cmd.colorscheme('no-clown-fiesta')
     end,                       -- }}}
-    kanagawa = function()      -- {{{
+    kanagawa = function()     -- {{{
         vim.cmd.colorscheme('kanagawa')
     end,                       -- }}}
     kanagawa_dark = function() -- {{{
         vim.cmd.colorscheme('kanagawa')
     end,                       -- }}}
-    gruvbox = function()       -- {{{
+    gruvbox = function()      -- {{{
         vim.g.gruvbox_material_better_performance = 1
         vim.cmd.colorscheme('gruvbox-material')
     end,                      -- }}}
@@ -67,7 +67,7 @@ local colors_table = {
     ayu = function()          -- {{{
         vim.cmd.colorscheme('ayu')
     end,                      -- }}}
-    midnightclub = function() -- {{{
+    midnightclub = function() --{{{
         vim.cmd.colorscheme('midnight-club')
     end,                      -- }}}
 }
