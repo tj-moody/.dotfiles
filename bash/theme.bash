@@ -105,7 +105,7 @@ while : ; do
             exit_loop
             break
             ;;
-        'u')
+        'u'|'p')
             if [[ "$LIVE_UPDATE" == "true" ]]; then
                 LIVE_UPDATE=false
                 echo -ne "\033]50;SetProfile=${THEME}\a"

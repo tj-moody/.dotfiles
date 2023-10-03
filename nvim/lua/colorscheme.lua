@@ -39,13 +39,13 @@ local colors_table = {
     noclownfiesta = function() -- {{{
         vim.cmd.colorscheme('no-clown-fiesta')
     end,                       -- }}}
-    kanagawa = function()     -- {{{
+    kanagawa = function()      -- {{{
         vim.cmd.colorscheme('kanagawa')
     end,                       -- }}}
     kanagawa_dark = function() -- {{{
-        vim.cmd.colorscheme('kanagawa')
+        vim.cmd.colorscheme('kanagawa-dragon')
     end,                       -- }}}
-    gruvbox = function()      -- {{{
+    gruvbox = function()       -- {{{
         vim.g.gruvbox_material_better_performance = 1
         vim.cmd.colorscheme('gruvbox-material')
     end,                      -- }}}
@@ -450,7 +450,7 @@ local mod_hl_table = { -- {{{
     { '@keyword',     { bold = false, italic = true, } },
     { 'Folded',       { bold = true, } },
     { 'TermCursor',   { link = 'Cursor' } },
-    { 'TermCursorNC', { link = 'TermCursor' } },
+    { 'TermCursorNC', { link = 'Normal' } },
     { 'TabLineFill',  { link = 'NormalFloat', } },
 } -- }}}
 

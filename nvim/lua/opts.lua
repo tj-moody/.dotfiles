@@ -40,7 +40,7 @@ function _G.custom_fold_text()
     result[#result][1] = string.gsub(result[#result][1], "%s*" .. escaped_commentstring .. "%s*", "")-- .. "[% {]*$", "")
     result[#result][1] = string.gsub(result[#result][1], "%s*{{{%d*", "")-- .. "[% {]*$", "")
     result[#result][1] = string.gsub(result[#result][1], "%s*}}}%d*", "")-- .. "[% {]*$", "")
-    for i = 0, 1 do
+    for _ = 0, 1 do
         if result[#result][1] == "" or result[#result][1] == " " then
             result[#result] = nil
         end
