@@ -11,7 +11,6 @@ declare -a themestrings=(
     "\e[1;36mkanagawa       \e[0m"
     "\e[1;34mkanagawa_dark  \e[0m"
     "\e[0;33mgruvbox        \e[0m"
-    "\e[1;31mmarsbox        \e[0m"
     "\e[0;34mtokyonight     \e[0m"
     "\e[0;32moxocarbon      \e[0m"
     "\e[0;35mcatppuccin     \e[0m"
@@ -25,7 +24,6 @@ declare -a themeslist=(
     "kanagawa"
     "kanagawa_dark"
     "gruvbox"
-    "marsbox"
     "tokyonight"
     "oxocarbon"
     "catppuccin"
@@ -38,7 +36,7 @@ MAX_INDEX=$(( ${#themestrings[@]} - 1 ))
 THEME=$1
 LIVE_UPDATE=false
 
-index=4 # marsbox
+index=5 # tokyonight
 for i in "${!themeslist[@]}"; do
     if [[ "$THEME" == "${themeslist[$i]}" ]]; then
         index=$i

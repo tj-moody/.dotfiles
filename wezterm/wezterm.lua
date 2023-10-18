@@ -14,7 +14,6 @@ local themes_list = {
     "kanagawa",
     -- "kanagawa_dark",
     -- "gruvbox",
-    -- "marsbox",
     -- "tokyonight",
     -- "oxocarbon",
     -- "catppuccin",

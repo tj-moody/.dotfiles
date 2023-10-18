@@ -49,12 +49,6 @@ local colors_table = { -- {{{
         visual = '#ffa066',
     },
     gruvbox = {
-        normal = '#a9b66f',
-        replace = '#ea6962',
-        visual = '#e7a84e',
-        insert = '#7daea3',
-    },
-    marsbox = {
         normal = '#b8bb26',
         replace = '#fb4934',
         visual = '#fe8019',

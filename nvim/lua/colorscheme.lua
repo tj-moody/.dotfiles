@@ -16,7 +16,6 @@ M.themes_list = {
     'kanagawa',
     'kanagawa_dark',
     'gruvbox',
-    'marsbox',
     'tokyonight',
     'oxocarbon',
     'catppuccin',
@@ -47,10 +46,9 @@ local colors_table = {
     end,                       -- }}}
     gruvbox = function()       -- {{{
         vim.g.gruvbox_material_better_performance = 1
+        vim.g.gruvbox_material_background = 'soft'
+        vim.g.gruvbox_material_foreground = 'original'
         vim.cmd.colorscheme('gruvbox-material')
-    end,                      -- }}}
-    marsbox = function()      -- {{{
-        vim.cmd.colorscheme('marsbox')
     end,                      -- }}}
     tokyonight = function()   -- {{{
         vim.cmd.colorscheme('tokyonight')
@@ -155,54 +153,30 @@ local hl_table = {
     },          -- }}}
     gruvbox = { -- {{{
         setup = {
-            { 'Operator',               { fg = '#81878f', } },
-            { '@punctuation.bracket',   { fg = '#81878f', } },
-            { '@punctuation.delimiter', { fg = '#81878f', } },
+            { 'Operator',               { fg = '#928374', } },
+            { '@operator',              { fg = '#928374', } },
+            { '@punctuation.bracket',   { fg = '#928374', } },
+            { '@punctuation.delimiter', { fg = '#928374', } },
+            { 'NormalFloat',            { bg = '#060911', } },
+            { 'FloatBorder',            { bg = '#060911', } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#89b4a2' } },
             { 'AlphaFooter1', { fg = '#ea6962' } },
         },
         nvim_tree = {
-            { 'NvimTreeFolderIcon',       { fg = '#d8a657', } },
-            { 'NvimTreeFolderName',       { fg = '#7daea3', } },
-            { 'NvimTreeOpenedFolderName', { fg = '#89b482', bold = true, } },
+            { 'NvimTreeFolderIcon',       { fg = '#fabd2f', } },
+            { 'NvimTreeFolderName',       { fg = '#83a598', } },
+            { 'NvimTreeOpenedFolderName', { fg = '#8ec07c', bold = true, } },
             { 'NvimTreeNormal',           { fg = '#928374', } },
             { 'NvimTreeNormalNC',         { fg = '#928374', } },
             { 'NvimTreeEndOfBuffer',      { fg = '#928374', } },
             { 'NvimTreeExecFile',         { fg = '#d4be98', } },
-            { 'NvimTreeGitNew',           { fg = '#d8a657', } },
-            { 'NvimTreeGitDirty',         { fg = '#ea6962', } },
+            { 'NvimTreeGitNew',           { fg = '#fabd2f', } },
+            { 'NvimTreeGitDirty',         { fg = '#fb4934', } },
             { 'NvimTreeOpenedFile',       { fg = '#d3869b', bold = true, } },
             { 'NvimTreeRootFolder',       { fg = '#d4be98', bold = true, } },
         },
-    },          -- }}}
-    marsbox = { -- {{{
-        setup = {
-            { 'Operator',               { fg = '#928374', } },
-            { '@punctuation.bracket',   { fg = '#928374', } },
-            { '@punctuation.delimiter', { fg = '#928374', } },
-            { 'FloatBorder',            { bg = '#000000', fg = '#665c54' } },
-            { 'FloatTitle',             { bg = '#000000', fg = '#b8bb26', } },
-            { 'DiffDelete',             { fg = '#A03B32', } },
-            { 'Folded',                 { fg = '#81878f', } },
-        },
-        alpha = {
-            { 'AlphaHeader',  { fg = '#8ec07c' } },
-            { 'AlphaFooter1', { fg = '#fb4934' } },
-        },
-        nvim_tree = {
-            { 'NvimTreeFolderIcon',       { fg = '#fabd2f', } },
-            { 'NvimTreeNormal',           { fg = '#928374', } },
-            { 'NvimTreeNormalNC',         { fg = '#928374', } },
-            { 'NvimTreeGitNew',           { fg = '#fabd2f', } },
-            { 'NvimTreeGitDirty',         { fg = '#fb4934', } },
-            { 'NvimTreeFolderName',       { fg = '#83a598', } },
-            { 'NvimTreeOpenedFolderName', { fg = '#8ec07c', bold = true, } },
-            { 'NvimTreeOpenedFile',       { fg = '#d3869b', bold = true, } },
-            { 'NvimTreeExecFile',         { fg = '#fbf1c7', } },
-            { 'NvimTreeRootFolder',       { fg = '#fe8019', bold = true, } },
-        }
     },             -- }}}
     tokyonight = { -- {{{
         setup = {

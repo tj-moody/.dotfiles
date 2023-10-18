@@ -39,7 +39,6 @@ function theme --argument-names 'themename'
     set -a themeslist "kanagawa"
     set -a themeslist "kanagawa_dark"
     set -a themeslist "gruvbox"
-    set -a themeslist "marsbox"
     set -a themeslist "tokyonight"
     set -a themeslist "oxocarbon"
     set -a themeslist "catppuccin"
