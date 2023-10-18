@@ -660,4 +660,21 @@ m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
 m_o('ia', 'dtdate', 'strftime("%m/%d/%y")', { expr = true })
 m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true }) -- }}}
 
+-- META{{{
+vim.keymap.set("n", "<leader><leader>ps", function()
+    vim.cmd [[
+        profile start /tmp/nvim-profile.log
+        profile func *
+        profile file *
+    ]]
+end, { desc = "Profile Start" })
+
+vim.keymap.set("n", "<leader><leader>pe", function()
+    vim.cmd [[
+        profile stop
+        e /tmp/nvim-profile.log
+    ]]
+end, { desc = "Profile End" })
+-- }}}
+
 return M

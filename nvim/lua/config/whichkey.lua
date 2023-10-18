@@ -71,8 +71,14 @@ require('which-key').register {
         ["O"] = "Only Buffer",
         ["q"] = "Quit",
         [","] = {
-            name = "Source File",
+            name = "meta",
             ["x"] = "Source File",
+            ["p"] = {
+                name = "profiling",
+                ["s"] = "Start Profiling",
+                ["e"] = "End Profiling",
+
+            },
         },
         ["z"] = { name = "Zen Mode" },
         ["C"] = { name = "Comment and Copy" },
