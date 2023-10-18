@@ -72,8 +72,20 @@ map('n', '<ESC>', "<CMD>noh<CR><CMD>ColorizerReloadAllBuffers<CR><CMD>ColorizerA
 map('x', 'K', ":m '<-2<CR>gv=gv")
 map('x', 'J', ":m '>+1<CR>gv=gv")
 
-map('n', '<CR>', 'mz<CMD>a<CR><CR>.<CR>`z')
-map('n', '<S-CR>', 'mz<CMD>i<CR><CR>.<CR>`z')
+map('n', '<CR>',
+    function()
+        local line_nr = vim.fn.line('.') ---@cast line_nr integer
+        local line = vim.fn.getline(line_nr) ---@cast line string
+        vim.api.nvim_buf_set_lines(0, line_nr - 1, line_nr, false, { line, '' })
+    end
+)
+map('n', '<S-CR>',
+    function()
+        local line_nr = vim.fn.line('.') ---@cast line_nr integer
+        local line = vim.fn.getline(line_nr - 1) ---@cast line string
+        vim.api.nvim_buf_set_lines(0, line_nr - 2, line_nr - 1, false, { line, '' })
+    end
+)
 
 map('n', 'J', 'mzJ`z')
 
