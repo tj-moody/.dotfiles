@@ -188,44 +188,48 @@ map('i', '<S-BS>', '<BS>') -- }}}
 ---@param equal boolean include lines equal to current indent in search?
 local function indent_traverse(direction, equal) -- {{{
     return function()
-        -- Get the current cursor position
-        local current_line, column = unpack(api.nvim_win_get_cursor(0))
-        local match_line = current_line
-        local match_indent = false
-        local match = false
+        local count = math.max(vim.v.count - 1, 0)
+        for _ = 0, count do
+            -- Get the current cursor position
+            local current_line, column = unpack(api.nvim_win_get_cursor(0))
+            local match_line = current_line
+            local match_indent = false
+            local match = false
 
-        local buf_length = api.nvim_buf_line_count(0)
+            local buf_length = api.nvim_buf_line_count(0)
 
-        -- Look for a line of appropriate indent
-        -- level without going out of the buffer
-        while (not match)
-            and (match_line < buf_length)
-            and (match_line > 1)
-        do
-            match_line = match_line + direction
-            local match_line_str = api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1]
-            -- local match_line_is_whitespace = match_line_str and match_line_str:match('^%s*$')
-            local match_line_is_whitespace = match_line_str:match('^%s*$')
+            -- Look for a line of appropriate indent
+            -- level without going out of the buffer
+            while (not match)
+                and (match_line < buf_length)
+                and (match_line > 1)
+            do
+                match_line = match_line + direction
+                local match_line_str = api.nvim_buf_get_lines(0, match_line - 1, match_line, false)[1]
+                -- local match_line_is_whitespace = match_line_str and match_line_str:match('^%s*$')
+                local match_line_is_whitespace = match_line_str:match('^%s*$')
 
-            if equal then
-                match_indent = fn.indent(match_line) <= fn.indent(current_line)
-            else
-                match_indent = fn.indent(match_line) < fn.indent(current_line)
+                if equal then
+                    match_indent = fn.indent(match_line) <= fn.indent(current_line)
+                else
+                    match_indent = fn.indent(match_line) < fn.indent(current_line)
+                end
+                match = match_indent and not match_line_is_whitespace
             end
-            match = match_indent and not match_line_is_whitespace
-        end
 
-        -- If a line is found go to line
-        if match or match_line == buf_length then
-            fn.cursor({ match_line, column + 1 })
+            -- If a line is found go to line
+            if match or match_line == buf_length then
+                if not equal then match_line = match_line - direction end
+                fn.cursor({ match_line, column + 1 })
+            end
         end
     end
 end                                                 -- }}}
 map({ 'n', 'x' }, "gj", indent_traverse(1, true))   -- next equal indent
 map({ 'n', 'x' }, 'gk', indent_traverse(-1, true))  -- previous equal indent
 
-map({ 'n', 'x' }, 'gJ', indent_traverse(1, false))  -- next equal indent
-map({ 'n', 'x' }, 'gK', indent_traverse(-1, false)) -- previous equal indent
+map({ 'n', 'x' }, 'gJ', indent_traverse(1, false))  -- last equal indent
+map({ 'n', 'x' }, 'gK', indent_traverse(-1, false)) -- first equal indent
 
 map('n', '<leader>O',                               -- {{{
     -- Delete all other buffers
@@ -286,8 +290,44 @@ map('n', '<ScrollWheelRight>', '')
 map('x', '<ScrollWheelLeft>', '')
 map('x', '<ScrollWheelRight>', '')
 
+m_o('i', ';',
+    function()
+        -- chars that can be afte the cursor to allow a semicolon, mostly closing delimiters
+        local allowed_chars = {
+            '\'',
+            '"',
+            ')',
+            '}',
+            '>',
+        }
+        local can_exit = true
+        local _, col = unpack(api.nvim_win_get_cursor(0))
+        local line = fn.getline('.') ---@cast line string
+        for char in line:sub(col + 1, -1):gmatch('.') do
+            (function()
+                char_is_allowed = false
+                for _, allowed_char in ipairs(allowed_chars) do
+                    (function()
+                        if char == allowed_char then
+                            char_is_allowed = true; return
+                        end
+                    end)()
+                end
+                print(char, char_is_allowed)
+                if not char_is_allowed then
+                    can_exit = false; return
+                end
+            end)()
+        end
+        if can_exit then
+            return '<ESC>A;'
+        else
+            return ';'
+        end
+    end,
+    { remap = false, expr = true }
+)
 -- }}}
-
 
 --- GROUPS
 -- NvimTree{{{
@@ -443,7 +483,7 @@ map('n', '<leader>cl',
 ) -- https://vi.stackexchange.com/a/19163
 
 -- Adapted from u/alphabet_american
-map('x', '<leader>cm', [[y`>pgv:norm ,cc<CR>`>j^]])
+map('x', '<leader>C', [[y`>pgv:norm ,cc<CR>`>j^]])
 -- }}}
 -- Folds{{{
 -- }}}
@@ -474,7 +514,7 @@ end
 map('n', '<leader>z', M.toggle_zen)
 -- }}}
 
---- CONFIG
+--- CONFIG{{{
 
 map('n', 'C', '<nop>')
 map('n', 'Cll',
@@ -618,6 +658,6 @@ map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
 -- datetime
 m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
 m_o('ia', 'dtdate', 'strftime("%m/%d/%y")', { expr = true })
-m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true })
+m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true }) -- }}}
 
 return M
