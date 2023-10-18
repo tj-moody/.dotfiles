@@ -169,7 +169,7 @@ hi StatusLineNC guifg=#ebddb2
 hi clear StatusLine
 hi StatusLine guifg=#ebddb3
 
-set statusline+=%#Normal#%{'─────'}
+set statusline+=%#WinSeparator#%{'─────'}
 set statusline+=\ "
 
 let g:gitbranch=""
@@ -199,22 +199,22 @@ augroup GetGitBranch
     autocmd WinEnter * call StatuslineGitBranch()
 augroup END
 
-set statusline+=%#Normal#%{g:gitbranch}
+set statusline+=%#WinSeparator#%{g:gitbranch}
 
-set statusline+=%#Normal#%f            "file name
+set statusline+=%#WinSeparator#%f            "file name
 set statusline+=%#ReplaceColor#%m\     "modified flag
 
-set statusline+=%#Normal#%=
+set statusline+=%#WinSeparator#%=
 
 set statusline+=\  "
-set statusline+=%#Normal#%{%'\ %n'%}
+set statusline+=%#WinSeparator#%{%'\ %n'%}
 
 set statusline+=%##%{&termencoding}
 set statusline+=%#Comment#%{%(&ff=='dos')?'[]':''%}\ "
-set statusline+=%#Normal#%{%(&ff=='unix')?'':''%}\ "
+set statusline+=%#WinSeparator#%{%(&ff=='unix')?'':''%}\ "
 set statusline+=%#Comment#%{%(&ff=='mac')?'[]':''%}\ "
 
-set statusline+=%#Normal#%{'─────'}
+set statusline+=%#WinSeparator#%{'─────'}
 "}}}
 """ Theme"{{{
 hi clear CursorLine
@@ -234,6 +234,7 @@ hi DiffText term=bold guibg=#213352
 hi EndOfBuffer guifg=#504945
 hi ErrorMsg guifg=#fb4934 guibg=NONE
 hi VertSplit guifg=#ebdbb2 guibg=NONE term=NONE cterm=NONE
+hi WinSeparator guifg=#ebdbb2 guibg=NONE term=NONE cterm=NONE
 " hi Folded
 " hi FoldColumn
 hi clear FoldColumn

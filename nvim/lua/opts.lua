@@ -37,21 +37,22 @@ function _G.custom_fold_text()
             prev_range = range
         end
     end
-    result[#result][1] = string.gsub(result[#result][1], "%s*" .. escaped_commentstring .. "%s*", "")-- .. "[% {]*$", "")
-    result[#result][1] = string.gsub(result[#result][1], "%s*{{{%d*", "")-- .. "[% {]*$", "")
-    result[#result][1] = string.gsub(result[#result][1], "%s*}}}%d*", "")-- .. "[% {]*$", "")
+    result[#result][1] = string.gsub(result[#result][1], "%s*" .. escaped_commentstring .. "%s*", "") -- .. "[% {]*$", "")
+    result[#result][1] = string.gsub(result[#result][1], "%s*{{{%d*", "")                             -- .. "[% {]*$", "")
+    result[#result][1] = string.gsub(result[#result][1], "%s*}}}%d*", "")                             -- .. "[% {]*$", "")
     for _ = 0, 1 do
         if result[#result][1] == "" or result[#result][1] == " " then
             result[#result] = nil
         end
     end
-    result[#result+1] = { " … ", "@operator" }
+    result[#result + 1] = { " … ", "@operator" }
     if result[#result - 1] and result[#result - 1][1] == "{" then
         table.insert(result, { "}", result[#result - 1][2] })
     end
 
     return result
 end
+
 -- testing {{{
 -- }}}
 
@@ -103,7 +104,9 @@ o.undofile = true
 o.smoothscroll = true
 o.textwidth = 80
 o.formatoptions = "crjql"
+o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false
 vim.g.have_fun = false
+vim.g.zen_mode = false

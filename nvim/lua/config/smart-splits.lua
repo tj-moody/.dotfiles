@@ -27,7 +27,7 @@ require('smart-splits').setup {
         resize_keys = { 'h', 'j', 'k', 'l' },
         -- set to true to silence the notifications
         -- when entering/exiting persistent resize mode
-        silent = false,
+        silent = true,
         -- must be functions, they will be executed when
         -- entering or exiting the resize mode
         hooks = {

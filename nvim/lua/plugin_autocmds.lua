@@ -27,39 +27,27 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     end,
 })
 
+-- ---- Automatically enable inlay hints
+-- vim.api.nvim_create_autocmd({ 'LspAttach' }, {
+--     pattern = { '*' },
+--     group = vim.api.nvim_create_augroup('Inlay Hints', {}),
+--     callback = function(opts)
+--         if not (opts.data and opts.data.client_id) then
+--             return
+--         end
 
----- Enable spellcheck on gitcommit and markdown
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-    group = vim.api.nvim_create_augroup('Filetype Options', {}),
-    pattern = { 'gitcommit', 'markdown', '*.txt' },
-    callback = function(_)
-        vim.opt_local.wrap = true
-        vim.opt_local.spell = true
-    end,
-})
+--         local bufnr = opts.buf
+--         local client = vim.lsp.get_client_by_id(opts.data.client_id)
 
+--         if client.name == 'lua_ls' then
+--             return
+--         end
 
----- Automatically enable inlay hints
-vim.api.nvim_create_autocmd({ 'LspAttach' }, {
-    pattern = { '*' },
-    group = vim.api.nvim_create_augroup('Inlay Hints', {}),
-    callback = function(opts)
-        if not (opts.data and opts.data.client_id) then
-            return
-        end
-
-        local bufnr = opts.buf
-        local client = vim.lsp.get_client_by_id(opts.data.client_id)
-
-        if client.name == 'lua_ls' then
-            return
-        end
-
-        if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint(bufnr, true)
-        end
-    end,
-})
+--         if client.server_capabilities.inlayHintProvider then
+--             vim.lsp.inlay_hint(bufnr, true)
+--         end
+--     end,
+-- })
 
 
 ---- Format makefile whitespace properly

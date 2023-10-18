@@ -19,7 +19,6 @@ return {
         dependencies = {
             'rebelot/kanagawa.nvim',
             'sainnhe/gruvbox-material',
-            'tj-moody/marsbox.nvim',
             'folke/tokyonight.nvim',
             'EdenEast/nightfox.nvim',
             'catppuccin/nvim',
@@ -33,7 +32,7 @@ return {
     -- Telescope{{{1
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.1',
+        tag = '0.1.4',
         cmd = { 'Telescope', },
         dependencies = {
             { 'nvim-lua/plenary.nvim' },
@@ -65,7 +64,7 @@ return {
             { 'nvim-treesitter/playground' },
             { 'rush-rs/tree-sitter-asm' },
         },
-        config = function() safe_require('config.treesitter') end,
+        config = function() require('config.treesitter') end,
     }, -- }}}
     -- LSP{{{1
     {
@@ -74,7 +73,10 @@ return {
         dependencies = {
             {
                 'neovim/nvim-lspconfig',
-                config = function() safe_require('config.lspconfig') end,
+                config = function()
+                    safe_require('config.lspconfig')
+                    vim.cmd.LspStart()
+                end,
                 dependencies = {
                     {
                         'williamboman/mason.nvim',
@@ -125,18 +127,24 @@ return {
     -- },
     {
         'rmagatti/auto-session',
+        lazy = not vim.g.tj_reloaded,
         cmd = { 'SessionRestore', 'SessionSave' },
-        opts = {
-            auto_save_enabled = false,
-            auto_restore_enabled = false,
-            log_level = "error",
-            auto_session_suppress_dirs = {
-                "~/",
-                "~/Projects",
-                "~/Downloads",
-                "/",
-            },
-        },
+        config = function()
+            require('auto-session').setup({ ---@diagnostic disable-line
+                auto_save_enabled = false,
+                auto_restore_enabled = false,
+                log_level = "error",
+                auto_session_suppress_dirs = {
+                    "~/",
+                    "~/Projects",
+                    "~/Downloads",
+                    "/",
+                },
+            })
+            if vim.g.tj_reloaded then
+                vim.cmd.SessionRestore()
+            end
+        end,
     },
     {
         'akinsho/toggleterm.nvim',
@@ -272,7 +280,10 @@ return {
         'goolord/alpha-nvim',
         event = 'VimEnter',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function() safe_require('config.alpha') end
+        config = function()
+            safe_require('config.alpha')
+        end,
+        cond = not vim.g.tj_reloaded,
     },
     {
         'j-hui/fidget.nvim',
@@ -302,6 +313,7 @@ return {
         config = true,
     },
     -- Project{{{1
+
     {
         dir = '~/projects/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },
@@ -318,11 +330,6 @@ return {
             "rouge8/neotest-rust",
         },
         config = function() safe_require('config.neotest') end,
-    },
-    {
-        'shortcuts/no-neck-pain.nvim',
-        event = 'VeryLazy',
-        config = function() safe_require('config.no-neck-pain') end,
     },
     -- }}}1
     fun,

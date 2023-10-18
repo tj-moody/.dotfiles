@@ -1,5 +1,5 @@
 require('toggleterm').setup {
-    open_mapping = [[<c-t>]],
+    -- open_mapping = [[<c-t>]],
     direction = 'float',
     highlights = {
         -- highlights which map to a highlight group

@@ -8,9 +8,10 @@ function safe_require(module)
 end
 
 safe_require('opts')
+-- safe_require('startup_autocmds')
 safe_require('config.lazy')
 safe_require('mappings')
-safe_require('autocmds')
+-- safe_require('plugin_autocmds')
 safe_require('colorscheme').safe_reload()
 
 function P(table)

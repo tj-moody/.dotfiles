@@ -17,6 +17,9 @@ if status is-interactive
     set PATH $HOME/go/bin/ $PATH
     set PATH $HOME/packages/potion/bin $PATH
 
+    export FZF_DEFAULT_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
+    export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'"
+
     # Init
     # Starship
     function starship_transient_prompt_func
