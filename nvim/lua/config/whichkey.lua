@@ -16,16 +16,17 @@ require('which-key').register {
         ["c"] = {
             name = "+comment",
             ["r"] = "Clear Registers",
+            ["o"] = "Comment Below",
+            ["O"] = "Comment Above",
             ["c"] = "Comment Line",
-            ["u"] = "Uncomment Block",
             ["l"] = "Append Comment",
-            ["j"] = "Next Diagnostic",
-            ["k"] = "Prev Diagnostic",
         },
         ["d"] = {
             name = "+diagnostics",
-            ["h"] = "Hover Diagnostics",
             ["f"] = "Format File",
+            ["h"] = "Hover Diagnostics",
+            ["j"] = "Next Diagnostic",
+            ["k"] = "Prev Diagnostic",
         },
         ["g"] = {
             name = "+git",
@@ -51,11 +52,16 @@ require('which-key').register {
             ["n"] = "Rename",
         },
         ["t"] = {
-            name = "terminal",
-            ["f"] = "Float Term",
-            ["j"] = "Down Term",
-            ["l"] = "Right Term",
+            name = "Tabs",
             ["a"] = "Toggle Alternate",
+            ["."] = "Fuzzy Tab",
+            ["n"] = "New T",
+            ["L"] = "Next Tab",
+            ["H"] = "Prev Tab",
+            ["o"] = "Only Tab",
+            ["q"] = "Quit Tab",
+            ["c"] = "Close Selected Tab",
+            ["p"] = "Pick Tab",
         },
         ["."] = "Fuzzy Split",
         ["R"] = "Restart Vim",
@@ -65,10 +71,11 @@ require('which-key').register {
         ["O"] = "Only Buffer",
         ["q"] = "Quit",
         [","] = {
-            --  TODO: Replace with more descriptive name as necessary
             name = "Source File",
             ["x"] = "Source File",
-        }
+        },
+        ["z"] = { name = "Zen Mode" },
+        ["C"] = { name = "Comment and Copy" },
     },
     ["C"] = {
         ["l"] = {
@@ -104,6 +111,7 @@ require('which-key').register {
             ["b"] = "git blame",
         },
         ["t"] = { name = "theme" },
+        ["d"] = { name = "terminal direction"}
     },
     ["g"] = {
         ["d"] = "Go to Definition",
@@ -130,15 +138,5 @@ require('which-key').register {
         ["l"] = "Split Right",
         ["j"] = "Split Down",
         ["e"] = "Equalize Splits",
-    },
-    ["T"] = {
-        ["."] = "Fuzzy Tab",
-        ["n"] = "New T",
-        ["L"] = "Next Tab",
-        ["H"] = "Prev Tab",
-        ["o"] = "Only Tab",
-        ["q"] = "Quit Tab",
-        ["c"] = "Close Selected Tab",
-        ["p"] = "Pick Tab",
     },
 }

@@ -373,16 +373,16 @@ map('n', '<leader>fk', '<CMD>Telescope keymaps<CR>')
 -- Bufferline{{{
 map('n', 'H', '<CMD>BufferLineCyclePrev<CR>')
 map('n', 'L', '<CMD>BufferLineCycleNext<CR>')
-map('n', 'Tc', '<CMD>BufferLinePickClose<CR>')
-map('n', 'Tp', '<CMD>BufferLinePick<CR>')
+map('n', '<leader>tc', '<CMD>BufferLinePickClose<CR>')
+map('n', '<leader>tp', '<CMD>BufferLinePick<CR>')
 -- }}}
 -- Tabs{{{
-map('n', 'T.', '<CMD>tabe %<CR><CMD>Telescope smart_open<CR>')
-map('n', 'Tn', '<CMD>tabe %<CR>')
-map('n', 'TL', '<CMD>tabnext<CR>')
-map('n', 'TH', '<CMD>tabprevious<CR>')
-map('n', 'To', '<CMD>tabonly<CR>')
-map('n', 'Tq', '<CMD>tabclose<CR>')
+map('n', '<leader>t.', '<CMD>tabe %<CR><CMD>Telescope smart_open<CR>')
+map('n', '<leader>tn', '<CMD>tabe %<CR>')
+map('n', '<leader>tL', '<CMD>tabnext<CR>')
+map('n', '<leader>tH', '<CMD>tabprevious<CR>')
+map('n', '<leader>to', '<CMD>tabonly<CR>')
+map('n', '<leader>tq', '<CMD>tabclose<CR>')
 -- }}}
 -- Lazy{{{
 map('n', '<leader>lz', '<CMD>Lazy<CR>')
@@ -514,7 +514,7 @@ end
 map('n', '<leader>z', M.toggle_zen)
 -- }}}
 
---- CONFIG{{{
+-- CONFIG{{{
 
 map('n', 'C', '<nop>')
 map('n', 'Cll',
@@ -630,7 +630,7 @@ map('n', 'Ccr',
     end
 )
 
-map('n', 'Ctd',
+map('n', 'Cd',
     -- Toggle terminal direction
     function()
         require('projtasks').toggle_terminal_direction()
