@@ -156,8 +156,9 @@ return {
         end,
     },
     {
-        'tj-moody/vim-commentary',
-        event = 'VeryLazy',
+        dir = "~/projects/nucomment.nvim",
+        config = { floating_comments = true },
+        event = "VeryLazy",
     },
     {
         'windwp/nvim-autopairs',

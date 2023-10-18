@@ -187,7 +187,7 @@ local function indent_traverse(direction, equal) -- {{{
         -- Look for a line of appropriate indent
         -- level without going out of the buffer
         while (not match)
-            and (match_line <= buf_length)
+            and (match_line < buf_length)
             and (match_line > 1)
         do
             match_line = match_line + direction
@@ -423,93 +423,15 @@ map('n', '<leader>pTf', "<CMD>lua require('neotest').run.run(vim.fn.expand('%'))
 map('n', '<leader>pTh', "<CMD>lua require('neotest').output.open()<CR>")
 -- }}}
 -- Comment{{{
-map('n', '<leader>co', 'o_<esc><CMD>norm ,cc<cr>A<bs>')
-map('n', '<leader>cO', 'O_<esc><CMD>norm ,cc<cr>A<bs>')
+map('n', '<leader>co', [[<CMD>execute "norm! o" . substitute(&commentstring, '%s', '', '')<CR>A]])
+map('n', '<leader>cO', [[<CMD>execute "norm! O" . substitute(&commentstring, '%s', '', '')<CR>A]])
+
 map('n', '<leader>cl',
     [[<CMD>execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]
-)                      -- https://vi.stackexchange.com/a/19163
-map('n', '<leader>cs', -- {{{
-    -- comment split below
-    function()
-        local line = api.nvim_get_current_line()
-
-        local commentstring = vim.bo.commentstring:sub(1, -3)
-        escaped_commentstring = string.gsub(commentstring, '-', '%%-')
-
-        local _, count = string.gsub(
-            line,
-            escaped_commentstring,
-            escaped_commentstring
-        )
-        if count == 0 then return end
-
-        local last_position = nil
-        for match in line:gmatch(escaped_commentstring) do
-            last_position = line:find(match, last_position, true)
-        end
-        if not last_position then return end
-
-        local linenr, _ = unpack(api.nvim_win_get_cursor(0))
-        cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
-        if line:sub(-1) == ' ' then
-            cmd([[execute "norm! i\<BS>"]])
-        end
-        cmd([[execute "norm! i\<CR>"]])
-        if fn.indent(linenr) ~= 0 then
-            cmd([[norm! ]] .. string.rep('<<', fn.indent(linenr)))
-            cmd([[execute "norm! 0]]
-                .. fn.indent(linenr)
-                .. [[i \<ESC>"]]
-            )
-        end
-        cmd([[execute "norm! ^]]
-            .. #commentstring
-            .. [[l"]]
-        )
-    end
-)                      -- }}}
-map('n', '<leader>cS', -- {{{
-    -- comment split above
-    function()
-        local line = api.nvim_get_current_line()
-
-        local commentstring = vim.bo.commentstring:sub(1, -3)
-        escaped_commentstring = string.gsub(commentstring, '-', '%%-')
-
-        local _, count = string.gsub(
-            line,
-            escaped_commentstring,
-            escaped_commentstring
-        )
-        if count == 0 then return end
-
-        local last_position = nil
-        for match in line:gmatch(escaped_commentstring) do
-            last_position = line:find(match, last_position, true)
-        end
-        if not last_position then return end
-
-        local linenr, _ = unpack(api.nvim_win_get_cursor(0))
-        cmd([[execute "norm! 0]] .. last_position - 1 .. [[l"]])
-        if line:sub(-1) == ' ' then
-            cmd([[execute "norm! i\<BS>"]])
-        end
-        cmd([[execute "norm! i\<CR>"]])
-        cmd([[execute "norm VK\<ESC>"]])
-        if fn.indent(linenr + 1) ~= 0 then
-            cmd([[norm! ]] .. string.rep('<<', fn.indent(linenr)))
-            cmd([[execute "norm! 0]]
-                .. fn.indent(linenr + 1)
-                .. [[i \<ESC>"]]
-            )
-        end
-        cmd([[execute "norm! ^]] .. #commentstring .. [[l"]])
-    end
-)
--- TODO: Rewrite to not append commentstring if a comment already exitsts}}}
+) -- https://vi.stackexchange.com/a/19163
 
 -- Adapted from u/alphabet_american
-map('x', '<leader>rc', [[y`>pgv:norm ,cc<CR>`>j^]])
+map('x', '<leader>cm', [[y`>pgv:norm ,cc<CR>`>j^]])
 -- }}}
 -- Folds{{{
 -- }}}
@@ -517,26 +439,26 @@ map('x', '<leader>rc', [[y`>pgv:norm ,cc<CR>`>j^]])
 map('n', '<leader>ls', "<CMD>LspStart<CR>")
 -- }}}
 -- Zen {{{
-    M.toggle_zen = function()
-        require('lualine').hide({ unhide = vim.g.zen_mode }) ---@diagnostic disable-line (missing field warning)
-        vim.cmd("Gitsigns toggle_signs")
-        if not vim.g.zen_mode then
-            vim.opt.showtabline = 0
-            vim.opt.statusline="%#Normal# "
-            vim.cmd("norm! mz")
-            vim.cmd("tabnew %")
-            vim.cmd("norm! `z")
-            vim.cmd[[execute ""]]
-            -- vim.cmd.setlocal("nonumber")
-            vim.cmd.setlocal("norelativenumber")
-            -- vim.opt.signcolumn="yes:3"
-        else
-            vim.opt.showtabline = 2
-            vim.cmd("tabclose")
-            vim.opt.signcolumn="yes:1"
-        end
-        vim.g.zen_mode = not vim.g.zen_mode
+M.toggle_zen = function()
+    require('lualine').hide({ unhide = vim.g.zen_mode }) ---@diagnostic disable-line (missing field warning)
+    vim.cmd("Gitsigns toggle_signs")
+    if not vim.g.zen_mode then
+        vim.opt.showtabline = 0
+        vim.opt.statusline = "%#Normal# "
+        vim.cmd("norm! mz")
+        vim.cmd("tabnew %")
+        vim.cmd("norm! `z")
+        vim.cmd [[execute ""]]
+        vim.cmd.setlocal("norelativenumber")
+        -- vim.cmd.setlocal("nonumber")
+        -- vim.opt.signcolumn="yes:3"
+    else
+        vim.opt.showtabline = 2
+        vim.cmd("tabclose")
+        vim.opt.signcolumn = "yes:1"
     end
+    vim.g.zen_mode = not vim.g.zen_mode
+end
 map('n', '<leader>z', M.toggle_zen)
 -- }}}
 
