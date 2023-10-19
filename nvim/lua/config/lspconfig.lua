@@ -126,16 +126,14 @@ vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vi
 local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    -- FIX: lsp_signature broken by commit cfd4a9dfaf5fd900264a946ca33c4a4f26f66a49
-    -- TODO: File issue on lsp_signature to fix this
-    -- require("lsp_signature").on_attach({
-    --     hint_scheme = 'Normal',
-    --     hint_prefix = " ",
-    --     bind = true,
-    --     handler_opts = {
-    --         border = "rounded"
-    --     }
-    -- }, bufnr)
+    require("lsp_signature").on_attach({
+        hint_scheme = 'Normal',
+        hint_prefix = " ",
+        bind = true,
+        handler_opts = {
+            border = "rounded"
+        }
+    }, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -153,14 +151,15 @@ local on_attach = function(_, bufnr)
     -- map('n', '<space>wl', function()
     --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     -- end, bufopts)
-    -- map('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+    map('n', 'gtd', vim.lsp.buf.type_definition, bufopts)
     map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     map('n', 'gr', vim.lsp.buf.references, bufopts)
     map('n', '<leader>df', function()
-        local save = vim.fn.winsaveview()
-        vim.lsp.buf.format { async = true }
-        vim.fn.winrestview(save)
+        vim.cmd("norm! mz")
+        vim.lsp.buf.format { async = false }
+        vim.cmd("norm! `z")
+        vim.cmd("norm! zo")
     end, bufopts)
 end
 

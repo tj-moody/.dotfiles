@@ -637,6 +637,12 @@ map('n', 'Cd',
     end
 )
 
+map('n', 'Cfc',
+    function()
+        require("nucomment").toggle_floating_comments()
+    end
+)
+
 -- Restart nvim
 map('n', '<leader>R',
     function()

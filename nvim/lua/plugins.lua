@@ -157,7 +157,7 @@ return {
     },
     {
         dir = "~/projects/nucomment.nvim",
-        config = { floating_comments = true },
+        config = { floating_comments = false },
         event = "VeryLazy",
     },
     {
