@@ -212,6 +212,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         if vim.fn.expand('%:p'):sub(1, 7) == "term://" then ---@diagnostic disable-line
             vim.cmd("setlocal nonumber norelativenumber nobuflisted")
+            vim.cmd("norm! i")
         end
     end,
 })
