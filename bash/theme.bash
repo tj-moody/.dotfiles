@@ -9,7 +9,6 @@ tput civis
 declare -a themestrings=(
     "\e[0;34mnoclownfiesta  \e[0m"
     "\e[1;36mkanagawa       \e[0m"
-    "\e[1;34mkanagawa_dark  \e[0m"
     "\e[0;33mgruvbox        \e[0m"
     "\e[0;34mtokyonight     \e[0m"
     "\e[0;32moxocarbon      \e[0m"
@@ -22,7 +21,6 @@ declare -a themestrings=(
 declare -a themeslist=(
     "noclownfiesta"
     "kanagawa"
-    "kanagawa_dark"
     "gruvbox"
     "tokyonight"
     "oxocarbon"
@@ -36,7 +34,7 @@ MAX_INDEX=$(( ${#themestrings[@]} - 1 ))
 THEME=$1
 LIVE_UPDATE=false
 
-index=5 # tokyonight
+index=2
 for i in "${!themeslist[@]}"; do
     if [[ "$THEME" == "${themeslist[$i]}" ]]; then
         index=$i
@@ -45,6 +43,12 @@ done
 
 index_to_theme() {
     echo "${themeslist[$1]}";
+}
+
+color_terminal() {
+    theme=$1
+    echo -ne "\033]50;SetProfile=${theme}\a"
+    echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $theme | base64)\007"
 }
 
 print_themes() {
@@ -58,12 +62,12 @@ print_themes() {
         echo -e "${themestrings[$i]}"
     done
     if [[ "$LIVE_UPDATE" == "true" ]]; then
-        echo -ne "\033]50;SetProfile=$(index_to_theme "$1")\a"
+        color_terminal "$(index_to_theme "$1")"
     fi
 }
 
 exit_loop() {
-    echo -ne "\033]50;SetProfile=$THEME\a"
+    color_terminal "$THEME"
     if [[ "$TERM" == "xterm-kitty" ]]; then
         kitty +kitten themes --reload-in=all "$THEME"
     fi
@@ -106,7 +110,7 @@ while : ; do
         'u'|'p')
             if [[ "$LIVE_UPDATE" == "true" ]]; then
                 LIVE_UPDATE=false
-                echo -ne "\033]50;SetProfile=${THEME}\a"
+                color_terminal "$THEME"
             else
                 LIVE_UPDATE=true
             fi

@@ -37,7 +37,6 @@ end
 function theme --argument-names 'themename'
     set themeslist "noclownfiesta"
     set -a themeslist "kanagawa"
-    set -a themeslist "kanagawa_dark"
     set -a themeslist "gruvbox"
     set -a themeslist "tokyonight"
     set -a themeslist "oxocarbon"
@@ -50,6 +49,7 @@ function theme --argument-names 'themename'
         if contains $themename $themeslist
             set COLORS_NAME $themename
             echo -e "\033]50;SetProfile=$themename\a"
+            echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $themename | base64)\007"
             if [ "$TERM" = "xterm-kitty" ]
                 kitty +kitten themes --reload-in=all $themename
             end
@@ -183,4 +183,5 @@ function ssh
     printf '\x1b]11;#0a0c1a\x1b\\'
     /usr/bin/ssh "$argv"
     echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
+    echo -ne "\033]50;SerUserVar=THEME=0)\a"
 end

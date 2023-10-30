@@ -60,7 +60,10 @@ require('which-key').register {
             ["H"] = "Prev Tab",
             ["o"] = "Only Tab",
             ["q"] = "Quit Tab",
-            ["c"] = "Close Selected Tab",
+        },
+        ["b"] = {
+            name = "Buffer",
+            ["d"] = "Delete Tab",
             ["p"] = "Pick Tab",
         },
         ["."] = "Fuzzy Split",

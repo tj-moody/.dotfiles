@@ -38,16 +38,6 @@ local colors_table = { -- {{{
         insert = '#7fb4ca',
         visual = '#ffa066',
     },
-    kanagawa_dark = {
-        -- normal = '#8a9a7b',
-        -- replace = '#c4746e',
-        -- visual = '#b6927b',
-        -- insert = '#949fb5',
-        normal = '#98bb6c',
-        replace = '#ff5d62',
-        insert = '#7fb4ca',
-        visual = '#ffa066',
-    },
     gruvbox = {
         normal = '#b8bb26',
         replace = '#fb4934',

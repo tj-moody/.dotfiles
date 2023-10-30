@@ -14,7 +14,6 @@ end
 M.themes_list = {
     'noclownfiesta',
     'kanagawa',
-    'kanagawa_dark',
     'gruvbox',
     'tokyonight',
     'oxocarbon',
@@ -40,9 +39,6 @@ local colors_table = {
     end,                       -- }}}
     kanagawa = function()      -- {{{
         vim.cmd.colorscheme('kanagawa')
-    end,                       -- }}}
-    kanagawa_dark = function() -- {{{
-        vim.cmd.colorscheme('kanagawa-dragon')
     end,                       -- }}}
     gruvbox = function()       -- {{{
         vim.g.gruvbox_material_better_performance = 1
@@ -99,7 +95,8 @@ local hl_table = {
             { 'Operator',               { fg = '#727169', } },
             { '@punctuation.bracket',   { fg = '#727169', } },
             { '@punctuation.delimiter', { fg = '#727169', } },
-            { 'WinSeparator',           { fg = '#54546D' } }
+            { 'WinSeparator',           { fg = '#54546D', } },
+            { 'LspInlayHint',           { fg = '#938aa9', bold = true, } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#7fb4ca' } },
@@ -117,48 +114,19 @@ local hl_table = {
             -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
     },                -- }}}
-    kanagawa_dark = { -- {{{
-        setup = {
-            { 'Operator',               { fg = '#737c73', } },
-            { '@punctuation.bracket',   { fg = '#737c73', } },
-            { '@punctuation.delimiter', { fg = '#737c73', } },
-            { 'WinSeparator',           { fg = '#60656f' } }
-        },
-        alpha = {
-            -- { 'AlphaHeader',  { fg = '#949fb5' } },
-            -- { 'AlphaFooter1', { fg = '#c4746e' } },
-            { 'AlphaHeader',  { fg = '#7fb4ca' } },
-            { 'AlphaFooter1', { fg = '#ff5d62' } },
-        },
-        nvim_tree = {
-            { 'NvimTreeFolderIcon',       { fg = '#DCA561', } },
-            { 'NvimTreeFolderName',       { fg = '#658594', } },
-            { 'NvimTreeOpenedFolderName', { fg = '#7aa89f', bold = true, } },
-            { 'NvimTreeNormal',           { fg = '#c8c093', } },
-            { 'NvimTreeExecFile',         { fg = '#dcd7ba', } },
-            { 'NvimTreeGitNew',           { fg = '#ffa066', } },
-            { 'NvimTreeGitDirty',         { fg = '#ff5d62', } },
-            { 'NvimTreeOpenedFile',       { fg = '#957fb8', bold = true, } },
-            -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
-            -- { 'NvimTreeFolderIcon',       { fg = '#c4b28a', } },
-            -- { 'NvimTreeFolderName',       { fg = '#949fb5', } },
-            -- { 'NvimTreeOpenedFolderName', { fg = '#8a9a7b', } },
-            -- { 'NvimTreeNormal',           { fg = '#c4b28a', } },
-            -- { 'NvimTreeExecFile',         { fg = '#c5c9c5', } },
-            -- { 'NvimTreeGitNew',           { fg = '#b6927b', } },
-            -- { 'NvimTreeGitDirty',         { fg = '#c4746e', } },
-            -- { 'NvimTreeOpenedFile',       { fg = '#a292a3', } },
-            -- -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
-        },
-    },          -- }}}
     gruvbox = { -- {{{
         setup = {
-            { 'Operator',               { fg = '#928374', } },
-            { '@operator',              { fg = '#928374', } },
-            { '@punctuation.bracket',   { fg = '#928374', } },
-            { '@punctuation.delimiter', { fg = '#928374', } },
-            { 'NormalFloat',            { bg = '#060911', } },
-            { 'FloatBorder',            { bg = '#060911', } },
+            { 'Operator',                   { fg = '#928374', } },
+            { '@operator',                  { fg = '#928374', } },
+            { '@punctuation.bracket',       { fg = '#928374', } },
+            { '@punctuation.delimiter',     { fg = '#928374', } },
+            { 'NormalFloat',                { bg = '#060911', } },
+            { 'FloatBorder',                { bg = '#060911', } },
+            { 'DiagnosticVirtualTextInfo',  { fg = '#83a598', } },
+            { 'DiagnosticVirtualTextHint',  { fg = '#b8bb26', } },
+            { 'DiagnosticVirtualTextWarn',  { fg = '#fabd2f', } },
+            { 'DiagnosticVirtualTextError', { fg = '#fb4934', } },
+            { 'LspInlayHint',               { fg = '#83a598', bold = true, } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#89b4a2' } },
@@ -426,6 +394,7 @@ local mod_hl_table = { -- {{{
     { 'TermCursor',   { link = 'Cursor' } },
     { 'TermCursorNC', { link = 'Normal' } },
     { 'TabLineFill',  { link = 'NormalFloat', } },
+    { 'LspInlayHint', { italic = true, bg = "", } },
 } -- }}}
 
 ---Remove background from highlight group `hl`

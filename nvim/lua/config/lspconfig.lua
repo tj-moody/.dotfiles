@@ -156,10 +156,10 @@ local on_attach = function(_, bufnr)
     -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     map('n', 'gr', vim.lsp.buf.references, bufopts)
     map('n', '<leader>df', function()
-        vim.cmd("norm! mz")
+        -- vim.cmd("norm! mz")
         vim.lsp.buf.format { async = false }
-        vim.cmd("norm! `z")
-        vim.cmd("norm! zo")
+        -- vim.cmd("norm! `z")
+        -- vim.cmd("norm! zo")
     end, bufopts)
 end
 

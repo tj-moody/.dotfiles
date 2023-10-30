@@ -313,7 +313,6 @@ m_o('i', ';',
                         end
                     end)()
                 end
-                print(char, char_is_allowed)
                 if not char_is_allowed then
                     can_exit = false; return
                 end
@@ -373,8 +372,8 @@ map('n', '<leader>fk', '<CMD>Telescope keymaps<CR>')
 -- Bufferline{{{
 map('n', 'H', '<CMD>BufferLineCyclePrev<CR>')
 map('n', 'L', '<CMD>BufferLineCycleNext<CR>')
-map('n', '<leader>tc', '<CMD>BufferLinePickClose<CR>')
-map('n', '<leader>tp', '<CMD>BufferLinePick<CR>')
+map('n', '<leader>bd', '<CMD>BufferLinePickClose<CR>')
+map('n', '<leader>bp', '<CMD>BufferLinePick<CR>')
 -- }}}
 -- Tabs{{{
 map('n', '<leader>t.', '<CMD>tabe %<CR><CMD>Telescope smart_open<CR>')
@@ -606,6 +605,7 @@ map('n', 'Ct',
                 if choice then
                     vim.g.tjtheme = choice
                     safe_require('colorscheme').reload()
+                    require('wezterm').set_user_var("COLORS_NAME", choice)
                 end
             end
         )
