@@ -112,6 +112,12 @@ return {
         'lervag/vimtex',
         event = 'VeryLazy',
     },
+    ---- Typst{{{2
+    {
+        'kaarmu/typst.vim',
+        ft = 'typst',
+        event = "VeryLazy",
+    },
     -- DAP {{{1
     -- }}}
     -- Utils{{{1
@@ -231,6 +237,11 @@ return {
         'yuttie/comfortable-motion.vim',
         event = 'VeryLazy',
     },
+    {
+        'willothy/wezterm.nvim',
+        event = 'VeryLazy',
+        config = true
+    },
     -- Git{{{1
     {
         'lewis6991/gitsigns.nvim',
@@ -333,5 +344,24 @@ return {
         config = function() safe_require('config.neotest') end,
     },
     -- }}}1
+    -- Competitive {{{
+    {
+        "kawre/leetcode.nvim",
+        build = ":TSUpdate html",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim", -- required by telescope
+            "MunifTanjim/nui.nvim",
+
+            -- optional
+            "nvim-tree/nvim-web-devicons",
+        },
+        lazy = "leetcode" ~= vim.fn.argv()[1],
+        opts = {
+            arg = "leetcode",
+        },
+    },
+    --}}}
     fun,
 }
