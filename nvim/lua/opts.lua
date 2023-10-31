@@ -100,7 +100,7 @@ o.undofile = true
 o.smoothscroll = true
 o.textwidth = 80
 o.formatoptions = "crjql"
-o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
 
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false
