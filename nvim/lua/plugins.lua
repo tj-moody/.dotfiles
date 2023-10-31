@@ -174,11 +174,6 @@ return {
         config = function() safe_require('config.colorizer') end,
     },
     {
-        'mrjones2014/smart-splits.nvim',
-        event = 'VeryLazy',
-        config = function() safe_require('config.smart-splits') end
-    },
-    {
         'chrisgrieser/nvim-various-textobjs',
         event = 'VeryLazy',
         config = function() safe_require('config.various-textobjs') end
@@ -229,14 +224,24 @@ return {
         event = 'VeryLazy',
     },
     {
+        "folke/trouble.nvim",
+        event = 'VeryLazy',
+        config = true,
+    },
+    {
         'willothy/wezterm.nvim',
         event = 'VeryLazy',
         config = true
     },
     {
-        "folke/trouble.nvim",
-        event = 'VeryLazy',
+        'numToStr/Navigator.nvim',
+        lazy = false,
         config = true,
+    },
+    {
+        'mrjones2014/smart-splits.nvim',
+        lazy = false,
+        config = function() safe_require('config.smart-splits') end
     },
     -- Git{{{1
     {

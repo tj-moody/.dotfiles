@@ -59,8 +59,19 @@ config.colors = require('themes.' .. THEME)
 config.window_background_opacity = 1
 config.macos_window_background_blur = 39
 
-config.enable_tab_bar = false
+config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
+config.colors.tab_bar = {
+    active_tab = {
+        bg_color = config.colors.background,
+        fg_color = config.colors.foreground,
+    }
+}
+config.colors.tab_bar.inactive_tab = config.colors.tab_bar.active_tab
+config.colors.tab_bar.inactive_tab_hover = config.colors.tab_bar.active_tab
+config.colors.tab_bar.new_tab = config.colors.tab_bar.active_tab
+config.colors.tab_bar.new_tab_hover = config.colors.tab_bar.active_tab
+
 config.window_padding = {
     left = 35,
     right = 35,
@@ -78,13 +89,38 @@ config.window_frame = {
     inactive_titlebar_bg = config.colors.background,
 }
 
+
+local function is_vim(pane)
+    return pane:get_user_vars().IS_NVIM == 'true'
+end
+
+local direction_keys = {
+    Left  = 'h', h = 'Left',
+    Down  = 'j', j = 'Down',
+    Up    = 'k', k = 'Up',
+    Right = 'l', l = 'Right',
+}
+
+local function split_nav(key)
+    return {
+        key = key, mods = 'CTRL',
+        action = wezterm.action_callback(function(win, pane)
+            if is_vim(pane) then
+                win:perform_action({ SendKey = { key = key, mods = 'CTRL' }, }, pane)
+            else
+                win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+            end
+        end),
+    }
+end
+
 config.keys = {
     -- Turn off the default CMD-m Hide action, allowing CMD-m to
     -- be potentially recognized and handled by the tab
     {
         key = 'u',
         mods = 'CMD',
-        action = wezterm.action_callback(function(window, pane)
+        action = wezterm.action_callback(function(window, _)
             local overrides = window:get_config_overrides() or {}
             if not overrides.window_background_opacity then
                 overrides.window_background_opacity = 0.86
@@ -97,7 +133,7 @@ config.keys = {
     {
         key = 'b',
         mods = 'CMD',
-        action = wezterm.action_callback(function(window, pane)
+        action = wezterm.action_callback(function(window, _)
             local overrides = window:get_config_overrides() or {}
             if not overrides.my_is_dark_bg then -- setting dark background
                 overrides.my_old_bg = config.colors.background
@@ -115,9 +151,27 @@ config.keys = {
             window:set_config_overrides(overrides)
         end),
     },
+    {
+        key = 'l',
+        mods = 'CMD',
+        action = wezterm.action_callback(function(_, pane)
+            pane:split({ direction = 'Right' })
+        end),
+    },
+    {
+        key = 'j',
+        mods = 'CMD',
+        action = wezterm.action_callback(function(_, pane)
+            pane:split({ direction = 'Bottom' })
+        end),
+    },
+    split_nav('h'),
+    split_nav('j'),
+    split_nav('k'),
+    split_nav('l'),
 }
 
-wezterm.on('user-var-changed', function(window, pane, name, value)
+wezterm.on('user-var-changed', function(window, _, name, value)
     wezterm.log_info('var', name, value)
     if name == 'COLORS_NAME' then
         local overrides = window:get_config_overrides() or {}
