@@ -52,11 +52,8 @@ function _G.custom_fold_text()
 
     return result
 end
-
--- testing {{{
--- }}}
-
 o.foldtext = 'v:lua.custom_fold_text()'
+
 o.fillchars = { --{{{
     stl = ' ',
     stlnc = ' ',
@@ -67,7 +64,6 @@ o.fillchars = { --{{{
     diff = '╱',
     eob = ' ',
 } -- }}}
-o.foldtext = 'v:lua.custom_fold_text()'
 o.listchars = {
     tab = '▸ ',
 }
