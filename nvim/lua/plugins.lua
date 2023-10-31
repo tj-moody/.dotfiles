@@ -153,15 +153,6 @@ return {
         end,
     },
     {
-        'akinsho/toggleterm.nvim',
-        version = '*',
-        event = 'VeryLazy',
-        config = function()
-            safe_require('config.toggleterm')
-            safe_require('colorscheme').setup('toggleterm')
-        end,
-    },
-    {
         dir = "~/projects/nucomment.nvim",
         config = { floating_comments = false },
         event = "VeryLazy",

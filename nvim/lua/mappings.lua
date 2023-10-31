@@ -390,18 +390,9 @@ map('n', '<leader>tq', '<CMD>tabclose<CR>', "Quit Tab")
 map('n', '<leader>lz', '<CMD>Lazy<CR>', "Lazy")
 -- }}}
 -- Git{{{
-local Terminal = require('toggleterm.terminal').Terminal
-local lazygit  = Terminal:new({
-    cmd = 'lazygit',
-    hidden = true,
-    highlights = {
-        NormalFloat = { guibg = '', guifg = '' },
-        FloatBorder = { guibg = '' },
-    }
-})
 map('n', '<leader>lg',
     function()
-        lazygit:toggle()
+        require('wezterm').spawn("Lazygit", { cwd = vim.fn.getcwd() })
     end,
     "Lazygit"
 )
