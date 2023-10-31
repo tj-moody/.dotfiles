@@ -1,35 +1,40 @@
--- Mappings
-local map = vim.keymap.set
+local m_b = function(mode, lhs, rhs, buff, desc)
+    vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = buff, desc = desc })
+end
+local map = function(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
+    m_b(mode, lhs, rhs, nil, desc)
+end
+
 local float_namespace = vim.api.nvim_create_namespace 'tj_lsp_float'
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local map_opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float, map_opts)
-vim.keymap.set('n', '<leader>dk', vim.diagnostic.goto_prev, map_opts)
-vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_next, map_opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+map('n', '<leader>dh', vim.diagnostic.open_float, "Diagnostic Hover")
+map('n', '<leader>dk', vim.diagnostic.goto_prev, "Diagnostic Next")
+map('n', '<leader>dj', vim.diagnostic.goto_next, "Diagnostic Previous")
+map('n', '<leader>dp', vim.diagnostic.setqflist, "Diagnostics Populate")
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 
-require("hover").setup {
-    init = function()
-        -- Require providers
-        require("hover.providers.lsp")
-        require('hover.providers.gh')
-        require('hover.providers.dictionary')
-        -- require('hover.providers.gh_user')
-        -- require('hover.providers.jira')
-        -- require('hover.providers.man')
-    end,
-    preview_opts = {
-        border = nil
-    },
-    -- Whether the contents of a currently open hover window should be moved
-    -- to a :h preview-window when pressing the hover keymap.
-    preview_window = false,
-    title = true
-}
+-- require("hover").setup {
+--     init = function()
+--         -- Require providers
+--         require("hover.providers.lsp")
+--         require('hover.providers.gh')
+--         require('hover.providers.dictionary')
+--         -- require('hover.providers.gh_user')
+--         -- require('hover.providers.jira')
+--         -- require('hover.providers.man')
+--     end,
+--     preview_opts = {
+--         border = nil
+--     },
+--     -- Whether the contents of a currently open hover window should be moved
+--     -- to a :h preview-window when pressing the hover keymap.
+--     preview_window = false,
+--     title = true
+-- }
 
 ---LSP handler that adds extra inline highlights, keymaps, and window options.
 ---Code inspired from `noice`
@@ -137,30 +142,24 @@ local on_attach = function(_, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    map('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    map('n', 'gd', vim.lsp.buf.definition, bufopts)
-    map('n', 'K', vim.lsp.buf.hover, bufopts)
-    -- Possibly switch back to hover if builtin prettier hover is integrated
-    -- map('n', 'K', require("hover").hover, bufopts)
-    -- map('n', 'gK', require("hover").hover_select, bufopts)
-    map('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    map('n', 'gs', vim.lsp.buf.signature_help, bufopts) -- "go type"
-    -- map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    -- map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    -- map('n', '<space>wl', function()
-    --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- end, bufopts)
-    map('n', 'gtd', vim.lsp.buf.type_definition, bufopts)
-    map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    map('n', 'gr', vim.lsp.buf.references, bufopts)
-    map('n', '<leader>df', function()
+    m_b('n', 'gD', vim.lsp.buf.declaration, bufnr, "Go to Declaration")
+    m_b('n', 'gd', vim.lsp.buf.definition, bufnr, "Go to Definition")
+    m_b('n', 'K', vim.lsp.buf.hover, bufnr, "Hover")
+    -- Possibly switch back to hover if built
+    -- m_b('n', 'K', require("hover").hover, bufnr, "Hover")
+    -- m_b('n', '<leader>K', require("hover").hover_select, bufopts, "Select Hover")
+    m_b('n', 'gi', vim.lsp.buf.implementation, bufnr, "Go to Implementation")
+    m_b('n', 'gs', vim.lsp.buf.signature_help, bufnr, "Get Signature") -- "go type"
+    m_b('n', 'gtd', vim.lsp.buf.type_definition, bufnr, "Go to Type Definition")
+    m_b('n', '<leader>rn', vim.lsp.buf.rename, bufnr, "Rename")
+    -- m_b('n', '<leader>ca', vim.lsp.buf.code_action, bufnr, "Code Action")
+    m_b('n', 'gr', vim.lsp.buf.references, bufnr, "Go to References")
+    m_b('n', '<leader>df', function()
         -- vim.cmd("norm! mz")
         vim.lsp.buf.format { async = false }
         -- vim.cmd("norm! `z")
         -- vim.cmd("norm! zo")
-    end, bufopts)
+    end, bufnr, "Format")
 end
 
 require("neodev").setup {
@@ -221,8 +220,8 @@ require('lspconfig')['lua_ls'].setup {
             workspace = {
                 checkThirdParty = false,
                 library = { vim.env.VIMRUNTIME },
-                -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                -- library = vim.api.nvim_get_runtime_file("", true)
+                -- Source all of `runtimepath`
+                -- library = vim.api.nvim_get_runtime_file("", true), -- WARN: Very slow
                 version = 'LuaJIT',
             },
         },

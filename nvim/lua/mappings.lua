@@ -15,8 +15,9 @@ local cmd = vim.cmd
 ---@param m string | table[string]
 ---@param l string
 ---@param r string | function
-local function map(m, l, r)
-    vim.keymap.set(m, l, r, { noremap = true, silent = true })
+---@param desc string
+local function map(m, l, r, desc)
+    vim.keymap.set(m, l, r, { noremap = true, silent = true, desc = desc })
 end
 
 ---An abbreviation of *vim.keymap.set*(`mode`, `lhs`, `rhs`, `opts`)
@@ -32,79 +33,78 @@ end
 --- VANILLA
 -- Remapped Defaults{{{
 
-map('n', '\\', ',')
+map('n', '\\', ',', "Undo Text Motion")
 
-m_o('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-m_o('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+m_o('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "Next Visual Line" })
+m_o('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "Prev Visual Line" })
 
-map('n', 'p', ']p')
-map('x', 'p', '"0p')
+map({ 'x', 'n' }, 'p', ']p', "Paste and Indent")
+map('x', 'p', '"0p', "Paste")
 
-map('n', 'X', '"_dd')
-map('x', 'x', '"_d')
-map({ 'n', 'x' }, 'c', '"_c')
-map('n', 'S', '"_S')
+map('n', 'X', '"_dd', "Delete Line")
+map('x', 'x', '"_d', "Delete Character")
+map({ 'n', 'x' }, 'c', '"_c', "Change")
+map('n', 'S', '"_S', "Subsitute Line")
 
-map('n', 'dd', 'dd')
+map('n', '<C-d>', '<C-d>zz', "Scroll Down")
+map('n', '<C-u>', '<C-u>zz', "Scroll Up")
 
-map('n', 'Y', 'yy')
-map('n', 'D', '"_dd')
+map('n', 'n', 'nzzzv', "Next Match")
+map('n', 'N', 'Nzzzv', "Prev Match")
 
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-u>', '<C-u>zz')
-
-map('n', 'n', 'nzzzv')
-map('n', 'N', 'Nzzzv')
-
-map('i', '<esc>', '<esc>`^')
+map('i', '<esc>', '<esc>`^', "Exit Insert Mode")
 
 -- }}}
 -- Basics{{{
 
-map('n', '<leader>.', '<CMD>vsp<CR><CMD>Telescope smart_open<CR>')
+map('n', '<leader>.', '<CMD>vsp<CR><CMD>Telescope smart_open<CR>', "Find File in Split")
 
-map('n', '<leader>w', '<CMD>silent update<CR>')
-map('n', '<leader><leader>x', '<CMD>silent write<CR><CMD>source <CR>')
+map('n', '<leader>w', '<CMD>silent update<CR>', "Write")
+map('n', '<leader><leader>x', '<CMD>silent write<CR><CMD>source <CR>', "Execute")
 
-map('n', '<leader>q', '<CMD>q<CR>')
-map('n', '<ESC>', "<CMD>noh<CR><CMD>ColorizerReloadAllBuffers<CR><CMD>ColorizerAttachToBuffer<CR><CMD>echo ''<CR>")
+map('n', '<leader>q', '<CMD>q<CR>', "Quit")
+map('n', '<ESC>', "<CMD>noh<CR><CMD>ColorizerReloadAllBuffers<CR><CMD>ColorizerAttachToBuffer<CR><CMD>echo ''<CR>",
+    "Reset Screen")
 
-map('x', 'K', ":m '<-2<CR>gv=gv")
-map('x', 'J', ":m '>+1<CR>gv=gv")
+map('x', 'K', ":m '<-2<CR>gv=gv", "Move Up")
+map('x', 'J', ":m '>+1<CR>gv=gv", "Move Down")
 
 map('n', '<CR>',
     function()
         local line_nr = vim.fn.line('.') ---@cast line_nr integer
         local line = vim.fn.getline(line_nr) ---@cast line string
         vim.api.nvim_buf_set_lines(0, line_nr - 1, line_nr, false, { line, '' })
-    end
+    end,
+    "Line Below"
 )
 map('n', '<S-CR>',
     function()
         local line_nr = vim.fn.line('.') ---@cast line_nr integer
         local line = vim.fn.getline(line_nr - 1) ---@cast line string
         vim.api.nvim_buf_set_lines(0, line_nr - 2, line_nr - 1, false, { line, '' })
-    end
+    end,
+    "Line Above"
 )
 
-map('n', 'J', 'mzJ`z')
+map('n', 'J', 'mzJ`z', "Join")
 
-map('n', 's', '<Plug>Ysurround')
-map('n', 'ss', '<Plug>Yssurround')
-map('x', 's', '<Plug>VSurround')
+map('n', 's', '<Plug>Ysurround', "Surround")
+map('n', 'ss', '<Plug>Yssurround', "Surround Line")
+map('x', 's', '<Plug>VSurround', "Surround")
 -- ^^^ charwise in visual mode, linewise in visual line mode
 
-map('n', 'sl', '<CMD>vsp<CR>')
-map('n', 'sj', '<CMD>sp<CR>')
-map('n', 'se', '<c-w>=')
-map('n', 'sr', require('smart-splits').start_resize_mode)
+map('n', 'sl', '<CMD>vsp<CR>', "Split Rigth")
+map('n', 'sj', '<CMD>sp<CR>', "Split Down")
+map('n', 'se', '<c-w>=', "Equalize Splits")
+map('n', 'sr', require('smart-splits').start_resize_mode, "Resize Splits")
 
-map('x', 'V', 'j')
+map('x', 'V', 'j', "Expand V-Line Selection")
 
-map('n', 'gV', '`[v`]')
+map('n', 'gV', '`[v`]', "Highlight Prev Selection")
 
-map('n', '<TAB>', '<CMD>tabnext<CR>')
-map('n', '<S-TAB>', '<CMD>tabprevious<CR>')
+-- NOTE: Possibly unmap?
+map('n', '<TAB>', '<CMD>tabnext<CR>', "Next Tab")
+map('n', '<S-TAB>', '<CMD>tabprevious<CR>', "Prev Tab")
 
 -- Backspace helper values{{{
 local escape_code = api.nvim_replace_termcodes(
@@ -178,9 +178,9 @@ m_o('i', '<BS>', -- {{{
         end
         return require('nvim-autopairs').autopairs_bs()
     end,
-    { expr = true, noremap = true, replace_keycodes = false, }
+    { expr = true, noremap = true, replace_keycodes = false, desc = "Smart Delete" }
 )
-map('i', '<S-BS>', '<BS>') -- }}}
+map('i', '<S-BS>', '<BS>', "Delete") -- }}}
 
 ---Adapted from https://vi.stackexchange.com/a/12870
 ---Traverse to indent >= or > current indent
@@ -224,14 +224,14 @@ local function indent_traverse(direction, equal) -- {{{
             end
         end
     end
-end                                                 -- }}}
-map({ 'n', 'x' }, "gj", indent_traverse(1, true))   -- next equal indent
-map({ 'n', 'x' }, 'gk', indent_traverse(-1, true))  -- previous equal indent
+end -- }}}
+map({ 'n', 'x' }, "gj", indent_traverse(1, true), "Next Equal Indent")
+map({ 'n', 'x' }, 'gk', indent_traverse(-1, true), "Prev Equal Indent")
 
-map({ 'n', 'x' }, 'gJ', indent_traverse(1, false))  -- last equal indent
-map({ 'n', 'x' }, 'gK', indent_traverse(-1, false)) -- first equal indent
+map({ 'n', 'x' }, 'gJ', indent_traverse(1, false), "Last Equal Indent")
+map({ 'n', 'x' }, 'gK', indent_traverse(-1, false), "First Equal Indent")
 
-map('n', '<leader>O',                               -- {{{
+map('n', '<leader>O', -- {{{
     -- Delete all other buffers
     function()
         if vim.bo.filetype == 'NvimTree' then
@@ -254,15 +254,16 @@ map('n', '<leader>O',                               -- {{{
             end
             cmd [[redrawtabline]]
         end
-    end
+    end,
+    "Only Buffer"
 ) -- }}}
-map('n', '<leader>o', '<CMD>silent only<CR>')
+map('n', '<leader>o', '<CMD>silent only<CR>', "Only Window")
 
-map('n', '<leader>y', '"+y')
-map('x', '<leader>y', '"+y')
+map('n', '<leader>y', '"+y', "Yank into Clipboard")
+map('x', '<leader>y', '"+y', "Yank Into Clipboard")
 
-map('x', '<', '<gv4h')
-map('x', '>', '>gv4l')
+map('x', '<', '<gv4h', "Shift Left")
+map('x', '>', '>gv4l', "Shift Right")
 
 map('n', '<leader>cr',
     function()
@@ -273,22 +274,24 @@ map('n', '<leader>cr',
             endfor
         ]]
         print('Cleared registers')
-    end
+    end,
+    "Clear Registers"
 )
 
-m_o('x', [["]], [[<Plug>VSurround"]], { noremap = false, })
-m_o('x', [[']], [[<Plug>VSurround']], { noremap = false, })
-m_o('x', [[(]], [[<Plug>VSurround)]], { noremap = false, })
-m_o('x', [[{]], [[<Plug>VSurround)]], { noremap = false, })
+-- NOTE: Possibly unmap?
+m_o('x', [["]], [[<Plug>VSurround"]], { noremap = false, desc = "Double Quote Surround" })
+m_o('x', [[']], [[<Plug>VSurround']], { noremap = false, desc = "Single Quote Surround" })
+m_o('x', [[(]], [[<Plug>VSurround)]], { noremap = false, desc = "Parentheses Surround" })
+m_o('x', [[{]], [[<Plug>VSurround)]], { noremap = false, desc = "Braces Surround" })
 -- cmd('unmap [%')
-m_o('x', '[', '<Plug>VSurround]', { noremap = false, })
+m_o('x', '[', '<Plug>VSurround]', { noremap = false, desc = "Brackets Surround" })
 
-map('i', '<ScrollWheelLeft>', '')
-map('i', '<ScrollWheelRight>', '')
-map('n', '<ScrollWheelLeft>', '')
-map('n', '<ScrollWheelRight>', '')
-map('x', '<ScrollWheelLeft>', '')
-map('x', '<ScrollWheelRight>', '')
+map('i', '<ScrollWheelLeft>', '', "")
+map('i', '<ScrollWheelRight>', '', "")
+map('n', '<ScrollWheelLeft>', '', "")
+map('n', '<ScrollWheelRight>', '', "")
+map('x', '<ScrollWheelLeft>', '', "")
+map('x', '<ScrollWheelRight>', '', "")
 
 m_o('i', ';',
     function()
@@ -324,7 +327,7 @@ m_o('i', ';',
             return ';'
         end
     end,
-    { remap = false, expr = true }
+    { remap = false, expr = true, desc = "Smart Semicolon" }
 )
 -- }}}
 
@@ -332,7 +335,6 @@ m_o('i', ';',
 -- NvimTree{{{
 
 map('n', 't',
-    -- Toggle NvimTree
     function()
         if vim.g.nvimtreefloat == true then
             safe_require('config.nvim-tree').nvim_tree_setup()
@@ -345,11 +347,11 @@ map('n', 't',
             cmd('NvimTreeOpen')
         end
         safe_require('colorscheme').setup('nvim_tree')
-    end
+    end,
+    "Toggle NvimTree"
 )
 
 map('n', 'TT',
-    -- Toggle NvimTree float
     function()
         if vim.g.nvimtreefloat == true then
             vim.g.nvimtreefloat = false
@@ -360,31 +362,32 @@ map('n', 'TT',
             cmd('NvimTreeClose')
             cmd('NvimTreeOpen')
         end
-    end
+    end,
+    "Toggle NvimTree Float"
 )
 -- }}}
 -- Telescope{{{
-map('n', '<leader>ff', '<CMD>Telescope smart_open<CR>')
-map('n', '<leader>fh', '<CMD>Telescope highlights<CR>')
-map('n', '<leader>fg', '<CMD>Telescope live_grep<CR>')
-map('n', '<leader>fk', '<CMD>Telescope keymaps<CR>')
+map('n', '<leader>ff', '<CMD>Telescope smart_open<CR>', "Find File")
+map('n', '<leader>fh', '<CMD>Telescope highlights<CR>', "Find Highlight")
+map('n', '<leader>fg', '<CMD>Telescope live_grep<CR>', "Find Grep")
+map('n', '<leader>fk', '<CMD>Telescope keymaps<CR>', "Find Keymap")
 -- }}}
 -- Bufferline{{{
-map('n', 'H', '<CMD>BufferLineCyclePrev<CR>')
-map('n', 'L', '<CMD>BufferLineCycleNext<CR>')
-map('n', '<leader>bd', '<CMD>BufferLinePickClose<CR>')
-map('n', '<leader>bp', '<CMD>BufferLinePick<CR>')
+map('n', 'H', '<CMD>BufferLineCyclePrev<CR>', "Previous Buffer")
+map('n', 'L', '<CMD>BufferLineCycleNext<CR>', "Next Buffer")
+map('n', '<leader>bc', '<CMD>BufferLinePickClose<CR>', "Close Buffer")
+map('n', '<leader>bp', '<CMD>BufferLinePick<CR>', "Pick Buffer")
 -- }}}
 -- Tabs{{{
-map('n', '<leader>t.', '<CMD>tabe %<CR><CMD>Telescope smart_open<CR>')
-map('n', '<leader>tn', '<CMD>tabe %<CR>')
-map('n', '<leader>tL', '<CMD>tabnext<CR>')
-map('n', '<leader>tH', '<CMD>tabprevious<CR>')
-map('n', '<leader>to', '<CMD>tabonly<CR>')
-map('n', '<leader>tq', '<CMD>tabclose<CR>')
+map('n', '<leader>t.', '<CMD>tabe %<CR><CMD>Telescope smart_open<CR>', "Find File in New Tab")
+map('n', '<leader>tn', '<CMD>tabe %<CR>', "New Tab")
+map('n', '<leader>tL', '<CMD>tabnext<CR>', "Next Tab")
+map('n', '<leader>tH', '<CMD>tabprevious<CR>', "Prev Tab")
+map('n', '<leader>to', '<CMD>tabonly<CR>', "Only Tab")
+map('n', '<leader>tq', '<CMD>tabclose<CR>', "Quit Tab")
 -- }}}
 -- Lazy{{{
-map('n', '<leader>lz', '<CMD>Lazy<CR>')
+map('n', '<leader>lz', '<CMD>Lazy<CR>', "Lazy")
 -- }}}
 -- Toggleterm{{{
 
@@ -401,7 +404,8 @@ end
 
 cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-map('n', '<leader>tf', '<CMD>ToggleTerm size=40 direction=float<CR>')
+-- FIX: Remove
+map('n', '<leader>tf', '<CMD>ToggleTerm size=40 direction=float<CR>', "Float Terminal")
 -- }}}
 -- Git{{{
 local Terminal = require('toggleterm.terminal').Terminal
@@ -413,11 +417,12 @@ local lazygit  = Terminal:new({
         FloatBorder = { guibg = '' },
     }
 })
--- m('n', '<leader>lg', '<CMD>ToggleTerm size=40 direction=float<CR>lazygit<CR>')
+-- m('n', '<leader>lg', '<CMD>ToggleTerm size=40 direction=float<CR>lazygit<CR>', "LazyGit")
 map('n', '<leader>lg',
     function()
         lazygit:toggle()
-    end
+    end,
+    "Lazygit"
 )
 map('n', '<leader>gd',
     function()
@@ -426,7 +431,8 @@ map('n', '<leader>gd',
         else
             cmd('DiffviewClose')
         end
-    end
+    end,
+    "Git Diff"
 )
 map('n', '<leader>gh',
     function()
@@ -435,59 +441,61 @@ map('n', '<leader>gh',
         else
             cmd('DiffviewClose')
         end
-    end
+    end,
+    "Git History"
 )
-map('n', '<leader>gj', '<CMD>Gitsigns next_hunk<CR>')
-map('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>')
-map('n', '<leader>gb', '<CMD>Gitsigns blame_line<CR>')
-map('n', '<leader>gB', '<CMD>ToggleBlame virtual<CR>')
+map('n', '<leader>gj', '<CMD>Gitsigns next_hunk<CR>', "Next Change")
+map('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>', "Prev Change")
+map('n', '<leader>gb', '<CMD>Gitsigns blame_line<CR>', "Blame Line")
+map('n', '<leader>gB', '<CMD>ToggleBlame virtual<CR>', "Show Blame")
 -- }}}
 -- Splits{{{
-map('n', '<C-h>', require('smart-splits').move_cursor_left)
-map('n', '<C-j>', require('smart-splits').move_cursor_down)
-map('n', '<C-k>', require('smart-splits').move_cursor_up)
-map('n', '<C-l>', require('smart-splits').move_cursor_right)
+map('n', '<C-h>', require('smart-splits').move_cursor_left, "Navigate Left")
+map('n', '<C-j>', require('smart-splits').move_cursor_down, "Navigate Down")
+map('n', '<C-k>', require('smart-splits').move_cursor_up, "Navigate Up")
+map('n', '<C-l>', require('smart-splits').move_cursor_right, "Navigate Right")
 
-map('n', '<Space>h', '<C-w>H')
-map('n', '<Space>j', '<C-w>J')
-map('n', '<Space>k', '<C-w>K')
-map('n', '<Space>l', '<C-w>L')
+map('n', '<Space>h', '<C-w>H', "Move Right")
+map('n', '<Space>j', '<C-w>J', "Move Down")
+map('n', '<Space>k', '<C-w>K', "Move Up")
+map('n', '<Space>l', '<C-w>L', "Move Right")
 
-map('n', 'sr', require('smart-splits').start_resize_mode)
+map('n', 'sr', require('smart-splits').start_resize_mode, "Splits Resize")
 -- }}}
 -- TreeSJ{{{
-map('n', '<c-s>', '<CMD>TSJToggle<CR>')
+map('n', '<c-s>', '<CMD>TSJToggle<CR>', "Split/Join")
 -- }}}
 -- Alternate-Toggler{{{
-map('n', '<leader>ta', '<CMD>ToggleAlternate<CR>')
+map('n', '<leader>ta', '<CMD>ToggleAlternate<CR>', "Toggle Alternate")
 -- }}}
 -- Project{{{
-map('n', '<C-T>', '<CMD>ProjtasksToggle<CR>')
-map('n', '<leader>pr', '<CMD>ProjtasksRun<CR>')
-map('n', '<leader>pb', '<CMD>ProjtasksBuild<CR>')
-map('n', '<leader>pt', '<CMD>ProjtasksTest<CR>')
-map('n', '<leader>pe', '<CMD>SnipRun<CR>')
-map('x', '<leader>pe', '<CMD>SnipRun<CR>')
-map('n', '<leader>pTt', "<CMD>lua require('neotest').summary.toggle<CR>")
-map('n', '<leader>pTr', "<CMD>lua require('neotest').run.run()<CR>")
-map('n', '<leader>pTf', "<CMD>lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
-map('n', '<leader>pTh', "<CMD>lua require('neotest').output.open()<CR>")
+map('n', '<C-T>', '<CMD>lua require("projtasks").toggle()<CR>', "Toggle Terminal")
+map('n', '<leader>pp', '<CMD>lua require("projtasks").recent()<CR>', "Run Project")
+map('n', '<leader>pr', '<CMD>lua require("projtasks").run()<CR>', "Run Project")
+map('n', '<leader>pb', '<CMD>lua require("projtasks").build()<CR>', "Build Project")
+map('n', '<leader>pt', '<CMD>lua require("projtasks").test()<CR>', "Test Project")
+
+map('n', '<leader>pnt', "<CMD>lua require('neotest').summary.toggle()<CR>", "Neotest Test Project")
+map('n', '<leader>pnr', "<CMD>lua require('neotest').run.run()<CR>", "Neotest Run Test")
+map('n', '<leader>pnf', "<CMD>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", "Neotest Test File")
+map('n', '<leader>pno', "<CMD>lua require('neotest').output.open()<CR>", "Neotest Open Tests")
 -- }}}
 -- Comment{{{
-map('n', '<leader>co', [[<CMD>execute "norm! o" . substitute(&commentstring, '%s', '', '')<CR>A]])
-map('n', '<leader>cO', [[<CMD>execute "norm! O" . substitute(&commentstring, '%s', '', '')<CR>A]])
+map('n', '<leader>co', [[<CMD>execute "norm! o" . substitute(&commentstring, '%s', '', '')<CR>A]], "Comment Below")
+map('n', '<leader>cO', [[<CMD>execute "norm! O" . substitute(&commentstring, '%s', '', '')<CR>A]], "Comment Above")
 
 map('n', '<leader>cl',
-    [[<CMD>execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]]
+    [[<CMD>execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]],
+    "Comment Right"
 ) -- https://vi.stackexchange.com/a/19163
 
 -- Adapted from u/alphabet_american
-map('x', '<leader>C', [[y`>pgv:norm ,cc<CR>`>j^]])
+map('x', '<leader>C', [[y`>pgv:norm ,cc<CR>`>j^]], "Comment and Duplicate")
 -- }}}
 -- Folds{{{
 -- }}}
 -- Lsp{{{
-map('n', '<leader>ls', "<CMD>LspStart<CR>")
+map('n', '<leader>ls', "<CMD>LspStart<CR>", "Start Lsp")
 -- }}}
 -- Zen {{{
 M.toggle_zen = function()
@@ -510,12 +518,19 @@ M.toggle_zen = function()
     end
     vim.g.zen_mode = not vim.g.zen_mode
 end
-map('n', '<leader>z', M.toggle_zen)
+map('n', '<leader>z', M.toggle_zen, "Toggle Zen")
+-- }}}
+-- Quickfix{{{
+map('n', '<leader>xo', '<CMD>copen<CR>', "Open QF")
+map('n', '<leader>xc', '<CMD>cclose<CR>', "Close QF")
+map('n', '<leader>xf', '<CMD>cfirst<CR>', "First in QF")
+map('n', '<leader>xj', '<CMD>cnext<CR>', "Next in QF")
+map('n', '<leader>xk', '<CMD>cprev<CR>', "Prev in QF")
 -- }}}
 
 -- CONFIG{{{
 
-map('n', 'C', '<nop>')
+map('n', 'C', '<nop>', "")
 map('n', 'Cll',
     -- Toggle LSP Lines
     function()
@@ -524,14 +539,16 @@ map('n', 'Cll',
             virtual_text = not d_conf().virtual_text,
             virtual_lines = not d_conf().virtual_lines
         })
-    end
+    end,
+    "Lsp Lines"
 )
 
 map('n', 'Crn',
     -- Toggle relative number
     function()
         cmd.set('relativenumber!')
-    end
+    end,
+    "Relative Number"
 )
 
 map('n', 'Cw',
@@ -539,7 +556,8 @@ map('n', 'Cw',
     function()
         cmd.set('wrap!')
         print('Wrap: ' .. tostring(vim.o.wrap))
-    end
+    end,
+    "Wrap"
 )
 
 map('n', 'Cba',
@@ -547,14 +565,16 @@ map('n', 'Cba',
     function()
         vim.g.bufferline_show_all = not vim.g.bufferline_show_all
         print('Bufferline Show All: ' .. tostring(vim.g.bufferline_show_all))
-    end
+    end,
+    "Bufferline Show All"
 )
 
 map('n', 'Cih',
     -- Toggle inlay hints
     function()
         vim.lsp.inlay_hint(0, nil)
-    end
+    end,
+    "Inlay Hints"
 )
 
 map('n', 'Ccc',
@@ -563,7 +583,8 @@ map('n', 'Ccc',
         vim.wo.colorcolumn = (vim.wo.colorcolumn == '80' and '0' or '80')
         print("Colorcolumn: "
             .. (vim.wo.colorcolumn == '80' and "true" or "false"))
-    end
+    end,
+    "Colorcolumn"
 )
 
 map('n', 'Cve',
@@ -579,21 +600,24 @@ map('n', 'Cve',
         else
             print('Virtual Edit: false')
         end
-    end
+    end,
+    "Virtual Edit"
 )
 
 map('n', 'Cgb',
     -- Toggle git blame
     function()
         cmd('Gitsigns toggle_current_line_blame')
-    end
+    end,
+    "Git Blame"
 )
 
 map('n', 'Clv',
     -- Toggle detailed lualine
     function()
         vim.g.lualine_verbose = not vim.g.lualine_verbose
-    end
+    end,
+    "Lualine Verbosity"
 )
 map('n', 'Ct',
     -- Change theme
@@ -609,7 +633,8 @@ map('n', 'Ct',
                 end
             end
         )
-    end
+    end,
+    "Change Theme"
 )
 
 map('n', 'Ccl',
@@ -621,26 +646,30 @@ map('n', 'Ccl',
             vim.o.conceallevel = 2
         end
         print('Conceal: ' .. (vim.o.conceallevel == 2 and "true" or "false"))
-    end
+    end,
+    "Conceallevel"
 )
 
 map('n', 'Ccr',
     function()
         require('colorscheme').reload()
-    end
+    end,
+    "Reload Colorscheme"
 )
 
 map('n', 'Cd',
     -- Toggle terminal direction
     function()
         require('projtasks').toggle_terminal_direction()
-    end
+    end,
+    "Terminal Direction"
 )
 
 map('n', 'Cfc',
     function()
         require("nucomment").toggle_floating_comments()
-    end
+    end,
+    "Floating Comments"
 )
 
 -- Restart nvim
@@ -653,13 +682,14 @@ map('n', '<leader>R',
         vim.cmd.wa()
         vim.cmd.SessionSave()
         vim.cmd.cq()
-    end
+    end,
+    "Reload"
 )
 
 
---- ABBREVIATIONS
+--- ABBREVIATIONS  TODO: Replace with snippets
 -- email
-map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com')
+map('ia', '@@g', '92702993+tj-moody@users.noreply.github.com', "Email")
 
 -- datetime
 m_o('ia', 'dtfull', 'strftime("%c")', { expr = true })
@@ -667,20 +697,20 @@ m_o('ia', 'dtdate', 'strftime("%m/%d/%y")', { expr = true })
 m_o('ia', 'dttime', 'strftime("%H:%M")', { expr = true }) -- }}}
 
 -- META{{{
-vim.keymap.set("n", "<leader><leader>ps", function()
+map("n", "<leader><leader>ps", function()
     vim.cmd [[
         profile start /tmp/nvim-profile.log
         profile func *
         profile file *
     ]]
-end, { desc = "Profile Start" })
+end, "Profile Start")
 
-vim.keymap.set("n", "<leader><leader>pe", function()
+map("n", "<leader><leader>pe", function()
     vim.cmd [[
         profile stop
         e /tmp/nvim-profile.log
     ]]
-end, { desc = "Profile End" })
+end, "Profile End")
 -- }}}
 
 return M
