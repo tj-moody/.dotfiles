@@ -242,6 +242,11 @@ return {
         event = 'VeryLazy',
         config = true
     },
+    {
+        "folke/trouble.nvim",
+        event = 'VeryLazy',
+        config = true,
+    },
     -- Git{{{1
     {
         'lewis6991/gitsigns.nvim',
@@ -329,8 +334,8 @@ return {
     {
         dir = '~/projects/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },
-        cmd = { 'ProjtasksToggle', 'ProjtasksRun', 'ProjtasksTest', },
-        config = { direction = "vertical" },
+        event = 'VeryLazy',
+        config = function() require('config.projtasks') end
     },
     {
         'nvim-neotest/neotest',
@@ -343,8 +348,8 @@ return {
         },
         config = function() safe_require('config.neotest') end,
     },
-    -- }}}1
-    -- Competitive {{{
+    -- }}}
+    -- Competitive {{{1
     {
         "kawre/leetcode.nvim",
         build = ":TSUpdate html",
