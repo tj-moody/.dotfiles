@@ -1,3 +1,10 @@
+---@class Colorscheme
+---@field themes_list Array[string]
+---@field clear_hl_bg function
+---@field mod_hl function
+---@field setup function
+---@field safe_reload function
+---@field reload function
 local M = {}
 
 -- u/Pocco81
@@ -113,7 +120,7 @@ local hl_table = {
             { 'NvimTreeOpenedFile',       { fg = '#957fb8', bold = true, } },
             -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
-    },                -- }}}
+    },          -- }}}
     gruvbox = { -- {{{
         setup = {
             { 'Operator',                   { fg = '#928374', } },
@@ -126,7 +133,12 @@ local hl_table = {
             { 'DiagnosticVirtualTextHint',  { fg = '#b8bb26', } },
             { 'DiagnosticVirtualTextWarn',  { fg = '#fabd2f', } },
             { 'DiagnosticVirtualTextError', { fg = '#fb4934', } },
+            { 'InfoText',                   { fg = '#83a598', } },
+            { 'HintText',                   { fg = '#b8bb26', } },
+            { 'WarningText',                { fg = '#fabd2f', } },
+            { 'ErrorText',                  { fg = '#fb4934', } },
             { 'LspInlayHint',               { fg = '#83a598', bold = true, } },
+            { 'FloatTitle',                 { bg = '#060911', fg = '#83a598', } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#89b4a2' } },

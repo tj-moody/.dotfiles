@@ -1,3 +1,6 @@
+---@class Nvimtree
+---@field public nvim_tree_setup function
+---@field public nvim_tree_float_setup function
 local M = {}
 
 function M.nvim_tree_setup()
