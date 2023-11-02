@@ -1,5 +1,8 @@
 require('projtasks').setup {
-    direction = "vertical",
+    terminal_config = {
+        direction = "vertical",
+    },
+    output = "terminal",
     defaults = {
         ["rust"] = {
             ["build"] = [[cargo build]],

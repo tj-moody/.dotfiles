@@ -442,10 +442,10 @@ map('n', '<leader>ta', '<CMD>ToggleAlternate<CR>', "Toggle Alternate")
 -- }}}
 -- Project{{{
 map('n', '<C-T>', '<CMD>lua require("projtasks").toggle()<CR>', "Toggle Terminal")
-map('n', '<leader>pp', '<CMD>lua require("projtasks").recent()<CR>', "Run Project")
-map('n', '<leader>pr', '<CMD>lua require("projtasks").run()<CR>', "Run Project")
-map('n', '<leader>pb', '<CMD>lua require("projtasks").build()<CR>', "Build Project")
-map('n', '<leader>pt', '<CMD>lua require("projtasks").test()<CR>', "Test Project")
+map('n', '<leader>pp', '<CMD>lua require("projtasks").term_recent()<CR>', "Run Project")
+map('n', '<leader>pr', '<CMD>lua require("projtasks").term_run()<CR>', "Run Project")
+map('n', '<leader>pb', '<CMD>lua require("projtasks").term_build()<CR>', "Build Project")
+map('n', '<leader>pt', '<CMD>lua require("projtasks").term_test()<CR>', "Test Project")
 
 map('n', '<leader>pnt', "<CMD>lua require('neotest').summary.toggle()<CR>", "Neotest Test Project")
 map('n', '<leader>pnr', "<CMD>lua require('neotest').run.run()<CR>", "Neotest Run Test")
@@ -642,6 +642,13 @@ map('n', 'Cfc',
         require("nucomment").toggle_floating_comments()
     end,
     "Floating Comments"
+)
+
+map('n', 'Co',
+    function()
+        require('projtasks').change_output()
+    end,
+    "Change Projtasks Output"
 )
 
 -- Restart nvim
