@@ -1,0 +1,61 @@
+#!/opt/homebrew/bin/bash
+if ! test -f ./projfile.lua; then
+  echo "No projfile found."
+  exit
+fi
+task=$1
+x=$(tail -n +4 ./projfile.lua \
+    | sed -e :a -e '$d;N;2,2ba' -e 'P;D' \
+    | sed -e 's/\[\{2\}//g' \
+    | sed -e 's/\]\{2\}//g' \
+    | sed -e 's/,$//g' )
+
+task_exists=$(echo "$x"      \
+    | awk '{print $1}' \
+    | sed -e 's/"//g'  \
+    | grep -n "$task"  )
+
+if [[ -z "$task_exists" ]]; then
+    echo "Task \`${task}\` does not exist."
+    exit
+fi
+
+task_num=${task_exists:0:1}
+
+cmd=$(echo "$x"                  \
+    | awk '{$1=$2=""; print $0}' \
+    | sed -n "${task_num}"p      \
+    | sed -e 's/^ *//'           )
+
+non_quoted_rm_in_cmd=$(echo "$cmd" \
+    | grep -b -E "^(([^\"\']*\"[^\"]*\")|([^\"\']*\'[^\']*\'))*[^\"\']+(\b|;)rm" )
+    # Check if rm is within quotes. Note that this fails with escaped quotes
+    # (I'm too lazy to implement a proper lookbehind solution)
+
+rm_in_cmd=$(echo "$cmd" \
+    | grep -E "rm")
+
+escaped_quote=$(echo "$cmd"   \
+    | grep -E "(\\\")|(\\\')" )
+
+if [[ -n "$non_quoted_rm_in_cmd" ]] \
+    || [[ -n "$escaped_quote" && -n "$rm_in_cmd" ]]
+then
+    cmd=${cmd:2}
+    carats=$(echo "${cmd}"    \
+        | sed -E 's/rm/^^/g'  \
+        | sed -E 's/[^^]/ /g' )
+
+    echo -e "Task \`\e[0;32m${task}\e[0m\` (potentially) contains the \`rm\` command."
+    echo -e "    \e[0;34m|\e[0m"
+    echo -e "    \e[0;34m|\e[0m ${cmd}" | grep -E --color '(\b|;)rm'
+    echo -e "    \e[0;34m|\e[0m \e[0;31m${carats}\e[0m"
+
+    read -rp "Run anyway? " yn
+    case $yn in
+        [Yy]* ) ;;
+        * ) exit;;
+    esac
+fi
+
+echo "$cmd" | sh

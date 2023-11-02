@@ -1,5 +1,4 @@
 require('projtasks').setup {
-    -- direction = "vertical",
     direction = "vertical",
     defaults = {
         ["rust"] = {
