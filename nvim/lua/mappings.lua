@@ -42,7 +42,7 @@ map({ 'x', 'n' }, 'p', ']p', "Paste and Indent")
 map('x', 'p', '"0p', "Paste")
 
 map('n', 'X', '"_dd', "Delete Line")
-map('x', 'x', '"_d', "Delete Character")
+map('x', 'x', '"_x', "Delete Character")
 map({ 'n', 'x' }, 'c', '"_c', "Change")
 map('n', 'S', '"_S', "Subsitute Line")
 

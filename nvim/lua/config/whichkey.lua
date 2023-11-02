@@ -28,6 +28,7 @@ require('which-key').register {
         },
         ["z"] = { name = "Zen Mode" },
         ["C"] = { name = "Comment and Copy" },
+        ["x"] = { name = "QF List", },
     },
     ["C"] = {
         ["l"] = { name = "lsp-lines, verbose lualine", },
@@ -45,5 +46,4 @@ require('which-key').register {
     ["<SPACE>"] = { name = "Move Window", },
     ["d"] = { name = "Diagnostics", },
     ["s"] = { name = "Splits", },
-    ["x"] = { name = "QF List", },
 }
