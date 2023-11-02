@@ -408,6 +408,13 @@ local mod_hl_table = { -- {{{
     { 'TabLineFill',  { link = 'NormalFloat', } },
     { 'LspInlayHint', { italic = true, bg = "", } },
 } -- }}}
+local set_hl_table = {-- {{{
+    { 'DiagnosticUnderlineError', { undercurl = true, sp = M.get_color('DiagnosticError', 'fg#'), } },
+    { 'DiagnosticUnderlineWarn',  { undercurl = true, sp = M.get_color('DiagnosticWarn', 'fg#'), } },
+    { 'DiagnosticUnderlineHint',  { undercurl = true, sp = M.get_color('DiagnosticHint', 'fg#'), } },
+    { 'DiagnosticUnderlineInfo',  { undercurl = true, sp = M.get_color('DiagnosticInfo', 'fg#'), } },
+    { 'DiagnosticUnderlineOk',    { undercurl = true, sp = M.get_color('DiagnosticOk', 'fg#'), } },
+}-- }}}
 
 ---Remove background from highlight group `hl`
 ---@param hl string
@@ -463,6 +470,9 @@ local function setup_hls()
     end
     for _, v in ipairs(mod_hl_table) do
         M.mod_hl(v[1], v[2])
+    end
+    for _, v in ipairs(set_hl_table) do
+        vim.api.nvim_set_hl(0, v[1], v[2])
     end
 end
 

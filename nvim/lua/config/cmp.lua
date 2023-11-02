@@ -179,6 +179,40 @@ vim.diagnostic.config {
     underline = true,
 }
 
+-- TODO: Unclear how this setup prioritizes multiple severities on the same line
+local diagnostic_lines_ns = vim.api.nvim_create_namespace("Diagnostic_Lines")
+local diagnostic_lines_ns = vim.api.nvim_create_namespace("Diagnostic Lines")
+local orig_signs_handler = vim.diagnostic.handlers.signs
+local function severity_highlight(severity)
+    if severity == vim.diagnostic.severity.HINT then
+        return 'DiffAdd'
+    elseif severity == vim.diagnostic.severity.INFO then
+            return 'DiffChange'
+    elseif severity == vim.diagnostic.severity.WARN then
+        return 'DiffDelete'
+    end
+    return 'DiffDelete' -- severity == Error
+end
+vim.diagnostic.handlers.signs = {
+    show = function(_, bufnr, _, opts)
+        -- Handle diagnostics for whole buffer for ns convenience
+        local diagnostics = vim.diagnostic.get(bufnr)
+        for _, diagnostic in ipairs(diagnostics) do
+            vim.api.nvim_buf_set_extmark(
+                diagnostic.bufnr,
+                diagnostic_lines_ns,
+                diagnostic.lnum, 0,
+                { line_hl_group = severity_highlight(diagnostic.severity) }
+            )
+        end
+        orig_signs_handler.show(diagnostic_lines_ns, bufnr, diagnostics, opts)
+    end,
+    hide = function(_, bufnr)
+        vim.api.nvim_buf_clear_namespace(bufnr, diagnostic_lines_ns, 0, -1)
+        orig_signs_handler.hide(diagnostic_lines_ns, bufnr)
+    end,
+}
+
 require("lsp_lines").setup()
 
 local signs = {
