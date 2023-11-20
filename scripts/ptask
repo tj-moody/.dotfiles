@@ -1,0 +1,17 @@
+#!/opt/homebrew/bin/lua
+
+local ok, projfile = pcall(require, 'projfile')
+if not ok then
+    print("No projfile found in current project.")
+    return
+end
+
+if arg[1] == nil then
+    print("Tasks:\n---------------------------------")
+    for k, v in pairs(projfile.tasks) do
+        print(k, v)
+    end
+end
+
+local task = arg[1]
+os.execute(projfile.tasks[task])

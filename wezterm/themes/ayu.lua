@@ -1,6 +1,6 @@
 local colors = {
     foreground = '#b3b1ad',
-    background = '#080b10',
+    background = '#0a0e14',
 
     selection_fg = '#b3b1ad',
     selection_bg = '#171e29',

@@ -33,7 +33,7 @@ end
 --- VANILLA
 -- Remapped Defaults{{{
 
-map('n', '\\', ',', "Undo Text Motion")
+map('n', '\'', ',', "Undo Text Motion")
 
 m_o('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "Next Visual Line" })
 m_o('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "Prev Visual Line" })
@@ -225,11 +225,11 @@ local function indent_traverse(direction, equal) -- {{{
         end
     end
 end -- }}}
-map({ 'n', 'x' }, "gj", indent_traverse(1, true), "Next Equal Indent")
-map({ 'n', 'x' }, 'gk', indent_traverse(-1, true), "Prev Equal Indent")
+map({ 'n', 'x', 'o' }, "gj", indent_traverse(1, true), "Next Equal Indent")
+map({ 'n', 'x', 'o' }, 'gk', indent_traverse(-1, true), "Prev Equal Indent")
 
-map({ 'n', 'x' }, 'gJ', indent_traverse(1, false), "Last Equal Indent")
-map({ 'n', 'x' }, 'gK', indent_traverse(-1, false), "First Equal Indent")
+map({ 'n', 'x', 'o' }, 'gJ', indent_traverse(1, false), "Last Equal Indent")
+map({ 'n', 'x', 'o' }, 'gK', indent_traverse(-1, false), "First Equal Indent")
 
 map('n', '<leader>O', -- {{{
     -- Delete all other buffers
@@ -366,11 +366,12 @@ map('n', 'TT',
     "Toggle NvimTree Float"
 )
 -- }}}
--- Telescope{{{
+-- Fuzzy Search{{{
 map('n', '<leader>ff', '<CMD>Telescope smart_open<CR>', "Find File")
 map('n', '<leader>fh', '<CMD>Telescope highlights<CR>', "Find Highlight")
-map('n', '<leader>fg', '<CMD>Telescope live_grep<CR>', "Find Grep")
+map('n', '<leader>fg', '<CMD>Rg<CR>', "Find Grep")
 map('n', '<leader>fk', '<CMD>Telescope keymaps<CR>', "Find Keymap")
+map('n', '<leader>fb', '<CMD>Buffers<CR>', "Find Buffer")
 -- }}}
 -- Bufferline{{{
 map('n', 'H', '<CMD>BufferLineCyclePrev<CR>', "Previous Buffer")
@@ -390,12 +391,6 @@ map('n', '<leader>tq', '<CMD>tabclose<CR>', "Quit Tab")
 map('n', '<leader>lz', '<CMD>Lazy<CR>', "Lazy")
 -- }}}
 -- Git{{{
-map('n', '<leader>lg',
-    function()
-        require('wezterm').spawn("Lazygit", { cwd = vim.fn.getcwd() })
-    end,
-    "Lazygit"
-)
 map('n', '<leader>gd',
     function()
         if next(require('diffview.lib').views) == nil then
@@ -419,7 +414,6 @@ map('n', '<leader>gh',
 map('n', '<leader>gj', '<CMD>Gitsigns next_hunk<CR>', "Next Change")
 map('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>', "Prev Change")
 map('n', '<leader>gb', '<CMD>Gitsigns blame_line<CR>', "Blame Line")
-map('n', '<leader>gB', '<CMD>ToggleBlame virtual<CR>', "Show Blame")
 -- }}}
 -- Splits{{{
 map('n', '<C-h>', require('smart-splits').move_cursor_left, "Navigate Left")
@@ -446,11 +440,8 @@ map('n', '<leader>pp', '<CMD>lua require("projtasks").term_recent()<CR>', "Run P
 map('n', '<leader>pr', '<CMD>lua require("projtasks").term_run()<CR>', "Run Project")
 map('n', '<leader>pb', '<CMD>lua require("projtasks").term_build()<CR>', "Build Project")
 map('n', '<leader>pt', '<CMD>lua require("projtasks").term_test()<CR>', "Test Project")
-
-map('n', '<leader>pnt', "<CMD>lua require('neotest').summary.toggle()<CR>", "Neotest Test Project")
-map('n', '<leader>pnr', "<CMD>lua require('neotest').run.run()<CR>", "Neotest Run Test")
-map('n', '<leader>pnf', "<CMD>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", "Neotest Test File")
-map('n', '<leader>pno', "<CMD>lua require('neotest').output.open()<CR>", "Neotest Open Tests")
+map('n', '<leader>pB', '<CMD>lua require("projtasks").term_bench()<CR>', "Benchmark Project")
+map('n', '<leader>pP', '<CMD>lua require("projtasks").term_profile()<CR>', "Profile Project")
 -- }}}
 -- Comment{{{
 map('n', '<leader>co', [[<CMD>execute "norm! o" . substitute(&commentstring, '%s', '', '')<CR>A]], "Comment Below")
@@ -468,6 +459,8 @@ map('x', '<leader>C', [[y`>pgv:norm ,cc<CR>`>j^]], "Comment and Duplicate")
 -- }}}
 -- Lsp{{{
 map('n', '<leader>ls', "<CMD>LspStart<CR>", "Start Lsp")
+map('n', '<leader>lS', "<CMD>LspStop<CR>", "Stop Lsp")
+map('n', '<leader>lr', "<CMD>LspRestart<CR>", "Restart Lsp")
 -- }}}
 -- Zen {{{
 M.toggle_zen = function()

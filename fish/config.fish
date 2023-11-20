@@ -18,9 +18,9 @@ if status is-interactive
     set PATH $HOME/packages/potion/bin $PATH
     set MODULAR_HOME /Users/tj/.modular
     set PATH $HOME/.modular/pkg/packages.modular.com_mojo/bin $PATH
-    set PATH $HOME/.dotfiles/bash/bin $PATH
+    set PATH $HOME/.dotfiles/scripts $PATH
 
-    export FZF_DEFAULT_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
+    export FZF_DEFAULT_OPTS="--border=none --no-scrollbar --preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
     export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'"
 
     export BAT_THEME="gruvbox-dark"

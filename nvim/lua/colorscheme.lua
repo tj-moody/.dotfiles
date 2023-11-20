@@ -142,7 +142,7 @@ local hl_table = {
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#89b4a2' } },
-            { 'AlphaFooter1', { fg = '#ea6962' } },
+            { 'AlphaFooter1', { fg = '#fb4934' } },
         },
         nvim_tree = {
             { 'NvimTreeFolderIcon',       { fg = '#fabd2f', } },

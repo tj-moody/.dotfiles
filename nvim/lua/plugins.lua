@@ -1,4 +1,6 @@
 local fun = { -- {{{
+
+
     {
         "giusgad/pets.nvim",
         event = 'VeryLazy',
@@ -10,6 +12,10 @@ local fun = { -- {{{
             popup = { avoid_statusline = true },
         },
         cond = vim.g.have_fun,
+    },
+    {
+        'RRethy/nvim-base16',
+        event = 'VeryLazy',
     },
 } -- }}}
 return {
@@ -29,7 +35,7 @@ return {
         },
         config = function() safe_require("colorscheme").setup() end,
     }, -- }}}
-    -- Telescope{{{1
+    -- Search{{{1
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.4',
@@ -50,6 +56,14 @@ return {
             },
         },
         config = function() safe_require('config.telescope') end,
+    },
+    {
+        'junegunn/fzf.vim',
+        dependencies = { 'junegunn/fzf', },
+        event = 'VeryLazy',
+        config = function()
+            vim.g.fzf_layout = { ['down'] = '~30%' }
+        end
     }, -- }}}
     -- Treesitter{{{1
     {
@@ -101,10 +115,10 @@ return {
         },
     },
     {
-        event = 'VeryLazy',
         "jose-elias-alvarez/null-ls.nvim",
-        config = function() safe_require('config.null-ls') end,
+        event = 'VeryLazy',
         dependencies = { "nvim-lua/plenary.nvim" },
+        config = function() safe_require('config.null-ls') end,
     }, -- }}}
     -- Languages{{{1
     ---- LaTeX{{{2
@@ -125,12 +139,6 @@ return {
         'tpope/vim-surround',
         event = 'VeryLazy',
     },
-    -- TODO: Investigate - breaks default `%` for some reason?
-    -- {
-    --     'andymass/vim-matchup',
-    --     -- event = 'BufReadPost',g
-    --     event = 'VeryLazy',
-    -- },
     {
         'rmagatti/auto-session',
         lazy = not vim.g.tj_reloaded,
@@ -165,7 +173,7 @@ return {
                 map_bs = false,
                 disable_filetype = { "TelescopePrompt", "text" }
             }
-            vim.cmd [[set formatoptions-=cro]]
+            vim.opt.formatoptions = "rjql"
         end,
     },
     {
@@ -193,22 +201,9 @@ return {
         config = function() safe_require('config.alternate-toggler') end,
     },
     {
-        'michaelb/sniprun',
-        build = 'sh ./install.sh',
-        config = function()
-            vim.api.nvim_set_hl(0, 'SniprunVirtualTextOk',
-                {
-                    fg = safe_require('colorscheme')
-                        .get_color('SniprunVirtualTextOk', 'bg#')
-                })
-        end,
-        event = 'VeryLazy',
-    },
-    {
         'willothy/flatten.nvim',
-        config = {
-            window = { open = 'alternate' },
-        },
+        config = { window = { open = 'alternate' }, },
+        priority = 1001,
         lazy = false,
     },
     {
@@ -234,14 +229,10 @@ return {
         config = true
     },
     {
-        'numToStr/Navigator.nvim',
-        lazy = false,
-        config = true,
-    },
-    {
         'mrjones2014/smart-splits.nvim',
+        dependencies = { { 'numToStr/Navigator.nvim', config = true } },
         lazy = false,
-        config = function() safe_require('config.smart-splits') end
+        config = function() safe_require('config.smart-splits') end,
     },
     -- Git{{{1
     {
@@ -254,15 +245,6 @@ return {
         'sindrets/diffview.nvim',
         cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewFileHistory' },
         dependencies = 'nvim-lua/plenary.nvim',
-    },
-    {
-        "FabijanZulj/blame.nvim",
-        event = 'VeryLazy',
-    },
-    {
-        'rbong/vim-flog',
-        dependencies = { 'tpope/vim-fugitive', },
-        event = 'VeryLazy',
     },
     -- UI{{{1
     {
@@ -333,36 +315,6 @@ return {
         event = 'VeryLazy',
         config = function() require('config.projtasks') end
     },
-    {
-        'nvim-neotest/neotest',
-        event = 'VeryLazy',
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "antoinemadec/FixCursorHold.nvim",
-            "rouge8/neotest-rust",
-        },
-        config = function() safe_require('config.neotest') end,
-    },
     -- }}}
-    -- Competitive {{{1
-    {
-        "kawre/leetcode.nvim",
-        build = ":TSUpdate html",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-telescope/telescope.nvim",
-            "nvim-lua/plenary.nvim", -- required by telescope
-            "MunifTanjim/nui.nvim",
-
-            -- optional
-            "nvim-tree/nvim-web-devicons",
-        },
-        lazy = "leetcode" ~= vim.fn.argv()[1],
-        opts = {
-            arg = "leetcode",
-        },
-    },
-    --}}}
     fun,
 }

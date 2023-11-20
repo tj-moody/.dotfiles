@@ -99,8 +99,9 @@ o.matchpairs = '(:),{:},[:],<:>'
 o.undofile = true
 o.smoothscroll = true
 o.textwidth = 80
-o.formatoptions = "crjql"
+o.formatoptions = "rjql"
 o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
+o.grepprg = "rg --vimgrep --smart-case --follow"
 
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false

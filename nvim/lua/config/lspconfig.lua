@@ -152,7 +152,7 @@ local on_attach = function(_, bufnr)
     m_b('n', 'gs', vim.lsp.buf.signature_help, bufnr, "Get Signature") -- "go type"
     m_b('n', 'gtd', vim.lsp.buf.type_definition, bufnr, "Go to Type Definition")
     m_b('n', '<leader>rn', vim.lsp.buf.rename, bufnr, "Rename")
-    -- m_b('n', '<leader>ca', vim.lsp.buf.code_action, bufnr, "Code Action")
+    m_b('n', '<leader>da', vim.lsp.buf.code_action, bufnr, "Code Action")
     m_b('n', 'gr', vim.lsp.buf.references, bufnr, "Go to References")
     m_b('n', '<leader>df', function()
         -- vim.cmd("norm! mz")

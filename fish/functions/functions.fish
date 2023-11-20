@@ -162,7 +162,7 @@ function conda_auto_env --on-event fish_prompt
 end
 
 function lavat
-    ~/packages/lavat/lavat -c magenta -R 5 -F @%#&I!:.
+    ~/packages/lavat/lavat -c magenta -R 5 -F "@%#&I!:."
 end
 
 function projinit
@@ -185,4 +185,13 @@ function ssh
     printf '\x1b]104;\x1b\\'
     echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
     echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $COLORS_NAME | base64)\007"
+end
+
+function vimtip
+    curl https://vtip.43z.one
+end
+
+function profile
+    echo ""
+    sudo flamegraph -o flamegraph.svg -- $argv && open flamegraph.svg && rm flamegraph.svg
 end
