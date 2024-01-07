@@ -190,8 +190,3 @@ end
 function vimtip
     curl https://vtip.43z.one
 end
-
-function profile
-    echo ""
-    sudo flamegraph -o flamegraph.svg -- $argv && open flamegraph.svg && rm flamegraph.svg
-end
