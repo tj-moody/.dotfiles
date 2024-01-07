@@ -19,6 +19,8 @@ if status is-interactive
     set MODULAR_HOME /Users/tj/.modular
     set PATH $HOME/.modular/pkg/packages.modular.com_mojo/bin $PATH
     set PATH $HOME/.dotfiles/scripts $PATH
+    set PATH $HOME/.config/emacs/bin $PATH
+    set PATH /usr/local/opt/texinfo/bin $PATH # load newer version of makeinfo for emacs
 
     export FZF_DEFAULT_OPTS="--border=none --no-scrollbar --preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
     export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'"
