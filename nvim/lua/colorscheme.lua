@@ -30,7 +30,7 @@ M.themes_list = {
     'midnightclub',
 }
 
-vim.g.tjtheme = os.getenv('COLORS_NAME')
+-- vim.g.tjtheme = os.getenv('COLORS_NAME')
 local valid_color = false
 for _, v in ipairs(M.themes_list) do
     if v == vim.g.tjtheme then
@@ -139,6 +139,7 @@ local hl_table = {
             { 'ErrorText',                  { fg = '#fb4934', } },
             { 'LspInlayHint',               { fg = '#83a598', bold = true, } },
             { 'FloatTitle',                 { bg = '#060911', fg = '#83a598', } },
+            { 'MatchParen',                 { fg = '#a454ff', bold = true, } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#89b4a2' } },
@@ -391,6 +392,8 @@ local clear_hl_bg_table = { -- {{{
     'DiagnosticSignHint',
 
     'Folded',
+
+    'TabLineFill',
 }                        -- }}}
 local clear_hl_table = { -- {{{
     'CursorLine',
@@ -405,7 +408,6 @@ local mod_hl_table = { -- {{{
     { 'Folded',       { bold = true, } },
     { 'TermCursor',   { link = 'Cursor' } },
     { 'TermCursorNC', { link = 'Normal' } },
-    { 'TabLineFill',  { link = 'NormalFloat', } },
     { 'LspInlayHint', { italic = true, bg = "", } },
 } -- }}}
 local set_hl_table = {-- {{{
