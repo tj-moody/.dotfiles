@@ -30,7 +30,7 @@ M.themes_list = {
     'midnightclub',
 }
 
--- vim.g.tjtheme = os.getenv('COLORS_NAME')
+vim.g.tjtheme = os.getenv('COLORS_NAME')
 local valid_color = false
 for _, v in ipairs(M.themes_list) do
     if v == vim.g.tjtheme then
