@@ -6,12 +6,31 @@ if not ok then
     return
 end
 
+local version = projfile.version
 if arg[1] == nil then
     print("Tasks:\n---------------------------------")
     for k, v in pairs(projfile.tasks) do
-        print(k, v)
+        if version == "0.1.0" then
+            print(k, v)
+        else
+            local task_str = ""
+            for _, str in ipairs(v) do
+                task_str = task_str .. " -> " .. str
+            end
+            print(k, "| " .. task_str:sub(4, -1))
+        end
     end
+    return
 end
 
+
+
 local task = arg[1]
-os.execute(projfile.tasks[task])
+if version == "0.1.0" then
+    print("Consider reformatting to version 0.1.1")
+    os.execute(projfile.tasks[task])
+    return
+end
+for _, command in ipairs(projfile.tasks[task]) do
+    os.execute(command)
+end
