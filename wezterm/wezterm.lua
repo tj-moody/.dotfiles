@@ -22,6 +22,13 @@ config.cell_width = 1
 config.line_height = 1
 config.bold_brightens_ansi_colors = "BrightAndBold"
 config.freetype_render_target = "HorizontalLcd"
+-- TURN OFF LIGATURES
+-- config.harfbuzz_features = {"calt=0", "clig=0", "liga=0"}
+
+-- TODO: Update pending
+-- https://github.com/wez/wezterm/issues/4610
+-- config.underline_thickness = 3
+config.underline_position = -4
 
 local themes_list = {
     "noclownfiesta",
