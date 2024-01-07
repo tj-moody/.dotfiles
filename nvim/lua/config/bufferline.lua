@@ -37,6 +37,7 @@ require("bufferline").setup {
         indicator = {
             icon = '▎', -- this should be omitted if indicator style is not 'icon'
             style = 'icon',
+            -- style = "underline",
         },
         diagnostics = "nvim_lsp",
         offsets = {
@@ -79,6 +80,24 @@ require("bufferline").setup {
             --     return result
             -- end,
         },
+        -- get_element_icon = function(element)
+        --     local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
+        --     if not hl then
+        --         return icon, hl
+        --     end
+        --     local is_ok, hl_def = pcall( vim.api.nvim_get_hl, 0, { name = hl, link = true })
+        --     if not is_ok then
+        --         return icon, hl
+        --     end
+        --     hl_def["sp"] = safe_require('colorscheme').get_color(
+        --         "BufferlineTabSelected",
+        --         'sp#'
+        --     )
+        --     P(hl_def["sp"])
+        --     hl_def["underline"] = true
+        --     vim.api.nvim_set_hl( 0, "Bufferline" .. hl .. "Selected", hl_def)
+        --     return icon, hl
+        -- end
     },
     highlights = {
         fill = { bg = bgcolor },
@@ -118,18 +137,18 @@ require("bufferline").setup {
         diagnostic = { bg = bgcolor, },
         diagnostic_visible = { bg = bgcolor, },
         hint = {
-            sp = bgcolor,
+            -- sp = bgcolor,
             bg = ''
         },
         hint_visible = { bg = bgcolor },
         hint_selected = {
             bg = bgcolor,
-            sp = '',
+            -- sp = '',
             bold = true,
             italic = true,
         },
         hint_diagnostic = {
-            sp = bgcolor,
+            -- sp = bgcolor,
             bg = ''
         },
         hint_diagnostic_visible = {
@@ -141,7 +160,7 @@ require("bufferline").setup {
             italic = true,
         },
         info = {
-            sp = bgcolor,
+            -- sp = bgcolor,
             bg = '',
         },
         info_visible = { bg = bgcolor, },
@@ -151,7 +170,7 @@ require("bufferline").setup {
             italic = true,
         },
         info_diagnostic = {
-            sp = bgcolor,
+            -- sp = bgcolor,
             bg = '',
         },
         info_diagnostic_visible = { bg = bgcolor, },
@@ -161,7 +180,7 @@ require("bufferline").setup {
             italic = true,
         },
         warning = {
-            sp = bgcolor,
+            -- sp = bgcolor,
             bg = '',
         },
         warning_visible = { bg = bgcolor, },
@@ -171,7 +190,7 @@ require("bufferline").setup {
             italic = true,
         },
         warning_diagnostic = {
-            sp = bgcolor,
+            -- sp = bgcolor,
             bg = '',
         },
         warning_diagnostic_visible = { bg = bgcolor, },
@@ -182,7 +201,7 @@ require("bufferline").setup {
         },
         error = {
             bg = bgcolor,
-            sp = '',
+            -- sp = '',
         },
         error_visible = {
             bg = bgcolor,
@@ -194,7 +213,7 @@ require("bufferline").setup {
         },
         error_diagnostic = {
             bg = bgcolor,
-            sp = '',
+            -- sp = '',
         },
         error_diagnostic_visible = { bg = bgcolor, },
         error_diagnostic_selected = {
