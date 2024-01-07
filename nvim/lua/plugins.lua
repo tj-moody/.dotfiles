@@ -16,25 +16,52 @@ local fun = { -- {{{
     {
         'RRethy/nvim-base16',
         event = 'VeryLazy',
+        cond = vim.g.have_fun,
+    },
+    {
+        'AlexvZyl/nordic.nvim',
+        cond = vim.g.have_fun,
     },
 } -- }}}
 return {
     -- Colorscheme{{{1
     {
-        'aktersnurra/no-clown-fiesta.nvim',
-        dependencies = {
-            'rebelot/kanagawa.nvim',
-            'sainnhe/gruvbox-material',
-            'folke/tokyonight.nvim',
-            'EdenEast/nightfox.nvim',
-            'catppuccin/nvim',
-            'sainnhe/everforest',
-            'AlexvZyl/nordic.nvim',
-            'Shatur/neovim-ayu',
-            'nyngwang/midnight-club.nvim',
-        },
+        lazy = false,
+        'sainnhe/gruvbox-material',
         config = function() safe_require("colorscheme").setup() end,
-    }, -- }}}
+    },
+    {
+        'aktersnurra/no-clown-fiesta.nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'rebelot/kanagawa.nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'folke/tokyonight.nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'EdenEast/nightfox.nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'catppuccin/nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'sainnhe/everforest',
+        event = 'VeryLazy',
+    },
+    {
+        'Shatur/neovim-ayu',
+        event = 'VeryLazy',
+    },
+    {
+        'nyngwang/midnight-club.nvim',
+        event = 'VeryLazy',
+    },
     -- Search{{{1
     {
         'nvim-telescope/telescope.nvim',
@@ -56,6 +83,7 @@ return {
             },
         },
         config = function() safe_require('config.telescope') end,
+        event = 'VeryLazy',
     },
     {
         'junegunn/fzf.vim',
@@ -231,7 +259,7 @@ return {
     {
         'mrjones2014/smart-splits.nvim',
         dependencies = { { 'numToStr/Navigator.nvim', config = true } },
-        lazy = false,
+        event = 'VeryLazy',
         config = function() safe_require('config.smart-splits') end,
     },
     -- Git{{{1
@@ -249,10 +277,11 @@ return {
     -- UI{{{1
     {
         'akinsho/bufferline.nvim',
-        lazy = false,
+        -- lazy = false,
+        event = 'VeryLazy',
         dependencies = {
             'nvim-tree/nvim-web-devicons',
-            'aktersnurra/no-clown-fiesta.nvim'
+            'sainnhe/gruvbox-material',
         },
         config = function() safe_require('config.bufferline') end,
     },
@@ -261,7 +290,9 @@ return {
         priority = 100,
         event = 'VeryLazy',
         config = function() safe_require('config.lualine') end,
-        dependencies = { "Pheon-Dev/pigeon", },
+        dependencies = {
+            "Pheon-Dev/pigeon",
+        },
     },
     {
         'nvim-tree/nvim-tree.lua',
@@ -299,6 +330,8 @@ return {
             keywords = {
                 ["DONE"] = { icon = " ", color = "#b8bb26", },
                 ["TODO"] = { icon = " ", color = "info" },
+                ["DEBUG"] = { icon = " ", color = "#a454ff" },
+                ["DEBUG_ONLY"] = { icon = " ", color = "#a454ff" },
             },
         },
     },
