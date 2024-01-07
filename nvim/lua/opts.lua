@@ -102,8 +102,16 @@ o.textwidth = 80
 o.formatoptions = "rjql"
 o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
 o.grepprg = "rg --vimgrep --smart-case --follow"
+o.showtabline = 2
+o.tabline = " "
 
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false
 vim.g.have_fun = false
 vim.g.zen_mode = false
+
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_node_provider = 0
