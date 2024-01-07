@@ -38,7 +38,7 @@ map('n', '\'', ',', "Undo Text Motion")
 m_o('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "Next Visual Line" })
 m_o('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "Prev Visual Line" })
 
-map({ 'x', 'n' }, 'p', ']p', "Paste and Indent")
+map('n', 'p', ']p', "Paste and Indent")
 map('x', 'p', '"0p', "Paste")
 
 map('n', 'X', '"_dd', "Delete Line")
@@ -96,15 +96,11 @@ map('x', 's', '<Plug>VSurround', "Surround")
 map('n', 'sl', '<CMD>vsp<CR>', "Split Rigth")
 map('n', 'sj', '<CMD>sp<CR>', "Split Down")
 map('n', 'se', '<c-w>=', "Equalize Splits")
-map('n', 'sr', require('smart-splits').start_resize_mode, "Resize Splits")
+map('n', 'sr', "<CMD>lua require('smart-splits').start_resize_mode<CR>", "Resize Splits")
 
 map('x', 'V', 'j', "Expand V-Line Selection")
 
 map('n', 'gV', '`[v`]', "Highlight Prev Selection")
-
--- NOTE: Possibly unmap?
-map('n', '<TAB>', '<CMD>tabnext<CR>', "Next Tab")
-map('n', '<S-TAB>', '<CMD>tabprevious<CR>', "Prev Tab")
 
 -- Backspace helper values{{{
 local escape_code = api.nvim_replace_termcodes(
@@ -416,17 +412,17 @@ map('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>', "Prev Change")
 map('n', '<leader>gb', '<CMD>Gitsigns blame_line<CR>', "Blame Line")
 -- }}}
 -- Splits{{{
-map('n', '<C-h>', require('smart-splits').move_cursor_left, "Navigate Left")
-map('n', '<C-j>', require('smart-splits').move_cursor_down, "Navigate Down")
-map('n', '<C-k>', require('smart-splits').move_cursor_up, "Navigate Up")
-map('n', '<C-l>', require('smart-splits').move_cursor_right, "Navigate Right")
+map('n', '<C-h>', "<CMD>lua require('smart-splits').move_cursor_left<CR>", "Navigate Left")
+map('n', '<C-j>', "<CMD>lua require('smart-splits').move_cursor_down<CR>", "Navigate Down")
+map('n', '<C-k>', "<CMD>lua require('smart-splits').move_cursor_up<CR>", "Navigate Up")
+map('n', '<C-l>', "<CMD>lua require('smart-splits').move_cursor_right<CR>", "Navigate Right")
 
 map('n', '<Space>h', '<C-w>H', "Move Right")
 map('n', '<Space>j', '<C-w>J', "Move Down")
 map('n', '<Space>k', '<C-w>K', "Move Up")
 map('n', '<Space>l', '<C-w>L', "Move Right")
 
-map('n', 'sr', require('smart-splits').start_resize_mode, "Splits Resize")
+map('n', 'sr', "<CMD>lua require('smart-splits').start_resize_mode<CR>", "Splits Resize")
 -- }}}
 -- TreeSJ{{{
 map('n', '<c-s>', '<CMD>TSJToggle<CR>', "Split/Join")
