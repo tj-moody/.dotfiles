@@ -342,7 +342,7 @@ map('n', 't',
             cmd('NvimTreeClose')
             cmd('NvimTreeOpen')
         end
-        safe_require('colorscheme').setup('nvim_tree')
+        safe_require('plugins.colorscheme').setup('nvim_tree')
     end,
     "Toggle NvimTree"
 )
@@ -412,10 +412,10 @@ map('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>', "Prev Change")
 map('n', '<leader>gb', '<CMD>Gitsigns blame_line<CR>', "Blame Line")
 -- }}}
 -- Splits{{{
-map('n', '<C-h>', "<CMD>lua require('smart-splits').move_cursor_left<CR>", "Navigate Left")
-map('n', '<C-j>', "<CMD>lua require('smart-splits').move_cursor_down<CR>", "Navigate Down")
-map('n', '<C-k>', "<CMD>lua require('smart-splits').move_cursor_up<CR>", "Navigate Up")
-map('n', '<C-l>', "<CMD>lua require('smart-splits').move_cursor_right<CR>", "Navigate Right")
+map('n', '<C-h>', "<CMD>lua require('smart-splits').move_cursor_left()<CR>", "Navigate Left")
+map('n', '<C-j>', "<CMD>lua require('smart-splits').move_cursor_down()<CR>", "Navigate Down")
+map('n', '<C-k>', "<CMD>lua require('smart-splits').move_cursor_up()<CR>", "Navigate Up")
+map('n', '<C-l>', "<CMD>lua require('smart-splits').move_cursor_right()<CR>", "Navigate Right")
 
 map('n', '<Space>h', '<C-w>H', "Move Right")
 map('n', '<Space>j', '<C-w>J', "Move Down")
@@ -583,13 +583,13 @@ map('n', 'Clv',
 map('n', 'Ct',
     -- Change theme
     function()
-        vim.ui.select(safe_require('colorscheme').themes_list, {
+        vim.ui.select(safe_require('plugins.colorscheme').themes_list, {
                 prompt = 'Choose theme:',
             },
             function(choice)
                 if choice then
                     vim.g.tjtheme = choice
-                    safe_require('colorscheme').reload()
+                    safe_require('plugins.colorscheme').reload()
                     require('wezterm').set_user_var("COLORS_NAME", choice)
                 end
             end
@@ -613,7 +613,7 @@ map('n', 'Ccl',
 
 map('n', 'Ccr',
     function()
-        require('colorscheme').reload()
+        require('plugins.colorscheme').reload()
     end,
     "Reload Colorscheme"
 )

@@ -17,10 +17,10 @@ function M.nvim_tree_setup()
         },
     }
 
-    safe_require('colorscheme').clear_hl_bg('NvimTreeNormalNC')
-    safe_require('colorscheme').clear_hl_bg('NvimTreeNormal')
-    safe_require('colorscheme').clear_hl_bg('NvimTreeNormalFloat')
-    safe_require('colorscheme').setup('nvim_tree')
+    safe_require('plugins.colorscheme').clear_hl_bg('NvimTreeNormalNC')
+    safe_require('plugins.colorscheme').clear_hl_bg('NvimTreeNormal')
+    safe_require('plugins.colorscheme').clear_hl_bg('NvimTreeNormalFloat')
+    safe_require('plugins.colorscheme').setup('nvim_tree')
 end
 
 function M.nvim_tree_float_setup()
@@ -61,16 +61,25 @@ function M.nvim_tree_float_setup()
     })
 
     local function set_float_bg(hl)
-        local get_color = safe_require('colorscheme').get_color
+        local get_color = safe_require('plugins.colorscheme').get_color
         vim.api.nvim_set_hl(0, hl, {
             fg = get_color(hl, 'fg#'),
             bg = get_color('NormalFloat', 'bg#'),
         })
     end
-    safe_require('colorscheme').setup('nvim_tree')
+    safe_require('plugins.colorscheme').setup('nvim_tree')
     set_float_bg('NvimTreeNormal')
     set_float_bg('NvimTreeNormalNC')
     set_float_bg('NvimTreeNormalFloat')
 end
+
+M.spec = {
+    {
+        'nvim-tree/nvim-tree.lua',
+        cmd = { 'NvimTreeClose', 'NvimTreeToggle', },
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = M.nvim_tree_setup
+    },
+}
 
 return M

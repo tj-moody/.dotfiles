@@ -516,8 +516,48 @@ end
 ---Reload all colorscheme customizations
 function M.reload()
     M.safe_reload()
-    safe_require('config.bufferline')
-    safe_require('config.lualine')
+    safe_require('plugins.bufferline').setup()
+    safe_require('plugins.lualine').setup()
 end
+
+M.spec = {
+    {
+        lazy = false,
+        'sainnhe/gruvbox-material',
+        config = M.setup
+    },
+    {
+        'aktersnurra/no-clown-fiesta.nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'rebelot/kanagawa.nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'folke/tokyonight.nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'EdenEast/nightfox.nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'catppuccin/nvim',
+        event = 'VeryLazy',
+    },
+    {
+        'sainnhe/everforest',
+        event = 'VeryLazy',
+    },
+    {
+        'Shatur/neovim-ayu',
+        event = 'VeryLazy',
+    },
+    {
+        'nyngwang/midnight-club.nvim',
+        event = 'VeryLazy',
+    },
+}
 
 return M

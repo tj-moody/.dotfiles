@@ -1,22 +1,18 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+---@class PluginLoader
+---@field spec Array
+---@field add function
+---@field load function
+local M = {}
+
+M.spec = {}
+M.add = function(plugin)
+    table.insert(M.spec, require('plugins.' .. plugin).spec)
 end
-vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = ','
-
-require("lazy").setup("plugins", {
+local lazy_options = {-- {{{
     root = vim.fn.stdpath("data") .. "/lazy", -- directory where plugins will be installed
     defaults = {
-        lazy = true, -- should plugins be lazy-loaded?
+        lazy = true,                      -- should plugins be lazy-loaded?
         version = nil,
         -- version = "*", -- enable this to try installing the latest stable versions of plugins
     },
@@ -28,7 +24,7 @@ require("lazy").setup("plugins", {
         -- defaults for the `Lazy log` command
         -- log = { "-10" }, -- show the last 10 commits
         log = { "--since=3 days ago" }, -- show commits from the last 3 days
-        timeout = 120, -- kill processes that take more than 2 minutes
+        timeout = 120,              -- kill processes that take more than 2 minutes
         url_format = "https://github.com/%s.git",
         -- lazy.nvim requires git >=2.19.0. If you really want to use lazy with an older version,
         -- then set the below to false. This is should work, but is NOT supported and will
@@ -111,9 +107,9 @@ require("lazy").setup("plugins", {
         },
         reset_packpath = true, -- reset the package path to improve startup time
         rtp = {
-            reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory
+            reset = true,  -- reset the runtime path to $VIMRUNTIME and your config directory
             ---@type string[]
-            paths = {}, -- add any custom paths here that you want to includes in the rtp
+            paths = {},    -- add any custom paths here that you want to includes in the rtp
             ---@type string[] list any plugins you want to disable here
             disabled_plugins = {
                 -- "gzip",
@@ -137,4 +133,25 @@ require("lazy").setup("plugins", {
         skip_if_doc_exists = true,
     },
     state = vim.fn.stdpath("state") .. "/lazy/state.json", -- state info for checker and other things
-})
+}-- }}}
+
+M.load = function()
+    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+    if not vim.loop.fs_stat(lazypath) then
+        vim.fn.system({
+            "git",
+            "clone",
+            "--filter=blob:none",
+            "https://github.com/folke/lazy.nvim.git",
+            "--branch=stable", -- latest stable release
+            lazypath,
+        })
+    end
+    vim.opt.rtp:prepend(lazypath)
+
+    vim.g.mapleader = ','
+
+    require("lazy").setup(M.spec, lazy_options)
+end
+
+return M
