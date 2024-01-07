@@ -11,6 +11,7 @@
 " https://github.com/tj-moody
 
 """ Opts"{{{
+set term=xterm-256color
 set nocompatible
 
 let mapleader = ","
