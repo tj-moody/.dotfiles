@@ -22,10 +22,18 @@ if status is-interactive
     set PATH $HOME/.config/emacs/bin $PATH
     set PATH /usr/local/opt/texinfo/bin $PATH # load newer version of makeinfo for emacs
 
+    set PATH /opt/homebrew/opt/openjdk/bin $PATH
+    export JAVA_HOME="/opt/homebrew/opt/openjdk/bin"
+
+    export CPATH="/opt/homebrew/include"
+    export LIBRARY_PATH="/opt/homebrew/lib"
+
     export FZF_DEFAULT_OPTS="--border=none --no-scrollbar --preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
     export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'"
 
     export BAT_THEME="gruvbox-dark"
+
+    export RASPI="pi@192.168.1.86"
 
     # Init
     # Starship
