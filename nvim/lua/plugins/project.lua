@@ -3,7 +3,6 @@ M.spec = {
     {
         dir = '~/projects/projtasks.nvim',
         dependencies = { 'akinsho/toggleterm.nvim' },
-        event = 'VeryLazy',
         config = {
             terminal_config = {
                 direction = "vertical",

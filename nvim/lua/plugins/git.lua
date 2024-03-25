@@ -2,9 +2,8 @@ local M = {}
 M.spec = {
     {
         'lewis6991/gitsigns.nvim',
-        priority = 100,
-        event = 'VeryLazy',
         config = true,
+        event = "LazyFile",
     },
     {
         'sindrets/diffview.nvim',

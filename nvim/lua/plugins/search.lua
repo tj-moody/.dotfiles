@@ -5,6 +5,7 @@ M.spec = {
         tag = '0.1.4',
         cmd = { 'Telescope', },
         dependencies = {
+            { 'nvim-telescope/telescope-file-browser.nvim' },
             { 'nvim-lua/plenary.nvim' },
             {
                 "danielfalk/smart-open.nvim",
@@ -42,16 +43,28 @@ M.spec = {
                     sorting_strategy = 'ascending',
                     -- winblend = 20,
                 },
+                file_browser = {
+                    hijack_netrw = true,
+                    -- mappings = {
+                    --     ["i"] = {
+                    --         -- your custom insert mode mappings
+                    --     },
+                    --     ["n"] = {
+                    --         -- your custom normal mode mappings
+                    --     },
+                    -- },
+                },
             }
 
             require('telescope').load_extension("smart_open")
+            require("telescope").load_extension("file_browser")
         end,
-        event = 'VeryLazy',
     },
     {
         'junegunn/fzf.vim',
         dependencies = { 'junegunn/fzf', },
-        event = 'VeryLazy',
+        cmd = { 'Rg', 'Buffers' },
+
         config = function()
             vim.g.fzf_layout = { ['down'] = '~30%' }
         end

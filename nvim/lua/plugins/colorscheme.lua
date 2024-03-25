@@ -140,6 +140,8 @@ local hl_table = {
             { 'LspInlayHint',               { fg = '#83a598', bold = true, } },
             { 'FloatTitle',                 { bg = '#060911', fg = '#83a598', } },
             { 'MatchParen',                 { fg = '#a454ff', bold = true, } },
+            { 'Search',                     { fg = '#b8bb26', bold = true, } },
+            { 'IncSearch',                  { fg = '#fb4934', bold = true, } },
         },
         alpha = {
             { 'AlphaHeader',  { fg = '#89b4a2' } },
@@ -409,14 +411,14 @@ local mod_hl_table = { -- {{{
     { 'TermCursor',   { link = 'Cursor' } },
     { 'TermCursorNC', { link = 'Normal' } },
     { 'LspInlayHint', { italic = true, bg = "", } },
-} -- }}}
-local set_hl_table = {-- {{{
+}                      -- }}}
+local set_hl_table = { -- {{{
     { 'DiagnosticUnderlineError', { undercurl = true, sp = M.get_color('DiagnosticError', 'fg#'), } },
     { 'DiagnosticUnderlineWarn',  { undercurl = true, sp = M.get_color('DiagnosticWarn', 'fg#'), } },
     { 'DiagnosticUnderlineHint',  { undercurl = true, sp = M.get_color('DiagnosticHint', 'fg#'), } },
     { 'DiagnosticUnderlineInfo',  { undercurl = true, sp = M.get_color('DiagnosticInfo', 'fg#'), } },
     { 'DiagnosticUnderlineOk',    { undercurl = true, sp = M.get_color('DiagnosticOk', 'fg#'), } },
-}-- }}}
+} -- }}}
 
 ---Remove background from highlight group `hl`
 ---@param hl string

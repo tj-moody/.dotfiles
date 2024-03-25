@@ -2,15 +2,15 @@ local M = {}
 
 local function setup_treesitter()
     ---@diagnostic disable missing-fields
-    require('nvim-treesitter.parsers').get_parser_configs().asm = {-- {{{
+    require('nvim-treesitter.parsers').get_parser_configs().asm = { -- {{{
         install_info = {
             url = 'https://github.com/rush-rs/tree-sitter-asm.git',
             files = { 'src/parser.c' },
             branch = 'main',
         },
-    }-- }}}
+    }                                         -- }}}
 
-    require 'nvim-treesitter.configs'.setup {-- {{{
+    require 'nvim-treesitter.configs'.setup { -- {{{
         ensure_installed = {
             "c",
             "lua",
@@ -58,6 +58,12 @@ local function setup_treesitter()
         },
         incremental_selection = {
             enable = true,
+            keymaps = {
+                init_selection = '<C-SPACE>',
+                -- scope_incremental = '',
+                node_incremental = '<C-SPACE>',
+                -- node_decremental = '',
+            },
         },
         autotag = {
             enable = true,
@@ -109,14 +115,14 @@ local function setup_treesitter()
                 include_surrounding_whitespace = true,
             },
         },
-    }-- }}}
+    }                                     -- }}}
 
-    require('treesitter-context').setup {-- {{{
-        enable = true,     -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 0,     -- How many lines the window should span. Values <= 0 mean no limit.
-        trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-        patterns = {       -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+    require('treesitter-context').setup { -- {{{
+        enable = true,                    -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 0,                    -- How many lines the window should span. Values <= 0 mean no limit.
+        trim_scope = 'outer',             -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+        min_window_height = 0,            -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        patterns = {                      -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
             -- For all filetypes
             -- Note that setting an entry here replaces all other patterns for this entry.
             -- By setting the 'default' entry below, you can control which nodes you want to
@@ -195,16 +201,16 @@ local function setup_treesitter()
         -- [!] The options below are exposed but shouldn't require your attention,
         --     you can safely ignore them.
 
-        zindex = 20, -- The Z-index of the context window
+        zindex = 20,     -- The Z-index of the context window
         mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
         -- Separator between context and content. Should be a single character string, like '-'.
         -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
         separator = nil,
-    }-- }}}
+    }                         -- }}}
 
-    require('treesj').setup {-- {{{
+    require('treesj').setup { -- {{{
         use_default_keymaps = false,
-    }-- }}}
+    }                         -- }}}
 
     require('ts_context_commentstring').setup {}
     vim.g.skip_ts_context_commentstring_module = true

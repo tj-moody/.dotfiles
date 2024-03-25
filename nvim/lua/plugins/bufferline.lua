@@ -246,8 +246,7 @@ end
 M.spec = {
     {
         'akinsho/bufferline.nvim',
-        -- lazy = false,
-        event = 'VeryLazy',
+        event = "LazyFile",
         dependencies = {
             'nvim-tree/nvim-web-devicons',
             'sainnhe/gruvbox-material',

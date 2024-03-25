@@ -3,13 +3,12 @@ M.spec = {
     ---- LaTeX{{{1
     {
         'lervag/vimtex',
-        event = 'VeryLazy',
+        ft = 'tex',
     },
     ---- Typst{{{1
     {
         'kaarmu/typst.vim',
         ft = 'typst',
-        event = "VeryLazy",
     }, --}}}
 }
 

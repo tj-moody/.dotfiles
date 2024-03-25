@@ -13,6 +13,8 @@ safe_require('startup_autocmds')
 local plugins = safe_require('plugins')
 if plugins == nil then return end
 
+vim.loader.enable()
+
 -- NOTE: Order irrelevant
 plugins.add('colorscheme')
 plugins.add('ui')

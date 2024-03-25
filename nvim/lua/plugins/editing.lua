@@ -2,7 +2,13 @@ local M = {}
 M.spec = {
     {
         'tpope/vim-surround',
-        event = 'VeryLazy',
+        keys = {
+            { 'cs' },
+            { 'ds' },
+            { 'ss' },
+            { 'sa', mode = { 'n', 'x' } },
+            { 'si', mode = { 'n', 'x' } },
+        },
     },
     {
         'rmagatti/auto-session',
@@ -30,12 +36,15 @@ M.spec = {
     },
     {
         dir = "~/projects/nucomment.nvim",
+        keys = {
+            '<leader>cc',
+            { '<leader>c', mode = { 'n', 'x' } },
+        },
         config = { floating_comments = false },
-        event = "VeryLazy",
     },
     {
         'windwp/nvim-autopairs',
-        event = 'VeryLazy',
+        event = 'InsertEnter',
         config = function()
             require("nvim-autopairs").setup {
                 map_bs = false,
@@ -46,7 +55,7 @@ M.spec = {
     },
     {
         'norcalli/nvim-colorizer.lua',
-        event = 'VeryLazy',
+        event = 'LazyFile',
         config = {
             ["*"] = { names = false },
             rust = { names = false },
@@ -54,7 +63,7 @@ M.spec = {
     },
     {
         'chrisgrieser/nvim-various-textobjs',
-        event = 'VeryLazy',
+        event = 'BufEnter',
         config = function()
             local to = require('various-textobjs')
             to.setup({ useDefaultKeymaps = false })
@@ -71,12 +80,15 @@ M.spec = {
     },
     {
         'RaafatTurki/hex.nvim',
-        event = 'VeryLazy',
+        event = 'LazyFile',
         config = true,
     },
     {
         'tommcdo/vim-lion',
-        event = 'VeryLazy',
+        keys = {
+            { 'gl', mode = 'x' },
+            { 'gL', mode = 'x' },
+        },
     },
     {
         'rmagatti/alternate-toggler',
@@ -125,7 +137,7 @@ M.spec = {
     },
     {
         'chomosuke/term-edit.nvim',
-        event = 'VeryLazy',
+        ft = 'projterm',
         version = '1.*',
         config = {
             prompt_end = ':: ',
@@ -133,21 +145,17 @@ M.spec = {
     },
     {
         'yuttie/comfortable-motion.vim',
-        event = 'VeryLazy',
-    },
-    {
-        "folke/trouble.nvim",
-        event = 'VeryLazy',
-        config = true,
+        event = 'LazyFile',
     },
     {
         'willothy/wezterm.nvim',
-        event = 'VeryLazy',
-        config = true
+        config = true,
+        lazy = true,
     },
     {
         'mrjones2014/smart-splits.nvim',
         dependencies = { { 'numToStr/Navigator.nvim', config = true } },
+        lazy = true,
         event = 'VeryLazy',
         config = {
             -- During resize

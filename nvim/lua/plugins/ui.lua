@@ -3,7 +3,6 @@ M.spec = {
     {
         'j-hui/fidget.nvim',
         tag = 'legacy',
-        event = 'VeryLazy',
         config = function()
             require('fidget').setup {
                 text = {
@@ -61,7 +60,7 @@ M.spec = {
     },
     {
         'folke/which-key.nvim',
-        event = 'VeryLazy',
+        event = 'LazyFile',
         config = function()
             require('which-key').setup {}
 
@@ -112,7 +111,7 @@ M.spec = {
     },
     {
         'folke/todo-comments.nvim',
-        event = 'VeryLazy',
+        event = 'LazyFile',
         config = {
             highlight = { multiline = true },
             keywords = {
@@ -125,7 +124,7 @@ M.spec = {
     },
     {
         'yorickpeterse/nvim-pqf',
-        event = 'VeryLazy',
+        event = 'LazyFile',
         config = true,
     },
 }

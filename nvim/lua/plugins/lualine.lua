@@ -103,6 +103,7 @@ M.setup = function()
             z = { fg = colors.bg, bg = colors.bg },
         },
         insert = { a = { fg = colors.insert, bg = colors.bg } },
+        terminal = { a = { fg = colors.insert, bg = colors.bg } },
         visual = { a = { fg = colors.visual, bg = colors.bg } },
         replace = { a = { fg = colors.replace, bg = colors.bg } },
     }
@@ -215,8 +216,8 @@ M.setup = function()
                         local starts = vim.fn.line("v")
                         local ends = vim.fn.line(".")
                         local lines = starts <= ends
-                        and ends - starts + 1
-                        or starts - ends + 1
+                            and ends - starts + 1
+                            or starts - ends + 1
                         return lines .. "L"
                     end,
                     color = { fg = comment_fg },
@@ -341,7 +342,7 @@ end
 M.spec = {
     {
         'nvim-lualine/lualine.nvim',
-        event = 'VeryLazy',
+        event = 'LazyFile',
         dependencies = {
             {
                 "Pheon-Dev/pigeon",

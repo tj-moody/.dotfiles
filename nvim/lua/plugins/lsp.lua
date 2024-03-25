@@ -107,6 +107,8 @@ local function cmp_setup() -- {{{
         sources = cmp.config.sources(
             {
                 { name = 'nvim_lsp' },
+            },
+            {
                 { name = 'luasnip' }, -- For luasnip users.
                 { name = 'path' },
             },
@@ -125,15 +127,15 @@ local function cmp_setup() -- {{{
                 })(entry, vim_item)
                 local strings = vim.split(kind.kind, "%s", { trimempty = true })
                 kind.kind = " " .. (strings[1] or "") .. " "
-                -- kind.menu = "    (" .. (strings[2] or "") .. ")"
-                kind.menu = ({
-                    buffer = "(Buf)",
-                    nvim_lsp = "(LSP)",
-                    luasnip = "(SNP)",
-                    nvim_lua = "(Lua)",
-                    latex_symbols = "(Text)",
-                    cmdline = "(Cmd)"
-                })[entry.source.name]
+                kind.menu = "    (" .. (strings[2] or "") .. ")"
+                -- kind.menu = ({
+                --     buffer = "(Buf)",
+                --     nvim_lsp = "(LSP)",
+                --     luasnip = "(SNP)",
+                --     nvim_lua = "(Lua)",
+                --     latex_symbols = "(Text)",
+                --     cmdline = "(Cmd)"
+                -- })[entry.source.name]
                 return kind
             end,
         },
@@ -446,6 +448,7 @@ local function lspconfig_setup() -- {{{
     require('lspconfig')['clangd'].setup {
         on_attach = on_attach,
         flags = lsp_flags,
+        cmd = { "clangd", "--enable-config" } --, "--fallback-style=llvm"},
     }
     require('lspconfig')['cssls'].setup {
         on_attach = on_attach,
@@ -480,13 +483,15 @@ local function lspconfig_setup() -- {{{
         flags = lsp_flags,
     }
 
-    cmp_setup()
+    vim.cmd("LspStart")
+    -- cmp_setup()
 end -- }}}
 
 M.spec = {
     {
         'hrsh7th/nvim-cmp',
-        event = 'VeryLazy',
+        event = 'InsertEnter',
+        config = cmp_setup,
         dependencies = {
             {
                 'neovim/nvim-lspconfig',
@@ -494,6 +499,7 @@ M.spec = {
                     lspconfig_setup()
                     vim.cmd.LspStart()
                 end,
+                event = 'LazyFile',
                 dependencies = {
                     {
                         'williamboman/mason.nvim',
@@ -533,12 +539,11 @@ M.spec = {
             { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
             { 'onsails/lspkind.nvim' },
             { 'j-hui/fidget.nvim' },
-            config = cmp_setup,
         },
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
-        event = 'VeryLazy',
+        event = 'LazyFile',
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             local null_ls = require('null-ls')

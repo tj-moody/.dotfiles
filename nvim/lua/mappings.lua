@@ -232,24 +232,24 @@ map('n', '<leader>O', -- {{{
     function()
         if vim.bo.filetype == 'NvimTree' then
             cmd('only')
-        else
-            local invisible_buffers = {}
+            return
+        end
 
-            for buffer = 1, fn.bufnr('$') do
-                if fn.buflisted(buffer) == 1 then
-                    invisible_buffers[tostring(buffer)] = true
-                    for _, v in ipairs(fn.tabpagebuflist()) do
-                        if buffer == v then
-                            invisible_buffers[tostring(buffer)] = false
-                        end
+        local invisible_buffers = {}
+        for buffer = 1, fn.bufnr('$') do
+            if fn.buflisted(buffer) == 1 then
+                invisible_buffers[tostring(buffer)] = true
+                for _, v in ipairs(fn.tabpagebuflist()) do
+                    if buffer == v then
+                        invisible_buffers[tostring(buffer)] = false
                     end
                 end
             end
-            for buffer, invisible in pairs(invisible_buffers) do
-                if invisible then cmd.bdelete(tonumber(buffer)) end
-            end
-            cmd [[redrawtabline]]
         end
+        for buffer, invisible in pairs(invisible_buffers) do
+            if invisible then cmd.bdelete(tonumber(buffer)) end
+        end
+        cmd [[redrawtabline]]
     end,
     "Only Buffer"
 ) -- }}}
@@ -289,42 +289,42 @@ map('n', '<ScrollWheelRight>', '', "")
 map('x', '<ScrollWheelLeft>', '', "")
 map('x', '<ScrollWheelRight>', '', "")
 
-m_o('i', ';',
-    function()
-        -- chars that can be afte the cursor to allow a semicolon, mostly closing delimiters
-        local allowed_chars = {
-            '\'',
-            '"',
-            ')',
-            '}',
-            '>',
-        }
-        local can_exit = true
-        local _, col = unpack(api.nvim_win_get_cursor(0))
-        local line = fn.getline('.') ---@cast line string
-        for char in line:sub(col + 1, -1):gmatch('.') do
-            (function()
-                char_is_allowed = false
-                for _, allowed_char in ipairs(allowed_chars) do
-                    (function()
-                        if char == allowed_char then
-                            char_is_allowed = true; return
-                        end
-                    end)()
-                end
-                if not char_is_allowed then
-                    can_exit = false; return
-                end
-            end)()
-        end
-        if can_exit then
-            return '<ESC>A;'
-        else
-            return ';'
-        end
-    end,
-    { remap = false, expr = true, desc = "Smart Semicolon" }
-)
+-- m_o('i', ';',
+--     function()
+--         -- chars that can be afte the cursor to allow a semicolon, mostly closing delimiters
+--         local allowed_chars = {
+--             '\'',
+--             '"',
+--             ')',
+--             '}',
+--             '>',
+--         }
+--         local can_exit = true
+--         local _, col = unpack(api.nvim_win_get_cursor(0))
+--         local line = fn.getline('.') ---@cast line string
+--         for char in line:sub(col + 1, -1):gmatch('.') do
+--             (function()
+--                 char_is_allowed = false
+--                 for _, allowed_char in ipairs(allowed_chars) do
+--                     (function()
+--                         if char == allowed_char then
+--                             char_is_allowed = true; return
+--                         end
+--                     end)()
+--                 end
+--                 if not char_is_allowed then
+--                     can_exit = false; return
+--                 end
+--             end)()
+--         end
+--         if can_exit then
+--             return '<ESC>A;'
+--         else
+--             return ';'
+--         end
+--     end,
+--     { remap = false, expr = true, desc = "Smart Semicolon" }
+-- )
 -- }}}
 
 --- GROUPS
@@ -363,6 +363,8 @@ map('n', 'TT',
 )
 -- }}}
 -- Fuzzy Search{{{
+map('n', '<leader>fd', ':cd ~/.dotfiles<CR> :Telescope file_browser<CR>', "Find in Dotfiles")
+map('n', '<leader>fp', ':cd ~/projects<CR> :Telescope file_browser<CR>', "Find Project")
 map('n', '<leader>ff', '<CMD>Telescope smart_open<CR>', "Find File")
 map('n', '<leader>fh', '<CMD>Telescope highlights<CR>', "Find Highlight")
 map('n', '<leader>fg', '<CMD>Rg<CR>', "Find Grep")
@@ -432,6 +434,7 @@ map('n', '<leader>ta', '<CMD>ToggleAlternate<CR>', "Toggle Alternate")
 -- }}}
 -- Project{{{
 map('n', '<C-T>', '<CMD>lua require("projtasks").toggle()<CR>', "Toggle Terminal")
+map('n', '<leader>pR', '<CMD>lua require("projtasks").setup({})<CR>', "Reload Projtasks")
 map('n', '<leader>pp', '<CMD>lua require("projtasks").term_recent()<CR>', "Run Project")
 map('n', '<leader>pr', '<CMD>lua require("projtasks").term_run()<CR>', "Run Project")
 map('n', '<leader>pb', '<CMD>lua require("projtasks").term_build()<CR>', "Build Project")

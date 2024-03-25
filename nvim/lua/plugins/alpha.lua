@@ -5,7 +5,7 @@ M.spec = {
         event = 'VimEnter',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
-            local fortune = require("alpha.fortune")
+            local get_fortune = require("alpha.fortune")
 
             local headers = require('plugins.assets.headers')
 
@@ -56,16 +56,6 @@ M.spec = {
                     -- wrap = "overflow";
                 }
             }
-            -- TODO: Implement
-            local navigations = {
-                type = "group",
-                val = {
-                    " Config   Projects  ",
-                },
-                opts = {
-                    spacing = 1
-                }
-            }
 
             local buttons = {
                 type = "group",
@@ -94,25 +84,30 @@ M.spec = {
                 return datetime .. " " .. nvim_version_info
             end
 
-            local footer1 = {
-                type = "text",
-                val = get_footer1(),
-                opts = {
-                    position = "center",
-                    hl       = "AlphaFooter1",
+            local footer = {
+                type = "group",
+                val = {
+                    {
+                        type = "text",
+                        val = get_footer1(),
+                        opts = {
+                            position = "center",
+                            hl       = "AlphaFooter1",
+                        },
+                    },
+                    {
+                        type = "text",
+                        val = "  " .. require("lazy").stats().count,
+                        opts = {
+                            position = "center",
+                            hl       = "AlphaFooter1",
+                        },
+                    },
                 },
             }
-            local footer2 = {
+            local fortune = {
                 type = "text",
-                val = "  " .. require("lazy").stats().count,
-                opts = {
-                    position = "center",
-                    hl       = "AlphaFooter1",
-                },
-            }
-            local footer3 = {
-                type = "text",
-                val = fortune(),
+                val = get_fortune(),
                 opts = {
                     position = "center",
                 },
@@ -122,11 +117,14 @@ M.spec = {
                 layout = {
                     { type = "padding", val = 1 },
                     header,
+
                     { type = "padding", val = 1 },
                     buttons,
-                    footer1,
-                    footer2,
-                    footer3,
+
+                    { type = "padding", val = 1 },
+
+                    footer,
+                    fortune,
                     -- { type = "padding", val = bottom_padding },
                 },
                 opts = {
@@ -143,7 +141,7 @@ M.spec = {
                 callback = function()
                     local stats = require("lazy").stats()
                     local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-                    footer2.val = " " .. require("lazy").stats().count
+                    footer.val[2].val = " " .. require("lazy").stats().count
                         .. " plugins  󱑎 " .. ms .. "ms"
                     safe_require('plugins.colorscheme').setup('alpha')
                     pcall(vim.cmd.AlphaRedraw)

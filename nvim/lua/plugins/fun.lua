@@ -2,7 +2,6 @@ local M = {}
 M.spec = {
     {
         "giusgad/pets.nvim",
-        event = 'VeryLazy',
         dependencies = {
             "MunifTanjim/nui.nvim",
             "giusgad/hologram.nvim",
@@ -11,15 +10,17 @@ M.spec = {
             popup = { avoid_statusline = true },
         },
         cond = vim.g.have_fun,
+        event = 'VeryLazy',
     },
     {
         'RRethy/nvim-base16',
-        event = 'VeryLazy',
         cond = vim.g.have_fun,
+        event = 'VeryLazy',
     },
     {
         'AlexvZyl/nordic.nvim',
         cond = vim.g.have_fun,
+        event = 'VeryLazy',
     },
 }
 
