@@ -66,6 +66,8 @@ if status is-interactive
     alias pond    "pond -db"
     alias arttime "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
     alias wtf     "wtfutil" # https://wtfutil.com/
+
+    alias clang-tidy /opt/homebrew/opt/llvm/bin/clang-tidy
 end
 
 # Setting PATH for Python 3.11
