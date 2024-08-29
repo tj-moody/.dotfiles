@@ -1,6 +1,6 @@
 local M = {}
 
-local function cmp_setup() -- {{{
+local function cmp_setup()
     local luasnip = require("luasnip")
     local has_words_before = function()
         unpack = unpack or table.unpack
@@ -233,9 +233,9 @@ local function cmp_setup() -- {{{
             numhl = "",
         })
     end
-end                              -- }}}
+end
 
-local function lspconfig_setup() -- {{{
+local function lspconfig_setup()
     local m_b = function(mode, lhs, rhs, buff, desc)
         vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = buff, desc = desc })
     end
@@ -485,7 +485,7 @@ local function lspconfig_setup() -- {{{
 
     vim.cmd("LspStart")
     -- cmp_setup()
-end -- }}}
+end
 
 M.spec = {
     {
