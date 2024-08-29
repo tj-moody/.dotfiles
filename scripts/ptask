@@ -31,6 +31,17 @@ if version == "0.1.0" then
     os.execute(projfile.tasks[task])
     return
 end
+
+local SYMBOL_COLOR = "\x1b[1;44m\x1b[38;5;16m"
+local RESET = "\x1b[0m"
+local BOLD = "\x1b[22;97m"
+
+local MESSAGE = BOLD .. "Executing task" .. " `" .. task .. "`"
+local SYMBOL = SYMBOL_COLOR .. " * " .. RESET .. " "
+
+print(MESSAGE)
 for _, command in ipairs(projfile.tasks[task]) do
+    print(SYMBOL .. command)
     os.execute(command)
+    print()
 end
