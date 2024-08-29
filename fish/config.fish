@@ -21,6 +21,7 @@ if status is-interactive
     set PATH $HOME/.dotfiles/scripts $PATH
     set PATH $HOME/.config/emacs/bin $PATH
     set PATH /usr/local/opt/texinfo/bin $PATH # load newer version of makeinfo for emacs
+    set PATH /opt/homebrew/Cellar/gcc/13.2.0/bin $PATH
 
     set PATH /opt/homebrew/opt/openjdk/bin $PATH
     export JAVA_HOME="/opt/homebrew/opt/openjdk/bin"
