@@ -52,6 +52,7 @@ function _G.custom_fold_text()
 
     return result
 end
+
 o.foldtext = 'v:lua.custom_fold_text()'
 
 o.fillchars = { --{{{
@@ -115,3 +116,14 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_node_provider = 0
+
+if vim.g.neovide then
+    -- Helper function for transparency formatting
+    local alpha = function()
+        return string.format("%x", math.floor(255 * (vim.g.transparency or 0.8)))
+    end
+    -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+    vim.g.neovide_transparency = 1
+    vim.g.transparency = 1
+    vim.g.neovide_background_color = "#0e0f17" .. alpha()
+end
