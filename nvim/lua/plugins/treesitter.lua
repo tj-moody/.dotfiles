@@ -2,15 +2,15 @@ local M = {}
 
 local function setup_treesitter()
     ---@diagnostic disable missing-fields
-    require('nvim-treesitter.parsers').get_parser_configs().asm = { -- {{{
+    require("nvim-treesitter.parsers").get_parser_configs().asm = { -- {{{
         install_info = {
-            url = 'https://github.com/rush-rs/tree-sitter-asm.git',
-            files = { 'src/parser.c' },
-            branch = 'main',
+            url = "https://github.com/rush-rs/tree-sitter-asm.git",
+            files = { "src/parser.c" },
+            branch = "main",
         },
-    }                                         -- }}}
+    } -- }}}
 
-    require 'nvim-treesitter.configs'.setup { -- {{{
+    require("nvim-treesitter.configs").setup({ -- {{{
         ensure_installed = {
             "c",
             "lua",
@@ -42,10 +42,7 @@ local function setup_treesitter()
             -- disable = {},
             disable = function(lang, buf)
                 local max_filesize = 100 * 1024 -- 100 KB
-                local ok, stats = pcall(
-                    vim.loop.fs_stat,
-                    vim.api.nvim_buf_get_name(buf)
-                )
+                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                 if ok and stats and stats.size > max_filesize then
                     return true
                 end
@@ -59,9 +56,9 @@ local function setup_treesitter()
         incremental_selection = {
             enable = true,
             keymaps = {
-                init_selection = '<C-SPACE>',
+                init_selection = "<C-SPACE>",
                 -- scope_incremental = '',
-                node_incremental = '<C-SPACE>',
+                node_incremental = "<C-SPACE>",
                 -- node_decremental = '',
             },
         },
@@ -99,9 +96,9 @@ local function setup_treesitter()
                 -- and should return the mode ('v', 'V', or '<c-v>') or a table
                 -- mapping query_strings to modes.
                 selection_modes = {
-                    ['@parameter.outer'] = 'v', -- charwise
-                    ['@function.outer'] = 'V', -- linewise
-                    ['@class.outer'] = '<c-v>', -- blockwise
+                    ["@parameter.outer"] = "v", -- charwise
+                    ["@function.outer"] = "V", -- linewise
+                    ["@class.outer"] = "<c-v>", -- blockwise
                 },
                 -- If you set this to `true` (default is `false`) then any textobject is
                 -- extended to include preceding or succeeding whitespace. Succeeding
@@ -115,80 +112,79 @@ local function setup_treesitter()
                 include_surrounding_whitespace = true,
             },
         },
-    }                                     -- }}}
+    }) -- }}}
 
-    require('treesitter-context').setup { -- {{{
-        enable = true,                    -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 0,                    -- How many lines the window should span. Values <= 0 mean no limit.
-        trim_scope = 'outer',             -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        min_window_height = 0,            -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-        patterns = {                      -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+    require("treesitter-context").setup({ -- {{{
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+        trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
             -- For all filetypes
             -- Note that setting an entry here replaces all other patterns for this entry.
             -- By setting the 'default' entry below, you can control which nodes you want to
             -- appear in the context window.
             default = {
-                'class',
-                'function',
-                'method',
-                'for',
-                'while',
-                'if',
-                'switch',
-                'case',
-                'interface',
-                'struct',
-                'enum',
+                "class",
+                "function",
+                "method",
+                "for",
+                "while",
+                "if",
+                "switch",
+                "case",
+                "interface",
+                "struct",
+                "enum",
             },
             -- Patterns for specific filetypes
             -- If a pattern is missing, *open a PR* so everyone can benefit.
             tex = {
-                'chapter',
-                'section',
-                'subsection',
-                'subsubsection',
+                "chapter",
+                "section",
+                "subsection",
+                "subsubsection",
             },
             haskell = {
-                'adt'
+                "adt",
             },
             rust = {
-                'impl_item',
-
+                "impl_item",
             },
             terraform = {
-                'block',
-                'object_elem',
-                'attribute',
+                "block",
+                "object_elem",
+                "attribute",
             },
             scala = {
-                'object_definition',
+                "object_definition",
             },
             vhdl = {
-                'process_statement',
-                'architecture_body',
-                'entity_declaration',
+                "process_statement",
+                "architecture_body",
+                "entity_declaration",
             },
             markdown = {
-                'section',
+                "section",
             },
             elixir = {
-                'anonymous_function',
-                'arguments',
-                'block',
-                'do_block',
-                'list',
-                'map',
-                'tuple',
-                'quoted_content',
+                "anonymous_function",
+                "arguments",
+                "block",
+                "do_block",
+                "list",
+                "map",
+                "tuple",
+                "quoted_content",
             },
             json = {
-                'pair',
+                "pair",
             },
             typescript = {
-                'export_statement',
+                "export_statement",
             },
             yaml = {
-                'block_mapping_pair',
+                "block_mapping_pair",
             },
         },
         exact_patterns = {
@@ -201,35 +197,35 @@ local function setup_treesitter()
         -- [!] The options below are exposed but shouldn't require your attention,
         --     you can safely ignore them.
 
-        zindex = 20,     -- The Z-index of the context window
-        mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+        zindex = 20, -- The Z-index of the context window
+        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
         -- Separator between context and content. Should be a single character string, like '-'.
         -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
         separator = nil,
-    }                         -- }}}
+    }) -- }}}
 
-    require('treesj').setup { -- {{{
+    require("treesj").setup({ -- {{{
         use_default_keymaps = false,
-    }                         -- }}}
+    }) -- }}}
 
-    require('ts_context_commentstring').setup {}
+    require("ts_context_commentstring").setup({})
     vim.g.skip_ts_context_commentstring_module = true
 
-    vim.api.nvim_set_hl(0, 'TreesitterContext', { link = "Normal", })
+    vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
 end
 
 M.spec = {
     {
-        'nvim-treesitter/nvim-treesitter',
-        event = 'VeryLazy',
+        "nvim-treesitter/nvim-treesitter",
+        event = "VeryLazy",
         dependencies = {
-            { 'nvim-treesitter/nvim-treesitter-context' },
-            { 'JoosepAlviste/nvim-ts-context-commentstring' },
-            { 'windwp/nvim-ts-autotag' },
-            { 'nvim-treesitter/nvim-treesitter-textobjects' },
-            { 'Wansmer/treesj' },
-            { 'nvim-treesitter/playground' },
-            { 'rush-rs/tree-sitter-asm' },
+            { "nvim-treesitter/nvim-treesitter-context" },
+            { "JoosepAlviste/nvim-ts-context-commentstring" },
+            { "windwp/nvim-ts-autotag" },
+            { "nvim-treesitter/nvim-treesitter-textobjects" },
+            { "Wansmer/treesj" },
+            { "nvim-treesitter/playground" },
+            { "rush-rs/tree-sitter-asm" },
         },
         config = setup_treesitter,
     },

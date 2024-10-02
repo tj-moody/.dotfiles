@@ -1,12 +1,12 @@
 local M = {}
 M.spec = {
     {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.4',
-        cmd = { 'Telescope', },
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.4",
+        cmd = { "Telescope" },
         dependencies = {
-            { 'nvim-telescope/telescope-file-browser.nvim' },
-            { 'nvim-lua/plenary.nvim' },
+            { "nvim-telescope/telescope-file-browser.nvim" },
+            { "nvim-lua/plenary.nvim" },
             {
                 "danielfalk/smart-open.nvim",
                 branch = "0.2.x",
@@ -21,26 +21,26 @@ M.spec = {
             },
         },
         config = function()
-            require('telescope').setup {
+            require("telescope").setup({
                 pickers = {
                     find_files = {
                         layout_config = {
-                            prompt_position = 'top',
+                            prompt_position = "top",
                         },
                     },
                 },
                 defaults = {
-                    file_ignore_patterns = { '.git/' },
+                    file_ignore_patterns = { ".git/" },
                     layout_config = {
                         -- prompt_position = 'top',
                         horizontal = {
-                            prompt_position = 'top',
+                            prompt_position = "top",
                         },
                     },
-                    prompt_prefix = '  ',
-                    selection_caret = '  ',
-                    entry_prefix = '   ',
-                    sorting_strategy = 'ascending',
+                    prompt_prefix = "  ",
+                    selection_caret = "  ",
+                    entry_prefix = "   ",
+                    sorting_strategy = "ascending",
                     -- winblend = 20,
                 },
                 file_browser = {
@@ -54,20 +54,20 @@ M.spec = {
                     --     },
                     -- },
                 },
-            }
+            })
 
-            require('telescope').load_extension("smart_open")
+            require("telescope").load_extension("smart_open")
             require("telescope").load_extension("file_browser")
         end,
     },
     {
-        'junegunn/fzf.vim',
-        dependencies = { 'junegunn/fzf', },
-        cmd = { 'Rg', 'Buffers' },
+        "junegunn/fzf.vim",
+        dependencies = { "junegunn/fzf" },
+        cmd = { "Rg", "Buffers" },
 
         config = function()
-            vim.g.fzf_layout = { ['down'] = '~30%' }
-        end
+            vim.g.fzf_layout = { ["down"] = "~30%" }
+        end,
     },
 }
 

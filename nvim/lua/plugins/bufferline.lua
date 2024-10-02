@@ -1,9 +1,9 @@
 local M = {}
 
 M.setup = function()
-    local bgcolor = ''
-    local tabline_sel_bg = '#a2b5c1'
-    vim.api.nvim_set_hl(0, 'TabLineSel', { fg = tabline_sel_bg, })
+    local bgcolor = ""
+    local tabline_sel_bg = "#a2b5c1"
+    vim.api.nvim_set_hl(0, "TabLineSel", { fg = tabline_sel_bg })
 
     -- local get_color = safe_require("plugins.colorscheme").get_color
     -- local error_color = get_color('DiagnosticError', 'fg#')
@@ -12,7 +12,7 @@ M.setup = function()
     -- local info_color = getrcolor('DiagnosticInfo', 'fg#')
 
     ---@diagnostic disable missing-fields
-    require("bufferline").setup {
+    require("bufferline").setup({
         options = {
             style_preset = require("bufferline").style_preset.minimal,
             custom_filter = function(buf)
@@ -35,11 +35,11 @@ M.setup = function()
             end,
             mode = "buffers",
             numbers = function()
-                return ''
+                return ""
             end,
             indicator = {
-                icon = '▎', -- this should be omitted if indicator style is not 'icon'
-                style = 'icon',
+                icon = "▎", -- this should be omitted if indicator style is not 'icon'
+                style = "icon",
                 -- style = "underline",
             },
             diagnostics = "nvim_lsp",
@@ -48,18 +48,18 @@ M.setup = function()
                     filetype = "NvimTree",
                     text = "",
                     text_align = "center",
-                    separator = ' ',
+                    separator = " ",
                 },
                 {
                     filetype = "markdown.projpad",
                     text = "",
                     text_align = "center",
-                    separator = ' ',
-                }
+                    separator = " ",
+                },
             },
-            separator_style = { ' ', ' ' },
+            separator_style = { " ", " " },
         },
-        highlights = {-- {{{
+        highlights = { -- {{{
             fill = { bg = bgcolor },
             background = { bg = bgcolor },
             tab = { bg = bgcolor },
@@ -71,7 +71,7 @@ M.setup = function()
             tab_separator_selected = { bg = bgcolor },
             close_button = { bg = bgcolor },
             close_button_visible = { bg = bgcolor },
-            close_button_selected = { bg = bgcolor, },
+            close_button_selected = { bg = bgcolor },
             buffer_visible = {
                 bg = bgcolor,
                 bold = true,
@@ -92,13 +92,13 @@ M.setup = function()
                 bold = true,
                 italic = true,
             },
-            numbers = { bg = bgcolor, },
-            numbers_visible = { bg = bgcolor, },
-            diagnostic = { bg = bgcolor, },
-            diagnostic_visible = { bg = bgcolor, },
+            numbers = { bg = bgcolor },
+            numbers_visible = { bg = bgcolor },
+            diagnostic = { bg = bgcolor },
+            diagnostic_visible = { bg = bgcolor },
             hint = {
                 -- sp = bgcolor,
-                bg = ''
+                bg = "",
             },
             hint_visible = { bg = bgcolor },
             hint_selected = {
@@ -109,10 +109,10 @@ M.setup = function()
             },
             hint_diagnostic = {
                 -- sp = bgcolor,
-                bg = ''
+                bg = "",
             },
             hint_diagnostic_visible = {
-                bg = bgcolor
+                bg = bgcolor,
             },
             hint_diagnostic_selected = {
                 bg = bgcolor,
@@ -121,9 +121,9 @@ M.setup = function()
             },
             info = {
                 -- sp = bgcolor,
-                bg = '',
+                bg = "",
             },
-            info_visible = { bg = bgcolor, },
+            info_visible = { bg = bgcolor },
             info_selected = {
                 bg = bgcolor,
                 bold = true,
@@ -131,9 +131,9 @@ M.setup = function()
             },
             info_diagnostic = {
                 -- sp = bgcolor,
-                bg = '',
+                bg = "",
             },
-            info_diagnostic_visible = { bg = bgcolor, },
+            info_diagnostic_visible = { bg = bgcolor },
             info_diagnostic_selected = {
                 bg = bgcolor,
                 bold = true,
@@ -141,9 +141,9 @@ M.setup = function()
             },
             warning = {
                 -- sp = bgcolor,
-                bg = '',
+                bg = "",
             },
-            warning_visible = { bg = bgcolor, },
+            warning_visible = { bg = bgcolor },
             warning_selected = {
                 bg = bgcolor,
                 bold = true,
@@ -151,9 +151,9 @@ M.setup = function()
             },
             warning_diagnostic = {
                 -- sp = bgcolor,
-                bg = '',
+                bg = "",
             },
-            warning_diagnostic_visible = { bg = bgcolor, },
+            warning_diagnostic_visible = { bg = bgcolor },
             warning_diagnostic_selected = {
                 bg = bgcolor,
                 bold = true,
@@ -175,14 +175,14 @@ M.setup = function()
                 bg = bgcolor,
                 -- sp = '',
             },
-            error_diagnostic_visible = { bg = bgcolor, },
+            error_diagnostic_visible = { bg = bgcolor },
             error_diagnostic_selected = {
                 bg = bgcolor,
                 bold = true,
                 italic = true,
             },
-            modified = { bg = bgcolor, },
-            modified_visible = { bg = bgcolor, },
+            modified = { bg = bgcolor },
+            modified_visible = { bg = bgcolor },
             modified_selected = {
                 bg = bgcolor,
                 italic = true,
@@ -193,13 +193,13 @@ M.setup = function()
             },
             duplicate_visible = {
                 bg = bgcolor,
-                italic = true
+                italic = true,
             },
             duplicate = {
                 bg = bgcolor,
-                italic = true
+                italic = true,
             },
-            separator_selected = { bg = bgcolor, },
+            separator_selected = { bg = bgcolor },
             separator_visible = {
                 fg = bgcolor,
                 bg = bgcolor,
@@ -235,21 +235,21 @@ M.setup = function()
                 bold = true,
                 italic = true,
             },
-            offset_separator = { bg = bgcolor, },
-        }-- }}}
-    }
+            offset_separator = { bg = bgcolor },
+        }, -- }}}
+    })
 
-    vim.api.nvim_set_hl(0, 'BufferLineIndicatorVisible', { fg = '#bad7ff' })
-    vim.api.nvim_set_hl(0, 'BufferLineIndicatorSelected', { fg = '#bad7ff' })
+    vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible", { fg = "#bad7ff" })
+    vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", { fg = "#bad7ff" })
 end
 
 M.spec = {
     {
-        'akinsho/bufferline.nvim',
+        "akinsho/bufferline.nvim",
         event = "LazyFile",
         dependencies = {
-            'nvim-tree/nvim-web-devicons',
-            'sainnhe/gruvbox-material',
+            "nvim-tree/nvim-web-devicons",
+            "sainnhe/gruvbox-material",
         },
         config = M.setup,
     },

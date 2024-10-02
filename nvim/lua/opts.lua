@@ -1,7 +1,7 @@
 local o = vim.opt
 function _G.custom_fold_text()
     local commentstring = vim.bo.commentstring:sub(1, -4)
-    local escaped_commentstring = string.gsub(commentstring, '-', '%%-')
+    local escaped_commentstring = string.gsub(commentstring, "-", "%%-")
     local pos = vim.v.foldstart
     local line = vim.api.nvim_buf_get_lines(0, pos - 1, pos, false)[1]
     local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
@@ -38,8 +38,8 @@ function _G.custom_fold_text()
         end
     end
     result[#result][1] = string.gsub(result[#result][1], "%s*" .. escaped_commentstring .. "%s*", "") -- .. "[% {]*$", "")
-    result[#result][1] = string.gsub(result[#result][1], "%s*{{{%d*", "")                             -- .. "[% {]*$", "")
-    result[#result][1] = string.gsub(result[#result][1], "%s*}}}%d*", "")                             -- .. "[% {]*$", "")
+    result[#result][1] = string.gsub(result[#result][1], "%s*{{{%d*", "") -- .. "[% {]*$", "")
+    result[#result][1] = string.gsub(result[#result][1], "%s*}}}%d*", "") -- .. "[% {]*$", "")
     for _ = 0, 1 do
         if result[#result][1] == "" or result[#result][1] == " " then
             result[#result] = nil
@@ -53,29 +53,29 @@ function _G.custom_fold_text()
     return result
 end
 
-o.foldtext = 'v:lua.custom_fold_text()'
+o.foldtext = "v:lua.custom_fold_text()"
 
 o.fillchars = { --{{{
-    stl = ' ',
-    stlnc = ' ',
-    foldopen = '',
-    foldclose = '',
-    fold = ' ',
-    foldsep = ' ',
-    diff = '╱',
-    eob = ' ',
+    stl = " ",
+    stlnc = " ",
+    foldopen = "",
+    foldclose = "",
+    fold = " ",
+    foldsep = " ",
+    diff = "╱",
+    eob = " ",
 } -- }}}
 o.listchars = {
-    tab = '▸ ',
+    tab = "▸ ",
 }
 o.list = true
-o.foldcolumn = '3'
+o.foldcolumn = "3"
 o.numberwidth = 3
-o.signcolumn = 'yes:1'
+o.signcolumn = "yes:1"
 o.number = true
 o.relativenumber = true
 o.breakindent = true
-o.mouse = 'a'
+o.mouse = "a"
 o.hidden = true
 o.autoindent = true
 o.wildmenu = true
@@ -93,10 +93,10 @@ o.incsearch = true
 o.wrap = false
 o.showmode = false
 o.cursorline = true
-o.foldmethod = 'marker'
-o.background = 'dark'
-o.virtualedit = 'block'
-o.matchpairs = '(:),{:},[:],<:>'
+o.foldmethod = "marker"
+o.background = "dark"
+o.virtualedit = "block"
+o.matchpairs = "(:),{:},[:],<:>"
 o.undofile = true
 o.smoothscroll = true
 o.textwidth = 80
@@ -105,6 +105,7 @@ o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,loca
 o.grepprg = "rg --vimgrep --smart-case --follow"
 o.showtabline = 2
 o.tabline = " "
+o.splitkeep = "topline"
 
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false

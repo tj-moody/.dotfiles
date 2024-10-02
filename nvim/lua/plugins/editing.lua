@@ -1,21 +1,21 @@
 local M = {}
 M.spec = {
     {
-        'tpope/vim-surround',
+        "tpope/vim-surround",
         keys = {
-            { 'cs' },
-            { 'ds' },
-            { 'ss' },
-            { 'sa', mode = { 'n', 'x' } },
-            { 'si', mode = { 'n', 'x' } },
+            { "cs" },
+            { "ds" },
+            { "ss" },
+            { "sa", mode = { "n", "x" } },
+            { "si", mode = { "n", "x" } },
         },
     },
     {
-        'rmagatti/auto-session',
+        "rmagatti/auto-session",
         lazy = not vim.g.tj_reloaded,
-        cmd = { 'SessionRestore', 'SessionSave' },
+        cmd = { "SessionRestore", "SessionSave" },
         config = function()
-            require('auto-session').setup({ ---@diagnostic disable-line
+            require("auto-session").setup({ ---@diagnostic disable-line
                 auto_save_enabled = false,
                 auto_restore_enabled = false,
                 log_level = "error",
@@ -27,74 +27,83 @@ M.spec = {
                 },
 
                 -- Don't load telescope on startup
-                session_lens = { load_on_setup = false, },
+                session_lens = { load_on_setup = false },
             })
-            if vim.g.tj_reloaded then
-                vim.cmd.SessionRestore()
-            end
+            -- if vim.g.tj_reloaded then
+            --     vim.cmd.SessionRestore()
+            -- end
         end,
     },
     {
         dir = "~/projects/nucomment.nvim",
         keys = {
-            '<leader>cc',
-            { '<leader>c', mode = { 'n', 'x' } },
+            "<leader>cc",
+            { "<leader>c", mode = { "n", "x" } },
         },
         config = { floating_comments = false },
     },
     {
-        'windwp/nvim-autopairs',
-        event = 'InsertEnter',
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
         config = function()
-            require("nvim-autopairs").setup {
+            require("nvim-autopairs").setup({
                 map_bs = false,
-                disable_filetype = { "TelescopePrompt", "text" }
-            }
+                disable_filetype = { "TelescopePrompt", "text" },
+            })
             vim.opt.formatoptions = "rjql"
         end,
     },
     {
-        'norcalli/nvim-colorizer.lua',
-        event = 'LazyFile',
+        "norcalli/nvim-colorizer.lua",
+        event = "LazyFile",
         config = {
             ["*"] = { names = false },
             rust = { names = false },
         },
     },
     {
-        'chrisgrieser/nvim-various-textobjs',
-        event = 'BufEnter',
+        "chrisgrieser/nvim-various-textobjs",
+        event = "BufEnter",
         config = function()
-            local to = require('various-textobjs')
+            local to = require("various-textobjs")
             to.setup({ useDefaultKeymaps = false })
             local map = vim.keymap.set
 
-            map({ "o", "x" }, "as", function() to.subword("outer") end)
-            map({ "o", "x" }, "is", function() to.subword("inner") end)
+            map({ "o", "x" }, "as", function()
+                to.subword("outer")
+            end)
+            map({ "o", "x" }, "is", function()
+                to.subword("inner")
+            end)
 
-            map({ "o", "x" }, "ad", function() to.doubleSquareBrackets("outer") end)
-            map({ "o", "x" }, "id", function() to.doubleSquareBrackets("inner") end)
+            map({ "o", "x" }, "ad", function()
+                to.doubleSquareBrackets("outer")
+            end)
+            map({ "o", "x" }, "id", function()
+                to.doubleSquareBrackets("inner")
+            end)
 
-            map({ "o", "x" }, "gG", function() to.entireBuffer() end)
-        end
+            map({ "o", "x" }, "gG", function()
+                to.entireBuffer()
+            end)
+        end,
     },
     {
-        'RaafatTurki/hex.nvim',
-        event = 'LazyFile',
+        "RaafatTurki/hex.nvim",
+        event = "LazyFile",
         config = true,
     },
     {
-        'tommcdo/vim-lion',
+        "tommcdo/vim-lion",
         keys = {
-            { 'gl', mode = 'x' },
-            { 'gL', mode = 'x' },
+            { "gl", mode = "x" },
+            { "gL", mode = "x" },
         },
     },
     {
-        'rmagatti/alternate-toggler',
-        cmd = { 'ToggleAlternate' },
-        config =
-        {
+        "rmagatti/alternate-toggler",
+        cmd = { "ToggleAlternate" },
+        config = {
             alternates = {
                 ["true"] = "false",
                 ["True"] = "False",
@@ -126,53 +135,53 @@ M.spec = {
                 ["++"] = "--",
                 ["+="] = "-=",
                 ["&&"] = "||",
-            }
-        }
+            },
+        },
     },
     {
-        'willothy/flatten.nvim',
-        config = { window = { open = 'alternate' }, },
+        "willothy/flatten.nvim",
+        config = { window = { open = "alternate" } },
         priority = 1001,
         lazy = false,
     },
     {
-        'chomosuke/term-edit.nvim',
-        ft = 'projterm',
-        version = '1.*',
+        "chomosuke/term-edit.nvim",
+        ft = "projterm",
+        version = "1.*",
         config = {
-            prompt_end = ':: ',
-        }
+            prompt_end = ":: ",
+        },
     },
     {
-        'yuttie/comfortable-motion.vim',
-        event = 'LazyFile',
+        "yuttie/comfortable-motion.vim",
+        event = "LazyFile",
     },
     {
-        'willothy/wezterm.nvim',
+        "willothy/wezterm.nvim",
         config = true,
         lazy = true,
     },
     {
-        'mrjones2014/smart-splits.nvim',
-        dependencies = { { 'numToStr/Navigator.nvim', config = true } },
+        "mrjones2014/smart-splits.nvim",
+        dependencies = { { "numToStr/Navigator.nvim", config = true } },
         lazy = true,
-        event = 'VeryLazy',
+        event = "VeryLazy",
         config = {
             -- During resize
             ignored_filetypes = {
-                'nofile',
-                'quickfix',
-                'prompt',
+                "nofile",
+                "quickfix",
+                "prompt",
             },
             ignored_events = {
-                'BufEnter',
-                'WinEnter',
+                "BufEnter",
+                "WinEnter",
             },
-            ignored_buftypes = { 'NvimTree' },
+            ignored_buftypes = { "NvimTree" },
             default_amount = 3,
             resize_mode = {
-                quit_key = '<ESC>',
-                resize_keys = { 'h', 'j', 'k', 'l' },
+                quit_key = "<ESC>",
+                resize_keys = { "h", "j", "k", "l" },
                 silent = true,
                 hooks = {
                     on_enter = nil,
@@ -192,7 +201,7 @@ M.spec = {
                     ["down"] = vim.cmd.NavigatorDown,
                 })[args.direction]()
             end,
-        }
+        },
     },
 }
 return M

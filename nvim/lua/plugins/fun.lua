@@ -10,17 +10,17 @@ M.spec = {
             popup = { avoid_statusline = true },
         },
         cond = vim.g.have_fun,
-        event = 'VeryLazy',
+        event = "VeryLazy",
     },
     {
-        'RRethy/nvim-base16',
+        "RRethy/nvim-base16",
         cond = vim.g.have_fun,
-        event = 'VeryLazy',
+        event = "VeryLazy",
     },
     {
-        'AlexvZyl/nordic.nvim',
+        "AlexvZyl/nordic.nvim",
         cond = vim.g.have_fun,
-        event = 'VeryLazy',
+        event = "VeryLazy",
     },
 }
 

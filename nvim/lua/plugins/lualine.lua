@@ -1,7 +1,7 @@
 local M = {}
 
 local pigeon_config = {
-    os = "osx",              -- windows, osx
+    os = "osx", -- windows, osx
     plugin_manager = "lazy", -- packer, paq, vim-plug
     callbacks = {
         killing_pigeon = nil,
@@ -28,62 +28,61 @@ local pigeon_config = {
     },
 }
 
-
 M.setup = function()
     local colors_table = { -- {{{
         noclownfiesta = {
-            normal = '#90a959',
-            replace = '#b46958',
-            visual = '#ffa557',
-            insert = '#7e97ab',
+            normal = "#90a959",
+            replace = "#b46958",
+            visual = "#ffa557",
+            insert = "#7e97ab",
         },
         kanagawa = {
-            normal = '#98bb6c',
-            replace = '#ff5d62',
-            insert = '#7fb4ca',
-            visual = '#ffa066',
+            normal = "#98bb6c",
+            replace = "#ff5d62",
+            insert = "#7fb4ca",
+            visual = "#ffa066",
         },
         gruvbox = {
-            normal = '#b8bb26',
-            replace = '#fb4934',
-            visual = '#fe8019',
-            insert = '#83a598',
+            normal = "#b8bb26",
+            replace = "#fb4934",
+            visual = "#fe8019",
+            insert = "#83a598",
         },
         tokyonight = {
-            normal = '#9ece6a',
-            replace = '#f7768e',
-            visual = '#ff9e64',
-            insert = '#7dcfff',
+            normal = "#9ece6a",
+            replace = "#f7768e",
+            visual = "#ff9e64",
+            insert = "#7dcfff",
         },
         oxocarbon = {
-            normal = '#25be6a',
-            replace = '#ee5396',
-            visual = '#ff91c1',
-            insert = '#3ddbd9',
+            normal = "#25be6a",
+            replace = "#ee5396",
+            visual = "#ff91c1",
+            insert = "#3ddbd9",
         },
         catppuccin = {
-            normal = '#a6e3a1',
-            replace = '#f38ba8',
-            visual = '#fab387',
-            insert = '#89b4fa',
+            normal = "#a6e3a1",
+            replace = "#f38ba8",
+            visual = "#fab387",
+            insert = "#89b4fa",
         },
         everforest = {
-            normal = '#abbf86',
-            replace = '#d88382',
-            visual = '#e69875',
-            insert = '#7fbbb3',
+            normal = "#abbf86",
+            replace = "#d88382",
+            visual = "#e69875",
+            insert = "#7fbbb3",
         },
         ayu = {
-            normal = '#c2d94c',
-            replace = '#f07178',
-            visual = '#ff8f40',
-            insert = '#39bae6',
+            normal = "#c2d94c",
+            replace = "#f07178",
+            visual = "#ff8f40",
+            insert = "#39bae6",
         },
         midnightclub = {
-            normal = '#7cb375',
-            replace = '#fc735d',
-            visual = '#ffae57',
-            insert = '#88d4ab',
+            normal = "#7cb375",
+            replace = "#fc735d",
+            visual = "#ffae57",
+            insert = "#88d4ab",
         },
     } -- }}}
 
@@ -92,8 +91,7 @@ M.setup = function()
     if THEME and colors_table[THEME] then
         colors = colors_table[THEME]
     end
-    local comment_fg = safe_require('plugins.colorscheme').get_color('Comment', 'fg#')
-
+    local comment_fg = safe_require("plugins.colorscheme").get_color("Comment", "fg#")
 
     local theme = {
         normal = {
@@ -112,8 +110,8 @@ M.setup = function()
         options = {
             icons_enabled = true,
             theme = theme,
-            component_separators = { left = '', right = '' },
-            section_separators = { left = '', right = '' },
+            component_separators = { left = "", right = "" },
+            section_separators = { left = "", right = "" },
             disabled_filetypes = {
                 statusline = {
                     "NvimTree",
@@ -130,15 +128,15 @@ M.setup = function()
                 statusline = 1000,
                 tabline = 1000,
                 winbar = 1000,
-            }
+            },
         },
         sections = {
             lualine_a = {
                 {
                     function()
-                        return ''
+                        return ""
                     end,
-                }
+                },
             },
             lualine_b = {
                 -- {
@@ -157,34 +155,34 @@ M.setup = function()
                 --     symbols = { added = '', modified = '', removed = '' },
                 -- },
                 {
-                    'branch',
-                    icon = '',
-                    padding = { left = 2, right = 1, }
+                    "branch",
+                    icon = "",
+                    padding = { left = 2, right = 1 },
                 },
                 {
-                    'diff',
+                    "diff",
                     diff_color = {
                         added = { fg = colors.normal },
                         modified = { fg = colors.visual },
                         removed = { fg = colors.replace },
                     },
-                    symbols = { added = '', modified = '', removed = '' },
+                    symbols = { added = "", modified = "", removed = "" },
                     padding = 1,
                 },
                 {
                     function()
-                        return '[' .. vim.bo.filetype .. ']'
+                        return "[" .. vim.bo.filetype .. "]"
                     end,
                     cond = function()
                         return vim.g.lualine_verbose
                     end,
-                    color = 'Keyword',
+                    color = "Keyword",
                 },
                 {
                     function()
                         return vim.fn.bufnr()
                     end,
-                    icon = '',
+                    icon = "",
                     cond = function()
                         return vim.g.lualine_verbose
                     end,
@@ -192,8 +190,8 @@ M.setup = function()
                 },
                 {
                     function()
-                        local words = vim.fn.wordcount()['words']
-                        return 'wc: ' .. words
+                        local words = vim.fn.wordcount()["words"]
+                        return "wc: " .. words
                     end,
                     cond = function()
                         local ft = vim.opt_local.filetype:get()
@@ -212,12 +210,12 @@ M.setup = function()
                     -- https://github.com/chrisgrieser/.config/blob/main/nvim/lua/plugins/lualine.lua
                     function()
                         local isVisualMode = vim.fn.mode():find("[Vv]")
-                        if not isVisualMode then return "" end
+                        if not isVisualMode then
+                            return ""
+                        end
                         local starts = vim.fn.line("v")
                         local ends = vim.fn.line(".")
-                        local lines = starts <= ends
-                            and ends - starts + 1
-                            or starts - ends + 1
+                        local lines = starts <= ends and ends - starts + 1 or starts - ends + 1
                         return lines .. "L"
                     end,
                     color = { fg = comment_fg },
@@ -226,32 +224,32 @@ M.setup = function()
             lualine_c = {
                 {
                     function()
-                        return '%='
+                        return "%="
                     end,
                 },
                 {
-                    'filetype',
+                    "filetype",
                     icon_only = true,
                 },
                 {
-                    'filename',
+                    "filename",
                     symbols = {
-                        modified = '',
-                        readonly = '',
-                        unnamed = '[No Name]',
-                        newfile = '',
+                        modified = "",
+                        readonly = "",
+                        unnamed = "[No Name]",
+                        newfile = "",
                     },
                 },
             },
             lualine_x = {},
             lualine_y = {
                 {
-                    'diagnostics',
+                    "diagnostics",
                     symbols = {
-                        error = ' ',
-                        warn = ' ',
-                        info = ' ',
-                        hint = ' ',
+                        error = " ",
+                        warn = " ",
+                        info = " ",
+                        hint = " ",
                     },
                     -- symbols = {
                     --     error = '',
@@ -262,17 +260,17 @@ M.setup = function()
                 },
                 {
                     function()
-                        local venv = os.getenv('CONDA_DEFAULT_ENV')
+                        local venv = os.getenv("CONDA_DEFAULT_ENV")
                         if venv == "base" then
-                            return ''
+                            return ""
                         end
                         return venv
                     end,
-                    icon = { '', color = { fg = colors.visual } },
+                    icon = { "", color = { fg = colors.visual } },
                 },
                 {
                     function()
-                        return ''
+                        return ""
                     end,
                     color = { fg = colors.normal },
                     cond = function()
@@ -281,8 +279,8 @@ M.setup = function()
                 },
                 {
                     function()
-                        local msg = 'No Active Lsp'
-                        local clients = vim.lsp.get_active_clients()
+                        local msg = "No Active Lsp"
+                        local clients = vim.lsp.get_clients()
                         if next(clients) == nil then
                             return msg
                         end
@@ -291,7 +289,7 @@ M.setup = function()
                             if i == 1 then
                                 clients_str = clients_str .. client.name
                             else
-                                clients_str = clients_str .. ', ' .. client.name
+                                clients_str = clients_str .. ", " .. client.name
                             end
                             -- local filetypes = client.config.filetypes
                             -- if filetypes and
@@ -301,53 +299,55 @@ M.setup = function()
                         end
                         return clients_str
                     end,
-                    icon = '',
+                    icon = "",
                 },
             },
             lualine_z = {
                 {
                     function()
-                        return os.date('%H:%M')
+                        return os.date("%H:%M")
                     end,
                     color = { fg = colors.normal },
                     padding = { left = 2, right = 1 },
                 },
                 {
                     function()
-                        return require('pigeon.datetime').current_day()
-                            .. ' '
-                            .. require('pigeon.datetime').current_date()
+                        return require("pigeon.datetime").current_day()
+                            .. " "
+                            .. require("pigeon.datetime").current_date()
                     end,
-                    cond = function() return vim.g.lualine_verbose end,
-                    color = 'Statement',
+                    cond = function()
+                        return vim.g.lualine_verbose
+                    end,
+                    color = "Statement",
                 },
             },
         },
         inactive_sections = {
             lualine_a = {},
             lualine_b = {},
-            lualine_c = { 'filename' },
-            lualine_x = { 'location' },
+            lualine_c = { "filename" },
+            lualine_x = { "location" },
             lualine_y = {},
-            lualine_z = {}
+            lualine_z = {},
         },
         tabline = {},
         winbar = {},
         inactive_winbar = {},
-        extensions = {}
+        extensions = {},
     }
-    require('lualine').setup(lualine_config)
+    require("lualine").setup(lualine_config)
 end
 
 M.spec = {
     {
-        'nvim-lualine/lualine.nvim',
-        event = 'LazyFile',
+        "nvim-lualine/lualine.nvim",
+        event = "LazyFile",
         dependencies = {
             {
                 "Pheon-Dev/pigeon",
                 config = pigeon_config,
-            }
+            },
         },
         config = M.setup,
     },

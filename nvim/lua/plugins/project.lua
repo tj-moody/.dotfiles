@@ -1,8 +1,8 @@
 local M = {}
 M.spec = {
     {
-        dir = '~/projects/projtasks.nvim',
-        dependencies = { 'akinsho/toggleterm.nvim' },
+        dir = "~/projects/projtasks.nvim",
+        dependencies = { "akinsho/toggleterm.nvim" },
         config = {
             terminal_config = {
                 direction = "vertical",
