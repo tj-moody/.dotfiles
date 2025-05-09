@@ -392,6 +392,7 @@ end, "Git History")
 map("n", "<leader>gj", "<CMD>Gitsigns next_hunk<CR>", "Next Change")
 map("n", "<leader>gk", "<CMD>Gitsigns prev_hunk<CR>", "Prev Change")
 map("n", "<leader>gb", "<CMD>Gitsigns blame_line<CR>", "Blame Line")
+map("n", "<leader>gl", "<CMD>vsplit<CR><CMD>lua require('gitgraph').draw({}, { all = true, max_count = 5000 })<CR>", "")
 -- }}}
 -- Splits{{{
 map("n", "<C-h>", "<CMD>lua require('smart-splits').move_cursor_left()<CR>", "Navigate Left")
@@ -523,7 +524,7 @@ map(
     "Cih",
     -- Toggle inlay hints
     function()
-        vim.lsp.inlay_hint(0, nil)
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end,
     "Inlay Hints"
 )

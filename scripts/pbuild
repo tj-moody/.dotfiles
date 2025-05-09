@@ -1,0 +1,133 @@
+#!/opt/homebrew/bin/lua
+
+-- NOTE: This (very primitive) build system does not check for
+--       changed #include header dependencies, and so changes
+--       only to header files may require the `--all` argument
+--       to compile changes correctly.
+
+local SYMBOL_COLOR = "\x1b[41m\x1b[38;5;16m"
+local RESET = "\x1b[0m"
+local SYMBOL = SYMBOL_COLOR .. " * " .. RESET .. " "
+
+local ok, projbuild = pcall(require, "projbuild")
+if not ok then
+    local ok, projfile = pcall(require, "projfile")
+    if ok and projfile.projbuild ~= nil then
+        projbuild = projfile.projbuild
+    else
+        print("No projbuild file found in current project.")
+        return
+    end
+end
+
+local version = projbuild.version
+if version ~= "0.1.1" then
+    print(SYMBOL .. "Consider reformatting to version 0.1.1")
+    return
+end
+
+local function file_exists(name)
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else
+        return false
+    end
+end
+
+local function file_basename(path)
+    local filename = ""
+    for part in path:gmatch("([^/]+)") do
+        filename = part
+    end
+    return filename
+end
+
+local function strip_extension(filename)
+    local extension = filename:sub(-4)
+    if extension == ".cpp" or extension == ".hpp" or extension == ".cxx" then
+        return filename:sub(1, -5)
+    end
+    extension = filename:sub(-2)
+    if extension == ".h" or ".c" then
+        return filename:sub(1, -3)
+    end
+    return ""
+end
+
+local function file_date(filename)
+    if not file_exists(filename) then
+        return -1
+    end
+    return io.popen("stat -f %m " .. filename):read()
+end
+
+local compile_command = projbuild.compiler .. " " .. table.concat(projbuild.compiler_flags, " ")
+
+local compile_all = false
+local verbose = false
+local quiet = false
+for i, _ in ipairs(arg) do
+    if arg[i] == "--all" then
+        compile_all = true
+    end
+    if arg[i] == "--verbose" then
+        verbose = true
+    end
+    if arg[i] == "--quiet" then
+        quiet = true
+    end
+end
+
+-- TODO: Preprocess `projbuild.source_files`  for wildcard (`src/*.cpp`)
+
+object_files = ""
+local updated_any = false
+
+for _, source_file in ipairs(projbuild.source_files) do
+    local base = strip_extension(file_basename(source_file))
+    if base == "*" then
+        print(SYMBOL .. "Wildcard matching not supported: " .. source_file)
+        return
+    end
+    object_file = "bin/" .. base .. ".o"
+    object_files = object_files .. " " .. object_file
+
+    local compile_file = not file_exists(object_file)
+    compile_file = compile_file or file_date(object_file) < file_date(source_file)
+    compile_file = compile_file or compile_all
+
+    if compile_file then
+        updated_any = true
+        local command = compile_command
+            .. " -Wno-unused-command-line-argument -c "
+            .. source_file
+            .. " -o "
+            .. object_file
+        if not quiet then
+            print("Compiling: " .. source_file .. " -> " .. object_file)
+        end
+        if verbose then
+            print("           " .. command)
+        end
+
+        status = os.execute(command)
+        if status == nil then
+            print(SYMBOL .. "Encountered compilation error, halting.")
+            return nil
+        end
+    end
+end
+
+if not updated_any then
+    return
+end
+local command = compile_command .. " " .. object_files .. " -o bin/" .. projbuild.executable
+if not quiet then
+    print("\nLinking: " .. object_files .. " -> bin/" .. projbuild.executable)
+end
+if verbose then
+    print(command)
+end
+os.execute(command)

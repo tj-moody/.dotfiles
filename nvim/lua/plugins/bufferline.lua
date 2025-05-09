@@ -16,21 +16,11 @@ M.setup = function()
         options = {
             style_preset = require("bufferline").style_preset.minimal,
             custom_filter = function(buf)
-                if vim.g.bufferline_show_all then
+                local num = vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
+                if num > 1 then
                     return true
                 end
-                local tab_num = 0
-                for _ in pairs(vim.api.nvim_list_tabpages()) do
-                    tab_num = tab_num + 1
-                end
-                if tab_num == 1 then
-                    return true
-                end
-                for _, v in ipairs(vim.fn.tabpagebuflist()) do
-                    if buf == v then
-                        return true
-                    end
-                end
+
                 return false
             end,
             mode = "buffers",

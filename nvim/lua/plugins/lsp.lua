@@ -105,7 +105,7 @@ local function cmp_setup()
         sources = cmp.config.sources({
             { name = "nvim_lsp" },
         }, {
-            { name = "luasnip" }, -- For luasnip users.
+            { name = "luasnip", keyword_length = 3 }, -- For luasnip users.
             { name = "path" },
         }, {
             { name = "buffer" },
@@ -386,7 +386,7 @@ local function lspconfig_setup()
         on_attach = on_attach,
         flags = lsp_flags,
     })
-    require("lspconfig")["tsserver"].setup({
+    require("lspconfig")["ts_ls"].setup({
         on_attach = on_attach,
         flags = lsp_flags,
     })
@@ -512,7 +512,7 @@ M.spec = {
                                     "html",
                                     "jsonls",
                                     "jdtls",
-                                    "tsserver",
+                                    "ts_ls",
                                     "marksman",
                                     "pyright",
                                     "vimls",

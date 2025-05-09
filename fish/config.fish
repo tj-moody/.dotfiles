@@ -26,8 +26,8 @@ if status is-interactive
     set PATH /opt/homebrew/opt/openjdk/bin $PATH
     export JAVA_HOME="/opt/homebrew/opt/openjdk/bin"
 
-    export CPATH="/opt/homebrew/include"
-    export LIBRARY_PATH="/opt/homebrew/lib"
+    # export CPATH="/opt/homebrew/include"
+    # export LIBRARY_PATH="/opt/homebrew/lib"
 
     export FZF_DEFAULT_OPTS="--border=none --no-scrollbar --preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
     export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'"
@@ -63,10 +63,12 @@ if status is-interactive
     alias md      "glow" # https://github.com/charmbracelet/glow
     alias snip    "nap" # https://github.com/maaslalani/nap
     alias rm      "trash"
+    alias c       "clear"
 
     alias pond    "pond -db"
     alias arttime "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
     alias wtf     "wtfutil" # https://wtfutil.com/
+    alias ckan    "pushd .; cd '/Applications/CKAN.app/Contents/MacOS'; '/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono' 'ckan.exe' prompt; popd"
 
     alias clang-tidy /opt/homebrew/opt/llvm/bin/clang-tidy
 end

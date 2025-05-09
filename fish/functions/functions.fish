@@ -1,14 +1,14 @@
 function l
-    exa -al --icons --group-directories-first $argv
+    eza -al --icons --group-directories-first $argv
 end
 
 function lt
-    exa -al --tree --icons --group-directories-first \
+    eza -al --tree --icons --group-directories-first \
     --ignore-glob="*.git*" $argv
 end
 
 function lds
-    exa -alD --icons
+    eza -alD --icons
 end
 
 function cleard
@@ -20,7 +20,7 @@ function cleard
 end
 
 function cl
-    cleard;l;echo
+    clear;l;echo
 end
 
 function wallpaper
@@ -110,13 +110,13 @@ function nvimspeedtest
 end
 
 function splash
-    set length $(math $(pfetch | wc -l) + $(exa -al --icons | wc -l) - 4)
+    set length $(math $(pfetch | wc -l) + $(eza -al --icons | wc -l) - 4)
     set length $(math $LINES-$length)
     for line in (seq $length)
         printf "\n"
     end
     pfetch
-    exa -al --icons
+    eza -al --icons
     printf "\n"
 end
 
@@ -153,7 +153,7 @@ function conda_auto_env --on-event fish_prompt
             conda activate $ENV
         end
     else
-        if test $CONDA_DEFAULT_ENV = "base"
+        if test -n "$CONDA_DEFAULT_ENV" && test $CONDA_DEFAULT_ENV = "base"
             :
         else
             conda deactivate
@@ -166,12 +166,12 @@ function lavat
 end
 
 function projinit
-    if not test -e environment.yml
+    if not test -e projfile.lua
         echo > projfile.lua 'return {
-    ["version"] = "0.0.1",
+    ["version"] = "0.1.1",
     ["tasks"] = {
-        ["run"] = [[]],
-        ["test"] = [[]],
+        ["run"] = { [[]] },
+        ["test"] = { [[]] },
     },
 }'
     else

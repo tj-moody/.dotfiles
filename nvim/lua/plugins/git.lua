@@ -10,5 +10,15 @@ M.spec = {
         cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
         dependencies = "nvim-lua/plenary.nvim",
     },
+    {
+        "isakbm/gitgraph.nvim",
+        config = {
+            format = {
+                timestamp = "%H:%M:%S %d-%m-%Y",
+                fields = { "hash", "timestamp", "author", "branch_name", "tag" },
+            },
+        },
+        event = "LazyFile",
+    },
 }
 return M
