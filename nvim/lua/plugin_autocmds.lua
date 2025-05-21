@@ -226,7 +226,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("CmdWinEnter", {
     pattern = { "*" },
     callback = function(opts)
-        print(opts.buf)
         vim.keymap.set("n", "<CR>", "<C-C><CR>", { noremap = true, silent = true, buffer = opts.buf })
     end,
 })

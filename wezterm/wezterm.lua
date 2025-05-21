@@ -40,13 +40,14 @@ local themes_list = {
     "everforest",
     "ayu",
     "midnightclub",
+    "binary",
 }
 
 local function read_theme()
-    local theme_file = io.open("/Users/tj/.config/.COLORS_NAME.txt", "r")
+    local theme_file = io.open("/Users/tj/.dotfiles/.theme.txt", "r")
     if not theme_file then
         wezterm.log_info("error reading file")
-        return "kanagawa"
+        return "gruvbox"
     end
     io.input(theme_file)
     local theme = io.read()
@@ -57,7 +58,7 @@ local function read_theme()
             valid_color = true
         end
     end
-    if not valid_color then theme = "kanagawa" end
+    if not valid_color then theme = "gruvbox" end
     return theme
 end
 local THEME = read_theme()
@@ -191,4 +192,6 @@ wezterm.on('user-var-changed', function(window, _, name, value)
     end
 end)
 
+wezterm.add_to_config_reload_watch_list("~/.dotfiles/.theme.txt")
+wezterm.automatically_reload_config = true
 return config

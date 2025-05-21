@@ -44,25 +44,26 @@ function theme --argument-names 'themename'
     set -a themeslist "everforest"
     set -a themeslist "ayu"
     set -a themeslist "midnightclub"
+    set -a themeslist "binary"
 
     if [ "0" != "$(count $argv)" ]
-        if contains $themename $themeslist
-            set COLORS_NAME $themename
-            echo -e "\033]50;SetProfile=$themename\a"
-            echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $themename | base64)\007"
-            if [ "$TERM" = "xterm-kitty" ]
-                kitty +kitten themes --reload-in=all $themename
-            end
-        else
-            echo $COLORS_NAME
+        set COLORS_NAME (cat ~/.dotfiles/.theme.txt)
+        echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
+        echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $COLORS_NAME | base64)\007"
+        if [ "$TERM" = "xterm-kitty" ]
+            kitty +kitten themes --reload-in=all $COLORS_NAME
         end
+        echo -n $COLORS_NAME > ~/.dotfiles/.theme.txt
+        echo $COLORS_NAME
 
         return
     end
+    set COLORS_NAME (cat ~/.dotfiles/.theme.txt)
 
     bash /Users/tj/.dotfiles/bash/theme.bash $COLORS_NAME
 
-    set COLORS_NAME (cat ~/.config/.COLORS_NAME.txt)
+    set COLORS_NAME (cat ~/.dotfiles/.theme.txt)
+    echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $COLORS_NAME | base64)\007"
 end
 
 function chwall
@@ -143,24 +144,6 @@ function iplocal
     ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2
 end
 
-function conda_auto_env --on-event fish_prompt
-    if test -e environment.yml
-        set ENV (head -n 1 environment.yml | cut -f2 -d ' ')
-        # Check if you are already in the correct environment
-        if test $ENV = $CONDA_DEFAULT_ENV
-            :
-        else
-            conda activate $ENV
-        end
-    else
-        if test -n "$CONDA_DEFAULT_ENV" && test $CONDA_DEFAULT_ENV = "base"
-            :
-        else
-            conda deactivate
-        end
-    end
-end
-
 function lavat
     ~/packages/lavat/lavat -c magenta -R 5 -F "@%#&I!:."
 end
@@ -179,12 +162,18 @@ function projinit
     end
 end
 
-function ssh
-    printf '\x1b]11;#0a0c1a\x1b\\'
-    /usr/bin/ssh "$argv"
+function ssh_cleanup
     printf '\x1b]104;\x1b\\'
     echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
     echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $COLORS_NAME | base64)\007"
+    echo "successful cleanup!"
+end
+
+function ssh
+    printf '\x1b]11;#0a0c1a\x1b\\'
+    trap ssh_cleanup SIGINT SIGTERM EXIT
+    /usr/bin/ssh "$argv"
+    ssh_cleanup
 end
 
 function vimtip

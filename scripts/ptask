@@ -35,13 +35,18 @@ end
 local SYMBOL_COLOR = "\x1b[1;44m\x1b[38;5;16m"
 local RESET = "\x1b[0m"
 local BOLD = "\x1b[22;97m"
+local PURPLE = "\x1b[1;35m"
+
+if (not projfile.tasks[task]) then
+    print("Task `" .. BOLD .. task .. RESET .. "` not found in projfile.")
+    return
+end
 
 local MESSAGE = BOLD .. "Executing task" .. " `" .. task .. "`"
 local SYMBOL = SYMBOL_COLOR .. " * " .. RESET .. " "
 
-print(MESSAGE)
+print(SYMBOL .. MESSAGE)
 for _, command in ipairs(projfile.tasks[task]) do
-    print(SYMBOL .. command)
+    print(PURPLE .. "$ " .. RESET .. command)
     os.execute(command)
-    print()
 end

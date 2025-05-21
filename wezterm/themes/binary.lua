@@ -1,31 +1,31 @@
 local colors = {
-    foreground = '#e8dbb6',
-    background = '#080914',
+    foreground = '#ffffff',
+    background = '#000000',
 
-    selection_fg = '#c1c1c1',
-    selection_bg = '#403e3d',
+    selection_fg = '#ffffff',
+    selection_bg = '#000000',
 
-    split = '#665c54',
+    split = '#ffffff',
 
     ansi = {
-        '#353535',
+        '#ffffff',
         '#e75740',
         '#b8ba46',
         '#f0bf4f',
         '#89a498',
         '#c8899a',
         '#98be82',
-        '#b4a998',
+        '#ffffff',
     },
     brights = {
-        '#a09588',
+        '#ffffff',
         '#e75740',
         '#b8ba46',
         '#f0bf4f',
         '#89a498',
         '#c8899a',
         '#98be82',
-        '#ece1c2',
+        '#ffffff',
     },
 }
 colors.cursor_bg = colors.foreground

@@ -1,5 +1,5 @@
 format = "$username[δ ](bright-black)$directory$git_branch$git_status$character"
-right_format = '''$jobs$battery$aws$buf$conda$docker_context$nix_shell$nodejs$package$dotnet$gcloud$hostname$kubernetes$opa$terraform$c$lua$python$dart$elixir$elm$golang$haskell$haxe$java$julia$meson$rlang$ruby$rust$scala$spack$ocaml$swift$zig'''
+right_format = '''$jobs$battery$memory_usage$aws$buf$conda$docker_context$nix_shell$nodejs$package$dotnet$gcloud$hostname$kubernetes$opa$terraform$c$cpp$lua$python$dart$elixir$elm$golang$haskell$haxe$java$julia$meson$rlang$ruby$rust$scala$spack$ocaml$swift$zig$localip'''
 
 # π
 # format = '''
@@ -28,6 +28,14 @@ vimcmd_replace_one_symbol = '[::](red)'
 vimcmd_replace_symbol = '[::](red)'
 vimcmd_visual_symbol = '[::](yellow)'
 
+[localip]
+disabled = false
+ssh_only = true
+format = '@[$localipv4](bold yellow) '
+
+[hostname]
+ssh_symbol = ' '
+
 [git_branch]
 # symbol = ' '
 symbol = ' '
@@ -48,17 +56,22 @@ format = '[$symbol$percentage]($style) '
 
 [c]
 symbol = ' '
-format = 'via [$symbol($version(-$name) )]($style)'
+format = ' via [$symbol($version(-$name) )]($style)'
+
+[cpp]
+disabled = false
+symbol = ' '
+format = ' via [$symbol($version(-$name) )]($style)'
 
 [lua]
 symbol = ' '
 style = "#51a0cf"
-format = 'via [$symbol($version )]($style)'
+format = ' via [$symbol($version )]($style)'
 detect_files = ['!projfile.lua']
 
 [python]
 symbol = ' '
-format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+format = ' via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
 [line_break]
 disabled = true
@@ -70,7 +83,7 @@ threshold = -1
 symbol = ''
 style = 'green'
 format = '[$symbol](dimmed green)[$ram_pct]($style) '
-# format = 'via $symbol [${ram}( ${swap})]($style) '
+# format = ' via $symbol [${ram}( ${swap})]($style) '
 
 [fill]
 symbol = ' '
@@ -97,15 +110,16 @@ format = 'in [$symbol$environment ]($style)'
 
 [dart]
 symbol = " "
-format = 'via [$symbol($version )]($style)'
+format = ' via [$symbol($version )]($style)'
 
 [docker_context]
-symbol = " "
-format = 'via [$symbol$context]($style)'
+disabled = false
+symbol = "󰡨 "
+format = ' via [$symbol$context]($style)'
 
 [elixir]
 symbol = " "
-format = 'via [$symbol($version \(OTP $otp_version\) )]($style)'
+format = ' via [$symbol($version \(OTP $otp_version\) )]($style)'
 
 [elm]
 symbol = " "
@@ -115,14 +129,14 @@ symbol = " "
 
 [golang]
 symbol = " "
-format = 'via [$symbol($version )]($style)'
+format = ' via [$symbol($version )]($style)'
 
 [guix_shell]
 symbol = " "
 
 [haskell]
 symbol = " "
-format = 'via [$symbol($version )]($style)'
+format = ' via [$symbol($version )]($style)'
 
 [haxe]
 symbol = "⌘ "
@@ -132,11 +146,11 @@ symbol = " "
 
 [java]
 symbol = " "
-format = 'via [${symbol}(${version} )]($style)'
+format = ' via [${symbol}(${version} )]($style)'
 
 [julia]
 symbol = " "
-format = 'via [$symbol($version )]($style)'
+format = ' via [$symbol($version )]($style)'
 
 [meson]
 symbol = "喝 "
@@ -149,7 +163,7 @@ symbol = " "
 
 [nodejs]
 symbol = " "
-format = 'via [$symbol($version )]($style)'
+format = ' via [$symbol($version )]($style)'
 
 [os.symbols]
 Alpine = " "
@@ -198,11 +212,11 @@ symbol = "ﳒ "
 
 [ruby]
 symbol = " "
-format = 'via [$symbol($version )]($style)'
+format = ' via [$symbol($version )]($style)'
 
 [rust]
 symbol = " "
-format = 'via [$symbol($version )]($style)'
+format = ' via [$symbol($version )]($style)'
 style = '#b7410e'
 
 [scala]

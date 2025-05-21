@@ -2,17 +2,11 @@ local M = {}
 M.spec = {
     {
         "tpope/vim-surround",
-        keys = {
-            { "cs" },
-            { "ds" },
-            { "ss" },
-            { "sa", mode = { "n", "x" } },
-            { "si", mode = { "n", "x" } },
-        },
+        event = "LazyFile",
     },
     {
         "rmagatti/auto-session",
-        lazy = not vim.g.tj_reloaded,
+        lazy = false,
         cmd = { "SessionRestore", "SessionSave" },
         config = function()
             require("auto-session").setup({ ---@diagnostic disable-line
@@ -29,18 +23,7 @@ M.spec = {
                 -- Don't load telescope on startup
                 session_lens = { load_on_setup = false },
             })
-            -- if vim.g.tj_reloaded then
-            --     vim.cmd.SessionRestore()
-            -- end
         end,
-    },
-    {
-        dir = "~/projects/nucomment.nvim",
-        keys = {
-            "<leader>cc",
-            { "<leader>c", mode = { "n", "x" } },
-        },
-        config = { floating_comments = false },
     },
     {
         "windwp/nvim-autopairs",
@@ -141,8 +124,7 @@ M.spec = {
     {
         "willothy/flatten.nvim",
         config = { window = { open = "alternate" } },
-        priority = 1001,
-        lazy = false,
+        lazy = true,
     },
     {
         "chomosuke/term-edit.nvim",

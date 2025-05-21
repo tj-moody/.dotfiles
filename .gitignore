@@ -6,3 +6,5 @@ wtf.yml
 *.swp
 .luarc.json
 kitty
+.env
+.theme.txt

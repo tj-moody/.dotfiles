@@ -2,7 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     # global vars
     set -x EDITOR nvim
-    export COLORS_NAME=$(cat ~/.config/.COLORS_NAME.txt)
+    export COLORS_NAME=$(cat ~/.dotfiles/.theme.txt)
     echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
     set fish_greeting
 
@@ -12,7 +12,6 @@ if status is-interactive
     set PATH /Users/tj/.local/share/bob/nvim-bin/ $PATH
     set PATH $HOME/.cargo/bin $PATH
     set PATH /opt/homebrew/bin/ $PATH
-    set PATH /opt/homebrew/anaconda3/bin/ $PATH
     set PATH /Qt/5.15.2/clang_64/bin/ $PATH
     set PATH $HOME/go/bin/ $PATH
     set PATH $HOME/packages/potion/bin $PATH
@@ -22,6 +21,7 @@ if status is-interactive
     set PATH $HOME/.config/emacs/bin $PATH
     set PATH /usr/local/opt/texinfo/bin $PATH # load newer version of makeinfo for emacs
     set PATH /opt/homebrew/Cellar/gcc/13.2.0/bin $PATH
+    set PATH /opt/homebrew/opt/libpq/bin $PATH
 
     set PATH /opt/homebrew/opt/openjdk/bin $PATH
     export JAVA_HOME="/opt/homebrew/opt/openjdk/bin"
@@ -35,6 +35,10 @@ if status is-interactive
     export BAT_THEME="gruvbox-dark"
 
     export RASPI="pi@192.168.1.86"
+
+    export PRETTIERD_DEFAULT_CONFIG="../.prettierrc"
+
+    . ~/.dotfiles/.env
 
     # Init
     # Starship
@@ -54,21 +58,21 @@ if status is-interactive
     set -gx TERM wezterm
 
     # Aliases
-    alias nv      "/Users/tj/.dotfiles/bash/nv.bash"
-    alias nvu     "/Users/tj/.dotfiles/bash/nvu.bash"
-    alias nvr     "/Users/tj/.dotfiles/bash/nvr.bash"
-    alias src     "source ~/.config/fish/config.fish"
-    alias lg      "lazygit"
-    alias gs      "git status"
-    alias md      "glow" # https://github.com/charmbracelet/glow
-    alias snip    "nap" # https://github.com/maaslalani/nap
-    alias rm      "trash"
-    alias c       "clear"
+    alias nv       "/Users/tj/.dotfiles/bash/nv.bash                                                                                                                "
+    alias nvupdate "/Users/tj/.dotfiles/bash/nvu.bash                                                                                                               "
+    alias nvr      "/Users/tj/.dotfiles/bash/nvr.bash                                                                                                               "
+    alias src      "source ~/.config/fish/config.fish                                                                                                               "
+    alias lg       "lazygit                                                                                                                                         "
+    alias gs       "git status                                                                                                                                      "
+    alias md       "glow                                                                                                                                            " # https://github.com/charmbracelet/glow
+    alias snip     "nap                                                                                                                                             " # https://github.com/maaslalani/nap
+    alias rm       "trash                                                                                                                                           "
+    alias ssh      "/Users/tj/.dotfiles/bash/ssh.bash"
 
-    alias pond    "pond -db"
-    alias arttime "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
-    alias wtf     "wtfutil" # https://wtfutil.com/
-    alias ckan    "pushd .; cd '/Applications/CKAN.app/Contents/MacOS'; '/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono' 'ckan.exe' prompt; popd"
+    alias pond     "pond -db                                                                                                                                        "
+    alias arttime  "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4                                                                                 "
+    alias wtf      "wtfutil                                                                                                                                         " # https://wtfutil.com/
+    alias ckan     "pushd .; cd '/Applications/CKAN.app/Contents/MacOS'; '/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono' 'ckan.exe' prompt; popd"
 
     alias clang-tidy /opt/homebrew/opt/llvm/bin/clang-tidy
 end
@@ -77,10 +81,6 @@ end
 # The original version is saved in /Users/tj/.config/fish/config.fish.pysave
 set -x PATH "/Library/Frameworks/Python.framework/Versions/3.11/bin" "$PATH"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if test -f /opt/homebrew/anaconda3/bin/conda
-    eval /opt/homebrew/anaconda3/bin/conda "shell.fish" "hook" $argv | source
-end
-# <<< conda initialize <<<
-
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

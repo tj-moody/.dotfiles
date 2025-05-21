@@ -260,16 +260,6 @@ M.setup = function()
                 },
                 {
                     function()
-                        local venv = os.getenv("CONDA_DEFAULT_ENV")
-                        if venv == "base" then
-                            return ""
-                        end
-                        return venv
-                    end,
-                    icon = { "", color = { fg = colors.visual } },
-                },
-                {
-                    function()
                         return ""
                     end,
                     color = { fg = colors.normal },

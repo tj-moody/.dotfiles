@@ -106,6 +106,7 @@ o.grepprg = "rg --vimgrep --smart-case --follow"
 o.showtabline = 2
 o.tabline = " "
 o.splitkeep = "topline"
+o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,t-r-cr-o:hor20"
 
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false
@@ -128,3 +129,43 @@ if vim.g.neovide then
     vim.g.transparency = 1
     vim.g.neovide_background_color = "#0e0f17" .. alpha()
 end
+
+vim.diagnostic.config({
+    virtual_text = true,
+    virtual_lines = false,
+    underline = true,
+})
+
+local signs = {
+    { name = "DiagnosticSignError", text = "" },
+    { name = "DiagnosticSignWarn", text = "" },
+    { name = "DiagnosticSignHint", text = "" },
+    { name = "DiagnosticSignInfo", text = "" },
+}
+
+for _, sign in ipairs(signs) do
+    vim.fn.sign_define(sign.name, {
+        texthl = sign.name,
+        text = sign.text,
+        numhl = "",
+    })
+end
+
+vim.diagnostic.config({
+    virtual_text = true,
+    severity_sort = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+        },
+        linehl = {
+            [vim.diagnostic.severity.ERROR] = "DiagnosticErrBG",
+            [vim.diagnostic.severity.WARN] = "DiagnosticWarnBG",
+            [vim.diagnostic.severity.INFO] = "DiagnosticInfoBG",
+            [vim.diagnostic.severity.HINT] = "DiagnosticHintBG",
+        },
+    },
+})

@@ -28,9 +28,27 @@ M.themes_list = {
     "everforest",
     "ayu",
     "midnightclub",
+    "binary",
 }
 
-vim.g.tjtheme = os.getenv("COLORS_NAME")
+local function read_theme()
+    local theme_file = io.open("/Users/tj/.dotfiles/.theme.txt", "r")
+    if not theme_file then
+        return "gruvbox"
+    end
+    io.input(theme_file)
+    local theme = io.read()
+    io.close(theme_file)
+    local valid_color = false
+    for _, v in ipairs(M.themes_list) do
+        if v == theme then
+            valid_color = true
+        end
+    end
+    if not valid_color then theme = "gruvbox" end
+    return theme
+end
+vim.g.tjtheme = read_theme()
 local valid_color = false
 for _, v in ipairs(M.themes_list) do
     if v == vim.g.tjtheme then
@@ -38,7 +56,7 @@ for _, v in ipairs(M.themes_list) do
     end
 end
 if not valid_color and not vim.g.tjtheme then
-    vim.g.tjtheme = "kanagawa"
+    vim.g.tjtheme = "gruvbox"
 end
 -- vim.g.THEME = vim.env.COLORS_NAME
 
@@ -71,8 +89,11 @@ local colors_table = {
         vim.cmd.colorscheme("ayu")
     end, -- }}}
     midnightclub = function() --{{{
-        vim.cmd.colorscheme("midnight-club")
+        vim.cmd.colorscheme("memoonry")
     end, -- }}}
+    binary = function()-- {{{
+        vim.cmd.colorscheme("binary")
+    end,-- }}}
 }
 
 local hl_table = {
@@ -340,6 +361,7 @@ local hl_table = {
             { "NvimTreeRootFolder", { fg = "#ffae57", bold = true } },
         },
     }, -- }}}
+    binary = {},-- {{{}}}
 }
 
 local clear_hl_bg_table = { -- {{{
@@ -420,6 +442,10 @@ local set_hl_table = { -- {{{
     { "DiagnosticUnderlineHint", { undercurl = true, sp = M.get_color("DiagnosticHint", "fg#") } },
     { "DiagnosticUnderlineInfo", { undercurl = true, sp = M.get_color("DiagnosticInfo", "fg#") } },
     { "DiagnosticUnderlineOk", { undercurl = true, sp = M.get_color("DiagnosticOk", "fg#") } },
+    { "DiagnosticErrBG", { bg = "#472322" } },
+    { "DiagnosticWarnBG", { bg = "#473621" } },
+    { "DiagnosticInfoBG", { bg = "#0f3a42" } },
+    { "DiagnosticHintBG", { bg = "#3d4220" } },
 } -- }}}
 
 ---Remove background from highlight group `hl`
@@ -559,7 +585,11 @@ M.spec = {
         event = "VeryLazy",
     },
     {
-        "nyngwang/midnight-club.nvim",
+        "nyngwang/memoonry.nvim",
+        event = "VeryLazy",
+    },
+    {
+        "jackplus-xyz/binary.nvim",
         event = "VeryLazy",
     },
 }

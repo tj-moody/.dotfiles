@@ -54,10 +54,12 @@ map("n", "N", "Nzzzv", "Prev Match")
 
 map("i", "<esc>", "<esc>`^", "Exit Insert Mode")
 
+m_o({ "n", "x" }, "<leader>c", "gc", { remap = true })
+
 -- }}}
 -- Basics{{{
 
-map("n", "<leader>.", "<CMD>vsp<CR><CMD>Telescope smart_open<CR>", "Find File in Split")
+map("n", "<leader>.", "<CMD>vsp<CR><CMD>Telescope find_files<CR>", "Find File in Split")
 
 map("n", "<leader>w", "<CMD>silent update<CR>", "Write")
 map("n", "<leader><leader>x", "<CMD>silent write<CR><CMD>source <CR>", "Execute")
@@ -94,7 +96,6 @@ map("x", "s", "<Plug>VSurround", "Surround")
 map("n", "sl", "<CMD>vsp<CR>", "Split Rigth")
 map("n", "sj", "<CMD>sp<CR>", "Split Down")
 map("n", "se", "<c-w>=", "Equalize Splits")
-map("n", "sr", "<CMD>lua require('smart-splits').start_resize_mode<CR>", "Resize Splits")
 
 map("x", "V", "j", "Expand V-Line Selection")
 
@@ -270,8 +271,8 @@ m_o("x", [["]], [[<Plug>VSurround"]], { noremap = false, desc = "Double Quote Su
 m_o("x", [[']], [[<Plug>VSurround']], { noremap = false, desc = "Single Quote Surround" })
 m_o("x", [[(]], [[<Plug>VSurround)]], { noremap = false, desc = "Parentheses Surround" })
 m_o("x", [[{]], [[<Plug>VSurround)]], { noremap = false, desc = "Braces Surround" })
--- cmd('unmap [%')
 m_o("x", "[", "<Plug>VSurround]", { noremap = false, desc = "Brackets Surround" })
+-- cmd('unmap [%')
 
 map("i", "<ScrollWheelLeft>", "", "")
 map("i", "<ScrollWheelRight>", "", "")
@@ -280,6 +281,7 @@ map("n", "<ScrollWheelRight>", "", "")
 map("x", "<ScrollWheelLeft>", "", "")
 map("x", "<ScrollWheelRight>", "", "")
 
+map("n", "<leader>;", "mmA;<Esc>`m", "Append semicolon")
 -- m_o('i', ';',
 --     function()
 --         -- chars that can be afte the cursor to allow a semicolon, mostly closing delimiters
@@ -323,7 +325,7 @@ map("x", "<ScrollWheelRight>", "", "")
 
 map("n", "t", function()
     if vim.g.nvimtreefloat == true then
-        safe_require("config.nvim-tree").nvim_tree_setup()
+        safe_require("plugins.nvim-tree").nvim_tree_setup()
         return
     end
     if vim.bo.filetype == "NvimTree" then
@@ -339,12 +341,13 @@ map("n", "TT", function()
     if vim.g.nvimtreefloat == true then
         vim.g.nvimtreefloat = false
         cmd("NvimTreeClose")
-        safe_require("config.nvim-tree").nvim_tree_setup()
+        safe_require("plugins.nvim-tree").nvim_tree_setup()
     else
-        safe_require("config.nvim-tree").nvim_tree_float_setup()
+        safe_require("plugins.nvim-tree").nvim_tree_float_setup()
         cmd("NvimTreeClose")
         cmd("NvimTreeOpen")
     end
+    safe_require("plugins.colorscheme").setup("nvim_tree")
 end, "Toggle NvimTree Float")
 -- }}}
 -- Fuzzy Search{{{
@@ -404,8 +407,6 @@ map("n", "<Space>h", "<C-w>H", "Move Right")
 map("n", "<Space>j", "<C-w>J", "Move Down")
 map("n", "<Space>k", "<C-w>K", "Move Up")
 map("n", "<Space>l", "<C-w>L", "Move Right")
-
-map("n", "sr", "<CMD>lua require('smart-splits').start_resize_mode<CR>", "Splits Resize")
 -- }}}
 -- TreeSJ{{{
 map("n", "<c-s>", "<CMD>TSJToggle<CR>", "Split/Join")
@@ -415,13 +416,11 @@ map("n", "<leader>ta", "<CMD>ToggleAlternate<CR>", "Toggle Alternate")
 -- }}}
 -- Project{{{
 map("n", "<C-T>", '<CMD>lua require("projtasks").toggle()<CR>', "Toggle Terminal")
-map("n", "<leader>pR", '<CMD>lua require("projtasks").setup({})<CR>', "Reload Projtasks")
-map("n", "<leader>pp", '<CMD>lua require("projtasks").term_recent()<CR>', "Run Project")
-map("n", "<leader>pr", '<CMD>lua require("projtasks").term_run()<CR>', "Run Project")
-map("n", "<leader>pb", '<CMD>lua require("projtasks").term_build()<CR>', "Build Project")
-map("n", "<leader>pt", '<CMD>lua require("projtasks").term_test()<CR>', "Test Project")
-map("n", "<leader>pB", '<CMD>lua require("projtasks").term_bench()<CR>', "Benchmark Project")
-map("n", "<leader>pP", '<CMD>lua require("projtasks").term_profile()<CR>', "Profile Project")
+map("n", "<leader>pr", require("projtasks").create_ptask_runner("run"), "Run Project")
+map("n", "<leader>pb", require("projtasks").create_ptask_runner("build"), "Build Project")
+map("n", "<leader>pt", require("projtasks").create_ptask_runner("test"), "Test Project")
+map("n", "<leader>pB", require("projtasks").create_ptask_runner("bench"), "Benchmark Project")
+map("n", "<leader>pP", require("projtasks").create_ptask_runner("profile"), "Profile Project")
 -- }}}
 -- Comment{{{
 map("n", "<leader>co", [[<CMD>execute "norm! o" . substitute(&commentstring, '%s', '', '')<CR>A]], "Comment Below")
@@ -510,17 +509,6 @@ map(
 
 map(
     "n",
-    "Cba",
-    -- Toggle Bufferline show all
-    function()
-        vim.g.bufferline_show_all = not vim.g.bufferline_show_all
-        print("Bufferline Show All: " .. tostring(vim.g.bufferline_show_all))
-    end,
-    "Bufferline Show All"
-)
-
-map(
-    "n",
     "Cih",
     -- Toggle inlay hints
     function()
@@ -583,15 +571,18 @@ map(
     "Ct",
     -- Change theme
     function()
-        vim.ui.select(safe_require("plugins.colorscheme").themes_list, {
-            prompt = "Choose theme:",
-        }, function(choice)
-            if choice then
-                vim.g.tjtheme = choice
-                safe_require("plugins.colorscheme").reload()
-                require("wezterm").set_user_var("COLORS_NAME", choice)
-            end
-        end)
+        -- vim.ui.select(safe_require("plugins.colorscheme").themes_list, {
+        --     prompt = "Choose theme:",
+        -- }, function(choice)
+        --     if choice then
+        --         vim.g.tjtheme = choice
+        --         safe_require("plugins.colorscheme").reload()
+        --         require("wezterm").set_user_var("COLORS_NAME", choice)
+        --         vim.cmd("silent !echo \"" .. choice .. "\" > ~/.dotfiles/.theme.txt")
+        --     end
+        -- end)
+        vim.cmd[[cquit 3]]
+
     end,
     "Change Theme"
 )
@@ -625,14 +616,6 @@ map(
     "Terminal Direction"
 )
 
-map("n", "Cfc", function()
-    require("nucomment").toggle_floating_comments()
-end, "Floating Comments")
-
-map("n", "Co", function()
-    require("projtasks").change_output()
-end, "Change Projtasks Output")
-
 -- Restart nvim
 map("n", "<leader>R", function()
     -- '<CMD>wa<CR><CMD>SessionSave<CR><CMD>cq<CR>'
@@ -641,7 +624,7 @@ map("n", "<leader>R", function()
     end
     vim.cmd.wa()
     vim.cmd.SessionSave()
-    vim.cmd.cq()
+    vim.cmd[[cquit 5]]
 end, "Reload")
 
 --- ABBREVIATIONS  TODO: Replace with snippets

@@ -16,6 +16,7 @@ declare -a themestrings=(
     "\e[0;32meverforest     \e[0m"
     "\e[0;33mayu            \e[0m"
     "\e[0;36mmidnightclub   \e[0m"
+    "\e[0;00mbinary         \e[0m"
 )
 
 declare -a themeslist=(
@@ -28,6 +29,7 @@ declare -a themeslist=(
     "everforest"
     "ayu"
     "midnightclub"
+    "binary"
 )
 
 MAX_INDEX=$(( ${#themestrings[@]} - 1 ))
@@ -102,7 +104,7 @@ while : ; do
             ;;
         '')
             THEME=$(index_to_theme "$index")
-            echo "$THEME" > ~/.config/.COLORS_NAME.txt
+            echo "$THEME" > ~/.dotfiles/.theme.txt
 
             exit_loop
             break

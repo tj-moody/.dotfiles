@@ -33,7 +33,6 @@ plugins.add("dap")
 
 plugins.add("nvim-tree")
 plugins.add("lualine")
--- plugins.add('alpha')
 plugins.add('bufferline')
 
 plugins.add("fun")
