@@ -71,11 +71,11 @@ M.spec = {
             end)
         end,
     },
-    {
-        "RaafatTurki/hex.nvim",
-        event = "LazyFile",
-        config = true,
-    },
+    -- {
+    --     "RaafatTurki/hex.nvim",
+    --     event = "LazyFile",
+    --     config = true,
+    -- },
     {
         "tommcdo/vim-lion",
         keys = {

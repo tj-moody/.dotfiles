@@ -107,6 +107,7 @@ o.showtabline = 2
 o.tabline = " "
 o.splitkeep = "topline"
 o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,t-r-cr-o:hor20"
+o.winborder = "rounded"
 
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false
@@ -130,12 +131,6 @@ if vim.g.neovide then
     vim.g.neovide_background_color = "#0e0f17" .. alpha()
 end
 
-vim.diagnostic.config({
-    virtual_text = true,
-    virtual_lines = false,
-    underline = true,
-})
-
 local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },
@@ -153,6 +148,7 @@ end
 
 vim.diagnostic.config({
     virtual_text = true,
+    underline = true,
     severity_sort = true,
     signs = {
         text = {

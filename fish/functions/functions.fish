@@ -4,7 +4,8 @@ end
 
 function lt
     eza -al --tree --icons --group-directories-first \
-    --ignore-glob="*.git*" $argv
+    --ignore-glob="node_modules|.git|.vscode|.idea" $argv
+    # --ignore-glob="**/.git*|**/node_modules/*|**/.vscode/*|**/.idea/*" $argv
 end
 
 function lds
@@ -17,10 +18,6 @@ function cleard
         # echo -ne "\n"
         printf "\n"
     end
-end
-
-function cl
-    clear;l;echo
 end
 
 function wallpaper
@@ -74,14 +71,6 @@ function chwall
     m wallpaper $(sed '1q;d' ~/.config/.WallPath.txt)
 end
 
-function ccompile
-    gcc -o $argv[1] $argv[1].c
-end
-
-function cppcompile
-    g++ -o $argv[1] $argv[1].cpp
-end
-
 function dev
     cd ~/dev/"$argv"
 end
@@ -102,23 +91,16 @@ function pack
     cd ~/packages/"$argv"
 end
 
+function mich
+    cd ~/school/michigan/"$argv"
+end
+
 function colortest
     bash /Users/tj/.dotfiles/bash/colortest.bash
 end
 
 function nvimspeedtest
-    hyperfine "nvim --headless +qa"
-end
-
-function splash
-    set length $(math $(pfetch | wc -l) + $(eza -al --icons | wc -l) - 4)
-    set length $(math $LINES-$length)
-    for line in (seq $length)
-        printf "\n"
-    end
-    pfetch
-    eza -al --icons
-    printf "\n"
+    hyperfine "nvim --headless +qa" --warmup 10
 end
 
 function git-status-chsh
@@ -153,27 +135,13 @@ function projinit
         echo > projfile.lua 'return {
     ["version"] = "0.1.1",
     ["tasks"] = {
-        ["run"] = { [[]] },
+        ["build"] = { [[]] },
         ["test"] = { [[]] },
     },
 }'
     else
         echo "`projtasks` file already exists."
     end
-end
-
-function ssh_cleanup
-    printf '\x1b]104;\x1b\\'
-    echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
-    echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $COLORS_NAME | base64)\007"
-    echo "successful cleanup!"
-end
-
-function ssh
-    printf '\x1b]11;#0a0c1a\x1b\\'
-    trap ssh_cleanup SIGINT SIGTERM EXIT
-    /usr/bin/ssh "$argv"
-    ssh_cleanup
 end
 
 function vimtip

@@ -2,7 +2,7 @@
 
 first="true"
 while true; do
-    nvim "$@"
+    /Users/tj/.local/share/bob/v0.11.1/bin/nvim "$@"
     status="$?"
     if [ "$status" == "3" ]; then
         bash ~/.dotfiles/bash/theme.bash arg
@@ -10,3 +10,4 @@ while true; do
         break
     fi
 done
+exit 0

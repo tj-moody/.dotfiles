@@ -171,9 +171,6 @@ local function cmp_setup()
             { name = "cmdline" },
         }),
     })
-
-    require("lsp_lines").setup()
-
 end
 
 local window_title = "  "
@@ -211,7 +208,7 @@ local function lspconfig_setup()
         m_b("n", "gD", vim.lsp.buf.declaration, bufnr, "Go to Declaration")
         m_b("n", "gd", vim.lsp.buf.definition, bufnr, "Go to Definition")
 
-        m_b("n", "K", vim.lsp.buf.hover, bufnr, "Hover")
+        -- m_b("n", "K", vim.lsp.buf.hover, bufnr, "Hover")
 
         m_b("n", "gi", vim.lsp.buf.implementation, bufnr, "Go to Implementation")
         m_b("n", "gs", vim.lsp.buf.signature_help, bufnr, "Get Signature") -- "go type"
@@ -263,6 +260,7 @@ local function lspconfig_setup()
         "ruff",
         "ts_ls",
         "lua_ls",
+        "pyright",
         "bash_ls",
         "clangd",
         "cssls",
@@ -313,7 +311,6 @@ M.spec = {
             { "hrsh7th/cmp-cmdline" },
             { "L3MON4D3/LuaSnip" },
             { "saadparwaiz1/cmp_luasnip" },
-            { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
             { "onsails/lspkind.nvim" },
         },
     },
@@ -340,6 +337,7 @@ M.spec = {
                     css = web_conform_options,
                     go = { "goimports", "gofmt" },
                     cpp = { "clang-format" },
+                    c = { "clang-format" },
                 },
             })
         end,

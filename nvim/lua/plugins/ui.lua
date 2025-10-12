@@ -111,6 +111,7 @@ M.spec = {
                 ["TODO"] = { icon = " ", color = "info" },
                 ["DEBUG"] = { icon = " ", color = "#a454ff" },
                 ["DEBUG_ONLY"] = { icon = " ", color = "#a454ff" },
+                ["SPEC"] = { icon = "󱔗 ", color = "#B3E5FC" },
             },
         },
     },

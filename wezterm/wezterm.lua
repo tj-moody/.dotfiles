@@ -146,10 +146,10 @@ config.keys = {
             if not overrides.my_is_dark_bg then -- setting dark background
                 overrides.my_old_bg = config.colors.background
                 if not overrides.colors then
-                    overrides.colors = { background = '#0e0f17' }
+                    overrides.colors = { background = '#080914' }
                 elseif overrides.colors then
                     overrides.my_old_bg = overrides.colors.background
-                    overrides.colors.background = '#0e0f17'
+                    overrides.colors.background = '#080914'
                 end
                 overrides.my_is_dark_bg = true
             else -- unsetting dark background

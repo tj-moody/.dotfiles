@@ -30,6 +30,7 @@ M.spec = {
                     },
                 },
                 defaults = {
+                    border = false,
                     file_ignore_patterns = { ".git/" },
                     layout_config = {
                         -- prompt_position = 'top',

@@ -1,2 +1,2 @@
 #!/opt/homebrew/bin/fish
-sudo flamegraph -o flamegraph.svg -- $argv && open flamegraph.svg && sleep 0.1; yes | rm flamegraph.svg
+sudo flamegraph -o flamegraph.svg -- $argv && open flamegraph.svg && sleep 0.1; # yes | rm flamegraph.svg

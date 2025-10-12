@@ -65,12 +65,12 @@ M.setup = function()
             buffer_visible = {
                 bg = bgcolor,
                 bold = true,
-                italic = true,
+                italic = false,
             },
             buffer_selected = {
                 bg = bgcolor,
                 bold = true,
-                italic = true,
+                italic = false,
             },
             numbers_selected = {
                 bg = bgcolor,

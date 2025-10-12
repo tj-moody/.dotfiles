@@ -367,12 +367,12 @@ map("n", "<leader>bc", "<CMD>BufferLinePickClose<CR>", "Close Buffer")
 map("n", "<leader>bp", "<CMD>BufferLinePick<CR>", "Pick Buffer")
 -- }}}
 -- Tabs{{{
-map("n", "<leader>t.", "<CMD>tabe %<CR><CMD>Telescope smart_open<CR>", "Find File in New Tab")
-map("n", "<leader>tn", "<CMD>tabe %<CR>", "New Tab")
-map("n", "<leader>tL", "<CMD>tabnext<CR>", "Next Tab")
-map("n", "<leader>tH", "<CMD>tabprevious<CR>", "Prev Tab")
-map("n", "<leader>to", "<CMD>tabonly<CR>", "Only Tab")
-map("n", "<leader>tq", "<CMD>tabclose<CR>", "Quit Tab")
+map("n", "T.", "<CMD>tabe %<CR><CMD>Telescope smart_open<CR>", "Find File in New Tab")
+map("n", "TN", "<CMD>tabe %<CR>", "New Tab")
+map("n", "TL", "<CMD>tabnext<CR>", "Next Tab")
+map("n", "TH", "<CMD>tabprevious<CR>", "Prev Tab")
+map("n", "TO", "<CMD>tabonly<CR>", "Only Tab")
+map("n", "TQ", "<CMD>tabclose<CR>", "Quit Tab")
 -- }}}
 -- Lazy{{{
 map("n", "<leader>lz", "<CMD>Lazy<CR>", "Lazy")
@@ -421,6 +421,7 @@ map("n", "<leader>pb", require("projtasks").create_ptask_runner("build"), "Build
 map("n", "<leader>pt", require("projtasks").create_ptask_runner("test"), "Test Project")
 map("n", "<leader>pB", require("projtasks").create_ptask_runner("bench"), "Benchmark Project")
 map("n", "<leader>pP", require("projtasks").create_ptask_runner("profile"), "Profile Project")
+map("n", "<leader>pc", require("projtasks").create_ptask_runner("cycle"), "Cycle Project ")
 -- }}}
 -- Comment{{{
 map("n", "<leader>co", [[<CMD>execute "norm! o" . substitute(&commentstring, '%s', '', '')<CR>A]], "Comment Below")
@@ -623,8 +624,8 @@ map("n", "<leader>R", function()
         M.toggle_zen()
     end
     vim.cmd.wa()
-    vim.cmd.SessionSave()
-    vim.cmd[[cquit 5]]
+    vim.cmd("AutoSession save")
+    vim.cmd("cquit 5")
 end, "Reload")
 
 --- ABBREVIATIONS  TODO: Replace with snippets

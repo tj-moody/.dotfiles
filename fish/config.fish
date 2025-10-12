@@ -34,8 +34,6 @@ if status is-interactive
 
     export BAT_THEME="gruvbox-dark"
 
-    export RASPI="pi@192.168.1.86"
-
     export PRETTIERD_DEFAULT_CONFIG="../.prettierrc"
 
     . ~/.dotfiles/.env
@@ -58,20 +56,20 @@ if status is-interactive
     set -gx TERM wezterm
 
     # Aliases
-    alias nv       "/Users/tj/.dotfiles/bash/nv.bash                                                                                                                "
-    alias nvupdate "/Users/tj/.dotfiles/bash/nvu.bash                                                                                                               "
-    alias nvr      "/Users/tj/.dotfiles/bash/nvr.bash                                                                                                               "
-    alias src      "source ~/.config/fish/config.fish                                                                                                               "
-    alias lg       "lazygit                                                                                                                                         "
-    alias gs       "git status                                                                                                                                      "
-    alias md       "glow                                                                                                                                            " # https://github.com/charmbracelet/glow
-    alias snip     "nap                                                                                                                                             " # https://github.com/maaslalani/nap
-    alias rm       "trash                                                                                                                                           "
+    alias nv       "/Users/tj/.dotfiles/bash/nv.bash"
+    alias nvupdate "/Users/tj/.dotfiles/bash/nvu.bash"
+    alias nvr      "/Users/tj/.dotfiles/bash/nvr.bash"
+    alias src      "source ~/.config/fish/config.fish"
+    alias lg       "lazygit"
+    alias gs       "git status"
+    alias md       "glow" # https://github.com/charmbracelet/glow
+    alias snip     "nap" # https://github.com/maaslalani/nap
+    alias rm       "trash"
     alias ssh      "/Users/tj/.dotfiles/bash/ssh.bash"
 
-    alias pond     "pond -db                                                                                                                                        "
-    alias arttime  "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4                                                                                 "
-    alias wtf      "wtfutil                                                                                                                                         " # https://wtfutil.com/
+    alias pond     "pond -db"
+    alias arttime  "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
+    alias wtf      "wtfutil" # https://wtfutil.com/
     alias ckan     "pushd .; cd '/Applications/CKAN.app/Contents/MacOS'; '/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono' 'ckan.exe' prompt; popd"
 
     alias clang-tidy /opt/homebrew/opt/llvm/bin/clang-tidy
