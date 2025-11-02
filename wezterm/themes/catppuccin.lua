@@ -1,37 +1,40 @@
 local colors = {
-    foreground = '#ced5f1',
-    background = '#1e1d2c',
+    name = "catppuccin",
+    palette = {
+        foreground = "#ced5f1",
+        background = "#1e1d2c",
 
-    selection_fg = '#ced5f1',
-    selection_bg = '#585a6e',
+        selection_fg = "#ced5f1",
+        selection_bg = "#585a6e",
 
-    split = '#6c7086',
+        split = "#6c7086",
 
-    ansi = {
-        '#454658',
-        '#e490a7',
-        '#b2e1a7',
-        '#f5e2b4',
-        '#91b2f4',
-        '#ecc3e4',
-        '#a5dfd5',
-        '#bbc1db',
-    },
-    brights = {
-        '#585a6e',
-        '#e490a7',
-        '#b2e1a7',
-        '#f5e2b4',
-        '#91b2f4',
-        '#ecc3e4',
-        '#a5dfd5',
-        '#a7acc5',
+        ansi = {
+            "#454658",
+            "#e490a7",
+            "#b2e1a7",
+            "#f5e2b4",
+            "#91b2f4",
+            "#ecc3e4",
+            "#a5dfd5",
+            "#bbc1db",
+        },
+        brights = {
+            "#585a6e",
+            "#e490a7",
+            "#b2e1a7",
+            "#f5e2b4",
+            "#91b2f4",
+            "#ecc3e4",
+            "#a5dfd5",
+            "#a7acc5",
+        },
     },
 }
-colors.cursor_bg = colors.foreground
-colors.cursor_fg = colors.background
+colors.palette.cursor_bg = colors.palette.foreground
+colors.palette.cursor_fg = colors.palette.background
 
-colors.scrollbar_thumb = colors.background
-colors.cursor_border = colors.cursor_bg
+colors.palette.scrollbar_thumb = colors.palette.background
+colors.palette.cursor_border = colors.palette.cursor_bg
 
 return colors

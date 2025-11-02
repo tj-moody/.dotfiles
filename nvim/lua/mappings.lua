@@ -281,7 +281,6 @@ map("n", "<ScrollWheelRight>", "", "")
 map("x", "<ScrollWheelLeft>", "", "")
 map("x", "<ScrollWheelRight>", "", "")
 
-map("n", "<leader>;", "mmA;<Esc>`m", "Append semicolon")
 -- m_o('i', ';',
 --     function()
 --         -- chars that can be afte the cursor to allow a semicolon, mostly closing delimiters

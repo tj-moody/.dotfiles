@@ -1,6 +1,6 @@
 #!/opt/homebrew/bin/lua
 
-local ok, projfile = pcall(require, 'projfile')
+local ok, projfile = pcall(require, "projfile")
 if not ok then
     print("No projfile found in current project.")
     return
@@ -28,8 +28,6 @@ if arg[1] == nil then
     return
 end
 
-
-
 local task = arg[1]
 if version == "0.1.0" then
     print("Consider reformatting to version 0.1.1")
@@ -37,7 +35,7 @@ if version == "0.1.0" then
     return
 end
 
-if (not projfile.tasks[task]) then
+if not projfile.tasks[task] then
     print("Task `" .. COLORS.BOLD .. task .. COLORS.RESET .. "` not found in projfile.")
     return
 end
@@ -47,6 +45,18 @@ local SYMBOL = COLORS.SYMBOL_COLOR .. " * " .. COLORS.RESET .. " "
 
 print(SYMBOL .. MESSAGE)
 for _, command in ipairs(projfile.tasks[task]) do
-    print(COLORS.PURPLE .. "$ " .. COLORS.RESET .. command)
-    os.execute(command)
+    if type(command) == "table" then
+        if command["tag"] ~= nil then
+            print(command.tag)
+        end
+        for k, subcmd in pairs(command) do
+            if (k ~= "tag") then
+                print(COLORS.PURPLE .. "$ " .. COLORS.RESET .. subcmd)
+                os.execute(subcmd)
+            end
+        end
+    else
+        print(COLORS.PURPLE .. "$ " .. COLORS.RESET .. command)
+        os.execute(command)
+    end
 end

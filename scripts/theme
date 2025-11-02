@@ -1,0 +1,128 @@
+#!/opt/homebrew/bin/luajit
+
+local THEMES = {
+    { name = "noclownfiesta", color_seq = "\27[0;34m" },
+    { name = "kanagawa", color_seq = "\27[1;36m" },
+    { name = "marsbox", color_seq = "\27[0;33m" },
+    { name = "tokyonight", color_seq = "\27[0;34m" },
+    { name = "oxocarbon", color_seq = "\27[0;32m" },
+    { name = "catppuccin", color_seq = "\27[0;35m" },
+    { name = "everforest", color_seq = "\27[0;32m" },
+    { name = "ayu", color_seq = "\27[0;33m" },
+    { name = "midnightclub", color_seq = "\27[0;36m" },
+    { name = "binary", color_seq = "\27[0;00m" },
+    { name = "gruvbox", color_seq = "\27[0;33m" },
+}
+
+local function set_theme(theme)
+    local valid_theme = false
+    for i = 1, #THEMES do
+        if theme == THEMES[i].name then
+            valid_theme = true
+        end
+    end
+    if valid_theme then
+        local set_file_cmd = string.format("cp ~/.dotfiles/wezterm/themes/%s.lua ~/.dotfiles/theme_schema.lua", theme)
+        os.execute(set_file_cmd)
+        -- local send_nvim_signal_cmd = string.format(
+        --     [[nvim --server "/tmp/update_theme.sock" --remote-send ":lua require('plugins.colorscheme').reload('%s')<CR>"]],
+        --     theme
+        -- )
+        -- os.execute(send_nvim_signal_cmd)
+    else
+        print("Invalid theme:", theme)
+    end
+end
+
+local function get_schema()
+    local home = os.getenv("HOME")
+    package.path = package.path .. ";" .. home .. "/.dotfiles/?.lua"
+    return pcall(require, "theme_schema")
+end
+
+local function print_themes(index)
+    local reset_colors = "\27[m"
+
+    for i = 1, #THEMES do
+        local prefix
+        if i == index then
+            prefix = "> "
+        else
+            prefix = "  "
+        end
+        io.write(prefix .. THEMES[i].color_seq .. THEMES[i].name .. reset_colors .. "\n")
+    end
+end
+
+local function init_term()
+    os.execute("tput civis")
+    os.execute("stty -echo -icanon min 1 time 0")
+end
+
+local ok, schema = get_schema()
+if not ok then
+    print("No schema found")
+    return
+end
+
+local args = { ... }
+if #args == 1 then
+    if args[1] == "--get" then
+        print(schema.name)
+    else
+        set_theme(args[1])
+    end
+    return
+end
+
+local live_update = false
+
+for i, v in ipairs(THEMES) do
+    if v.name == schema.name then
+        index = i
+    end
+end
+
+local function cleanup(theme)
+    if not theme then
+        theme = schema.name
+    end
+    set_theme(theme)
+    os.execute("tput cnorm")
+    os.execute("stty echo icanon")
+end
+
+local function main_loop()
+    init_term()
+    local selected_index = index
+
+    while true do
+        print_themes(index)
+        io.write("\27[" .. #THEMES .. "A")
+        if live_update then
+            set_theme(THEMES[index].name)
+        end
+        local input = io.read(1)
+        if input == " " or input == "\n" then
+            selected_index = index
+            break
+        elseif input == "j" then
+            index = index + 1
+            if index > #THEMES then
+                index = 1
+            end
+        elseif input == "k" then
+            index = index - 1
+            if index < 1 then
+                index = #THEMES
+            end
+        elseif input == "q" then
+            break
+        elseif input == "u" or input == "p" or input == "l" then
+            live_update = not live_update
+        end
+    end
+    cleanup(THEMES[selected_index].name)
+end
+
+xpcall(main_loop, cleanup)

@@ -1,5 +1,4 @@
 ---@class Colorscheme
----@field themes_list Array[string]
 ---@field clear_hl_bg function
 ---@field mod_hl function
 ---@field setup function
@@ -18,82 +17,57 @@ function M.get_color(group, attr)
     return fn.synIDattr(fn.synIDtrans(fn.hlID(group)), attr)
 end
 
-M.themes_list = {
-    "noclownfiesta",
-    "kanagawa",
-    "gruvbox",
-    "tokyonight",
-    "oxocarbon",
-    "catppuccin",
-    "everforest",
-    "ayu",
-    "midnightclub",
-    "binary",
-}
-
-local function read_theme()
-    local theme_file = io.open("/Users/tj/.dotfiles/.theme.txt", "r")
-    if not theme_file then
-        return "gruvbox"
+function M.read_theme()
+    local home = os.getenv("HOME")
+    package.path = package.path .. ";" .. home .. "/.dotfiles/?.lua"
+    local ok, theme_schema = pcall(require, "theme_schema")
+    local theme = theme_schema.name
+    if not ok then
+        return "marsbox"
     end
-    io.input(theme_file)
-    local theme = io.read()
-    io.close(theme_file)
-    local valid_color = false
-    for _, v in ipairs(M.themes_list) do
-        if v == theme then
-            valid_color = true
-        end
-    end
-    if not valid_color then theme = "gruvbox" end
     return theme
 end
-vim.g.tjtheme = read_theme()
-local valid_color = false
-for _, v in ipairs(M.themes_list) do
-    if v == vim.g.tjtheme then
-        valid_color = true
-    end
-end
-if not valid_color and not vim.g.tjtheme then
-    vim.g.tjtheme = "gruvbox"
-end
--- vim.g.THEME = vim.env.COLORS_NAME
 
-local colors_table = {
-    noclownfiesta = function() -- {{{
+local theme_init_table = {
+    noclownfiesta = function()
         vim.cmd.colorscheme("no-clown-fiesta")
-    end, -- }}}
-    kanagawa = function() -- {{{
+    end,
+    kanagawa = function()
         vim.cmd.colorscheme("kanagawa")
-    end, -- }}}
-    gruvbox = function() -- {{{
+    end,
+    marsbox = function()
         vim.g.gruvbox_material_better_performance = 1
-        vim.g.gruvbox_material_background = "soft"
+        vim.g.gruvbox_material_background = "medium"
         vim.g.gruvbox_material_foreground = "original"
         vim.cmd.colorscheme("gruvbox-material")
-    end, -- }}}
-    tokyonight = function() -- {{{
+    end,
+    tokyonight = function()
         vim.cmd.colorscheme("tokyonight")
-    end, -- }}}
-    oxocarbon = function() -- {{{
+    end,
+    oxocarbon = function()
         vim.cmd.colorscheme("carbonfox")
-    end, -- }}}
-    catppuccin = function() -- {{{
+    end,
+    catppuccin = function()
         vim.cmd.colorscheme("catppuccin")
-    end, -- }}}
-    everforest = function() -- {{{
-        vim.cmd("colorscheme everforest")
-    end, -- }}}
-    ayu = function() -- {{{
+    end,
+    everforest = function()
+        vim.cmd.colorscheme("everforest")
+    end,
+    ayu = function()
         vim.cmd.colorscheme("ayu")
-    end, -- }}}
-    midnightclub = function() --{{{
+    end,
+    midnightclub = function() --
         vim.cmd.colorscheme("memoonry")
-    end, -- }}}
-    binary = function()-- {{{
+    end,
+    binary = function()
         vim.cmd.colorscheme("binary")
-    end,-- }}}
+    end,
+    -- TODO: Copy this guy's config https://x.com/gdechichi
+    gruvbox = function()
+        vim.g.gruvbox_material_better_performance = 1
+        vim.g.gruvbox_material_foreground = "original"
+        vim.cmd.colorscheme("gruvbox-material")
+    end,
 }
 
 local hl_table = {
@@ -104,10 +78,6 @@ local hl_table = {
             { "@operator", { fg = "#727272" } },
             { "@punctuation.bracket", { fg = "#727272" } },
             { "@punctuation.delimiter", { fg = "#727272" } },
-        },
-        alpha = {
-            { "AlphaHeader", { fg = "#bad7ff" } },
-            { "AlphaFooter1", { fg = "#b46958" } },
         },
         nvim_tree = {
             { "NvimTreeFolderIcon", { fg = "#ffa557" } },
@@ -128,10 +98,6 @@ local hl_table = {
             { "WinSeparator", { fg = "#54546D" } },
             { "LspInlayHint", { fg = "#938aa9", bold = true } },
         },
-        alpha = {
-            { "AlphaHeader", { fg = "#7fb4ca" } },
-            { "AlphaFooter1", { fg = "#ff5d62" } },
-        },
         nvim_tree = {
             { "NvimTreeFolderIcon", { fg = "#DCA561" } },
             { "NvimTreeFolderName", { fg = "#658594" } },
@@ -144,7 +110,7 @@ local hl_table = {
             -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
     }, -- }}}
-    gruvbox = { -- {{{
+    marsbox = { -- {{{
         setup = {
             { "Operator", { fg = "#928374" } },
             { "@operator", { fg = "#928374" } },
@@ -165,10 +131,6 @@ local hl_table = {
             { "MatchParen", { fg = "#a454ff", bold = true } },
             { "Search", { fg = "#b8bb26", bold = true } },
             { "IncSearch", { fg = "#fb4934", bold = true } },
-        },
-        alpha = {
-            { "AlphaHeader", { fg = "#89b4a2" } },
-            { "AlphaFooter1", { fg = "#fb4934" } },
         },
         nvim_tree = {
             { "NvimTreeFolderIcon", { fg = "#fabd2f" } },
@@ -203,10 +165,6 @@ local hl_table = {
             { "FloatTitle", { bg = "#060911", fg = "#29a4bd" } },
             -- { 'TreesitterContext',      {} },
         },
-        alpha = {
-            { "AlphaHeader", { fg = "#2ac3de" } },
-            { "AlphaFooter1", { fg = "#f7768e" } },
-        },
         nvim_tree = {
             { "NvimTreeWinSeparator", { fg = "#3b4261" } },
             { "NvimTreeFolderIcon", { fg = "#e0af68" } },
@@ -229,10 +187,6 @@ local hl_table = {
             { "@operator", { fg = "#6e6f70" } },
             { "@punctuation.bracket", { fg = "#6e6f70" } },
             { "@punctuation.delimiter", { fg = "#6e6f70" } },
-        },
-        alpha = {
-            { "AlphaHeader", { fg = "#78a9ff" } },
-            { "AlphaFooter1", { fg = "#ee5396" } },
         },
         nvim_tree = {
             { "NvimTreeWinSeparator", { fg = "#6e6f70" } },
@@ -258,10 +212,6 @@ local hl_table = {
             { "@punctuation.delimiter", { fg = "#6c7086" } },
             { "TelescopeBorder", { fg = "#6c7086" } },
         },
-        alpha = {
-            { "AlphaHeader", { fg = "#89b4fa" } },
-            { "AlphaFooter1", { fg = "#f38ba8" } },
-        },
         nvim_tree = {
             { "NvimTreeWinSeparator", { fg = "#6c7086" } },
             { "NvimTreeFolderIcon", { fg = "#fab387" } },
@@ -284,10 +234,6 @@ local hl_table = {
             { "@operator", { fg = "#859288" } },
             { "@punctuation.bracket", { fg = "#859288" } },
             { "@punctuation.delimiter", { fg = "#859288" } },
-        },
-        alpha = {
-            { "AlphaHeader", { fg = "#7fbbb3" } },
-            { "AlphaFooter1", { fg = "#e67e80" } },
         },
         nvim_tree = {
             { "NvimTreeWinSeparator", { fg = "#555f66" } },
@@ -316,10 +262,6 @@ local hl_table = {
             { "GitSignsDelete", { fg = "#d96c75" } },
             { "GitSignsDeleteNr", { fg = "#d96c75" } },
         },
-        alpha = {
-            { "AlphaHeader", { fg = "#c2d94c" } },
-            { "AlphaFooter1", { fg = "#ff8f40" } },
-        },
         nvim_tree = {
             { "NvimTreeFolderIcon", { fg = "#e6b450" } },
             { "NvimTreeNormal", { fg = "#626a73" } },
@@ -344,10 +286,6 @@ local hl_table = {
             { "GitSignsDelete", { fg = "#fc735d" } },
             { "GitSignsDeleteNr", { fg = "#fc735d" } },
         },
-        alpha = {
-            { "AlphaHeader", { fg = "#88d4ab" } },
-            { "AlphaFooter1", { fg = "#ffae57" } },
-        },
         nvim_tree = {
             { "NvimTreeFolderIcon", { fg = "#ffae57" } },
             { "NvimTreeNormal", { fg = "#565656" } },
@@ -361,7 +299,8 @@ local hl_table = {
             { "NvimTreeRootFolder", { fg = "#ffae57", bold = true } },
         },
     }, -- }}}
-    binary = {},-- {{{}}}
+    binary = {}, -- {{{}}}
+    gruvbox = {}, -- {{{}}}
 }
 
 local clear_hl_bg_table = { -- {{{
@@ -520,11 +459,21 @@ end
 --- ```
 ---@param category? string
 function M.setup(category)
+    if not vim.g.tjtheme then
+        vim.g.tjtheme = M.read_theme()
+    end
     if not category or category == "setup" then
         category = "setup"
-        colors_table[vim.g.tjtheme]()
+        local theme_init = theme_init_table[vim.g.tjtheme]
+        if not theme_init then
+            theme_init = theme_init_table["marsbox"]
+        end
+        theme_init()
     end
     local colorscheme = hl_table[vim.g.tjtheme]
+    if not colorscheme then
+        colorscheme = hl_table["marsbox"]
+    end
     if colorscheme[category] then
         for _, v in ipairs(colorscheme[category]) do
             if next(v[2]) ~= nil then
@@ -539,12 +488,17 @@ end
 function M.safe_reload()
     M.setup()
     setup_hls()
-    M.setup("alpha")
     M.setup("nvim_tree")
 end
 
 ---Reload all colorscheme customizations
-function M.reload()
+---@return nil
+function M.reload(theme)
+    if theme then
+        vim.g.tjtheme = theme
+    else
+        vim.g.tjtheme = M.read_theme()
+    end
     M.safe_reload()
     safe_require("plugins.bufferline").setup()
     safe_require("plugins.lualine").setup()
@@ -554,7 +508,7 @@ M.spec = {
     {
         lazy = false,
         "sainnhe/gruvbox-material",
-        config = M.setup,
+        config = M.safe_reload,
     },
     {
         "aktersnurra/no-clown-fiesta.nvim",

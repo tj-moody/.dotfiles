@@ -62,7 +62,8 @@ M.spec = {
         "folke/which-key.nvim",
         event = "LazyFile",
         config = function()
-            require("which-key").setup({
+            require("which-key").setup({})
+            require("which-key").add({
                 { "<SPACE>", group = "Move Window" },
                 { "<leader>,", group = "meta" },
                 { "<leader>,p", group = "profiling" },
@@ -112,6 +113,7 @@ M.spec = {
                 ["DEBUG"] = { icon = " ", color = "#a454ff" },
                 ["DEBUG_ONLY"] = { icon = " ", color = "#a454ff" },
                 ["SPEC"] = { icon = "󱔗 ", color = "#B3E5FC" },
+                ["PASS"] = { icon = " ", color = "#EFEFBF" },
             },
         },
     },

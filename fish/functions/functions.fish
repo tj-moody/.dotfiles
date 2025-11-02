@@ -31,38 +31,6 @@ function wallpaper
     m wallpaper $argv[1]
 end
 
-function theme --argument-names 'themename'
-    set themeslist "noclownfiesta"
-    set -a themeslist "kanagawa"
-    set -a themeslist "gruvbox"
-    set -a themeslist "tokyonight"
-    set -a themeslist "oxocarbon"
-    set -a themeslist "catppuccin"
-    set -a themeslist "everforest"
-    set -a themeslist "ayu"
-    set -a themeslist "midnightclub"
-    set -a themeslist "binary"
-
-    if [ "0" != "$(count $argv)" ]
-        set COLORS_NAME (cat ~/.dotfiles/.theme.txt)
-        echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
-        echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $COLORS_NAME | base64)\007"
-        if [ "$TERM" = "xterm-kitty" ]
-            kitty +kitten themes --reload-in=all $COLORS_NAME
-        end
-        echo -n $COLORS_NAME > ~/.dotfiles/.theme.txt
-        echo $COLORS_NAME
-
-        return
-    end
-    set COLORS_NAME (cat ~/.dotfiles/.theme.txt)
-
-    bash /Users/tj/.dotfiles/bash/theme.bash $COLORS_NAME
-
-    set COLORS_NAME (cat ~/.dotfiles/.theme.txt)
-    echo -ne "\033]1337;SetUserVar=COLORS_NAME=$(echo -n $COLORS_NAME | base64)\007"
-end
-
 function chwall
     # if [ "0" != "$(count $argv)" ]
     #     return

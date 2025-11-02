@@ -1,20 +1,10 @@
 local wezterm = require('wezterm') or {}
 local config = {}
 
--- config.font = wezterm.font_with_fallback(
---     {
---         family = 'FiraCode',
---         weight = 'Regular',
---     },
---     {
---         family = 'FiraCode NFM',
---         weight = 'Bold',
---     }
--- )
 config.font = wezterm.font(
     'FiraCode NFM',
     {
-        weight = 'Regular',
+        weight = 'Medium',
     }
 )
 config.font_size = 11
@@ -30,39 +20,18 @@ config.freetype_render_target = "HorizontalLcd"
 -- config.underline_thickness = 3
 config.underline_position = -4
 
-local themes_list = {
-    "noclownfiesta",
-    "kanagawa",
-    "gruvbox",
-    "tokyonight",
-    "oxocarbon",
-    "catppuccin",
-    "everforest",
-    "ayu",
-    "midnightclub",
-    "binary",
-}
-
 local function read_theme()
-    local theme_file = io.open("/Users/tj/.dotfiles/.theme.txt", "r")
-    if not theme_file then
-        wezterm.log_info("error reading file")
+    local home = os.getenv("HOME")
+    package.path = package.path .. ";" .. home .. "/.dotfiles/?.lua"
+    local ok, schema = pcall(require, "theme_schema")
+    if not ok then
         return "gruvbox"
     end
-    io.input(theme_file)
-    local theme = io.read()
-    io.close(theme_file)
-    local valid_color = false
-    for _, v in ipairs(themes_list) do
-        if v == theme then
-            valid_color = true
-        end
-    end
-    if not valid_color then theme = "gruvbox" end
-    return theme
+    return schema.name
 end
+
 local THEME = read_theme()
-config.colors = require('themes.' .. THEME)
+config.colors = require('themes.' .. THEME).palette
 
 config.window_background_opacity = 1
 config.macos_window_background_blur = 39
@@ -139,27 +108,6 @@ config.keys = {
         end),
     },
     {
-        key = 'b',
-        mods = 'CMD',
-        action = wezterm.action_callback(function(window, _)
-            local overrides = window:get_config_overrides() or {}
-            if not overrides.my_is_dark_bg then -- setting dark background
-                overrides.my_old_bg = config.colors.background
-                if not overrides.colors then
-                    overrides.colors = { background = '#080914' }
-                elseif overrides.colors then
-                    overrides.my_old_bg = overrides.colors.background
-                    overrides.colors.background = '#080914'
-                end
-                overrides.my_is_dark_bg = true
-            else -- unsetting dark background
-                overrides.colors.background = overrides.my_old_bg
-                overrides.my_is_dark_bg = false
-            end
-            window:set_config_overrides(overrides)
-        end),
-    },
-    {
         key = 'l',
         mods = 'CMD',
         action = wezterm.action_callback(function(_, pane)
@@ -179,19 +127,6 @@ config.keys = {
     split_nav('l'),
 }
 
-wezterm.on('user-var-changed', function(window, _, name, value)
-    wezterm.log_info('var', name, value)
-    if name == 'COLORS_NAME' then
-        local overrides = window:get_config_overrides() or {}
-        if value == THEME then
-            overrides.colors = nil
-        else
-            overrides.colors = require('themes.' .. value)
-        end
-        window:set_config_overrides(overrides)
-    end
-end)
-
-wezterm.add_to_config_reload_watch_list("~/.dotfiles/.theme.txt")
+wezterm.add_to_config_reload_watch_list("~/.dotfiles/theme_schema.lua")
 wezterm.automatically_reload_config = true
 return config

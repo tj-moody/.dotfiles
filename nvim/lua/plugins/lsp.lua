@@ -1,6 +1,101 @@
 local M = {}
 
+local function lsp_setup()
+    local m_b = function(mode, lhs, rhs, buff, desc)
+        vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = buff, desc = desc })
+    end
+    local map = function(mode, lhs, rhs, desc)
+        vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
+        m_b(mode, lhs, rhs, nil, desc)
+    end
+
+    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+    map("n", "<leader>dh", vim.diagnostic.open_float, "Diagnostic Hover")
+    map("n", "<leader>dk", vim.diagnostic.goto_prev, "Diagnostic Next")
+    map("n", "<leader>dj", vim.diagnostic.goto_next, "Diagnostic Previous")
+    map("n", "<leader>dp", vim.diagnostic.setqflist, "Diagnostics Populate")
+
+    local window_title = "  "
+    local on_attach = function(_, bufnr)
+        bufnr = bufnr or vim.api.nvim_get_current_buf()
+        m_b("n", "K", function()
+            vim.lsp.buf.hover({ border = "rounded", title = window_title })
+        end, bufnr, "Hover")
+
+        -- Enable completion triggered by <c-x><c-o>
+        -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        require("lsp_signature").on_attach({
+            hint_scheme = "Normal",
+            hint_prefix = " ",
+            bind = true,
+            handler_opts = {
+                border = "rounded",
+            },
+        }, bufnr)
+
+        -- Mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        m_b("n", "gD", vim.lsp.buf.declaration, bufnr, "Go to Declaration")
+        m_b("n", "gd", vim.lsp.buf.definition, bufnr, "Go to Definition")
+
+        m_b("n", "gi", vim.lsp.buf.implementation, bufnr, "Go to Implementation")
+        m_b("n", "gs", vim.lsp.buf.signature_help, bufnr, "Get Signature") -- "go type"
+        m_b("n", "gtd", vim.lsp.buf.type_definition, bufnr, "Go to Type Definition")
+        m_b("n", "<leader>rn", vim.lsp.buf.rename, bufnr, "Rename")
+        m_b("n", "<leader>da", vim.lsp.buf.code_action, bufnr, "Code Action")
+        m_b("n", "gr", vim.lsp.buf.references, bufnr, "Go to References")
+        m_b("n", "<leader>df", function()
+            require("conform").format({ bufnr = bufnr })
+        end, bufnr, "Format")
+    end
+    vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(ev)
+            on_attach(_, ev.bufnr)
+        end,
+    })
+
+    require("lazydev").setup({
+        library = {
+            plugins = { "neotest" },
+        },
+    })
+
+    vim.lsp.config("*", {
+        capabilities = {
+            textDocument = {
+                semanticTokens = {
+                    multilineTokenSupport = true,
+                },
+            },
+        },
+        root_markers = { ".git" },
+    })
+
+    vim.lsp.enable({
+        "ruff",
+        "ts_ls",
+        "lua_ls",
+        "pyright",
+        "bash_ls",
+        "clangd",
+        "cssls",
+        "html",
+        "jdtls",
+        "jsonls",
+        "marksman",
+        "vimls",
+        "asm_lsp",
+        "texlab",
+        "gopls",
+        "rustaceanvim",
+        "verible",
+    })
+
+    -- vim.cmd.LspStart()
+end
+
 local function cmp_setup()
+    lsp_setup()
     local luasnip = require("luasnip")
     local has_words_before = function()
         unpack = unpack or table.unpack
@@ -173,111 +268,6 @@ local function cmp_setup()
     })
 end
 
-local window_title = "  "
-local function lspconfig_setup()
-    local m_b = function(mode, lhs, rhs, buff, desc)
-        vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = buff, desc = desc })
-    end
-    local map = function(mode, lhs, rhs, desc)
-        vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
-        m_b(mode, lhs, rhs, nil, desc)
-    end
-
-    local float_namespace = vim.api.nvim_create_namespace("tj_lsp_float")
-
-    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    map("n", "<leader>dh", vim.diagnostic.open_float, "Diagnostic Hover")
-    map("n", "<leader>dk", vim.diagnostic.goto_prev, "Diagnostic Next")
-    map("n", "<leader>dj", vim.diagnostic.goto_next, "Diagnostic Previous")
-    map("n", "<leader>dp", vim.diagnostic.setqflist, "Diagnostics Populate")
-
-    local on_attach = function(_, bufnr)
-        -- Enable completion triggered by <c-x><c-o>
-        -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        require("lsp_signature").on_attach({
-            hint_scheme = "Normal",
-            hint_prefix = " ",
-            bind = true,
-            handler_opts = {
-                border = "rounded",
-            },
-        }, bufnr)
-
-        -- Mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        m_b("n", "gD", vim.lsp.buf.declaration, bufnr, "Go to Declaration")
-        m_b("n", "gd", vim.lsp.buf.definition, bufnr, "Go to Definition")
-
-        -- m_b("n", "K", vim.lsp.buf.hover, bufnr, "Hover")
-
-        m_b("n", "gi", vim.lsp.buf.implementation, bufnr, "Go to Implementation")
-        m_b("n", "gs", vim.lsp.buf.signature_help, bufnr, "Get Signature") -- "go type"
-        m_b("n", "gtd", vim.lsp.buf.type_definition, bufnr, "Go to Type Definition")
-        m_b("n", "<leader>rn", vim.lsp.buf.rename, bufnr, "Rename")
-        m_b("n", "<leader>da", vim.lsp.buf.code_action, bufnr, "Code Action")
-        m_b("n", "gr", vim.lsp.buf.references, bufnr, "Go to References")
-        m_b("n", "<leader>df", function()
-            require("conform").format({ bufnr = bufnr })
-        end, bufnr, "Format")
-    end
-    vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(ev)
-            on_attach(_, ev.bufnr)
-        end,
-    })
-
-    require("lazydev").setup({
-        library = {
-            plugins = { "neotest" },
-        },
-    })
-
-    vim.lsp.config.lua_ls = {
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { "vim", "P", "safe_require" },
-                    disable = { "lowercase-global" },
-                },
-                hint = {
-                    enable = true,
-                    arrayIndex = "Disable",
-                },
-                workspace = {
-                    checkThirdParty = false,
-                    library = { vim.env.VIMRUNTIME },
-                    -- Source all of `runtimepath`
-                    -- library = vim.api.nvim_get_runtime_file("", true), -- WARN: Very slow
-                    version = "LuaJIT",
-                },
-            },
-        },
-    }
-    vim.lsp.config.clangd = {
-        cmd = { "clangd", "--enable-config" }, --, "--fallback-style=llvm"},
-    }
-    vim.lsp.enable({
-        "ruff",
-        "ts_ls",
-        "lua_ls",
-        "pyright",
-        "bash_ls",
-        "clangd",
-        "cssls",
-        "html",
-        "jdtls",
-        "jsonls",
-        "marksman",
-        "vimls",
-        "asm_lsp",
-        "texlab",
-        "gopls",
-        "rustaceanvim",
-    })
-
-    vim.cmd.LspStart()
-end
-
 local web_conform_options = { "prettier", "prettierd", stop_after_first = true }
 
 M.spec = {
@@ -289,7 +279,7 @@ M.spec = {
             {
                 "neovim/nvim-lspconfig",
                 config = function()
-                    lspconfig_setup()
+                    lsp_setup()
                 end,
                 event = "LazyFile",
                 dependencies = {
@@ -320,6 +310,17 @@ M.spec = {
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("conform").setup({
+                default_format_opts = {
+                    lsp_format = "fallback",
+                },
+                formatters = {
+                    verible_verilog_format = {
+                        command = "verible-verilog-format",
+                        args = { "--indentation_spaces=4", "-" },
+                        stdin = true,
+                    },
+                },
+
                 formatters_by_ft = {
                     lua = {
                         "stylua",
@@ -338,6 +339,7 @@ M.spec = {
                     go = { "goimports", "gofmt" },
                     cpp = { "clang-format" },
                     c = { "clang-format" },
+                    verilog = { "verible_verilog_format" },
                 },
             })
         end,

@@ -2,10 +2,10 @@
 
 first="true"
 while true; do
-    /Users/tj/.local/share/bob/v0.11.1/bin/nvim "$@"
+    /Users/tj/.local/share/bob/v0.11.1/bin/nvim "$@" --listen "/tmp/update_theme.sock"
     status="$?"
     if [ "$status" == "3" ]; then
-        bash ~/.dotfiles/bash/theme.bash arg
+        ~/.dotfiles/scripts/theme
     elif [ "$status" != "5" ]; then
         break
     fi

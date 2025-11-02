@@ -1,33 +1,33 @@
 local colors = {
-    name = "binary",
+    name = "marsbox",
     palette = {
-        foreground = "#ffffff",
-        background = "#000000",
+        foreground = "#e8dbb6",
+        background = "#080914",
 
-        selection_fg = "#ffffff",
-        selection_bg = "#000000",
+        selection_fg = "#c1c1c1",
+        selection_bg = "#403e3d",
 
-        split = "#ffffff",
+        split = "#665c54",
 
         ansi = {
-            "#ffffff",
+            "#353535",
             "#e75740",
             "#b8ba46",
             "#f0bf4f",
             "#89a498",
             "#c8899a",
             "#98be82",
-            "#ffffff",
+            "#b4a998",
         },
         brights = {
-            "#ffffff",
+            "#a09588",
             "#e75740",
             "#b8ba46",
             "#f0bf4f",
             "#89a498",
             "#c8899a",
             "#98be82",
-            "#ffffff",
+            "#ece1c2",
         },
     },
 }
