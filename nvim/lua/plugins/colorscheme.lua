@@ -68,6 +68,9 @@ local theme_init_table = {
         vim.g.gruvbox_material_foreground = "original"
         vim.cmd.colorscheme("gruvbox-material")
     end,
+    synth = function()
+        vim.cmd.colorscheme("synth")
+    end,
 }
 
 local hl_table = {
@@ -118,6 +121,8 @@ local hl_table = {
             { "@punctuation.delimiter", { fg = "#928374" } },
             { "NormalFloat", { bg = "#060911" } },
             { "FloatBorder", { bg = "#060911" } },
+            { "Pmenu", { bg = "#060911" } },
+            { "PmenuSel", { bg = "#0e1421", bold = true} },
             { "DiagnosticVirtualTextInfo", { fg = "#83a598" } },
             { "DiagnosticVirtualTextHint", { fg = "#b8bb26" } },
             { "DiagnosticVirtualTextWarn", { fg = "#fabd2f" } },
@@ -359,6 +364,8 @@ local clear_hl_bg_table = { -- {{{
     "Folded",
 
     "TabLineFill",
+
+    -- "Pmenu",
 } -- }}}
 local clear_hl_table = { -- {{{
     "CursorLine",
@@ -385,6 +392,7 @@ local set_hl_table = { -- {{{
     { "DiagnosticWarnBG", { bg = "#473621" } },
     { "DiagnosticInfoBG", { bg = "#0f3a42" } },
     { "DiagnosticHintBG", { bg = "#3d4220" } },
+    { "CmpItemAbbrMatch", { bold = true } },
 } -- }}}
 
 ---Remove background from highlight group `hl`
@@ -544,6 +552,10 @@ M.spec = {
     },
     {
         "jackplus-xyz/binary.nvim",
+        event = "VeryLazy",
+    },
+    {
+        "vertexE/synth.nvim",
         event = "VeryLazy",
     },
 }

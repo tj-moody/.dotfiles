@@ -141,12 +141,24 @@ local function cmp_setup()
                 luasnip.lsp_expand(args.body) -- For `luasnip` users.
             end,
         },
+        view = {
+            entries = {
+                name = "custom", -- Use 'custom' or 'wildmenu' view style
+                selection_order = "near_cursor", -- This option helps control item selection relative to cursor
+            },
+        },
         window = {
             completion = {
                 col_offset = -3,
                 side_padding = 0,
+                border = "none",
             },
-            documentation = cmp.config.window.bordered(),
+            documentation = {
+                border = "rounded",
+                title = { window_title, text = window_title },
+            },
+            -- documentation = cmp.config.window.bordered(),
+            -- completion = cmp.config.window.n
         },
         mapping = cmp.mapping.preset.cmdline({
             ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -200,32 +212,32 @@ local function cmp_setup()
         sources = cmp.config.sources({
             { name = "nvim_lsp" },
         }, {
-            { name = "luasnip", keyword_length = 3 }, -- For luasnip users.
             { name = "path" },
+            -- { name = "luasnip", keyword_length = 3 }, -- For luasnip users.
         }, {
             { name = "buffer" },
-            -- { name = 'cmdline' },
+            { name = "cmdline" },
         }),
         formatting = {
             fields = { "kind", "abbr", "menu" },
             format = function(entry, vim_item)
-                -- Kind icons
                 local kind = require("lspkind").cmp_format({
                     mode = "symbol_text",
-                    maxwidth = 50,
-                })(entry, vim_item)
+                })(entry, vim.deepcopy(vim_item))
+                local highlights_info = require("colorful-menu").cmp_highlights(entry)
+
+                -- highlight_info is nil means we are missing the ts parser, it's
+                -- better to fallback to use default `vim_item.abbr`. What this plugin
+                -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+                if highlights_info ~= nil then
+                    vim_item.abbr_hl_group = highlights_info.highlights
+                    vim_item.abbr = highlights_info.text
+                end
                 local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                kind.kind = " " .. (strings[1] or "") .. " "
-                kind.menu = "    (" .. (strings[2] or "") .. ")"
-                -- kind.menu = ({
-                --     buffer = "(Buf)",
-                --     nvim_lsp = "(LSP)",
-                --     luasnip = "(SNP)",
-                --     nvim_lua = "(Lua)",
-                --     latex_symbols = "(Text)",
-                --     cmdline = "(Cmd)"
-                -- })[entry.source.name]
-                return kind
+                vim_item.kind = " " .. (strings[1] or "") .. " "
+                vim_item.menu = "    (" .. (strings[2] or "") .. ")"
+
+                return vim_item
             end,
         },
         completion = {
@@ -302,6 +314,7 @@ M.spec = {
             { "L3MON4D3/LuaSnip" },
             { "saadparwaiz1/cmp_luasnip" },
             { "onsails/lspkind.nvim" },
+            { "xzbdmw/colorful-menu.nvim" },
         },
     },
     {

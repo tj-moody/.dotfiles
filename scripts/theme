@@ -12,6 +12,7 @@ local THEMES = {
     { name = "midnightclub", color_seq = "\27[0;36m" },
     { name = "binary", color_seq = "\27[0;00m" },
     { name = "gruvbox", color_seq = "\27[0;33m" },
+    { name = "synth", color_seq = "\27[0;36m" },
 }
 
 local function set_theme(theme)

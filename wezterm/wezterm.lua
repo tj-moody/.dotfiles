@@ -25,7 +25,7 @@ local function read_theme()
     package.path = package.path .. ";" .. home .. "/.dotfiles/?.lua"
     local ok, schema = pcall(require, "theme_schema")
     if not ok then
-        return "gruvbox"
+        return "marsbox"
     end
     return schema.name
 end

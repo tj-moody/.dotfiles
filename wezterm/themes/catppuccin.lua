@@ -2,7 +2,8 @@ local colors = {
     name = "catppuccin",
     palette = {
         foreground = "#ced5f1",
-        background = "#1e1d2c",
+        background = "#11111b",
+        -- background = "#1e1d2c",
 
         selection_fg = "#ced5f1",
         selection_bg = "#585a6e",

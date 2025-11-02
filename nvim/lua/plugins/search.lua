@@ -64,7 +64,7 @@ M.spec = {
     {
         "junegunn/fzf.vim",
         dependencies = { "junegunn/fzf" },
-        cmd = { "Rg", "Buffers" },
+        event = "VeryLazy",
 
         config = function()
             vim.g.fzf_layout = { ["down"] = "~30%" }

@@ -42,7 +42,7 @@ M.setup = function()
             insert = "#7fb4ca",
             visual = "#ffa066",
         },
-        gruvbox = {
+        marsbox = {
             normal = "#b8bb26",
             replace = "#fb4934",
             visual = "#fe8019",
@@ -84,10 +84,22 @@ M.setup = function()
             visual = "#ffae57",
             insert = "#88d4ab",
         },
+        gruvbox = {
+            normal = "#b8bb26",
+            replace = "#fb4934",
+            visual = "#fe8019",
+            insert = "#83a598",
+        },
+        synth = {
+            normal = "#00ff99",
+            replace = "#ff5171",
+            visual = "#ff9900",
+            insert = "#c375ff",
+        },
     } -- }}}
 
     local THEME = vim.g.tjtheme
-    local colors = colors_table.noclownfiesta
+    local colors = colors_table.marbox
     if THEME and colors_table[THEME] then
         colors = colors_table[THEME]
     end
