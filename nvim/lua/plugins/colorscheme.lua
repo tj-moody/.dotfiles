@@ -121,8 +121,8 @@ local hl_table = {
             { "@punctuation.delimiter", { fg = "#928374" } },
             { "NormalFloat", { bg = "#060911" } },
             { "FloatBorder", { bg = "#060911" } },
-            { "Pmenu", { bg = "#060911" } },
-            { "PmenuSel", { bg = "#0e1421", bold = true} },
+            { "Pmenu", { bg = "#11131e" } },
+            { "PmenuSel", { bg = "#1b1d29", bold = true } },
             { "DiagnosticVirtualTextInfo", { fg = "#83a598" } },
             { "DiagnosticVirtualTextHint", { fg = "#b8bb26" } },
             { "DiagnosticVirtualTextWarn", { fg = "#fabd2f" } },
@@ -365,7 +365,8 @@ local clear_hl_bg_table = { -- {{{
 
     "TabLineFill",
 
-    -- "Pmenu",
+    "PmenuKind",
+    "PmenuExtra",
 } -- }}}
 local clear_hl_table = { -- {{{
     "CursorLine",
@@ -392,7 +393,7 @@ local set_hl_table = { -- {{{
     { "DiagnosticWarnBG", { bg = "#473621" } },
     { "DiagnosticInfoBG", { bg = "#0f3a42" } },
     { "DiagnosticHintBG", { bg = "#3d4220" } },
-    { "CmpItemAbbrMatch", { bold = true } },
+    { "BlinkCmpGhostText", { fg = M.get_color("Comment", "fg#"), bold = false, italic = false } },
 } -- }}}
 
 ---Remove background from highlight group `hl`
