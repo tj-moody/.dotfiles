@@ -8,3 +8,4 @@ wtf.yml
 kitty
 .env
 .theme.txt
+.theme_schema.lua

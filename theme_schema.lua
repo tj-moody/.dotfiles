@@ -1,8 +1,8 @@
 local colors = {
-    name = "marsbox",
+    name = "gruvbox",
     palette = {
         foreground = "#e8dbb6",
-        background = "#080914",
+        background = "#111122",
 
         selection_fg = "#c1c1c1",
         selection_bg = "#403e3d",
