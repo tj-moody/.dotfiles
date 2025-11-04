@@ -23,13 +23,22 @@ local function set_theme(theme)
         end
     end
     if valid_theme then
-        local set_file_cmd = string.format("cp ~/.dotfiles/wezterm/themes/%s.lua ~/.dotfiles/theme_schema.lua", theme)
+        -- Must copy - symlink doesn't trigger wezterm
+        local set_file_cmd = "cp ~/.dotfiles/wezterm/themes/"
+            .. theme
+            .. ".lua ~/.dotfiles/theme_schema.lua 2>/dev/null &"
         os.execute(set_file_cmd)
-        -- local send_nvim_signal_cmd = string.format(
-        --     [[nvim --server "/tmp/update_theme.sock" --remote-send ":lua require('plugins.colorscheme').reload('%s')<CR>"]],
-        --     theme
-        -- )
-        -- os.execute(send_nvim_signal_cmd)
+
+        local send_nvim_signal_cmd = string.format(
+            [[
+                for sock in $(nvr --serverlist); do
+                    nvr --servername "$sock" --remote-send ":silent! lua require('plugins.colorscheme').reload('%s')<CR>" & disown
+                done
+            ]],
+            theme
+        )
+
+        os.execute(send_nvim_signal_cmd)
     else
         print("Invalid theme:", theme)
     end

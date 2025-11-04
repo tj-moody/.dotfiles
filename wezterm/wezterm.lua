@@ -1,12 +1,9 @@
-local wezterm = require('wezterm') or {}
+local wezterm = require("wezterm") or {}
 local config = {}
 
-config.font = wezterm.font(
-    'FiraCode NFM',
-    {
-        weight = 'Medium',
-    }
-)
+config.font = wezterm.font("FiraCode NFM", {
+    weight = "Medium",
+})
 config.font_size = 11
 config.cell_width = 1
 config.line_height = 1
@@ -30,8 +27,7 @@ local function read_theme()
     return schema.name
 end
 
-local THEME = read_theme()
-config.colors = require('themes.' .. THEME).palette
+config.colors = require("themes." .. read_theme()).palette
 
 config.window_background_opacity = 1
 config.macos_window_background_blur = 39
@@ -42,7 +38,7 @@ config.colors.tab_bar = {
     active_tab = {
         bg_color = config.colors.background,
         fg_color = config.colors.foreground,
-    }
+    },
 }
 config.colors.tab_bar.inactive_tab = config.colors.tab_bar.active_tab
 config.colors.tab_bar.inactive_tab_hover = config.colors.tab_bar.active_tab
@@ -66,24 +62,28 @@ config.window_frame = {
     inactive_titlebar_bg = config.colors.background,
 }
 
-
 local function is_vim(pane)
-    return pane:get_user_vars().IS_NVIM == 'true'
+    return pane:get_user_vars().IS_NVIM == "true"
 end
 
 local direction_keys = {
-    Left  = 'h', h = 'Left',
-    Down  = 'j', j = 'Down',
-    Up    = 'k', k = 'Up',
-    Right = 'l', l = 'Right',
+    Left = "h",
+    h = "Left",
+    Down = "j",
+    j = "Down",
+    Up = "k",
+    k = "Up",
+    Right = "l",
+    l = "Right",
 }
 
 local function split_nav(key)
     return {
-        key = key, mods = 'CTRL',
+        key = key,
+        mods = "CTRL",
         action = wezterm.action_callback(function(win, pane)
             if is_vim(pane) then
-                win:perform_action({ SendKey = { key = key, mods = 'CTRL' }, }, pane)
+                win:perform_action({ SendKey = { key = key, mods = "CTRL" } }, pane)
             else
                 win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
             end
@@ -95,8 +95,8 @@ config.keys = {
     -- Turn off the default CMD-m Hide action, allowing CMD-m to
     -- be potentially recognized and handled by the tab
     {
-        key = 'u',
-        mods = 'CMD',
+        key = "u",
+        mods = "CMD",
         action = wezterm.action_callback(function(window, _)
             local overrides = window:get_config_overrides() or {}
             if not overrides.window_background_opacity then
@@ -108,23 +108,23 @@ config.keys = {
         end),
     },
     {
-        key = 'l',
-        mods = 'CMD',
+        key = "l",
+        mods = "CMD",
         action = wezterm.action_callback(function(_, pane)
-            pane:split({ direction = 'Right' })
+            pane:split({ direction = "Right" })
         end),
     },
     {
-        key = 'j',
-        mods = 'CMD',
+        key = "j",
+        mods = "CMD",
         action = wezterm.action_callback(function(_, pane)
-            pane:split({ direction = 'Bottom' })
+            pane:split({ direction = "Bottom" })
         end),
     },
-    split_nav('h'),
-    split_nav('j'),
-    split_nav('k'),
-    split_nav('l'),
+    split_nav("h"),
+    split_nav("j"),
+    split_nav("k"),
+    split_nav("l"),
 }
 
 wezterm.add_to_config_reload_watch_list("~/.dotfiles/theme_schema.lua")

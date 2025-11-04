@@ -154,7 +154,11 @@ local blink_opts = {
                 if not cmp.is_visible() then
                     return nil
                 end
-                if not vim.tbl_contains({ 2, 3, 4 }, cmp.get_selected_item().kind) then
+                local item = cmp.get_selected_item()
+                if not item then
+                    return nil
+                end
+                if not vim.tbl_contains({ 2, 3, 4 }, item.kind) then
                     return cmp.accept()
                 end
                 vim.api.nvim_feedkeys("(", "m", false)

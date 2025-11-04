@@ -96,6 +96,12 @@ M.setup = function()
             visual = "#ff9900",
             insert = "#c375ff",
         },
+        binary = {
+            normal = "#ffffff",
+            replace = "#ffffff",
+            visual = "#ffffff",
+            insert = "#ffffff",
+        },
     } -- }}}
 
     local THEME = vim.g.tjtheme
@@ -151,21 +157,6 @@ M.setup = function()
                 },
             },
             lualine_b = {
-                -- {
-                --     'branch',
-                --     icon = '',
-                --     padding = 2,
-                -- },
-                -- {
-                --     'diff',
-                --     icon = '',
-                --     diff_color = {
-                --         added = { fg = colors.normal },
-                --         modified = { fg = colors.visual },
-                --         removed = { fg = colors.replace },
-                --     },
-                --     symbols = { added = '', modified = '', removed = '' },
-                -- },
                 {
                     "branch",
                     icon = "",
@@ -263,12 +254,6 @@ M.setup = function()
                         info = " ",
                         hint = " ",
                     },
-                    -- symbols = {
-                    --     error = '',
-                    --     warn = '',
-                    --     info = '',
-                    --     hint = '',
-                    -- },
                 },
                 {
                     function()
@@ -283,21 +268,19 @@ M.setup = function()
                     function()
                         local msg = "No Active Lsp"
                         local clients = vim.lsp.get_clients()
+                        local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
                         if next(clients) == nil then
                             return msg
                         end
                         local clients_str = ""
                         for i, client in ipairs(clients) do
-                            if i == 1 then
-                                clients_str = clients_str .. client.name
-                            else
-                                clients_str = clients_str .. ", " .. client.name
+                            if i ~= 1 then
+                                clients_str = clients_str .. ", "
                             end
-                            -- local filetypes = client.config.filetypes
-                            -- if filetypes and
-                            --     vim.fn.index(filetypes, buf_ft) ~= -1 then
-                            --     return client.name
-                            -- end
+                            clients_str = clients_str .. client.name
+                            if vim.tbl_contains(buf_clients, client) then
+                                clients_str = clients_str .. "·"
+                            end
                         end
                         return clients_str
                     end,

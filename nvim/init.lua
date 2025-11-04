@@ -47,6 +47,6 @@ function P(table)
     vim.notify(vim.inspect(table), 0)
 end
 
-if #vim.v.argv <= 4 then
+if #vim.v.argv <= 2 then
     vim.cmd("AutoSession restore")
 end

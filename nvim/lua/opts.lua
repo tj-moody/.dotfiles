@@ -109,7 +109,6 @@ o.splitkeep = "topline"
 o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,t-r-cr-o:hor20"
 o.winborder = "rounded"
 
-
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false
 vim.g.have_fun = false
