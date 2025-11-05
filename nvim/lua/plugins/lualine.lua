@@ -84,12 +84,6 @@ M.setup = function()
             visual = "#ffae57",
             insert = "#88d4ab",
         },
-        gruvbox = {
-            normal = "#b8bb26",
-            replace = "#fb4934",
-            visual = "#fe8019",
-            insert = "#83a598",
-        },
         synth = {
             normal = "#00ff99",
             replace = "#ff5171",
@@ -105,8 +99,8 @@ M.setup = function()
     } -- }}}
 
     local THEME = vim.g.tjtheme
-    local colors = colors_table.marbox
-    if THEME and colors_table[THEME] then
+    local colors = colors_table.marsbox
+    if colors_table[THEME] then
         colors = colors_table[THEME]
     end
     local comment_fg = safe_require("plugins.colorscheme").get_color("Comment", "fg#")

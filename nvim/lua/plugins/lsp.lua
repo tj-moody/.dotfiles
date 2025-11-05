@@ -66,7 +66,7 @@ local function lsp_setup()
         "ruff",
         "ts_ls",
         "lua_ls",
-        "pyright",
+        "pyrefly",
         "bash_ls",
         "clangd",
         "cssls",

@@ -9,6 +9,8 @@ config.cell_width = 1
 config.line_height = 1
 config.bold_brightens_ansi_colors = "BrightAndBold"
 config.freetype_render_target = "HorizontalLcd"
+config.freetype_load_flags = "NO_HINTING"
+
 -- TURN OFF LIGATURES
 -- config.harfbuzz_features = {"calt=0", "clig=0", "liga=0"}
 

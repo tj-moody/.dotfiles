@@ -1,13 +1,8 @@
 local colors = {
-    name = "gruvbox",
+    name = "otherbox",
     palette = {
         foreground = "#e8dbb6",
-        -- background = "#222024", -- reddish variant of original
-        -- background = "#212129", -- blue variant of original
-        background = "#1f1f23", -- blueish variant of original
-        -- background = "#1d2021", -- original
-        -- background = "#1d1d1d", -- neutral variant of original
-        -- background = "#282828", -- original lighter version
+        background = "#111122",
 
         selection_fg = "#c1c1c1",
         selection_bg = "#403e3d",

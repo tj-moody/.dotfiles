@@ -56,16 +56,21 @@ local theme_init_table = {
     ayu = function()
         vim.cmd.colorscheme("ayu")
     end,
-    midnightclub = function() --
+    midnightclub = function()
         vim.cmd.colorscheme("memoonry")
     end,
     binary = function()
         vim.cmd.colorscheme("binary")
     end,
-    -- TODO: Copy this guy's config https://x.com/gdechichi
-    gruvbox = function()
+    --  TODO: Copy this guy's config https://x.com/gdechichi
+    otherbox = function()
         vim.g.gruvbox_material_better_performance = 1
         vim.g.gruvbox_material_foreground = "original"
+        vim.cmd.colorscheme("gruvbox-material")
+    end,
+    gruvbox = function()
+        vim.g.gruvbox_material_better_performance = 1
+        vim.g.gruvbox_material_foreground = "material"
         vim.cmd.colorscheme("gruvbox-material")
     end,
     synth = function()
