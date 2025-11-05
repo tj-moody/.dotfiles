@@ -5,7 +5,8 @@ local colors = {
         background = "#080914",
 
         selection_fg = "#c1c1c1",
-        selection_bg = "#403e3d",
+        -- selection_bg = "#403e3d",
+        selection_bg = "#1b1d29",
 
         split = "#665c54",
 

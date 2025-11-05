@@ -67,6 +67,10 @@ function colortest
     bash /Users/tj/.dotfiles/bash/colortest.bash
 end
 
+function colortest2
+    bash /Users/tj/.dotfiles/bash/colortest2.bash
+end
+
 function nvimspeedtest
     hyperfine "nvim --headless +qa" --warmup 10
 end

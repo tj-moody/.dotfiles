@@ -397,15 +397,16 @@ map("n", "<leader>gb", "<CMD>Gitsigns blame_line<CR>", "Blame Line")
 map("n", "<leader>gl", "<CMD>vsplit<CR><CMD>lua require('gitgraph').draw({}, { all = true, max_count = 5000 })<CR>", "")
 -- }}}
 -- Splits{{{
-map("n", "<C-h>", "<CMD>lua require('smart-splits').move_cursor_left()<CR>", "Navigate Left")
-map("n", "<C-j>", "<CMD>lua require('smart-splits').move_cursor_down()<CR>", "Navigate Down")
-map("n", "<C-k>", "<CMD>lua require('smart-splits').move_cursor_up()<CR>", "Navigate Up")
-map("n", "<C-l>", "<CMD>lua require('smart-splits').move_cursor_right()<CR>", "Navigate Right")
 
-map("n", "<Space>h", "<C-w>H", "Move Right")
-map("n", "<Space>j", "<C-w>J", "Move Down")
-map("n", "<Space>k", "<C-w>K", "Move Up")
-map("n", "<Space>l", "<C-w>L", "Move Right")
+map("n", "<C-h>", "<CMD>lua require('tmux').move_left()<CR>", "Navigate Left")
+map("n", "<C-j>", "<CMD>lua require('tmux').move_bottom()<CR>", "Navigate Down")
+map("n", "<C-k>", "<CMD>lua require('tmux').move_top()<CR>", "Navigate Up")
+map("n", "<C-l>", "<CMD>lua require('tmux').move_right()<CR>", "Navigate Right")
+
+map("n", "<Left>", "<C-w>H", "Move Left")
+map("n", "<Down>", "<C-w>J", "Move Down")
+map("n", "<Up>", "<C-w>K", "Move Up")
+map("n", "<Right>", "<C-w>L", "Move Right")
 -- }}}
 -- TreeSJ{{{
 map("n", "<c-s>", "<CMD>TSJToggle<CR>", "Split/Join")
@@ -571,18 +572,7 @@ map(
     "Ct",
     -- Change theme
     function()
-        -- vim.ui.select(safe_require("plugins.colorscheme").themes_list, {
-        --     prompt = "Choose theme:",
-        -- }, function(choice)
-        --     if choice then
-        --         vim.g.tjtheme = choice
-        --         safe_require("plugins.colorscheme").reload()
-        --         require("wezterm").set_user_var("COLORS_NAME", choice)
-        --         vim.cmd("silent !echo \"" .. choice .. "\" > ~/.dotfiles/.theme.txt")
-        --     end
-        -- end)
-        vim.cmd[[cquit 3]]
-
+        vim.cmd([[cquit 3]])
     end,
     "Change Theme"
 )

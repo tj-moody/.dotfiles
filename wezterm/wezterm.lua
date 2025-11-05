@@ -123,10 +123,10 @@ config.keys = {
             pane:split({ direction = "Bottom" })
         end),
     },
-    split_nav("h"),
-    split_nav("j"),
-    split_nav("k"),
-    split_nav("l"),
+    -- split_nav("h"),
+    -- split_nav("j"),
+    -- split_nav("k"),
+    -- split_nav("l"),
 }
 
 wezterm.add_to_config_reload_watch_list("~/.dotfiles/theme_schema.lua")
