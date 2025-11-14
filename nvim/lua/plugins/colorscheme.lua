@@ -537,55 +537,22 @@ M.spec = {
             hi.setup(opts)
         end,
     },
-    {
-        dir = "~/projects/quanta.nvim",
-        event = "VeryLazy",
-    },
+    { dir = "~/projects/quanta.nvim", },
     {
         lazy = false,
         "sainnhe/gruvbox-material",
         config = M.safe_reload,
     },
-    {
-        "aktersnurra/no-clown-fiesta.nvim",
-        event = "VeryLazy",
-    },
-    {
-        "rebelot/kanagawa.nvim",
-        event = "VeryLazy",
-    },
-    {
-        "folke/tokyonight.nvim",
-        event = "VeryLazy",
-    },
-    {
-        "EdenEast/nightfox.nvim",
-        event = "VeryLazy",
-    },
-    {
-        "catppuccin/nvim",
-        event = "VeryLazy",
-    },
-    {
-        "sainnhe/everforest",
-        event = "VeryLazy",
-    },
-    {
-        "Shatur/neovim-ayu",
-        event = "VeryLazy",
-    },
-    {
-        "nyngwang/memoonry.nvim",
-        event = "VeryLazy",
-    },
-    {
-        "jackplus-xyz/binary.nvim",
-        event = "VeryLazy",
-    },
-    {
-        "vertexE/synth.nvim",
-        event = "VeryLazy",
-    },
+    { "aktersnurra/no-clown-fiesta.nvim", },
+    { "rebelot/kanagawa.nvim", },
+    { "folke/tokyonight.nvim", },
+    { "EdenEast/nightfox.nvim", },
+    { "catppuccin/nvim", },
+    { "sainnhe/everforest", },
+    { "Shatur/neovim-ayu", },
+    { "nyngwang/memoonry.nvim", },
+    { "jackplus-xyz/binary.nvim", },
+    { "vertexE/synth.nvim", },
 }
 
 return M
