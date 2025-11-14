@@ -75,7 +75,41 @@ end
 M.spec = {
     {
         "nvim-tree/nvim-tree.lua",
-        cmd = { "NvimTreeClose", "NvimTreeToggle" },
+        keys = {
+            {
+                "t",
+                function()
+                    if vim.g.nvimtreefloat == true then
+                        safe_require("plugins.nvim-tree").nvim_tree_setup()
+                        return
+                    end
+                    if vim.bo.filetype == "NvimTree" then
+                        vim.cmd("NvimTreeClose")
+                    else
+                        vim.cmd("NvimTreeClose")
+                        vim.cmd("NvimTreeOpen")
+                    end
+                    safe_require("plugins.colorscheme").setup("nvim_tree")
+                end,
+                desc = "Toggle NvimTree",
+            },
+            {
+                "TT",
+                function()
+                    if vim.g.nvimtreefloat == true then
+                        vim.g.nvimtreefloat = false
+                        vim.cmd("NvimTreeClose")
+                        safe_require("plugins.nvim-tree").nvim_tree_setup()
+                    else
+                        safe_require("plugins.nvim-tree").nvim_tree_float_setup()
+                        vim.cmd("NvimTreeClose")
+                        vim.cmd("NvimTreeOpen")
+                    end
+                    safe_require("plugins.colorscheme").setup("nvim_tree")
+                end,
+                desc = "Toggle NvimTree Float",
+            },
+        },
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = M.nvim_tree_setup,
     },

@@ -2,8 +2,15 @@ local M = {}
 M.spec = {
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.4",
+        tag = "v0.1.9",
         cmd = { "Telescope" },
+        keys = {
+            { "<leader>fd", ":cd ~/.dotfiles<CR> :Telescope file_browser<CR>", desc = "Find in Dotfiles" },
+            { "<leader>fp", ":cd ~/projects<CR> :Telescope file_browser<CR>", desc = "Find Project" },
+            { "<leader>ff", "<CMD>Telescope smart_open<CR>", desc = "Find File (smart)" },
+            { "<leader>fh", "<CMD>Telescope highlights<CR>", desc = "Find Highlight" },
+            { "<leader>fk", "<CMD>Telescope keymaps<CR>", desc = "Find Keymap" },
+        },
         dependencies = {
             { "nvim-telescope/telescope-file-browser.nvim" },
             { "nvim-lua/plenary.nvim" },
@@ -64,7 +71,11 @@ M.spec = {
     {
         "junegunn/fzf.vim",
         dependencies = { "junegunn/fzf" },
-        event = "VeryLazy",
+        keys = {
+            { "<leader>fF", "<CMD>Files<CR>", desc = "Find File" },
+            { "<leader>fg", "<CMD>Rg<CR>", desc = "Find Grep" },
+            { "<leader>fb", "<CMD>Buffers<CR>", desc = "Find Buffer" },
+        },
 
         config = function()
             vim.g.fzf_layout = { ["down"] = "~30%" }

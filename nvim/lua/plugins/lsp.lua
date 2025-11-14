@@ -62,6 +62,10 @@ local function lsp_setup()
         root_markers = { ".git" },
     })
 
+    vim.lsp.config.verible = {
+        cmd = { "verible-verilog-ls", "--rules_config_search" },
+    }
+
     vim.lsp.enable({
         "ruff",
         "ts_ls",
@@ -148,7 +152,7 @@ local blink_opts = {
         },
     },
     keymap = {
-        -- preset = "none",
+        preset = "none",
         ["<CR>"] = {
             function(cmp)
                 if not cmp.is_visible() then

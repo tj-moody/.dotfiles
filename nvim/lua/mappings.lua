@@ -28,6 +28,9 @@ end
 local function m_o(m, l, r, opts)
     vim.keymap.set(m, l, r, opts)
 end
+
+M.map = map
+M.m_o = m_o
 -- }}}
 
 --- VANILLA
@@ -65,12 +68,7 @@ map("n", "<leader>w", "<CMD>silent update<CR>", "Write")
 map("n", "<leader><leader>x", "<CMD>silent write<CR><CMD>source <CR>", "Execute")
 
 map("n", "<leader>q", "<CMD>q<CR>", "Quit")
-map(
-    "n",
-    "<ESC>",
-    "<CMD>noh<CR><CMD>ColorizerReloadAllBuffers<CR><CMD>ColorizerAttachToBuffer<CR><CMD>echo ''<CR>",
-    "Reset Screen"
-)
+map("n", "<ESC>", "<CMD>noh<CR><CMD>echo ''<CR>", "Reset Screen")
 
 map("x", "K", ":m '<-2<CR>gv=gv", "Move Up")
 map("x", "J", ":m '>+1<CR>gv=gv", "Move Down")
@@ -93,15 +91,16 @@ map("n", "ss", "<Plug>Yssurround", "Surround Line")
 map("x", "s", "<Plug>VSurround", "Surround")
 -- ^^^ charwise in visual mode, linewise in visual line mode
 
-map("n", "sl", "<CMD>vsp<CR>", "Split Rigth")
 map("n", "sj", "<CMD>sp<CR>", "Split Down")
+map("n", "sl", "<CMD>vsp<CR>", "Split Rigth")
 map("n", "se", "<c-w>=", "Equalize Splits")
 
 map("x", "V", "j", "Expand V-Line Selection")
 
 map("n", "gV", "`[v`]", "Highlight Prev Selection")
 
--- Backspace helper values{{{
+-- Backspace{{{
+-- helper values
 local escape_code = api.nvim_replace_termcodes("<Esc>", false, false, true)
 local backspace_code = api.nvim_replace_termcodes("<BS>", false, false, true)
 local function viml_backspace()
@@ -119,55 +118,51 @@ local indent_unsupported_filetypes = {
     "asm",
     "markdown",
     "txt",
+    "verilog",
 }
 local indent_based_filetypes = {
     "python",
-} -- }}}
-m_o(
-    "i",
-    "<BS>", -- {{{
-    function()
-        local unsupported_filetype = false
-        for _, v in ipairs(indent_unsupported_filetypes) do
-            if vim.bo.filetype == v then
-                unsupported_filetype = true
-            end
+}
+m_o("i", "<BS>", function()
+    local unsupported_filetype = false
+    for _, v in ipairs(indent_unsupported_filetypes) do
+        if vim.bo.filetype == v then
+            unsupported_filetype = true
         end
-        if unsupported_filetype then
-            return require("nvim-autopairs").autopairs_bs()
-        end
-
-        local line, col = unpack(api.nvim_win_get_cursor(0))
-        local before_cursor_is_whitespace = api.nvim_get_current_line():sub(0, col):match("^%s*$")
-
-        if not before_cursor_is_whitespace then
-            return require("nvim-autopairs").autopairs_bs()
-        end
-        if line == 1 then
-            return escape_code .. "==^i"
-        end
-
-        local indent_based_filetype = false
-        for _, v in ipairs(indent_based_filetypes) do
-            if vim.bo.filetype == v then
-                indent_based_filetype = true
-            end
-        end
-        local correct_indent = require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
-        local current_indent = fn.indent(line) / vim.bo.tabstop
-        local previous_line_is_whitespace = api.nvim_buf_get_lines(0, line - 2, line - 1, false)[1]:match("^%s*$")
-        if current_indent == correct_indent then
-            if previous_line_is_whitespace and not indent_based_filetype then
-                return viml_backspace()
-            end
-            return backspace_code
-        elseif current_indent > correct_indent then
-            return string.rep(backspace_code, current_indent - correct_indent)
-        end
+    end
+    if unsupported_filetype then
         return require("nvim-autopairs").autopairs_bs()
-    end,
-    { expr = true, noremap = true, replace_keycodes = false, desc = "Smart Delete" }
-)
+    end
+
+    local line, col = unpack(api.nvim_win_get_cursor(0))
+    local before_cursor_is_whitespace = api.nvim_get_current_line():sub(0, col):match("^%s*$")
+
+    if not before_cursor_is_whitespace then
+        return require("nvim-autopairs").autopairs_bs()
+    end
+    if line == 1 then
+        return escape_code .. "==^i"
+    end
+
+    local indent_based_filetype = false
+    for _, v in ipairs(indent_based_filetypes) do
+        if vim.bo.filetype == v then
+            indent_based_filetype = true
+        end
+    end
+    local correct_indent = require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
+    local current_indent = fn.indent(line) / vim.bo.tabstop
+    local previous_line_is_whitespace = api.nvim_buf_get_lines(0, line - 2, line - 1, false)[1]:match("^%s*$")
+    if current_indent == correct_indent then
+        if previous_line_is_whitespace and not indent_based_filetype then
+            return viml_backspace()
+        end
+        return backspace_code
+    elseif current_indent > correct_indent then
+        return string.rep(backspace_code, current_indent - correct_indent)
+    end
+    return require("nvim-autopairs").autopairs_bs()
+end, { expr = true, noremap = true, replace_keycodes = false, desc = "Smart Delete" })
 map("i", "<S-BS>", "<BS>", "Delete") -- }}}
 
 ---Adapted from https://vi.stackexchange.com/a/12870
@@ -250,8 +245,7 @@ map(
 ) -- }}}
 map("n", "<leader>o", "<CMD>silent only<CR>", "Only Window")
 
-map("n", "<leader>y", '"+y', "Yank into Clipboard")
-map("x", "<leader>y", '"+y', "Yank Into Clipboard")
+map({ "n", "x" }, "<leader>y", '"+y', "Yank into Clipboard")
 
 map("x", "<", "<gv4h", "Shift Left")
 map("x", ">", ">gv4l", "Shift Right")
@@ -281,90 +275,7 @@ map("n", "<ScrollWheelRight>", "", "")
 map("x", "<ScrollWheelLeft>", "", "")
 map("x", "<ScrollWheelRight>", "", "")
 
--- m_o('i', ';',
---     function()
---         -- chars that can be afte the cursor to allow a semicolon, mostly closing delimiters
---         local allowed_chars = {
---             '\'',
---             '"',
---             ')',
---             '}',
---             '>',
---         }
---         local can_exit = true
---         local _, col = unpack(api.nvim_win_get_cursor(0))
---         local line = fn.getline('.') ---@cast line string
---         for char in line:sub(col + 1, -1):gmatch('.') do
---             (function()
---                 char_is_allowed = false
---                 for _, allowed_char in ipairs(allowed_chars) do
---                     (function()
---                         if char == allowed_char then
---                             char_is_allowed = true; return
---                         end
---                     end)()
---                 end
---                 if not char_is_allowed then
---                     can_exit = false; return
---                 end
---             end)()
---         end
---         if can_exit then
---             return '<ESC>A;'
---         else
---             return ';'
---         end
---     end,
---     { remap = false, expr = true, desc = "Smart Semicolon" }
--- )
--- }}}
-
 --- GROUPS
--- NvimTree{{{
-
-map("n", "t", function()
-    if vim.g.nvimtreefloat == true then
-        safe_require("plugins.nvim-tree").nvim_tree_setup()
-        return
-    end
-    if vim.bo.filetype == "NvimTree" then
-        cmd("NvimTreeClose")
-    else
-        cmd("NvimTreeClose")
-        cmd("NvimTreeOpen")
-    end
-    safe_require("plugins.colorscheme").setup("nvim_tree")
-end, "Toggle NvimTree")
-
-map("n", "TT", function()
-    if vim.g.nvimtreefloat == true then
-        vim.g.nvimtreefloat = false
-        cmd("NvimTreeClose")
-        safe_require("plugins.nvim-tree").nvim_tree_setup()
-    else
-        safe_require("plugins.nvim-tree").nvim_tree_float_setup()
-        cmd("NvimTreeClose")
-        cmd("NvimTreeOpen")
-    end
-    safe_require("plugins.colorscheme").setup("nvim_tree")
-end, "Toggle NvimTree Float")
--- }}}
--- Fuzzy Search{{{
-map("n", "<leader>fd", ":cd ~/.dotfiles<CR> :Telescope file_browser<CR>", "Find in Dotfiles")
-map("n", "<leader>fp", ":cd ~/projects<CR> :Telescope file_browser<CR>", "Find Project")
-map("n", "<leader>ff", "<CMD>Telescope smart_open<CR>", "Find File (smart)")
-map("n", "<leader>fF", "<CMD>Files<CR>", "Find File")
-map("n", "<leader>fh", "<CMD>Telescope highlights<CR>", "Find Highlight")
-map("n", "<leader>fg", "<CMD>Rg<CR>", "Find Grep")
-map("n", "<leader>fk", "<CMD>Telescope keymaps<CR>", "Find Keymap")
-map("n", "<leader>fb", "<CMD>Buffers<CR>", "Find Buffer")
--- }}}
--- Bufferline{{{
-map("n", "H", "<CMD>BufferLineCyclePrev<CR>", "Previous Buffer")
-map("n", "L", "<CMD>BufferLineCycleNext<CR>", "Next Buffer")
-map("n", "<leader>bc", "<CMD>BufferLinePickClose<CR>", "Close Buffer")
-map("n", "<leader>bp", "<CMD>BufferLinePick<CR>", "Pick Buffer")
--- }}}
 -- Tabs{{{
 map("n", "T.", "<CMD>tabe %<CR><CMD>Telescope smart_open<CR>", "Find File in New Tab")
 map("n", "TN", "<CMD>tabe %<CR>", "New Tab")
@@ -373,55 +284,11 @@ map("n", "TH", "<CMD>tabprevious<CR>", "Prev Tab")
 map("n", "TO", "<CMD>tabonly<CR>", "Only Tab")
 map("n", "TQ", "<CMD>tabclose<CR>", "Quit Tab")
 -- }}}
--- Lazy{{{
-map("n", "<leader>lz", "<CMD>Lazy<CR>", "Lazy")
--- }}}
--- Git{{{
-map("n", "<leader>gd", function()
-    if next(require("diffview.lib").views) == nil then
-        cmd("DiffviewOpen")
-    else
-        cmd("DiffviewClose")
-    end
-end, "Git Diff")
-map("n", "<leader>gh", function()
-    if next(require("diffview.lib").views) == nil then
-        cmd("DiffviewFileHistory")
-    else
-        cmd("DiffviewClose")
-    end
-end, "Git History")
-map("n", "<leader>gj", "<CMD>Gitsigns next_hunk<CR>", "Next Change")
-map("n", "<leader>gk", "<CMD>Gitsigns prev_hunk<CR>", "Prev Change")
-map("n", "<leader>gb", "<CMD>Gitsigns blame_line<CR>", "Blame Line")
-map("n", "<leader>gl", "<CMD>vsplit<CR><CMD>lua require('gitgraph').draw({}, { all = true, max_count = 5000 })<CR>", "")
--- }}}
 -- Splits{{{
-
-map("n", "<C-h>", "<CMD>lua require('tmux').move_left()<CR>", "Navigate Left")
-map("n", "<C-j>", "<CMD>lua require('tmux').move_bottom()<CR>", "Navigate Down")
-map("n", "<C-k>", "<CMD>lua require('tmux').move_top()<CR>", "Navigate Up")
-map("n", "<C-l>", "<CMD>lua require('tmux').move_right()<CR>", "Navigate Right")
-
 map("n", "<Left>", "<C-w>H", "Move Left")
 map("n", "<Down>", "<C-w>J", "Move Down")
 map("n", "<Up>", "<C-w>K", "Move Up")
 map("n", "<Right>", "<C-w>L", "Move Right")
--- }}}
--- TreeSJ{{{
-map("n", "<c-s>", "<CMD>TSJToggle<CR>", "Split/Join")
--- }}}
--- Alternate-Toggler{{{
-map("n", "<leader>ta", "<CMD>ToggleAlternate<CR>", "Toggle Alternate")
--- }}}
--- Project{{{
-map("n", "<C-T>", '<CMD>lua require("projtasks").toggle()<CR>', "Toggle Terminal")
-map("n", "<leader>pr", require("projtasks").create_ptask_runner("run"), "Run Project")
-map("n", "<leader>pb", require("projtasks").create_ptask_runner("build"), "Build Project")
-map("n", "<leader>pt", require("projtasks").create_ptask_runner("test"), "Test Project")
-map("n", "<leader>pB", require("projtasks").create_ptask_runner("bench"), "Benchmark Project")
-map("n", "<leader>pP", require("projtasks").create_ptask_runner("profile"), "Profile Project")
-map("n", "<leader>pc", require("projtasks").create_ptask_runner("cycle"), "Cycle Project ")
 -- }}}
 -- Comment{{{
 map("n", "<leader>co", [[<CMD>execute "norm! o" . substitute(&commentstring, '%s', '', '')<CR>A]], "Comment Below")
@@ -431,8 +298,6 @@ map("n", "<leader>cl", [[<CMD>execute "norm! A " . substitute(&commentstring, '%
 
 -- Adapted from u/alphabet_american
 map("x", "<leader>C", [[y`>pgv:norm ,cc<CR>`>j^]], "Comment and Duplicate")
--- }}}
--- Folds{{{
 -- }}}
 -- Lsp{{{
 map("n", "<leader>ls", "<CMD>LspStart<CR>", "Start Lsp")
@@ -550,25 +415,6 @@ map(
 
 map(
     "n",
-    "Cgb",
-    -- Toggle git blame
-    function()
-        cmd("Gitsigns toggle_current_line_blame")
-    end,
-    "Git Blame"
-)
-
-map(
-    "n",
-    "Clv",
-    -- Toggle detailed lualine
-    function()
-        vim.g.lualine_verbose = not vim.g.lualine_verbose
-    end,
-    "Lualine Verbosity"
-)
-map(
-    "n",
     "Ct",
     -- Change theme
     function()
@@ -595,16 +441,6 @@ map(
 map("n", "Ccr", function()
     require("plugins.colorscheme").reload()
 end, "Reload Colorscheme")
-
-map(
-    "n",
-    "Cd",
-    -- Toggle terminal direction
-    function()
-        require("projtasks").toggle_terminal_direction()
-    end,
-    "Terminal Direction"
-)
 
 -- Restart nvim
 map("n", "<leader>R", function()

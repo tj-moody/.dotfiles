@@ -30,7 +30,6 @@ M.setup = function()
             indicator = {
                 icon = "▎", -- this should be omitted if indicator style is not 'icon'
                 style = "icon",
-                -- style = "underline",
             },
             diagnostics = "nvim_lsp",
             offsets = {
@@ -237,6 +236,12 @@ M.spec = {
     {
         "akinsho/bufferline.nvim",
         event = "LazyFile",
+        keys = {
+            { "H", "<CMD>BufferLineCyclePrev<CR>", desc = "Previous Buffer" },
+            { "L", "<CMD>BufferLineCycleNext<CR>", desc = "Next Buffer" },
+            { "<leader>bc", "<CMD>BufferLinePickClose<CR>", desc = "Close Buffer" },
+            { "<leader>bp", "<CMD>BufferLinePick<CR>", desc = "Pick Buffer" },
+        },
         dependencies = {
             "nvim-tree/nvim-web-devicons",
             "sainnhe/gruvbox-material",

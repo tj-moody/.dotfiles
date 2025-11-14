@@ -76,6 +76,9 @@ local theme_init_table = {
     synth = function()
         vim.cmd.colorscheme("synth")
     end,
+    quanta = function()
+        vim.cmd.colorscheme("quanta")
+    end,
 }
 
 local hl_table = {
@@ -141,6 +144,10 @@ local hl_table = {
             { "MatchParen", { fg = "#a454ff", bold = true } },
             { "Search", { fg = "#b8bb26", bold = true } },
             { "IncSearch", { fg = "#fb4934", bold = true } },
+            { "DiagnosticVirtualLinesError", { bg = "#472322" } },
+            { "DiagnosticVirtualLinesWarn", { bg = "#473621" } },
+            { "DiagnosticVirtualLinesInfo", { bg = "#0f3a42" } },
+            { "DiagnosticVirtualLinesHint", { bg = "#3d4220" } },
         },
         nvim_tree = {
             { "NvimTreeFolderIcon", { fg = "#fabd2f" } },
@@ -309,8 +316,9 @@ local hl_table = {
             { "NvimTreeRootFolder", { fg = "#ffae57", bold = true } },
         },
     }, -- }}}
-    binary = {}, -- {{{}}}
-    gruvbox = {}, -- {{{}}}
+    binary = {},
+    gruvbox = {},
+    quanta = {},
 }
 
 local clear_hl_bg_table = { -- {{{
@@ -394,10 +402,6 @@ local set_hl_table = { -- {{{
     { "DiagnosticUnderlineHint", { undercurl = true, sp = M.get_color("DiagnosticHint", "fg#") } },
     { "DiagnosticUnderlineInfo", { undercurl = true, sp = M.get_color("DiagnosticInfo", "fg#") } },
     { "DiagnosticUnderlineOk", { undercurl = true, sp = M.get_color("DiagnosticOk", "fg#") } },
-    { "DiagnosticErrBG", { bg = "#472322" } },
-    { "DiagnosticWarnBG", { bg = "#473621" } },
-    { "DiagnosticInfoBG", { bg = "#0f3a42" } },
-    { "DiagnosticHintBG", { bg = "#3d4220" } },
     { "BlinkCmpGhostText", { fg = M.get_color("Comment", "fg#"), bold = false, italic = false } },
 } -- }}}
 
@@ -519,6 +523,24 @@ function M.reload(theme)
 end
 
 M.spec = {
+    {
+        "nvim-mini/mini.nvim",
+        event = "LazyFile",
+        version = "*",
+        config = function()
+            local hi = require("mini.hipatterns")
+            local opts = {}
+            opts.highlighters = vim.tbl_extend("keep", hi.config or {}, {
+                hex_color = hi.gen_highlighter.hex_color({ priority = 2000 }),
+            })
+
+            hi.setup(opts)
+        end,
+    },
+    {
+        dir = "~/projects/quanta.nvim",
+        event = "VeryLazy",
+    },
     {
         lazy = false,
         "sainnhe/gruvbox-material",

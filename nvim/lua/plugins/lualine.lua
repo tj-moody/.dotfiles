@@ -329,6 +329,15 @@ M.spec = {
             },
         },
         config = M.setup,
+        keys = {
+            {
+                "Clv",
+                function()
+                    vim.g.lualine_verbose = not vim.g.lualine_verbose
+                end,
+                desc = "Lualine Verbosity",
+            },
+        },
     },
 }
 

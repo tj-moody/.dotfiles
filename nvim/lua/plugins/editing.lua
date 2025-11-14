@@ -1,4 +1,5 @@
 local M = {}
+local map = require("mappings").map
 M.spec = {
     {
         "tpope/vim-surround",
@@ -37,14 +38,6 @@ M.spec = {
         end,
     },
     {
-        "norcalli/nvim-colorizer.lua",
-        event = "LazyFile",
-        config = {
-            ["*"] = { names = false },
-            rust = { names = false },
-        },
-    },
-    {
         "chrisgrieser/nvim-various-textobjs",
         event = "BufEnter",
         config = function()
@@ -80,41 +73,45 @@ M.spec = {
     },
     {
         "rmagatti/alternate-toggler",
-        cmd = { "ToggleAlternate" },
-        config = {
-            alternates = {
-                ["true"] = "false",
-                ["True"] = "False",
-                ["TRUE"] = "FALSE",
-                ["Yes"] = "No",
-                ["YES"] = "NO",
-                ["1"] = "0",
-
-                -- Use logical opposites for comparisons;
-                -- > && <=, for example, are complementary,
-                -- and encompass all cases
-                ["<"] = ">=",
-                [">"] = "<=",
-                -- [">="] = "<",
-                -- ["<="] = ">",
-
-                -- Alternatively,
-                -- ["<"] = ">",
-
-                ["("] = ")",
-                ["["] = "]",
-                ["{"] = "}",
-                ['"'] = "'",
-                ['""'] = "''",
-                ["+"] = "-",
-                ["==="] = "!==",
-                ["=="] = "!=",
-                -- ["~="] = "==",
-                ["++"] = "--",
-                ["+="] = "-=",
-                ["&&"] = "||",
-            },
+        keys = {
+            { "<leader>ta", "<CMD>ToggleAlternate<CR>", desc = "Toggle Alternate" },
         },
+        config = function()
+            require("alternate-toggler").setup({
+                alternates = {
+                    ["true"] = "false",
+                    ["True"] = "False",
+                    ["TRUE"] = "FALSE",
+                    ["Yes"] = "No",
+                    ["YES"] = "NO",
+                    ["1"] = "0",
+
+                    -- Use logical opposites for comparisons;
+                    -- > && <=, for example, are complementary,
+                    -- and encompass all cases
+                    ["<"] = ">=",
+                    [">"] = "<=",
+                    -- [">="] = "<",
+                    -- ["<="] = ">",
+
+                    -- Alternatively,
+                    -- ["<"] = ">",
+
+                    ["("] = ")",
+                    ["["] = "]",
+                    ["{"] = "}",
+                    ['"'] = "'",
+                    ['""'] = "''",
+                    ["+"] = "-",
+                    ["==="] = "!==",
+                    ["=="] = "!=",
+                    -- ["~="] = "==",
+                    ["++"] = "--",
+                    ["+="] = "-=",
+                    ["&&"] = "||",
+                },
+            })
+        end,
     },
     {
         "willothy/flatten.nvim",
@@ -135,7 +132,36 @@ M.spec = {
     },
     {
         "aserowy/tmux.nvim",
-        event = "LazyFile",
+        keys = {
+            {
+                "<C-h>",
+                function()
+                    require("tmux").move_left()
+                end,
+                desc = "Navigate Left",
+            },
+            {
+                "<C-j>",
+                function()
+                    require("tmux").move_bottom()
+                end,
+                desc = "Navigate Down",
+            },
+            {
+                "<C-k>",
+                function()
+                    require("tmux").move_top()
+                end,
+                desc = "Navigate Up",
+            },
+            {
+                "<C-l>",
+                function()
+                    require("tmux").move_right()
+                end,
+                desc = "Navigate Right",
+            },
+        },
         config = {
             navigation = {
                 cycle_navigation = false,

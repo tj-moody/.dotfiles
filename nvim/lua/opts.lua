@@ -158,10 +158,10 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.INFO] = "",
         },
         linehl = {
-            [vim.diagnostic.severity.ERROR] = "DiagnosticErrBG",
-            [vim.diagnostic.severity.WARN] = "DiagnosticWarnBG",
-            [vim.diagnostic.severity.INFO] = "DiagnosticInfoBG",
-            [vim.diagnostic.severity.HINT] = "DiagnosticHintBG",
+            [vim.diagnostic.severity.ERROR] = "DiagnosticVirtualLinesError",
+            [vim.diagnostic.severity.WARN]  = "DiagnosticVirtualLinesWarn",
+            [vim.diagnostic.severity.INFO]  = "DiagnosticVirtualLinesInfo",
+            [vim.diagnostic.severity.HINT]  = "DiagnosticVirtualLinesHint",
         },
     },
 })

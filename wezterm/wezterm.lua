@@ -7,7 +7,7 @@ config.font = wezterm.font("FiraCode NFM", {
 config.font_size = 11
 config.cell_width = 1
 config.line_height = 1
-config.bold_brightens_ansi_colors = "BrightAndBold"
+config.bold_brightens_ansi_colors = "No"
 config.freetype_render_target = "HorizontalLcd"
 config.freetype_load_flags = "NO_HINTING"
 

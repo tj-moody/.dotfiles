@@ -91,6 +91,7 @@ local lazy_options = { -- {{{
     },
     -- leave nil when passing the spec as the first argument to setup()
     spec = nil, ---@type LazySpec
+    local_spec = true,
     lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json", -- lockfile generated after running update.
     concurrency = nil, ---@type number limit the maximum amount of concurrent tasks
     git = {
@@ -226,6 +227,7 @@ M.load = function()
 
     lazy_file()
     require("lazy").setup(M.spec, lazy_options)
+    vim.keymap.set("n", "<leader>lz", "<CMD>Lazy<CR>", { desc = "Lazy" })
 end
 
 return M

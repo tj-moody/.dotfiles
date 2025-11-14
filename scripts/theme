@@ -1,6 +1,7 @@
 #!/opt/homebrew/bin/luajit
 
 local THEMES = {
+    { name = "quanta", color_seq = "\27[0;34m" },
     { name = "noclownfiesta", color_seq = "\27[0;34m" },
     { name = "kanagawa", color_seq = "\27[1;36m" },
     { name = "marsbox", color_seq = "\27[0;33m" },
@@ -24,12 +25,9 @@ local function set_theme(theme)
         end
     end
     if valid_theme then
-        -- Must copy - symlink doesn't trigger wezterm
-        local set_file_cmd = "cp ~/.dotfiles/wezterm/themes/"
-            .. theme
-            .. ".lua ~/.dotfiles/theme_schema.lua 2>/dev/null &"
-        os.execute(set_file_cmd)
-
+        local schema = ([[return { name = '%s' }]]):format(theme):gsub("'", "'\\''")
+        local write_cmd = ([[printf '%s' > ~/.dotfiles/theme_schema.lua & disown]]):format(schema)
+        os.execute(write_cmd)
         local send_nvim_signal_cmd = string.format(
             [[
                 for sock in $(nvr --serverlist); do

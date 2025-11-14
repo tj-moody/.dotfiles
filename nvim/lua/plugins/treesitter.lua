@@ -223,7 +223,10 @@ M.spec = {
             { "JoosepAlviste/nvim-ts-context-commentstring" },
             { "windwp/nvim-ts-autotag" },
             { "nvim-treesitter/nvim-treesitter-textobjects" },
-            { "Wansmer/treesj" },
+            {
+                "Wansmer/treesj",
+                keys = { { "<c-s>", "<CMD>TSJToggle<CR>", desc = "Split/Join" } },
+            },
             { "nvim-treesitter/playground" },
             { "rush-rs/tree-sitter-asm" },
         },
