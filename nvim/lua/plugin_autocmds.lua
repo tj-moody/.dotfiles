@@ -241,7 +241,6 @@ vim.api.nvim_create_autocmd("CmdlineChanged", {
             if scheme and scheme ~= "" then
                 pcall(vim.cmd.colorscheme, scheme)
                 vim.cmd.redraw()
-                safe_require("plugins.colorscheme").setup_hls()
             end
         end
     end,

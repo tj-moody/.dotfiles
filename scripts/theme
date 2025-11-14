@@ -2,9 +2,9 @@
 
 local THEMES = {
     { name = "quanta", color_seq = "\27[0;34m" },
+    { name = "marsbox", color_seq = "\27[0;33m" },
     { name = "noclownfiesta", color_seq = "\27[0;34m" },
     { name = "kanagawa", color_seq = "\27[1;36m" },
-    { name = "marsbox", color_seq = "\27[0;33m" },
     { name = "tokyonight", color_seq = "\27[0;34m" },
     { name = "oxocarbon", color_seq = "\27[0;32m" },
     { name = "catppuccin", color_seq = "\27[0;35m" },

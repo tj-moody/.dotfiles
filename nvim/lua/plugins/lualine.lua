@@ -30,6 +30,19 @@ local pigeon_config = {
 
 M.setup = function()
     local colors_table = { -- {{{
+        quanta = {
+            normal = "#00ff99",
+            replace = "#ff466c",
+            visual = "#ffee60",
+            insert = "#6ad8ec",
+            fg = "#e0e0e0"
+        },
+        marsbox = {
+            normal = "#b8bb26",
+            replace = "#fb4934",
+            visual = "#fe8019",
+            insert = "#83a598",
+        },
         noclownfiesta = {
             normal = "#90a959",
             replace = "#b46958",
@@ -41,12 +54,6 @@ M.setup = function()
             replace = "#ff5d62",
             insert = "#7fb4ca",
             visual = "#ffa066",
-        },
-        marsbox = {
-            normal = "#b8bb26",
-            replace = "#fb4934",
-            visual = "#fe8019",
-            insert = "#83a598",
         },
         tokyonight = {
             normal = "#9ece6a",
@@ -108,9 +115,9 @@ M.setup = function()
     local theme = {
         normal = {
             a = { fg = colors.normal, bg = colors.bg },
-            b = { fg = colors.bg, bg = colors.bg },
-            c = { fg = colors.bg, bg = colors.bg },
-            z = { fg = colors.bg, bg = colors.bg },
+            b = { fg = colors.fg, bg = colors.bg },
+            c = { fg = colors.fg, bg = colors.bg },
+            z = { fg = colors.fg, bg = colors.bg },
         },
         insert = { a = { fg = colors.insert, bg = colors.bg } },
         terminal = { a = { fg = colors.insert, bg = colors.bg } },

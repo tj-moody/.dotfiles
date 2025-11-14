@@ -29,17 +29,20 @@ function M.read_theme()
 end
 
 local theme_init_table = {
-    noclownfiesta = function()
-        vim.cmd.colorscheme("no-clown-fiesta")
-    end,
-    kanagawa = function()
-        vim.cmd.colorscheme("kanagawa")
+    quanta = function()
+        vim.cmd.colorscheme("quanta")
     end,
     marsbox = function()
         vim.g.gruvbox_material_better_performance = 1
         vim.g.gruvbox_material_background = "medium"
         vim.g.gruvbox_material_foreground = "original"
         vim.cmd.colorscheme("gruvbox-material")
+    end,
+    noclownfiesta = function()
+        vim.cmd.colorscheme("no-clown-fiesta")
+    end,
+    kanagawa = function()
+        vim.cmd.colorscheme("kanagawa")
     end,
     tokyonight = function()
         vim.cmd.colorscheme("tokyonight")
@@ -76,51 +79,10 @@ local theme_init_table = {
     synth = function()
         vim.cmd.colorscheme("synth")
     end,
-    quanta = function()
-        vim.cmd.colorscheme("quanta")
-    end,
 }
 
 local hl_table = {
-    noclownfiesta = { -- {{{
-        setup = {
-            { "CursorLineNr", { fg = "#afafaf" } },
-            { "DiagnosticInfo", { fg = "#a2b5c1" } },
-            { "@operator", { fg = "#727272" } },
-            { "@punctuation.bracket", { fg = "#727272" } },
-            { "@punctuation.delimiter", { fg = "#727272" } },
-        },
-        nvim_tree = {
-            { "NvimTreeFolderIcon", { fg = "#ffa557" } },
-            { "NvimTreeFolderName", { fg = "#7e97ab" } },
-            { "NvimTreeOpenedFolderName", { fg = "#88afa2", bold = true } },
-            { "NvimTreeExecFile", { fg = "#e1e1e1" } },
-            { "NvimTreeGitNew", { fg = "#ffa557" } },
-            { "NvimTreeGitDirty", { fg = "#b46958" } },
-            { "NvimTreeOpenedFile", { fg = "#bad7ff" } },
-            { "NvimTreeIndentMarker", { fg = "#e1e1e1" } },
-        },
-    }, -- }}}
-    kanagawa = { -- {{{
-        setup = {
-            { "Operator", { fg = "#727169" } },
-            { "@punctuation.bracket", { fg = "#727169" } },
-            { "@punctuation.delimiter", { fg = "#727169" } },
-            { "WinSeparator", { fg = "#54546D" } },
-            { "LspInlayHint", { fg = "#938aa9", bold = true } },
-        },
-        nvim_tree = {
-            { "NvimTreeFolderIcon", { fg = "#DCA561" } },
-            { "NvimTreeFolderName", { fg = "#658594" } },
-            { "NvimTreeOpenedFolderName", { fg = "#7aa89f", bold = true } },
-            { "NvimTreeNormal", { fg = "#c8c093" } },
-            { "NvimTreeExecFile", { fg = "#dcd7ba" } },
-            { "NvimTreeGitNew", { fg = "#ffa066" } },
-            { "NvimTreeGitDirty", { fg = "#ff5d62" } },
-            { "NvimTreeOpenedFile", { fg = "#957fb8", bold = true } },
-            -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
-        },
-    }, -- }}}
+    quanta = {},
     marsbox = { -- {{{
         setup = {
             { "Operator", { fg = "#928374" } },
@@ -161,6 +123,45 @@ local hl_table = {
             { "NvimTreeGitDirty", { fg = "#fb4934" } },
             { "NvimTreeOpenedFile", { fg = "#d3869b", bold = true } },
             { "NvimTreeRootFolder", { fg = "#d4be98", bold = true } },
+        },
+    }, -- }}}
+    noclownfiesta = { -- {{{
+        setup = {
+            { "CursorLineNr", { fg = "#afafaf" } },
+            { "DiagnosticInfo", { fg = "#a2b5c1" } },
+            { "@operator", { fg = "#727272" } },
+            { "@punctuation.bracket", { fg = "#727272" } },
+            { "@punctuation.delimiter", { fg = "#727272" } },
+        },
+        nvim_tree = {
+            { "NvimTreeFolderIcon", { fg = "#ffa557" } },
+            { "NvimTreeFolderName", { fg = "#7e97ab" } },
+            { "NvimTreeOpenedFolderName", { fg = "#88afa2", bold = true } },
+            { "NvimTreeExecFile", { fg = "#e1e1e1" } },
+            { "NvimTreeGitNew", { fg = "#ffa557" } },
+            { "NvimTreeGitDirty", { fg = "#b46958" } },
+            { "NvimTreeOpenedFile", { fg = "#bad7ff" } },
+            { "NvimTreeIndentMarker", { fg = "#e1e1e1" } },
+        },
+    }, -- }}}
+    kanagawa = { -- {{{
+        setup = {
+            { "Operator", { fg = "#727169" } },
+            { "@punctuation.bracket", { fg = "#727169" } },
+            { "@punctuation.delimiter", { fg = "#727169" } },
+            { "WinSeparator", { fg = "#54546D" } },
+            { "LspInlayHint", { fg = "#938aa9", bold = true } },
+        },
+        nvim_tree = {
+            { "NvimTreeFolderIcon", { fg = "#DCA561" } },
+            { "NvimTreeFolderName", { fg = "#658594" } },
+            { "NvimTreeOpenedFolderName", { fg = "#7aa89f", bold = true } },
+            { "NvimTreeNormal", { fg = "#c8c093" } },
+            { "NvimTreeExecFile", { fg = "#dcd7ba" } },
+            { "NvimTreeGitNew", { fg = "#ffa066" } },
+            { "NvimTreeGitDirty", { fg = "#ff5d62" } },
+            { "NvimTreeOpenedFile", { fg = "#957fb8", bold = true } },
+            -- { 'NvimTreeIndentMarker',     { fg = '#e1e1e1', } },
         },
     }, -- }}}
     tokyonight = { -- {{{
@@ -318,7 +319,6 @@ local hl_table = {
     }, -- }}}
     binary = {},
     gruvbox = {},
-    quanta = {},
 }
 
 local clear_hl_bg_table = { -- {{{
@@ -537,22 +537,22 @@ M.spec = {
             hi.setup(opts)
         end,
     },
-    { dir = "~/projects/quanta.nvim", },
     {
+        dir = "~/projects/quanta.nvim",
         lazy = false,
-        "sainnhe/gruvbox-material",
         config = M.safe_reload,
     },
-    { "aktersnurra/no-clown-fiesta.nvim", },
-    { "rebelot/kanagawa.nvim", },
-    { "folke/tokyonight.nvim", },
-    { "EdenEast/nightfox.nvim", },
-    { "catppuccin/nvim", },
-    { "sainnhe/everforest", },
-    { "Shatur/neovim-ayu", },
-    { "nyngwang/memoonry.nvim", },
-    { "jackplus-xyz/binary.nvim", },
-    { "vertexE/synth.nvim", },
+    { "sainnhe/gruvbox-material", },
+    { "aktersnurra/no-clown-fiesta.nvim" },
+    { "rebelot/kanagawa.nvim" },
+    { "folke/tokyonight.nvim" },
+    { "EdenEast/nightfox.nvim" },
+    { "catppuccin/nvim" },
+    { "sainnhe/everforest" },
+    { "Shatur/neovim-ayu" },
+    { "nyngwang/memoonry.nvim" },
+    { "jackplus-xyz/binary.nvim" },
+    { "vertexE/synth.nvim" },
 }
 
 return M
