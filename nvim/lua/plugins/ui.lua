@@ -4,7 +4,7 @@ M.spec = {
         "j-hui/fidget.nvim",
         tag = "legacy",
         config = function()
-            require("fidget").setup({
+            safe_require("fidget").setup({
                 text = {
                     spinner = "arc", -- animation shown when tasks are ongoing
                     done = "✔", -- character shown when all tasks are complete
@@ -62,8 +62,8 @@ M.spec = {
         "folke/which-key.nvim",
         event = "LazyFile",
         config = function()
-            require("which-key").setup({})
-            require("which-key").add({
+            safe_require("which-key").setup({})
+            safe_require("which-key").add({
                 { "<SPACE>", group = "Move Window" },
                 { "<leader>,", group = "meta" },
                 { "<leader>,p", group = "profiling" },

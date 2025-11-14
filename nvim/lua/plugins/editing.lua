@@ -1,5 +1,4 @@
 local M = {}
-local map = require("mappings").map
 M.spec = {
     {
         "tpope/vim-surround",
@@ -10,7 +9,7 @@ M.spec = {
         lazy = false,
         cmd = { "SessionRestore", "SessionSave" },
         config = function()
-            require("auto-session").setup({ ---@diagnostic disable-line
+            safe_require("auto-session").setup({ ---@diagnostic disable-line
                 auto_save_enabled = false,
                 auto_restore_enabled = false,
                 log_level = "error",
@@ -30,7 +29,7 @@ M.spec = {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = function()
-            require("nvim-autopairs").setup({
+            safe_require("nvim-autopairs").setup({
                 map_bs = false,
                 disable_filetype = { "TelescopePrompt", "text" },
             })
@@ -41,7 +40,7 @@ M.spec = {
         "chrisgrieser/nvim-various-textobjs",
         event = "BufEnter",
         config = function()
-            local to = require("various-textobjs")
+            local to = safe_require("various-textobjs")
             to.setup({ useDefaultKeymaps = false })
             local map = vim.keymap.set
 
@@ -77,7 +76,7 @@ M.spec = {
             { "<leader>ta", "<CMD>ToggleAlternate<CR>", desc = "Toggle Alternate" },
         },
         config = function()
-            require("alternate-toggler").setup({
+            safe_require("alternate-toggler").setup({
                 alternates = {
                     ["true"] = "false",
                     ["True"] = "False",
@@ -136,28 +135,28 @@ M.spec = {
             {
                 "<C-h>",
                 function()
-                    require("tmux").move_left()
+                    safe_require("tmux").move_left()
                 end,
                 desc = "Navigate Left",
             },
             {
                 "<C-j>",
                 function()
-                    require("tmux").move_bottom()
+                    safe_require("tmux").move_bottom()
                 end,
                 desc = "Navigate Down",
             },
             {
                 "<C-k>",
                 function()
-                    require("tmux").move_top()
+                    safe_require("tmux").move_top()
                 end,
                 desc = "Navigate Up",
             },
             {
                 "<C-l>",
                 function()
-                    require("tmux").move_right()
+                    safe_require("tmux").move_right()
                 end,
                 desc = "Navigate Right",
             },

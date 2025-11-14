@@ -4,7 +4,7 @@ local function task(key, name)
     return {
         key,
         function()
-            require("projtasks").create_ptask_runner(name)()
+            safe_require("projtasks").create_ptask_runner(name)()
         end,
         desc = name,
     }
@@ -18,14 +18,14 @@ M.spec = {
             {
                 "<C-T>",
                 function()
-                    require("projtasks").toggle()
+                    safe_require("projtasks").toggle()
                 end,
                 desc = "Toggle Terminal",
             },
             {
                 "Cd",
                 function()
-                    require("projtasks").toggle_terminal_direction()
+                    safe_require("projtasks").toggle_terminal_direction()
                 end,
                 desc = "Terminal Direction",
             },

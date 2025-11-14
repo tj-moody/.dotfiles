@@ -1,6 +1,5 @@
 ---via u/pseudometapseudo
 ---@param module string
----@return Nvimtree | Colorscheme | PluginLoader | nil
 function safe_require(module)
     local success, req = pcall(require, module)
     if success then
@@ -19,23 +18,24 @@ end
 
 vim.loader.enable()
 
--- NOTE: Order irrelevant
-plugins.add("colorscheme")
-plugins.add("ui")
-plugins.add("editing")
-plugins.add("treesitter")
-plugins.add("lsp")
-plugins.add("search")
-plugins.add("git")
-plugins.add("languages")
-plugins.add("project")
-plugins.add("dap")
+plugins.add({
+    "colorscheme",
+    "ui",
+    "editing",
+    "treesitter",
+    "lsp",
+    "search",
+    "git",
+    "languages",
+    "project",
+    "dap",
 
-plugins.add("nvim-tree")
-plugins.add("lualine")
-plugins.add('bufferline')
+    "nvim-tree",
+    "lualine",
+    'bufferline',
 
-plugins.add("fun")
+    "fun",
+})
 
 plugins.load()
 

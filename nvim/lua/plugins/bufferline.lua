@@ -12,9 +12,9 @@ M.setup = function()
     -- local info_color = getrcolor('DiagnosticInfo', 'fg#')
 
     ---@diagnostic disable missing-fields
-    require("bufferline").setup({
+    safe_require("bufferline").setup({
         options = {
-            style_preset = require("bufferline").style_preset.minimal,
+            style_preset = safe_require("bufferline").style_preset.minimal,
             custom_filter = function(buf)
                 local num = vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
                 if num > 1 then

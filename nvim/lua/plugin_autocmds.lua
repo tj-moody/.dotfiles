@@ -9,8 +9,8 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
         end
 
         vim.cmd.cd(opts.file)
-        require("plugins.nvim-tree")
-        require("nvim-tree.api").tree.open()
+        safe_require("plugins.nvim-tree")
+        safe_require("nvim-tree.api").tree.open()
         vim.cmd("only")
     end,
 })
@@ -193,7 +193,7 @@ vim.api.nvim_create_autocmd({
         local has_parser = false
         -- avoid loading treesitter on startup
         if opts.event ~= "BufEnter" then
-            has_parser = require("nvim-treesitter.parsers").has_parser()
+            has_parser = safe_require("nvim-treesitter.parsers").has_parser()
         end
 
         for linenr, line in ipairs(vim.api.nvim_buf_get_lines(opts.buf, 0, -1, true)) do
@@ -227,5 +227,22 @@ vim.api.nvim_create_autocmd("CmdWinEnter", {
     pattern = { "*" },
     callback = function(opts)
         vim.keymap.set("n", "<CR>", "<C-C><CR>", { noremap = true, silent = true, buffer = opts.buf })
+    end,
+})
+
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+    callback = function()
+        local cmdline = vim.fn.getcmdline()
+        local cmdtype = vim.fn.getcmdtype()
+
+        -- Only trigger for : commands
+        if cmdtype == ":" then
+            local scheme = cmdline:match("^colorscheme%s+(%S+)$")
+            if scheme and scheme ~= "" then
+                pcall(vim.cmd.colorscheme, scheme)
+                vim.cmd.redraw()
+                safe_require("plugins.colorscheme").setup_hls()
+            end
+        end
     end,
 })

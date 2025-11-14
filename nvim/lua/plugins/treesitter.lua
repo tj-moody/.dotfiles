@@ -1,7 +1,7 @@
 local M = {}
 local function setup_treesitter()
     ---@diagnostic disable missing-fields
-    require("nvim-treesitter.parsers").get_parser_configs().asm = {
+    safe_require("nvim-treesitter.parsers").get_parser_configs().asm = {
         install_info = {
             url = "https://github.com/rush-rs/tree-sitter-asm.git",
             files = { "src/parser.c" },
@@ -9,7 +9,7 @@ local function setup_treesitter()
         },
     }
 
-    require("nvim-treesitter.configs").setup({
+    safe_require("nvim-treesitter.configs").setup({
         ensure_installed = {
             "c",
             "lua",

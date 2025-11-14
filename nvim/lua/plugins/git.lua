@@ -60,7 +60,7 @@ M.spec = {
                 "<leader>gg",
                 function()
                     vim.cmd.vsplit()
-                    require("gitgraph").draw({}, { all = true, max_count = 5000 })
+                    safe_require("gitgraph").draw({}, { all = true, max_count = 5000 })
                 end,
                 "Git Graph",
             },

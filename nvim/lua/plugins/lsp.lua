@@ -36,7 +36,7 @@ local function lsp_setup()
         m_b("n", "<leader>da", vim.lsp.buf.code_action, bufnr, "Code Action")
         m_b("n", "gr", vim.lsp.buf.references, bufnr, "Go to References")
         m_b("n", "<leader>df", function()
-            require("conform").format({ bufnr = bufnr })
+            safe_require("conform").format({ bufnr = bufnr })
         end, bufnr, "Format")
     end
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -45,7 +45,7 @@ local function lsp_setup()
         end,
     })
 
-    require("lazydev").setup({
+    safe_require("lazydev").setup({
         library = {
             plugins = { "neotest" },
         },
@@ -91,6 +91,7 @@ local blink_opts = {
     fuzzy = {
         implementation = "prefer_rust_with_warning",
     },
+    cmdline = { enabled = false },
     sources = {
         default = { "lazydev", "lsp", "buffer", "path" },
         providers = {
@@ -127,7 +128,7 @@ local blink_opts = {
                     kind_icon = {
                         text = function(ctx)
                             local icon = ctx.kind_icon
-                            icon = require("lspkind").symbolic(ctx.kind, {
+                            icon = safe_require("lspkind").symbolic(ctx.kind, {
                                 mode = "symbol",
                             })
                             return icon .. ctx.icon_gap
@@ -136,10 +137,10 @@ local blink_opts = {
                     label = {
                         width = { fill = true, max = 60 },
                         text = function(ctx)
-                            return require("colorful-menu").blink_components_text(ctx)
+                            return safe_require("colorful-menu").blink_components_text(ctx)
                         end,
                         highlight = function(ctx)
-                            return require("colorful-menu").blink_components_highlight(ctx)
+                            return safe_require("colorful-menu").blink_components_highlight(ctx)
                         end,
                     },
                 },
@@ -205,7 +206,7 @@ M.spec = {
                 {
                     "mason-org/mason.nvim",
                     config = function()
-                        require("mason").setup({})
+                        safe_require("mason").setup({})
                     end,
                 },
                 {
@@ -229,7 +230,7 @@ M.spec = {
         event = "LazyFile",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
-            require("conform").setup({
+            safe_require("conform").setup({
                 default_format_opts = {
                     lsp_format = "fallback",
                 },

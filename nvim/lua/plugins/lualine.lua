@@ -291,9 +291,9 @@ M.setup = function()
                 },
                 {
                     function()
-                        return require("pigeon.datetime").current_day()
+                        return safe_require("pigeon.datetime").current_day()
                             .. " "
-                            .. require("pigeon.datetime").current_date()
+                            .. safe_require("pigeon.datetime").current_date()
                     end,
                     cond = function()
                         return vim.g.lualine_verbose
@@ -315,7 +315,7 @@ M.setup = function()
         inactive_winbar = {},
         extensions = {},
     }
-    require("lualine").setup(lualine_config)
+    safe_require("lualine").setup(lualine_config)
 end
 
 M.spec = {

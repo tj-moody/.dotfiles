@@ -78,8 +78,10 @@ end -- }}}
 local M = {}
 
 M.spec = {}
-M.add = function(plugin)
-    table.insert(M.spec, require("plugins." .. plugin).spec)
+M.add = function(plugins)
+    for _, p in pairs(plugins) do
+        table.insert(M.spec, require("plugins." .. p).spec)
+    end
 end
 
 local lazy_options = { -- {{{
@@ -226,7 +228,7 @@ M.load = function()
     vim.g.mapleader = ","
 
     lazy_file()
-    require("lazy").setup(M.spec, lazy_options)
+    safe_require("lazy").setup(M.spec, lazy_options)
     vim.keymap.set("n", "<leader>lz", "<CMD>Lazy<CR>", { desc = "Lazy" })
 end
 

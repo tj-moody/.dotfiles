@@ -131,14 +131,14 @@ m_o("i", "<BS>", function()
         end
     end
     if unsupported_filetype then
-        return require("nvim-autopairs").autopairs_bs()
+        return safe_require("nvim-autopairs").autopairs_bs()
     end
 
     local line, col = unpack(api.nvim_win_get_cursor(0))
     local before_cursor_is_whitespace = api.nvim_get_current_line():sub(0, col):match("^%s*$")
 
     if not before_cursor_is_whitespace then
-        return require("nvim-autopairs").autopairs_bs()
+        return safe_require("nvim-autopairs").autopairs_bs()
     end
     if line == 1 then
         return escape_code .. "==^i"
@@ -150,7 +150,7 @@ m_o("i", "<BS>", function()
             indent_based_filetype = true
         end
     end
-    local correct_indent = require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
+    local correct_indent = safe_require("nvim-treesitter.indent").get_indent(line) / vim.bo.tabstop
     local current_indent = fn.indent(line) / vim.bo.tabstop
     local previous_line_is_whitespace = api.nvim_buf_get_lines(0, line - 2, line - 1, false)[1]:match("^%s*$")
     if current_indent == correct_indent then
@@ -161,7 +161,7 @@ m_o("i", "<BS>", function()
     elseif current_indent > correct_indent then
         return string.rep(backspace_code, current_indent - correct_indent)
     end
-    return require("nvim-autopairs").autopairs_bs()
+    return safe_require("nvim-autopairs").autopairs_bs()
 end, { expr = true, noremap = true, replace_keycodes = false, desc = "Smart Delete" })
 map("i", "<S-BS>", "<BS>", "Delete") -- }}}
 
@@ -306,7 +306,7 @@ map("n", "<leader>lr", "<CMD>LspRestart<CR>", "Restart Lsp")
 -- }}}
 -- Zen {{{
 M.toggle_zen = function()
-    require("lualine").hide({ unhide = vim.g.zen_mode }) ---@diagnostic disable-line (missing field warning)
+    safe_require("lualine").hide({ unhide = vim.g.zen_mode }) ---@diagnostic disable-line (missing field warning)
     vim.cmd("Gitsigns toggle_signs")
     if not vim.g.zen_mode then
         vim.opt.showtabline = 0
@@ -439,7 +439,7 @@ map(
 )
 
 map("n", "Ccr", function()
-    require("plugins.colorscheme").reload()
+    safe_require("plugins.colorscheme").reload()
 end, "Reload Colorscheme")
 
 -- Restart nvim

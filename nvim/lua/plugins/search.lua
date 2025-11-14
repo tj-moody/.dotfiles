@@ -28,7 +28,7 @@ M.spec = {
             },
         },
         config = function()
-            require("telescope").setup({
+            safe_require("telescope").setup({
                 pickers = {
                     find_files = {
                         layout_config = {
@@ -40,7 +40,6 @@ M.spec = {
                     border = true,
                     file_ignore_patterns = { ".git/" },
                     layout_config = {
-                        -- prompt_position = 'top',
                         horizontal = {
                             prompt_position = "top",
                         },
@@ -49,23 +48,14 @@ M.spec = {
                     selection_caret = "  ",
                     entry_prefix = "   ",
                     sorting_strategy = "ascending",
-                    -- winblend = 20,
                 },
                 file_browser = {
                     hijack_netrw = true,
-                    -- mappings = {
-                    --     ["i"] = {
-                    --         -- your custom insert mode mappings
-                    --     },
-                    --     ["n"] = {
-                    --         -- your custom normal mode mappings
-                    --     },
-                    -- },
                 },
             })
 
-            require("telescope").load_extension("smart_open")
-            require("telescope").load_extension("file_browser")
+            safe_require("telescope").load_extension("smart_open")
+            safe_require("telescope").load_extension("file_browser")
         end,
     },
     {

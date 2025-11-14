@@ -448,7 +448,7 @@ end
 
 ---Applies general hl changes specified in `clear_hl_bg_table`,
 ---`clear_hl_table`, and `mod_hl_table`
-local function setup_hls()
+function M.setup_hls()
     vim.g.normalbg = M.get_color("Normal", "bg#")
     vim.g.normalfg = M.get_color("Normal", "fg#")
     for _, v in ipairs(clear_hl_bg_table) do
@@ -505,7 +505,7 @@ end
 ---@return nil
 function M.safe_reload()
     M.setup()
-    setup_hls()
+    M.setup_hls()
     M.setup("nvim_tree")
 end
 
@@ -528,7 +528,7 @@ M.spec = {
         event = "LazyFile",
         version = "*",
         config = function()
-            local hi = require("mini.hipatterns")
+            local hi = safe_require("mini.hipatterns")
             local opts = {}
             opts.highlighters = vim.tbl_extend("keep", hi.config or {}, {
                 hex_color = hi.gen_highlighter.hex_color({ priority = 2000 }),

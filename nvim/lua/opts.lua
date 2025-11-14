@@ -79,6 +79,7 @@ o.mouse = "a"
 o.hidden = true
 o.autoindent = true
 o.wildmenu = true
+o.wildmode = 'longest:full,full'
 o.smartcase = true
 o.ignorecase = true
 o.termguicolors = true
@@ -111,7 +112,7 @@ o.winborder = "rounded"
 
 vim.g.bufferline_show_all = true
 vim.g.lualine_verbose = false
-vim.g.have_fun = false
+vim.g.have_fun = true
 vim.g.zen_mode = false
 
 vim.g.loaded_python3_provider = 0
