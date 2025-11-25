@@ -32,7 +32,7 @@ plugins.add({
 
     "nvim-tree",
     "lualine",
-    'bufferline',
+    "bufferline",
 
     "fun",
 })

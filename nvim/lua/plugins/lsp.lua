@@ -37,6 +37,7 @@ local function lsp_setup()
         m_b("n", "gr", vim.lsp.buf.references, bufnr, "Go to References")
         m_b("n", "<leader>df", function()
             safe_require("conform").format({ bufnr = bufnr })
+            vim.cmd.write()
         end, bufnr, "Format")
     end
     vim.api.nvim_create_autocmd("LspAttach", {

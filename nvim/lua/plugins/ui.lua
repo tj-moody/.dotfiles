@@ -108,7 +108,7 @@ M.spec = {
         config = {
             highlight = { multiline = true },
             keywords = {
-                ["DONE"] = { icon = " ", color = "#b8bb26" },
+                ["DONE"] = { icon = " ", color = "hint" },
                 ["TODO"] = { icon = " ", color = "info" },
                 ["DEBUG"] = { icon = " ", color = "#a454ff" },
                 ["DEBUG_ONLY"] = { icon = " ", color = "#a454ff" },
@@ -116,11 +116,6 @@ M.spec = {
                 ["PASS"] = { icon = " ", color = "#EFEFBF" },
             },
         },
-    },
-    {
-        "yorickpeterse/nvim-pqf",
-        event = "LazyFile",
-        config = true,
     },
 }
 

@@ -23,7 +23,7 @@ M.spec = {
         cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
         keys = {
             {
-                "<ldeader>gd",
+                "<leader>gd",
                 function()
                     if next(require("diffview.lib").views) == nil then
                         vim.cmd("DiffviewOpen")
@@ -34,7 +34,7 @@ M.spec = {
                 desc = "Git Diff",
             },
             {
-                "<ldeader>gh",
+                "<leader>gh",
                 function()
                     if next(require("diffview.lib").views) == nil then
                         vim.cmd("DiffviewFileHistory")

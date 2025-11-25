@@ -235,7 +235,8 @@ end
 M.spec = {
     {
         "akinsho/bufferline.nvim",
-        event = "LazyFile",
+        event = "VimEnter",
+        priority = 1000, -- immediately visible UI element
         keys = {
             { "H", "<CMD>BufferLineCyclePrev<CR>", desc = "Previous Buffer" },
             { "L", "<CMD>BufferLineCycleNext<CR>", desc = "Next Buffer" },

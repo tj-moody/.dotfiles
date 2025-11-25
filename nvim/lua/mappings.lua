@@ -38,6 +38,8 @@ M.m_o = m_o
 
 map("n", "'", ",", "Undo Text Motion")
 
+map("n", "-", "^", "Go to start of line")
+
 m_o("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "Next Visual Line" })
 m_o("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "Prev Visual Line" })
 
@@ -62,7 +64,7 @@ m_o({ "n", "x" }, "<leader>c", "gc", { remap = true })
 -- }}}
 -- Basics{{{
 
-map("n", "<leader>.", "<CMD>vsp<CR><CMD>Telescope find_files<CR>", "Find File in Split")
+map("n", "<leader>.", "<CMD>vsp<CR><CMD>FzfLua files<CR>", "Find File in Split")
 
 map("n", "<leader>w", "<CMD>silent update<CR>", "Write")
 map("n", "<leader><leader>x", "<CMD>silent write<CR><CMD>source <CR>", "Execute")
@@ -96,8 +98,6 @@ map("n", "sl", "<CMD>vsp<CR>", "Split Rigth")
 map("n", "se", "<c-w>=", "Equalize Splits")
 
 map("x", "V", "j", "Expand V-Line Selection")
-
-map("n", "gV", "`[v`]", "Highlight Prev Selection")
 
 -- Backspace{{{
 -- helper values
@@ -274,10 +274,11 @@ map("n", "<ScrollWheelLeft>", "", "")
 map("n", "<ScrollWheelRight>", "", "")
 map("x", "<ScrollWheelLeft>", "", "")
 map("x", "<ScrollWheelRight>", "", "")
+--}}}
 
 --- GROUPS
 -- Tabs{{{
-map("n", "T.", "<CMD>tabe %<CR><CMD>Telescope smart_open<CR>", "Find File in New Tab")
+map("n", "T.", "<CMD>tabe %<CR><CMD>FzfLua files<CR>", "Find File in New Tab")
 map("n", "TN", "<CMD>tabe %<CR>", "New Tab")
 map("n", "TL", "<CMD>tabnext<CR>", "Next Tab")
 map("n", "TH", "<CMD>tabprevious<CR>", "Prev Tab")
@@ -330,9 +331,9 @@ map("n", "<leader>z", M.toggle_zen, "Toggle Zen")
 -- Quickfix{{{
 map("n", "<leader>xo", "<CMD>copen<CR>", "Open QF")
 map("n", "<leader>xc", "<CMD>cclose<CR>", "Close QF")
-map("n", "<leader>xf", "<CMD>cfirst<CR>", "First in QF")
-map("n", "<leader>xj", "<CMD>cnext<CR>", "Next in QF")
-map("n", "<leader>xk", "<CMD>cprev<CR>", "Prev in QF")
+map("n", "<leader>xf", "<CMD>cfirst<CR>zv", "First in QF")
+map("n", "<leader>xj", "<CMD>cnext<CR>zv", "Next in QF")
+map("n", "<leader>xk", "<CMD>cprev<CR>zv", "Prev in QF")
 -- }}}
 
 -- CONFIG{{{
@@ -452,6 +453,12 @@ map("n", "<leader>R", function()
     vim.cmd("AutoSession save")
     vim.cmd("cquit 5")
 end, "Reload")
+
+map("n", "<leader>Q", function()
+    vim.g.no_save = true
+    vim.cmd.wa()
+    vim.cmd.qa()
+end, "Leave without saving")
 
 --- ABBREVIATIONS  TODO: Replace with snippets
 -- email

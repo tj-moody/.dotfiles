@@ -84,7 +84,9 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
                 vim.cmd("bd! " .. buf)
             end
         end
-        vim.cmd("SessionSave")
+        if vim.g.no_save and vim.g.no_save == false then
+            vim.cmd("SessionSave")
+        end
     end,
 })
 

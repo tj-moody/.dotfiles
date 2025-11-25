@@ -176,35 +176,6 @@ hi StatusLine guifg=#ebddb3
 set statusline+=%#WinSeparator#%{'─────'}
 set statusline+=\ "
 
-let g:gitbranch=""
-let g:ingit="false"
-function! StatuslineGitBranch()
-    let g:gitbranch=""
-    if &modifiable
-        try
-            lcd %:p:h
-        catch
-            return
-        endtry
-        silent let l:gitrevparse=system("git rev-parse --abbrev-ref HEAD")
-        lcd -
-        if l:gitrevparse!~"fatal: not a git repository"
-            let g:gitbranch="\ua0".substitute(l:gitrevparse, '\n', '', 'g')
-                \ . "\ua0──\ua0"
-            let g:ingit="true"
-        else
-            let g:ingit="false"
-        endif
-    endif
-endfunction
-
-augroup GetGitBranch
-    autocmd!
-    autocmd WinEnter * call StatuslineGitBranch()
-augroup END
-
-set statusline+=%#WinSeparator#%{g:gitbranch}
-
 set statusline+=%#WinSeparator#%f            "file name
 set statusline+=%#ReplaceColor#%m\     "modified flag
 

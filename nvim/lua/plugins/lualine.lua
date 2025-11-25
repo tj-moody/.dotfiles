@@ -328,7 +328,8 @@ end
 M.spec = {
     {
         "nvim-lualine/lualine.nvim",
-        event = "LazyFile",
+        event = "VimEnter",
+        priority = 1000, -- immediately visible UI element
         dependencies = {
             {
                 "Pheon-Dev/pigeon",

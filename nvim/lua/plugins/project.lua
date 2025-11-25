@@ -1,13 +1,17 @@
 local M = {}
 
-local function task(key, name)
-    return {
-        key,
-        function()
-            safe_require("projtasks").create_ptask_runner(name)()
-        end,
-        desc = name,
-    }
+local function task(key, name, static)
+    local cmd
+    if static then
+        cmd = function()
+            safe_require("projtasks").static_runner(name)()
+        end
+    else
+        cmd = function()
+            safe_require("projtasks").live_runner(name)()
+        end
+    end
+    return { key, cmd, desc = name }
 end
 
 M.spec = {
@@ -32,9 +36,12 @@ M.spec = {
             task("<leader>pr", "run"),
             task("<leader>pb", "build"),
             task("<leader>pt", "test"),
-            task("<leader>pB", "bench"),
-            task("<leader>pP", "profile"),
             task("<leader>pc", "cycle"),
+
+            task("<leader>pR", "run", true),
+            task("<leader>pB", "build", true),
+            task("<leader>pT", "test", true),
+            task("<leader>pC", "cycle", true),
         },
         config = {
             terminal_config = {

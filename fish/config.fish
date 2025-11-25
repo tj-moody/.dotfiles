@@ -3,7 +3,6 @@ if status is-interactive
     # global vars
     set -x EDITOR nvim
     export COLORS_NAME=$(cat ~/.dotfiles/.theme.txt)
-    echo -ne "\033]50;SetProfile=$COLORS_NAME\a"
     set fish_greeting
 
     # Path
@@ -31,8 +30,6 @@ if status is-interactive
 
     export FZF_DEFAULT_OPTS="--border=none --no-scrollbar --preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
     export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'"
-
-    export BAT_THEME="gruvbox-dark"
 
     export PRETTIERD_DEFAULT_CONFIG="../.prettierrc"
 
@@ -65,6 +62,7 @@ if status is-interactive
     alias snip     "nap" # https://github.com/maaslalani/nap
     alias rm       "trash"
     alias ssh      "/Users/tj/.dotfiles/bash/ssh.bash"
+    alias sshr     "/usr/bin/ssh"
 
     alias pond     "pond -db"
     alias arttime  "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
