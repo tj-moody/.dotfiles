@@ -25,7 +25,6 @@ local function lsp_setup()
             vim.lsp.buf.hover({ border = "rounded", title = window_title })
         end, bufnr, "Hover")
 
-        -- Mappings.
         m_b("n", "gD", vim.lsp.buf.declaration, bufnr, "Go to Declaration")
         m_b("n", "gd", vim.lsp.buf.definition, bufnr, "Go to Definition")
 
@@ -72,7 +71,7 @@ local function lsp_setup()
         "ts_ls",
         "lua_ls",
         "pyrefly",
-        "bash_ls",
+        "bashls",
         "clangd",
         "cssls",
         "html",
@@ -105,9 +104,9 @@ local blink_opts = {
         },
     },
     completion = {
-        -- accept = {
-        --     auto_brackets = { enabled = true },
-        -- },
+        accept = {
+            auto_brackets = { enabled = false },
+        },
         list = {
             selection = {
                 preselect = false,
@@ -197,33 +196,28 @@ local web_conform_options = { "prettier", "prettierd", stop_after_first = true }
 
 M.spec = {
     {
-        {
-            "neovim/nvim-lspconfig",
-            config = function()
-                lsp_setup()
-            end,
-            event = "LazyFile",
-            dependencies = {
-                {
-                    "mason-org/mason.nvim",
-                    config = function()
-                        safe_require("mason").setup({})
-                    end,
-                },
-                {
-                    "saghen/blink.cmp",
-                    version = "1.*",
-                    config = blink_opts,
-                    dependencies = {
-                        { "folke/lazydev.nvim" },
-                        { "onsails/lspkind.nvim" },
-                        { "xzbdmw/colorful-menu.nvim" },
-                    },
-                },
-                { "ray-x/lsp_signature.nvim" },
-                { "mrcjkb/rustaceanvim" },
-                { "j-hui/fidget.nvim" },
+        "neovim/nvim-lspconfig",
+        config = lsp_setup,
+        event = { "BufReadPre", "BufNew" },
+        dependencies = {
+            { "mrcjkb/rustaceanvim" },
+            { "j-hui/fidget.nvim" },
+            { "folke/lazydev.nvim" },
+            {
+                "mason-org/mason.nvim",
+                config = true,
             },
+        },
+    },
+    {
+        "saghen/blink.cmp",
+        version = "1.*",
+        config = blink_opts,
+        event = "LazyFile",
+        priority = 1000,
+        dependencies = {
+            { "onsails/lspkind.nvim" },
+            { "xzbdmw/colorful-menu.nvim" },
         },
     },
     {
