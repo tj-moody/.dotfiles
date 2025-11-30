@@ -1,6 +1,5 @@
 #!/opt/homebrew/bin/bash
 
-first="true"
 while true; do
     /Users/tj/.local/share/bob/v0.11.1/bin/nvim "$@"
     status="$?"
