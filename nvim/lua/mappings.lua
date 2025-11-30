@@ -86,6 +86,13 @@ map("n", "<S-CR>", function()
     vim.api.nvim_buf_set_lines(0, line_nr - 2, line_nr - 1, false, { line, "" })
 end, "Line Above")
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "qf",
+    callback = function()
+        map("n", "<CR>", "<CR>", "Select entry")
+    end,
+})
+
 map("n", "J", "mzJ`z", "Join")
 
 map("n", "s", "<Plug>Ysurround", "Surround")
