@@ -36,12 +36,21 @@ if version == "0.1.0" then
 end
 
 if not projfile.tasks[task] then
-    print("Task `" .. COLORS.BOLD .. task .. COLORS.RESET .. "` not found in projfile.")
+    print("Task `" .. task .. "` not found in projfile.")
     return
 end
 
-local MESSAGE = COLORS.BOLD .. "Executing task" .. " `" .. task .. "`"
-local SYMBOL = COLORS.SYMBOL_COLOR .. " * " .. COLORS.RESET .. " "
+local uv = require("luv")
+local is_tty = uv.guess_handle(1) == "tty"
+
+local SYMBOL = "[*] "
+local MESSAGE = "Executing task `" .. task .. "`"
+local PREFIX = "$ "
+if is_tty then
+    SYMBOL = COLORS.SYMBOL_COLOR .. " * " .. COLORS.RESET .. " "
+    MESSAGE = COLORS.BOLD .. "Executing task" .. " `" .. task .. "`"
+    PREFIX = COLORS.PURPLE .. "$ " .. COLORS.RESET
+end
 
 print(SYMBOL .. MESSAGE)
 for _, command in ipairs(projfile.tasks[task]) do
@@ -51,12 +60,12 @@ for _, command in ipairs(projfile.tasks[task]) do
         end
         for k, subcmd in pairs(command) do
             if (k ~= "tag") then
-                print(COLORS.PURPLE .. "$ " .. COLORS.RESET .. subcmd)
+                print(PREFIX .. subcmd)
                 os.execute(subcmd)
             end
         end
     else
-        print(COLORS.PURPLE .. "$ " .. COLORS.RESET .. command)
+        print(PREFIX .. command)
         os.execute(command)
     end
 end
