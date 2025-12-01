@@ -46,13 +46,6 @@ local function setup_treesitter()
         indent = {
             enable = true,
         },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                init_selection = "<C-e>",
-                node_incremental = "<C-e>",
-            },
-        },
         autotag = {
             enable = true,
         },
