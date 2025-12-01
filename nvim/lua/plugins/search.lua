@@ -6,6 +6,9 @@ M.spec = {
             { "<leader>ff", "<CMD>FzfLua files<CR>", desc = "Find File" },
             { "<leader>fg", "<CMD>FzfLua live_grep_native<CR>", desc = "Find File" },
             { "<leader>fb", "<CMD>FzfLua buffers<CR>", desc = "Find File" },
+            { "<leader>fh", "<CMD>FzfLua highlights<CR>", desc = "Find File" },
+            { "<leader>fk", "<CMD>FzfLua keymaps<CR>", desc = "Find File" },
+            { "<leader>fc", "<CMD>FzfLua colorschemes<CR>", desc = "Find File" },
         },
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
