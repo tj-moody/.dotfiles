@@ -9,7 +9,6 @@ function safe_require(module)
 end
 
 safe_require("opts")
-safe_require("startup_autocmds")
 
 local plugins = safe_require("plugins")
 if plugins == nil then
@@ -40,7 +39,7 @@ plugins.add({
 plugins.load()
 
 safe_require("mappings")
-safe_require("plugin_autocmds")
+safe_require("autocmds")
 safe_require("plugins.colorscheme").safe_reload()
 
 function P(table)
