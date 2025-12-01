@@ -8,6 +8,7 @@ M.spec = {
             { "<leader>gj", "<CMD>Gitsigns next_hunk<CR>", desc = "Next Change" },
             { "<leader>gk", "<CMD>Gitsigns prev_hunk<CR>", desc = "Prev Change" },
             { "<leader>gb", "<CMD>Gitsigns blame_line<CR>", desc = "Blame Line" },
+            { "<leader>gr", "<CMD>Gitsigns reset_hunk<CR>", desc = "Reset Hunk" },
             {
                 "Cgb",
                 -- Toggle git blame
