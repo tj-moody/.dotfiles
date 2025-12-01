@@ -75,21 +75,13 @@ map("n", "<ESC>", "<CMD>noh<CR><CMD>echo ''<CR>", "Reset Screen")
 map("x", "K", ":m '<-2<CR>gv=gv", "Move Up")
 map("x", "J", ":m '>+1<CR>gv=gv", "Move Down")
 
-map("n", "<CR>", function()
-    local line_nr = vim.fn.line(".") ---@cast line_nr integer
-    local line = vim.fn.getline(line_nr) ---@cast line string
-    vim.api.nvim_buf_set_lines(0, line_nr - 1, line_nr, false, { line, "" })
-end, "Line Below")
-map("n", "<S-CR>", function()
-    local line_nr = vim.fn.line(".") ---@cast line_nr integer
-    local line = vim.fn.getline(line_nr - 1) ---@cast line string
-    vim.api.nvim_buf_set_lines(0, line_nr - 2, line_nr - 1, false, { line, "" })
-end, "Line Above")
+map("n", "<CR>", "<CMD>call append(line('.'),     '')<CR>", "Line Below")
+map("n", "<S-CR>", "<CMD>call append(line('.') - 1, '')<CR>", "Line Below")
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "qf",
     callback = function()
-        map("n", "<CR>", "<CR>", "Select entry")
+        m_o("n", "<CR>", "<CR>", { noremap = true, desc = "Select entry", buffer = true })
     end,
 })
 
@@ -305,7 +297,8 @@ map("n", "<leader>cO", [[<CMD>execute "norm! O" . substitute(&commentstring, '%s
 map("n", "<leader>cl", [[<CMD>execute "norm! A " . substitute(&commentstring, '%s', '', '')<CR>A]], "Comment Right") -- https://vi.stackexchange.com/a/19163
 
 -- Adapted from u/alphabet_american
-map("x", "<leader>C", [[y`>pgv:norm ,cc<CR>`>j^]], "Comment and Duplicate")
+map("x", "<leader>C", [[y`>pgv<CMD>norm ,cc<CR>`>j^]], "Comment and Duplicate")
+map("n", "<leader>C", [[yymz<CMD>norm ,cc<CR>p`zj]], "Comment and Duplicate Line")
 -- }}}
 -- Lsp{{{
 map("n", "<leader>ls", "<CMD>LspStart<CR>", "Start Lsp")
@@ -336,11 +329,11 @@ end
 map("n", "<leader>z", M.toggle_zen, "Toggle Zen")
 -- }}}
 -- Quickfix{{{
-map("n", "<leader>xo", "<CMD>copen<CR>", "Open QF")
+map("n", "<leader>xo", "<CMD>copen<CR><C-W>J<CMD>resize 20<CR>", "Open QF")
 map("n", "<leader>xc", "<CMD>cclose<CR>", "Close QF")
-map("n", "<leader>xf", "<CMD>cfirst<CR>zv", "First in QF")
-map("n", "<leader>xj", "<CMD>cnext<CR>zv", "Next in QF")
-map("n", "<leader>xk", "<CMD>cprev<CR>zv", "Prev in QF")
+map("n", "<leader>xf", "<CMD>cfirst<CR><CMD>norm zz<CR><ESC>", "First in QF")
+map("n", "<leader>xj", "<CMD>cnext<CR><CMD>norm zz<CR><ESC>", "Next in QF")
+map("n", "<leader>xk", "<CMD>cprev<CR><CMD>norm zz<CR><ESC>", "Prev in QF")
 -- }}}
 
 -- CONFIG{{{
@@ -457,7 +450,6 @@ map("n", "<leader>R", function()
         M.toggle_zen()
     end
     vim.cmd.wa()
-    vim.cmd("AutoSession save")
     vim.cmd("cquit 5")
 end, "Reload")
 
