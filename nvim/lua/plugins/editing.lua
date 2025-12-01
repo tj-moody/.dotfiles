@@ -7,7 +7,7 @@ M.spec = {
     {
         "rmagatti/auto-session",
         lazy = false,
-        cmd = { "SessionRestore", "SessionSave" },
+        cmd = { "AutoSession" },
         config = function()
             safe_require("auto-session").setup({ ---@diagnostic disable-line
                 auto_save_enabled = false,
@@ -84,21 +84,8 @@ M.spec = {
                     ["Yes"] = "No",
                     ["YES"] = "NO",
                     ["1"] = "0",
-
-                    -- Use logical opposites for comparisons;
-                    -- > && <=, for example, are complementary,
-                    -- and encompass all cases
                     ["<"] = ">=",
                     [">"] = "<=",
-                    -- [">="] = "<",
-                    -- ["<="] = ">",
-
-                    -- Alternatively,
-                    -- ["<"] = ">",
-
-                    ["("] = ")",
-                    ["["] = "]",
-                    ["{"] = "}",
                     ['"'] = "'",
                     ['""'] = "''",
                     ["+"] = "-",
