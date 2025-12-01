@@ -11,6 +11,8 @@ config.bold_brightens_ansi_colors = "No"
 config.freetype_render_target = "HorizontalLcd"
 config.freetype_load_flags = "NO_HINTING"
 
+config.enable_csi_u_key_encoding = true
+
 -- TURN OFF LIGATURES
 -- config.harfbuzz_features = {"calt=0", "clig=0", "liga=0"}
 

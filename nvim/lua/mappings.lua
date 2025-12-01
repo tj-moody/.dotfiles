@@ -77,6 +77,7 @@ map("x", "J", ":m '>+1<CR>gv=gv", "Move Down")
 
 map("n", "<CR>", "<CMD>call append(line('.'),     '')<CR>", "Line Below")
 map("n", "<S-CR>", "<CMD>call append(line('.') - 1, '')<CR>", "Line Below")
+map("n", "\033[27;2;13~", "<CMD>call append(line('.') - 1, '')<CR>", "Line Below")
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "qf",
