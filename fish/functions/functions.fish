@@ -121,10 +121,9 @@ function vimtip
 end
 
 function t
-    # tmux attach-session \; run-shell 'tmux choose-tree -Zs -F "#{@tree_format}"'
-    tmux has-session 2>/dev/null && \
-    tmux attach-session \; run-shell 'tmux choose-tree -Zs -F "#{@tree_format}"' || \
-    tmux new-session \; run-shell 'tmux choose-tree -Zs -F "#{@tree_format}"'
+    tmux has-session 2>/dev/null \
+    && tmux attach-session \; run-shell 'tmux choose-tree -Zs -F "$(tmux show -gv @tree_fmt | sed "s/CURRENT_SESSION/#{session_name}/")"' \
+    || echo "No active sessions"
 end
 
 function tn
