@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+dirs="$HOME/projects"
+append="$HOME/.dotfiles $HOME/.local/share/nvim/lazy/"
+
+MAGENTA=$'\033[1;35m'
+BLUE=$'\033[1;34m'
+RESET=$'\033[0m'
+
+append=$(echo "$append" | tr ' ' '\n')
+# shellcheck disable=SC2016
+selected=$( \
+    {
+        find "$dirs" -mindepth 1 -maxdepth 1 -type d
+        printf '%s' "$append"
+    } \
+    | sed "s|^$HOME|${MAGENTA}~${RESET}|" \
+    | sed -E "s|(.*/)([^/]+)$|\1${BLUE}\2${RESET}|" \
+    | fzf --ansi \
+        --reverse \
+        --height=100% \
+        --preview-window=right:85% \
+        --preview 'bash -c '\'' \
+            proj=$(basename "{}")
+            tmux has-session -t "$proj" 2>/dev/null
+            if [ $? == 0 ]; then
+                tmux capture-pane -pet "$proj:0"
+            else
+                printf "\n  \033[1;35m$\033[0;37m tmux new -s \033[1;34m$proj"
+            fi
+        '\'''
+)
+
+[ -z "$selected" ] && exit 0
+
+fullpath="${selected/#\~/$HOME}"
+proj=$(basename "$fullpath")
+
+# tmux doesn't allow session names with `.`
+session="${proj//./_}"
+
+if tmux has-session -t "$session" 2>/dev/null; then
+    if [ -n "$TMUX" ]; then
+        tmux switch-client -t "$session"
+    else
+        tmux attach -t "$session"
+    fi
+else
+    if [ -n "$TMUX" ]; then
+        TMUX='' tmux new-session -d -s "$session" -c "$fullpath"
+        tmux switch-client -t "$session"
+    else
+        tmux new-session -s "$session" -c "$fullpath"
+    fi
+fi
