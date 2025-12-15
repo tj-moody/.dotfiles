@@ -38,7 +38,7 @@ M.spec = {
     },
     {
         "chrisgrieser/nvim-various-textobjs",
-        event = "BufEnter",
+        event = "LazyFile",
         config = function()
             local to = safe_require("various-textobjs")
             to.setup({ useDefaultKeymaps = false })
