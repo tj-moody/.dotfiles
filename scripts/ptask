@@ -3,7 +3,7 @@
 local ok, projfile = pcall(require, "projfile")
 if not ok then
     print("No projfile found in current project.")
-    return
+    os.exit(1)
 end
 
 local COLORS = {}
@@ -53,7 +53,7 @@ end
 
 if not projfile.tasks[task] then
     print("Task `" .. task .. "` not found in projfile.")
-    return
+    os.exit(1)
 end
 
 local uv = require("luv")
