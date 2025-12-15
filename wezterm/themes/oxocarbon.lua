@@ -2,7 +2,7 @@ local colors = {
     name = "oxocarbon",
     palette = {
         foreground = "#f2f3f7",
-        background = "#161616",
+        background = "#0e0e0e",
 
         selection_fg = "#b6b7ba",
         selection_bg = "#292929",
