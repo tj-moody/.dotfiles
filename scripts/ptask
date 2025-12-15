@@ -12,21 +12,37 @@ COLORS.RESET = "\x1b[0m"
 COLORS.BOLD = "\x1b[22;97m"
 COLORS.PURPLE = "\x1b[1;35m"
 
+local function preview(cmd)
+    local task_str = ""
+    if type(cmd) ~= "table" then
+        return cmd
+    end
+
+    for k, subcmd in pairs(cmd) do
+        if k ~= "tag" and k ~= "qf" then
+            local suffix = ""
+            if #cmd > 1 then
+                suffix = " -> ..."
+            end
+            return preview(subcmd) .. suffix
+        end
+    end
+    return task_str
+end
+
 local version = projfile.version
 if arg[1] == nil then
     for k, v in pairs(projfile.tasks) do
         if version == "0.1.0" then
             print(k, v)
         else
-            local task_str = ""
-            for _, str in ipairs(v) do
-                task_str = task_str .. " -> " .. str
-            end
-            print(k, "| " .. task_str:sub(4, -1))
+            print(k, "| " .. preview(v))
         end
     end
     return
 end
+
+local silent = arg[2] == "--silent"
 
 local task = arg[1]
 if version == "0.1.0" then
@@ -46,26 +62,41 @@ local is_tty = uv.guess_handle(1) == "tty"
 local SYMBOL = "[*] "
 local MESSAGE = "Executing task `" .. task .. "`"
 local PREFIX = "$ "
+
+local wrap_tag = function(tag) return tag end
 if is_tty then
     SYMBOL = COLORS.SYMBOL_COLOR .. " * " .. COLORS.RESET .. " "
-    MESSAGE = COLORS.BOLD .. "Executing task" .. " `" .. task .. "`"
+    MESSAGE = COLORS.BOLD .. "Executing task" .. " `" .. task .. "`" .. COLORS.RESET
     PREFIX = COLORS.PURPLE .. "$ " .. COLORS.RESET
+    wrap_tag = function(tag)
+        return COLORS.BOLD .. tag .. COLORS.RESET
+    end
 end
 
-print(SYMBOL .. MESSAGE)
-for _, command in ipairs(projfile.tasks[task]) do
-    if type(command) == "table" then
-        if command["tag"] ~= nil then
-            print(command.tag)
+if not silent then
+    print(SYMBOL .. MESSAGE)
+end
+local function run_commands(cmd)
+    if type(cmd) == "table" then
+        if cmd.tag and not silent then
+            print(wrap_tag(cmd.tag))
         end
-        for k, subcmd in pairs(command) do
-            if (k ~= "tag") then
-                print(PREFIX .. subcmd)
-                os.execute(subcmd)
+
+        for k, subcmd in pairs(cmd) do
+            if k ~= "tag" and k ~= "qf" then
+                run_commands(subcmd)
             end
         end
     else
-        print(PREFIX .. command)
-        os.execute(command)
+        if not silent then
+            print(PREFIX .. cmd)
+        end
+        -- TODO: Track exit codes and exit based on result
+        -- https://www.stackoverflow.com/questions/63332954
+        os.execute(cmd)
     end
+end
+
+for _, command in ipairs(projfile.tasks[task]) do
+    run_commands(command)
 end
