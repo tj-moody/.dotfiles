@@ -9,6 +9,7 @@ M.spec = {
             { "<leader>fh", "<CMD>FzfLua highlights<CR>", desc = "Find File" },
             { "<leader>fk", "<CMD>FzfLua keymaps<CR>", desc = "Find File" },
             { "<leader>fc", "<CMD>FzfLua colorschemes<CR>", desc = "Find File" },
+            { "<leader>fm", "<CMD>FzfLua helptags<CR>", desc = "Find Manual" },
         },
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
