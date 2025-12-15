@@ -8,7 +8,7 @@ local function task(key, name, static)
         end
     else
         cmd = function()
-            safe_require("projtasks").live_runner(name)()
+            safe_require("projtasks").persistent_runner(name)()
         end
     end
     return { key, cmd, desc = name }
@@ -33,6 +33,13 @@ M.spec = {
                 end,
                 desc = "Terminal Direction",
             },
+            {
+                "Csd",
+                function()
+                    safe_require("projtasks").toggle_static_direction()
+                end,
+                desc = "Terminal Direction",
+            },
             task("<leader>pr", "run"),
             task("<leader>pb", "build"),
             task("<leader>pt", "test"),
@@ -42,6 +49,18 @@ M.spec = {
             task("<leader>pB", "build", true),
             task("<leader>pT", "test", true),
             task("<leader>pC", "cycle", true),
+
+            {
+                "<leader>pe",
+                function()
+                    if vim.fn.filereadable("./projfile.lua") == 1 then
+                        vim.cmd("edit ./projfile.lua")
+                    else
+                        print("No projfile in current directory.")
+                    end
+                end,
+                desc = "Edit Projfile",
+            },
         },
         config = {
             terminal_config = {
