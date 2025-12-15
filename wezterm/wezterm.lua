@@ -66,35 +66,6 @@ config.window_frame = {
     inactive_titlebar_bg = config.colors.background,
 }
 
-local function is_vim(pane)
-    return pane:get_user_vars().IS_NVIM == "true"
-end
-
-local direction_keys = {
-    Left = "h",
-    h = "Left",
-    Down = "j",
-    j = "Down",
-    Up = "k",
-    k = "Up",
-    Right = "l",
-    l = "Right",
-}
-
-local function split_nav(key)
-    return {
-        key = key,
-        mods = "CTRL",
-        action = wezterm.action_callback(function(win, pane)
-            if is_vim(pane) then
-                win:perform_action({ SendKey = { key = key, mods = "CTRL" } }, pane)
-            else
-                win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
-            end
-        end),
-    }
-end
-
 config.keys = {
     -- Turn off the default CMD-m Hide action, allowing CMD-m to
     -- be potentially recognized and handled by the tab
