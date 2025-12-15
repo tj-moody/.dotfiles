@@ -120,12 +120,14 @@ function vimtip
     curl https://vtip.43z.one
 end
 
-function t
-    tmux has-session 2>/dev/null \
-    && tmux attach-session \; run-shell 'tmux choose-tree -Zs -F "$(tmux show -gv @tree_fmt | sed "s/CURRENT_SESSION/#{session_name}/")"' \
-    || echo "No active sessions"
-end
-
 function tn
     tmux new -s "$argv"
+end
+
+function fzkp
+    ps -ef | fzf \
+        --bind='ctrl-r:reload(date; ps -ef)' \
+        --header='Press CTRL-R to reload\n\n' --header-lines=2 \
+        --preview='echo {}' --preview-window=down,3,wrap \
+        --layout=reverse --height=80% | awk '{print $2}' | xargs kill -9
 end
