@@ -48,7 +48,7 @@ local theme_init_table = {
         vim.cmd.colorscheme("tokyonight")
     end,
     oxocarbon = function()
-        vim.cmd.colorscheme("carbonfox")
+        vim.cmd.colorscheme("oxocarbon-lua")
     end,
     catppuccin = function()
         vim.cmd.colorscheme("catppuccin")
@@ -200,6 +200,9 @@ local hl_table = {
     }, -- }}}
     oxocarbon = { -- {{{
         setup = {
+            { "DiffDelete", { bg = "#331623", fg = "#331623" } },
+            { "DiffAdd", { bg = "#092c2b", } },
+            { "DiffChange", { bg = "#212121", } },
             { "WinSeparator", { fg = "#6e6f70" } },
             { "Operator", { fg = "#6e6f70" } },
             { "@operator", { fg = "#6e6f70" } },
@@ -546,6 +549,7 @@ M.spec = {
     { "aktersnurra/no-clown-fiesta.nvim" },
     { "rebelot/kanagawa.nvim" },
     { "folke/tokyonight.nvim" },
+    { "sindrets/oxocarbon-lua.nvim" },
     { "EdenEast/nightfox.nvim" },
     { "catppuccin/nvim" },
     { "sainnhe/everforest" },
