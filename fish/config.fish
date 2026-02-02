@@ -27,6 +27,8 @@ if status is-interactive
     set PATH /opt/zerobrew/prefix/opt/openjdk/bin $PATH
     export JAVA_HOME="/opt/zerobrew/prefix/opt/openjdk/bin"
 
+    export GIT_EXEC_PATH="/opt/zerobrew/prefix/opt/git/libexec/git-core/"
+
     # export CPATH="/opt/zerobrew/prefix/include"
     # export LIBRARY_PATH="/opt/zerobrew/prefix/lib"
 
