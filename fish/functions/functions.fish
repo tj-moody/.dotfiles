@@ -124,6 +124,10 @@ function tn
     tmux new -s "$argv"
 end
 
+function ta
+    tmux attach
+end
+
 function fzkp
     ps -ef | fzf \
         --bind='ctrl-r:reload(date; ps -ef)' \
