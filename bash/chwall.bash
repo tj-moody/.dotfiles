@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/bash
+#!/opt/zerobrew/prefix/bin/bash
 
 if [[ $# -ne 0 ]]; then
     exit

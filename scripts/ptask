@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/lua
+#!/opt/zerobrew/prefix/bin/lua
 
 local ok, projfile = pcall(require, "projfile")
 if not ok then

@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/bash
+#!/opt/zerobrew/prefix/bin/bash
 
  nvim +"lua require('bufferline').setup({options={always_show_bufferline = false}})" \
      +"set nonumber" \

@@ -5,12 +5,14 @@ if status is-interactive
     export COLORS_NAME=$(cat ~/.dotfiles/.theme.txt)
     set fish_greeting
 
+    fish_vi_key_bindings
+
     # Path
     set PATH /usr/local/bin $PATH
     set PATH $HOME/.local/bin $PATH
     set PATH /Users/tj/.local/share/bob/nvim-bin/ $PATH
     set PATH $HOME/.cargo/bin $PATH
-    set PATH /opt/homebrew/bin/ $PATH
+    set PATH /opt/zerobrew/prefix/bin $PATH
     set PATH /Qt/5.15.2/clang_64/bin/ $PATH
     set PATH $HOME/go/bin/ $PATH
     set PATH $HOME/packages/potion/bin $PATH
@@ -19,14 +21,14 @@ if status is-interactive
     set PATH $HOME/.dotfiles/scripts $PATH
     set PATH $HOME/.config/emacs/bin $PATH
     set PATH /usr/local/opt/texinfo/bin $PATH # load newer version of makeinfo for emacs
-    set PATH /opt/homebrew/Cellar/gcc/13.2.0/bin $PATH
-    set PATH /opt/homebrew/opt/libpq/bin $PATH
+    set PATH /opt/zerobrew/prefix/Cellar/gcc/13.2.0/bin $PATH
+    set PATH /opt/zerobrew/prefix/opt/libpq/bin $PATH
 
-    set PATH /opt/homebrew/opt/openjdk/bin $PATH
-    export JAVA_HOME="/opt/homebrew/opt/openjdk/bin"
+    set PATH /opt/zerobrew/prefix/opt/openjdk/bin $PATH
+    export JAVA_HOME="/opt/zerobrew/prefix/opt/openjdk/bin"
 
-    # export CPATH="/opt/homebrew/include"
-    # export LIBRARY_PATH="/opt/homebrew/lib"
+    # export CPATH="/opt/zerobrew/prefix/include"
+    # export LIBRARY_PATH="/opt/zerobrew/prefix/lib"
 
     export FZF_DEFAULT_OPTS="--border=none --no-scrollbar --preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
     export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'"
@@ -68,7 +70,7 @@ if status is-interactive
     alias wtf      "wtfutil" # https://wtfutil.com/
     alias ckan     "pushd .; cd '/Applications/CKAN.app/Contents/MacOS'; '/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono' 'ckan.exe' prompt; popd"
 
-    alias clang-tidy /opt/homebrew/opt/llvm/bin/clang-tidy
+    alias clang-tidy /opt/zerobrew/prefix/opt/llvm/bin/clang-tidy
 end
 
 # Setting PATH for Python 3.11

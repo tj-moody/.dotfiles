@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/lua
+#!/opt/zerobrew/prefix/bin/lua
 
 -- NOTE: This (very primitive) build system does not check for
 --       changed #include header dependencies, and so changes

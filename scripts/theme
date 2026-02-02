@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/luajit
+#!/opt/zerobrew/prefix/bin/luajit
 
 local THEMES = {
     { name = "quanta", color_seq = "\27[0;34m" },
