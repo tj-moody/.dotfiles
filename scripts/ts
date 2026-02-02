@@ -4,7 +4,7 @@ set -e
 
 if ! tmux info &>/dev/null || ! tmux list-sessions &>/dev/null; then
     echo "No tmux sessions to attach to."
-    return 0
+    exit 0
 fi
 
 current=""
