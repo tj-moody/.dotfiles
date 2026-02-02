@@ -192,7 +192,7 @@ local blink_opts = {
     signature = { enabled = true },
 }
 
-local web_conform_options = { "prettier", "prettierd", stop_after_first = true }
+local web_conform_options = { "prettier" }
 
 M.spec = {
     {
