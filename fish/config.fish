@@ -60,7 +60,6 @@ if status is-interactive
     alias gs       "git status"
     alias md       "glow" # https://github.com/charmbracelet/glow
     alias snip     "nap" # https://github.com/maaslalani/nap
-    alias rm       "trash"
     alias ssh      "/Users/tj/.dotfiles/bash/ssh.bash"
     alias sshr     "/usr/bin/ssh"
 
@@ -74,7 +73,7 @@ end
 
 # Setting PATH for Python 3.11
 # The original version is saved in /Users/tj/.config/fish/config.fish.pysave
-set -x PATH "/Library/Frameworks/Python.framework/Versions/3.11/bin" "$PATH"
+set -x PATH "(brew --prefix python@3.14)/libexec/bin" "$PATH"
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
