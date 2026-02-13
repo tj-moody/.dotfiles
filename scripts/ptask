@@ -1,4 +1,4 @@
-#!/opt/zerobrew/prefix/bin/lua
+#!/usr/bin/env lua
 
 local ok, projfile = pcall(require, "projfile")
 if not ok then

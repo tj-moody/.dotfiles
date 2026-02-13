@@ -1,4 +1,4 @@
-#!/opt/zerobrew/prefix/bin/bash
+#!/usr/bin/env bash
 
 # window size
 W=($(tput cols) $(tput lines))

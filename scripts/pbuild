@@ -1,4 +1,4 @@
-#!/opt/zerobrew/prefix/bin/lua
+#!/usr/bin/env lua
 
 -- NOTE: This (very primitive) build system does not check for
 --       changed #include header dependencies, and so changes

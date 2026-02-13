@@ -1,4 +1,4 @@
-#!/opt/zerobrew/prefix/bin/bash
+#!/usr/bin/env bash
 
 while true; do
     /Users/tj/.local/share/bob/v0.11.1/bin/nvim "$@"

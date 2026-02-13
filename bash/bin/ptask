@@ -1,4 +1,5 @@
-#!/opt/zerobrew/prefix/bin/bash
+#!/usr/bin/env bash
+
 if ! test -f ./projfile.lua; then
   echo "No projfile found."
   exit
