@@ -135,3 +135,28 @@ function fzkp
         --preview='echo {}' --preview-window=down,3,wrap \
         --layout=reverse --height=80% | awk '{print $2}' | xargs kill -9
 end
+function ai
+    llama-server \
+        -hf unsloth/Qwen3.5-4B-GGUF:UD-Q4_K_XL \
+        --port 8131 \
+        -ngl 999 \
+        --temp 0.6 \
+        --top-p 0.95 \
+        --top-k 20 \
+        --min-p 0.00 \
+        -t 4 \
+        -c 131072 \
+        -b 512 \
+        -ub 1024 \
+        --parallel 1 \
+        -fa on \
+        --jinja \
+        --chat-template-file ~/.dotfiles/chat_template.jinja \
+        --keep 1024 \
+        --cache-type-k q8_0 \
+        --cache-type-v q8_0 \
+        --swa-full \
+        --no-context-shift \
+        --reasoning off \
+        --load-mode mlock
+end
