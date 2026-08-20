@@ -1,14 +1,6 @@
 local M = {}
 local function setup_treesitter()
     local ts = safe_require("nvim-treesitter")
-    ---@diagnostic disable missing-fields
-    -- safe_require("nvim-treesitter.parsers").get_parser_configs().asm = {
-    --     install_info = {
-    --         url = "https://github.com/rush-rs/tree-sitter-asm.git",
-    --         files = { "src/parser.c" },
-    --         branch = "main",
-    --     },
-    -- }
 
     ts.install({
         "c",
@@ -33,25 +25,12 @@ local function setup_treesitter()
     vim.g.skip_ts_context_commentstring_module = true
 
     vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
-
     vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "*" },
-        callback = function()
-            local parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-
-            if not parser_installed then
-                require("nvim-treesitter").install({ parser_name }):wait(30000)
-            end
-
-            parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-
-            if parser_installed then
-                vim.treesitter.start(bufnr, parser_name)
-                vim.bo.syntax = 'on'
-                -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-                -- vim.wo.foldmethod = 'expr'
-            end
+        callback = function(ev)
+            -- vim.treesitter.start(ev.buf)
+            -- pcall(vim.treesitter.start)
+            vim.bo[ev.buf].syntax = "ON"
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
     })
 end

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 while true; do
-    /Users/tj/.local/share/bob/v0.11.1/bin/nvim "$@"
+    /Users/tj/.local/share/bob/nvim-bin//nvim "$@"
+
     status="$?"
     set --
     if [ "$status" == "3" ]; then
