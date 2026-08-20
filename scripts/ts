@@ -40,7 +40,7 @@ tmux list-sessions -F "|RESET|#S: #{?session_grouped, (group #{session_group}: #
 | fzf --ansi \
     --reverse \
     --height=100% \
-    --preview-window=right:85% \
+    --preview-window=right:75% \
     --preview 'bash -c '\''
         line="$1"
         session=$(printf "%s" "$line" | sed "s/\x1b\[[0-9;]*m//g" | cut -d: -f1)
