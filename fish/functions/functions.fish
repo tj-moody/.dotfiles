@@ -135,6 +135,7 @@ function fzkp
         --preview='echo {}' --preview-window=down,3,wrap \
         --layout=reverse --height=80% | awk '{print $2}' | xargs kill -9
 end
+
 function ai
     llama-server \
         -hf unsloth/Qwen3.5-4B-GGUF:UD-Q4_K_XL \
@@ -159,4 +160,8 @@ function ai
         --no-context-shift \
         --reasoning off \
         --load-mode mlock
+end
+
+function mc
+    ssh -t raspi "~/mcserver/server $argv"
 end
