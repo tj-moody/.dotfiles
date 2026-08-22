@@ -165,3 +165,15 @@ end
 function mc
     ssh -t raspi "~/mcserver/server $argv"
 end
+
+function chromememory
+    ps aux \
+    | rg "[G]oogle Chrome" \
+    | awk '{sum+=$6} END {
+        mb=sum/1024;
+        if (mb >= 1024)
+            printf "%.2f GB\n", mb/1024;
+        else
+            printf "%.2f MB\n", mb
+    }'
+end
