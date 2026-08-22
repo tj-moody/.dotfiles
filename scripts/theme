@@ -30,8 +30,8 @@ local function set_theme(theme)
         os.execute(write_cmd)
         local send_nvim_signal_cmd = string.format(
             [[
-                for sock in $(nvr --serverlist); do
-                    nvr --servername "$sock" --remote-send ":silent! lua require('plugins.colorscheme').reload('%s')<CR>" & disown
+                for sock in $(/Library/Frameworks/Python.framework/Versions/3.11/bin/nvr --serverlist); do
+                    /Library/Frameworks/Python.framework/Versions/3.11/bin/nvr --servername "$sock" --remote-send ":silent! lua require('plugins.colorscheme').reload('%s')<CR>" & disown
                 done
             ]],
             theme
