@@ -33,3 +33,4 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow\x1e\x2di
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
+SETUVAR fish_user_paths:/opt/zerobrew/bin\x1e/opt/homebrew/opt/python\x403\x2e14/libexec/bin\x1e/Users/tj/\x2ebun/bin\x1e/Users/tj/\x2edotfiles/scripts\x1e/Users/tj/go/bin\x1e/opt/zerobrew/prefix/bin\x1e/Users/tj/\x2ecargo/bin\x1e/Users/tj/\x2elocal/share/bob/nvim\x2dbin\x1e/Users/tj/\x2elocal/bin\x1e/usr/local/bin

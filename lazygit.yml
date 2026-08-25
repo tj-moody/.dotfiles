@@ -1,9 +1,10 @@
 quitOnTopLevelReturn: true
 git:
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --oneline {{branchName}}"
-  pagers:
+  diffRenderers:
     - colorArg: always
       useConfig: true
+      type: rawGit
 gui:
   showIcons: true
   theme:

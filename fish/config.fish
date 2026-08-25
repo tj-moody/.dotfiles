@@ -8,26 +8,25 @@ if status is-interactive
     fish_vi_key_bindings
 
     # Path
-    set PATH /usr/local/bin $PATH
-    set PATH $HOME/.local/bin $PATH
-    set PATH /Users/tj/.local/share/bob/nvim-bin/ $PATH
-    set PATH $HOME/.cargo/bin $PATH
-    set PATH /opt/zerobrew/prefix/bin $PATH
-    set PATH /Qt/5.15.2/clang_64/bin/ $PATH
-    set PATH $HOME/go/bin/ $PATH
-    set PATH $HOME/packages/potion/bin $PATH
-    set MODULAR_HOME /Users/tj/.modular
-    set PATH $HOME/.modular/pkg/packages.modular.com_mojo/bin $PATH
-    set PATH $HOME/.dotfiles/scripts $PATH
-    set PATH $HOME/.config/emacs/bin $PATH
-    set PATH /usr/local/opt/texinfo/bin $PATH # load newer version of makeinfo for emacs
-    set PATH /opt/zerobrew/prefix/Cellar/gcc/13.2.0/bin $PATH
-    set PATH /opt/zerobrew/prefix/opt/libpq/bin $PATH
+    fish_add_path /opt/zerobrew/bin
+    fish_add_path /usr/local/bin
+    fish_add_path $HOME/.local/bin
+    fish_add_path /Users/tj/.local/share/bob/nvim-bin/
+    fish_add_path $HOME/.cargo/bin
+    fish_add_path /Qt/5.15.2/clang_64/bin/
+    fish_add_path $HOME/go/bin/
+    fish_add_path $HOME/packages/potion/bin
+    fish_add_path $HOME/.modular/pkg/packages.modular.com_mojo/bin
+    fish_add_path $HOME/.dotfiles/scripts
+    fish_add_path $HOME/.config/emacs/bin
+    fish_add_path /usr/local/opt/texinfo/bin
+    fish_add_path /opt/zerobrew/prefix/Cellar/gcc/13.2.0/bin
+    fish_add_path /opt/zerobrew/prefix/opt/libpq/bin
 
-    set PATH /opt/zerobrew/prefix/opt/openjdk/bin $PATH
+    fish_add_path /opt/zerobrew/prefix/opt/openjdk/bin
     export JAVA_HOME="/opt/zerobrew/prefix/opt/openjdk/bin"
 
-    export GIT_EXEC_PATH="/opt/zerobrew/prefix/opt/git/libexec/git-core/"
+    # export GIT_EXEC_PATH="/opt/zerobrew/prefix/opt/git/libexec/git-core/"
 
     # export CPATH="/opt/zerobrew/prefix/include"
     # export LIBRARY_PATH="/opt/zerobrew/prefix/lib"
@@ -77,8 +76,11 @@ end
 
 # Setting PATH for Python 3.11
 # The original version is saved in /Users/tj/.config/fish/config.fish.pysave
-set -x PATH "(brew --prefix python@3.14)/libexec/bin" "$PATH"
+# fish_add_path (brew --prefix python@3.14)/libexec/bin
+set -l py_path (brew --prefix python@3.14)/libexec/bin
+# fish_add_path $py_path
+
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+# fish_add_path $BUN_INSTALL/bin
