@@ -139,6 +139,7 @@ end
 function ai
     llama-server \
         -hf unsloth/Qwen3.5-4B-GGUF:UD-Q4_K_XL \
+        --alias Qwen3.5 \
         --port 8131 \
         -ngl 999 \
         --temp 0.6 \
