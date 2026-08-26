@@ -446,12 +446,7 @@ end, "Reload Colorscheme")
 
 -- Restart nvim
 map("n", "<leader>R", function()
-    -- '<CMD>wa<CR><CMD>SessionSave<CR><CMD>cq<CR>'
-    if vim.g.zen_mode then
-        M.toggle_zen()
-    end
-    vim.cmd.wa()
-    vim.cmd("cquit 5")
+    vim.cmd.restart()
 end, "Reload")
 
 map("n", "<leader>Q", function()

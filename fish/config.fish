@@ -57,7 +57,7 @@ if status is-interactive
     set -gx TERM wezterm
 
     # Aliases
-    alias nv       "/Users/tj/.dotfiles/bash/nv.bash"
+    alias nv       "/Users/tj/.local/share/bob/nvim-bin/nvim"
     alias nvupdate "/Users/tj/.dotfiles/bash/nvu.bash"
     alias src      "source ~/.config/fish/config.fish"
     alias lg       "lazygit"
