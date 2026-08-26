@@ -6,6 +6,7 @@ if status is-interactive
     set fish_greeting
 
     fish_vi_key_bindings
+    bind -M insert -M default -M visual ctrl-f edit_command_buffer
 
     # Path
     fish_add_path /opt/zerobrew/bin
