@@ -38,7 +38,11 @@ local function lsp_setup()
             safe_require("conform").format({ bufnr = bufnr })
             vim.cmd.write()
         end, bufnr, "Format")
+        for _, v in ipairs({ "gra", "gri", "grn", "grr", "grt", "grx" }) do
+            pcall(vim.keymap.del, {"n", "x"}, v)
+        end
     end
+
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(ev)
             on_attach(_, ev.bufnr)
