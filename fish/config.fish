@@ -66,6 +66,7 @@ if status is-interactive
     alias snip     "nap" # https://github.com/maaslalani/nap
     alias ssh      "/Users/tj/.dotfiles/bash/ssh.bash"
     alias sshr     "/usr/bin/ssh"
+    alias oc       "sudo -u agent zsh -c 'cd $(pwd) && opencode'"
 
     alias pond     "pond -db"
     alias arttime  "arttime -a skull3 --nolearn -t 'Death is nothing at all' --ac 4"
