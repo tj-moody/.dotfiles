@@ -12,7 +12,7 @@ if status is-interactive
     fish_add_path /opt/zerobrew/bin
     fish_add_path /usr/local/bin
     fish_add_path $HOME/.local/bin
-    fish_add_path /Users/tj/.local/share/bob/nvim-bin/
+    fish_add_path $HOME/.local/share/bob/nvim-bin/
     fish_add_path $HOME/.cargo/bin
     fish_add_path /Qt/5.15.2/clang_64/bin/
     fish_add_path $HOME/go/bin/
@@ -57,14 +57,14 @@ if status is-interactive
     set -gx TERM wezterm
 
     # Aliases
-    alias nv       "/Users/tj/.local/share/bob/nvim-bin/nvim"
-    alias nvupdate "/Users/tj/.dotfiles/bash/nvu.bash"
+    alias nv       "$HOME/.local/share/bob/nvim-bin/nvim"
+    alias nvupdate "$HOME/.dotfiles/bash/nvu.bash"
     alias src      "source ~/.config/fish/config.fish"
     alias lg       "lazygit"
     alias gs       "git status"
     alias md       "glow" # https://github.com/charmbracelet/glow
     alias snip     "nap" # https://github.com/maaslalani/nap
-    alias ssh      "/Users/tj/.dotfiles/bash/ssh.bash"
+    alias ssh      "$HOME/.dotfiles/bash/ssh.bash"
     alias sshr     "/usr/bin/ssh"
     alias oc       "sudo -u agent zsh -c 'cd $(pwd) && opencode'"
 
@@ -77,7 +77,7 @@ if status is-interactive
 end
 
 # Setting PATH for Python 3.11
-# The original version is saved in /Users/tj/.config/fish/config.fish.pysave
+# The original version is saved in $HOME/.config/fish/config.fish.pysave
 # fish_add_path (brew --prefix python@3.14)/libexec/bin
 set -l py_path (brew --prefix python@3.14)/libexec/bin
 # fish_add_path $py_path
