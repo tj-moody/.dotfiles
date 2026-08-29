@@ -2,14 +2,12 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     # global vars
     set -x EDITOR nvim
-    export COLORS_NAME=$(cat ~/.dotfiles/.theme.txt)
     set fish_greeting
 
     fish_vi_key_bindings
     bind -M insert -M default -M visual ctrl-f edit_command_buffer
 
     # Path
-    fish_add_path /opt/zerobrew/bin
     fish_add_path /usr/local/bin
     fish_add_path $HOME/.local/bin
     fish_add_path $HOME/.local/share/bob/nvim-bin/
@@ -21,16 +19,20 @@ if status is-interactive
     fish_add_path $HOME/.dotfiles/scripts
     fish_add_path $HOME/.config/emacs/bin
     fish_add_path /usr/local/opt/texinfo/bin
-    fish_add_path /opt/zerobrew/prefix/Cellar/gcc/13.2.0/bin
-    fish_add_path /opt/zerobrew/prefix/opt/libpq/bin
 
-    fish_add_path /opt/zerobrew/prefix/opt/openjdk/bin
-    export JAVA_HOME="/opt/zerobrew/prefix/opt/openjdk/bin"
+    if test (uname) = "Darwin"
+        fish_add_path /opt/zerobrew/bin
+        fish_add_path /opt/zerobrew/prefix/Cellar/gcc/13.2.0/bin
+        fish_add_path /opt/zerobrew/prefix/opt/libpq/bin
 
-    # export GIT_EXEC_PATH="/opt/zerobrew/prefix/opt/git/libexec/git-core/"
+        fish_add_path /opt/zerobrew/prefix/opt/openjdk/bin
+        export JAVA_HOME="/opt/zerobrew/prefix/opt/openjdk/bin"
 
-    # export CPATH="/opt/zerobrew/prefix/include"
-    # export LIBRARY_PATH="/opt/zerobrew/prefix/lib"
+        # export GIT_EXEC_PATH="/opt/zerobrew/prefix/opt/git/libexec/git-core/"
+
+        # export CPATH="/opt/zerobrew/prefix/include"
+        # export LIBRARY_PATH="/opt/zerobrew/prefix/lib"
+    end
 
     export FZF_DEFAULT_OPTS="--border=none --no-scrollbar --preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
     export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'"
@@ -75,13 +77,6 @@ if status is-interactive
 
     alias clang-tidy /opt/zerobrew/prefix/opt/llvm/bin/clang-tidy
 end
-
-# Setting PATH for Python 3.11
-# The original version is saved in $HOME/.config/fish/config.fish.pysave
-# fish_add_path (brew --prefix python@3.14)/libexec/bin
-set -l py_path (brew --prefix python@3.14)/libexec/bin
-# fish_add_path $py_path
-
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"

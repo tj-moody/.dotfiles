@@ -9,3 +9,4 @@ kitty
 .env
 .theme.txt
 theme_schema.lua
+fish/fish_variables
