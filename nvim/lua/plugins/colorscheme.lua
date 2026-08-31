@@ -525,6 +525,10 @@ function M.reload(theme)
     safe_require("plugins.lualine").setup()
 end
 
+function M.num_themes()
+    return #M.spec
+end
+
 M.spec = {
     {
         "nvim-mini/mini.nvim",
