@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+boot-saltie() {
+    ssh poncho 'schtasks /run /tn boot-debian'
+}
+
+boot-poncho() {
+    ssh saltie 'sudo /usr/local/bin/boot-poncho --force'
+}
+
+
+bootctl_screen() {
+    poncho_up=0
+    saltie_up=0
+
+    ssh -o ConnectTimeout=3 -o BatchMode=yes poncho exit 2>/dev/null && poncho_up=1
+    ssh -o ConnectTimeout=3 -o BatchMode=yes saltie true 2>/dev/null && saltie_up=1
+
+    # --border rounded \
+    # --padding "1 2" \
+    # gum style \
+    #     --bold \
+    #     "poncho / saltie — boot status"
+
+    echo
+
+    echo -n "Windows (poncho)  "
+    if (( poncho_up )); then
+        gum style --foreground="2" "● online"
+    else
+        gum style --foreground="1" "○ offline"
+    fi
+
+    echo -n "Debian  (saltie)  "
+    if (( saltie_up )); then
+        gum style --foreground="2" "● online"
+    else
+        gum style --foreground="1" "○ offline"
+    fi
+
+    echo
+
+    if (( !poncho_up && !saltie_up )); then
+        gum style --foreground 3 \
+            "  Neither responded — machine may be mid-reboot, or the tunnel is down."
+
+        echo
+        read -r -p "  Press Enter to return..." _
+
+        return 1
+    fi
+
+    local -a options=()
+
+    if (( poncho_up && !saltie_up )); then
+        options+=("Switch to Debian")
+    elif (( saltie_up && !poncho_up )); then
+        options+=("Switch to Windows")
+    else
+        options+=("Switch to Windows")
+        options+=("Switch to Debian")
+    fi
+
+    options+=("Refresh" "Quit")
+
+    case "$(gum choose "${options[@]}")" in
+        "Switch to Windows")
+            if gum confirm "Reboot into Windows now?"; then
+                boot-poncho
+                gum style --foreground="2" \
+                "Triggered — give it a minute, then run 'bootctl' again to confirm."
+            fi
+            ;;
+
+        "Switch to Debian")
+            if gum confirm "Reboot into Debian now?"; then
+                boot-saltie
+                gum style --foreground="2" \
+                "Triggered — give it a minute, then run 'bootctl' again to confirm."
+            fi
+            ;;
+
+        "Refresh")
+            bootctl_screen
+            ;;
+
+        "Quit")
+            return 0
+            ;;
+    esac
+}
+
+printf '\e[?1049h'
+bootctl_screen
+printf '\e[?1049l'

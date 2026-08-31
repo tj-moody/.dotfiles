@@ -178,3 +178,11 @@ function chromememory
             printf "%.2f MB\n", mb
     }'
 end
+
+function boot-saltie
+    ssh poncho 'schtasks /run /tn boot-debian'
+end
+
+function boot-poncho
+    ssh saltie 'sudo /usr/local/bin/boot-poncho --force'
+end
