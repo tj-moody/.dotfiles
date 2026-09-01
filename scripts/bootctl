@@ -10,19 +10,25 @@ boot-poncho() {
 
 
 bootctl_screen() {
+    source "$HOME"/.dotfiles/.env
+
     poncho_up=0
     saltie_up=0
 
-    ssh -o ConnectTimeout=3 -o BatchMode=yes poncho exit 2>/dev/null && poncho_up=1
-    ssh -o ConnectTimeout=3 -o BatchMode=yes saltie true 2>/dev/null && saltie_up=1
+    status=$(curl -sLX GET \
+    "https://api.cloudflare.com/client/v4/accounts/570eece936b8f69d1370643a3239e9be/cfd_tunnel/93a288a6-31bf-4b59-889f-93c74e1a49d5" \
+    -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" |
+    jq -r '.result.status')
 
-    # --border rounded \
-    # --padding "1 2" \
-    # gum style \
-    #     --bold \
-    #     "poncho / saltie — boot status"
+    [[ "$status" == "healthy" ]] && saltie_up=1
+    status=$(curl -sLX GET \
+    "https://api.cloudflare.com/client/v4/accounts/570eece936b8f69d1370643a3239e9be/cfd_tunnel/d80ee840-872a-40a2-b40f-14c8a4b96420" \
+    -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" |
+    jq -r '.result.status')
 
-    echo
+    [[ "$status" == "healthy" ]] && poncho_up=1
+
+    clear
 
     echo -n "Windows (poncho)  "
     if (( poncho_up )); then
