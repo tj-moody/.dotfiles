@@ -2,9 +2,7 @@
 
 dirs=(
     "$HOME/projects"
-    "$HOME/school/michigan/eecs485"
-    "$HOME/school/michigan/eecs484"
-    "$HOME/school/shared"
+    "$HOME/school/michigan/eecs482"
 )
 append="$HOME/.dotfiles $HOME/.local/share/nvim/lazy/ $HOME/school/michigan/eecs376/hw"
 
