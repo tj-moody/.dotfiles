@@ -22,16 +22,14 @@ if status is-interactive
 
     if test (uname) = "Darwin"
         fish_add_path /opt/zerobrew/bin
-        fish_add_path /opt/zerobrew/prefix/Cellar/gcc/13.2.0/bin
-        fish_add_path /opt/zerobrew/prefix/opt/libpq/bin
 
-        fish_add_path /opt/zerobrew/prefix/opt/openjdk/bin
-        export JAVA_HOME="/opt/zerobrew/prefix/opt/openjdk/bin"
+        fish_add_path /opt/zerobrew/opt/openjdk/bin
+        export JAVA_HOME="/opt/zerobrew/opt/openjdk/bin"
 
-        # export GIT_EXEC_PATH="/opt/zerobrew/prefix/opt/git/libexec/git-core/"
+        # export GIT_EXEC_PATH="/opt/zerobrew/opt/git/libexec/git-core/"
 
-        # export CPATH="/opt/zerobrew/prefix/include"
-        # export LIBRARY_PATH="/opt/zerobrew/prefix/lib"
+        # export CPATH="/opt/zerobrew/include"
+        # export LIBRARY_PATH="/opt/zerobrew/lib"
     end
 
     export FZF_DEFAULT_OPTS="--border=none --no-scrollbar --preview 'bat --style=numbers --color=always --line-range :500 {}' --layout reverse --height=40% --padding=1 --info=inline --color='bg+:-1,prompt:2,pointer:1,border:8'"
@@ -75,7 +73,7 @@ if status is-interactive
     alias wtf      "wtfutil" # https://wtfutil.com/
     alias ckan     "pushd .; cd '/Applications/CKAN.app/Contents/MacOS'; '/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono' 'ckan.exe' prompt; popd"
 
-    alias clang-tidy /opt/zerobrew/prefix/opt/llvm/bin/clang-tidy
+    alias clang-tidy /opt/zerobrew/opt/llvm/bin/clang-tidy
 end
 
 # bun
