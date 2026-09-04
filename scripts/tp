@@ -2,9 +2,9 @@
 
 dirs=(
     "$HOME/projects"
-    "$HOME/school/michigan"
+    "$HOME/michigan"
 )
-append="$HOME/.dotfiles $HOME/.local/share/nvim/lazy/ $HOME/school/michigan/eecs376/hw"
+append="$HOME/.dotfiles $HOME/.local/share/nvim/lazy/ $HOME/michigan/eecs376/hw"
 
 MAGENTA=$'\033[1;35m'
 BLUE=$'\033[1;34m'
