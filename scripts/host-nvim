@@ -5,10 +5,7 @@ PORT=6666
 
 pkill -f "nvim --headless --listen 127.0.0.1:$PORT" 2>/dev/null || true
 
-fullpath=$(pick-project) || exit 0
-
-gum log -l info "Starting headless nvim in $fullpath on :$PORT"
-cd "$fullpath"
+gum log -l info "Starting headless nvim on :$PORT"
 setsid nohup nvim --headless --listen "127.0.0.1:$PORT" </dev/null >/tmp/nvim-headless.log 2>&1 &
 disown
 
