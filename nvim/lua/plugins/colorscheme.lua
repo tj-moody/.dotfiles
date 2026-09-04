@@ -545,7 +545,8 @@ M.spec = {
         end,
     },
     {
-        dir = "~/projects/quanta.nvim",
+        "tj-moody/quanta.nvim",
+        dev = true,
         lazy = false,
         config = M.safe_reload,
     },

@@ -16,7 +16,8 @@ end
 
 M.spec = {
     {
-        dir = "~/projects/projtasks.nvim",
+        "tj-moody/projtasks.nvim",
+        dev = true,
         event = "LazyFile",
         keys = {
             {
