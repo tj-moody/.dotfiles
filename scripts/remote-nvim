@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+HOST=saltie
+PORT=6666
+
+if [ -n "${TMUX:-}" ]; then
+    gum log -l error "Please run outside of tmux"
+    exit 1
+fi
+
+cleanup() {
+    gum log -l info "Closing tunnel..."
+    [ -n "${TUNNEL_PID:-}" ] && kill "$TUNNEL_PID" 2>/dev/null
+}
+trap cleanup EXIT INT TERM
+
+pkill -f "ssh -N -L $PORT:127.0.0.1:$PORT $HOST" 2>/dev/null || true
+
+ssh -N -L "$PORT:127.0.0.1:$PORT" "$HOST" &
+TUNNEL_PID=$!
+
+gum log -l info "Waiting for tunnel to $HOST:$PORT..."
+ready=0
+for _ in $(seq 1 20); do
+    if (echo > "/dev/tcp/127.0.0.1/$PORT") 2>/dev/null; then
+        ready=1
+        break
+    fi
+    sleep 0.3
+done
+
+if [ "$ready" -eq 0 ]; then
+    gum log -l error "Could not reach nvim on $HOST:$PORT — did you start nvim-host?"
+    exit 1
+fi
+
+gum log -l info "Connecting to nvim on $HOST:$PORT"
+nvim --remote-ui --server "127.0.0.1:$PORT"
