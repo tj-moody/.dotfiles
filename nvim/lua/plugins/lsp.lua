@@ -220,6 +220,9 @@ M.spec = {
                 "texlab",
                 "gopls",
                 "verible",
+
+                "stylua",
+                "ruff",
             },
         },
         dependencies = {
