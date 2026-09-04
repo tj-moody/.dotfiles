@@ -112,7 +112,7 @@ local lazy_options = { -- {{{
         path = "~/projects",
         ---@type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
         patterns = {}, -- For example {"folke"}
-        fallback = false, -- Fallback to git when local plugin doesn't exist
+        fallback = true, -- Fallback to git when local plugin doesn't exist
     },
     install = {
         -- install missing plugins on startup. This doesn't increase startup time.
