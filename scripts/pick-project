@@ -3,7 +3,7 @@
 # Prints the fzf-selected project path to stdout, or exits 1 if cancelled.
 dirs=(
     "$HOME/projects"
-    "$HOME/michigan"
+    "$HOME/michigan/eecs482/"
 )
 append="$HOME/.dotfiles $HOME/.local/share/nvim/lazy/ $HOME/michigan/eecs376/hw"
 
