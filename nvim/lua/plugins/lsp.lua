@@ -200,16 +200,42 @@ local web_conform_options = { "prettier" }
 
 M.spec = {
     {
-        "neovim/nvim-lspconfig",
-        config = lsp_setup,
+        "mason-org/mason-lspconfig.nvim",
         event = { "BufReadPre", "BufNew" },
+        opts = {
+            ensure_installed = {
+                "ruff",
+                "ts_ls",
+                "lua_ls",
+                "pyrefly",
+                "bashls",
+                "clangd",
+                "cssls",
+                "html",
+                "jdtls",
+                "jsonls",
+                "marksman",
+                "vimls",
+                "asm_lsp",
+                "texlab",
+                "gopls",
+                "verible",
+            },
+        },
         dependencies = {
-            { "mrcjkb/rustaceanvim" },
-            { "j-hui/fidget.nvim" },
-            { "folke/lazydev.nvim" },
+            { "mason-org/mason.nvim", config = true, },
             {
-                "mason-org/mason.nvim",
-                config = true,
+                "neovim/nvim-lspconfig",
+                config = lsp_setup,
+                dependencies = {
+                    { "mrcjkb/rustaceanvim" },
+                    { "j-hui/fidget.nvim" },
+                    { "folke/lazydev.nvim" },
+                    {
+                        "mason-org/mason.nvim",
+                        config = true,
+                    },
+                },
             },
         },
     },
