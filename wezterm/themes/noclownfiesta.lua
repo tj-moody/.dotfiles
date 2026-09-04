@@ -29,7 +29,7 @@ local colors = {
             "#a5b4bf",
             "#ece1c2",
         },
-    }
+    },
 }
 colors.palette.cursor_bg = colors.palette.foreground
 colors.palette.cursor_fg = colors.palette.background

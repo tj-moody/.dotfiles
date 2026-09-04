@@ -35,7 +35,7 @@ M.setup = function()
             replace = "#ff466c",
             visual = "#ffee60",
             insert = "#6ad8ec",
-            fg = "#e0e0e0"
+            fg = "#e0e0e0",
         },
         marsbox = {
             normal = "#b8bb26",

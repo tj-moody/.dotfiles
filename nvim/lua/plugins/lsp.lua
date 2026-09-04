@@ -39,7 +39,7 @@ local function lsp_setup()
             vim.cmd.write()
         end, bufnr, "Format")
         for _, v in ipairs({ "gra", "gri", "grn", "grr", "grt", "grx" }) do
-            pcall(vim.keymap.del, {"n", "x"}, v)
+            pcall(vim.keymap.del, { "n", "x" }, v)
         end
     end
 
@@ -226,7 +226,7 @@ M.spec = {
             },
         },
         dependencies = {
-            { "mason-org/mason.nvim", config = true, },
+            { "mason-org/mason.nvim", config = true },
             {
                 "neovim/nvim-lspconfig",
                 config = lsp_setup,

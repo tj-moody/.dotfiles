@@ -201,8 +201,8 @@ local hl_table = {
     oxocarbon = { -- {{{
         setup = {
             { "DiffDelete", { bg = "#331623", fg = "#331623" } },
-            { "DiffAdd", { bg = "#092c2b", } },
-            { "DiffChange", { bg = "#212121", } },
+            { "DiffAdd", { bg = "#092c2b" } },
+            { "DiffChange", { bg = "#212121" } },
             { "WinSeparator", { fg = "#6e6f70" } },
             { "Operator", { fg = "#6e6f70" } },
             { "@operator", { fg = "#6e6f70" } },
@@ -550,7 +550,7 @@ M.spec = {
         lazy = false,
         config = M.safe_reload,
     },
-    { "sainnhe/gruvbox-material", },
+    { "sainnhe/gruvbox-material" },
     { "aktersnurra/no-clown-fiesta.nvim" },
     { "rebelot/kanagawa.nvim" },
     { "folke/tokyonight.nvim" },
