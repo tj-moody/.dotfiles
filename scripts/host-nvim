@@ -3,10 +3,19 @@
 set -euo pipefail
 PORT=6666
 
+log() {
+    local level="$1" msg="$2"
+    if command -v gum >/dev/null 2>&1; then
+        gum log -l "$level" "$msg"
+    else
+        echo "[$level] $msg"
+    fi
+}
+
 pkill -f "nvim --headless --listen 127.0.0.1:$PORT" 2>/dev/null || true
 
-gum log -l info "Starting headless nvim on :$PORT"
+log info "Starting headless nvim on :$PORT"
 setsid nohup nvim --headless --listen "127.0.0.1:$PORT" </dev/null >/tmp/nvim-headless.log 2>&1 &
 disown
 
-gum log -l info "nvim running detached (pid $!) — safe to close this shell"
+log info "nvim running detached (pid $!) — safe to close this shell"
