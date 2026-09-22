@@ -18,7 +18,7 @@ function version482#Time()
     return(s:startTimeAbs + (version482#RelTime() - s:startTimeRel))
 endfunction
 
-let s:version = 'vim-20260824'
+let s:version = 'vim-20260915'
 let s:minTimeVersion = 10       " minimum time between versions
 let s:minTimePush = 60          " minimum time between pushes
 let s:minTimeCheck = 600        " minimum time between checking version482 repos
@@ -57,7 +57,7 @@ function version482#InitVersionDir(dirname)
 
     " Get name of main repo and make sure it's an eecs482 repo
     let l:origin = trim(system('git -C "' . a:dirname . '" remote get-url origin'))
-    let l:matches = matchlist(l:origin, '^\(git@github.com:\|https://github.com/\)\(eecs482/[a-z.]*\d\d*\)\(.*\)')
+    let l:matches = matchlist(l:origin, '^\(git@github.com:\|https://github.com/\|ssh://git@github.com/\)\(eecs482/[a-z.]*\d\d*\)\(.*\)')
     if empty(l:matches)
         " Not in an eecs482 repo
         return
@@ -70,15 +70,17 @@ function version482#InitVersionDir(dirname)
     " Make sure top level is not a version482 repo
     if stridx(l:origin, 'version482') >= 0
         " In a version482 repo
-	echo 'Error: trying to edit file in a version482 repo'
-	bdelete
+        echo 'Error: trying to edit file in a version482 repo'
+        bdelete
         return
     endif
 
-    " Compute correct branch for this local version482 repo
-    let l:branch = $USER . substitute(hostname(), '\..*', "", "") . trim(system('uname -s'))
+    " Compute correct branch for this local version482 repo.  Treat all CAEN
+    " machines as a single host, since they use a shared file system.
+    let l:hostname = trim(system('hostname -s | sed "s/^caen-vnc-mi[0-9]*/caen-vnc-mi/"'))
+    let l:branch = $USER . l:hostname . trim(system('uname -s'))
     if filereadable('/etc/os-release')
-	let l:branch .= trim(system('grep "^ID=" /etc/os-release | sed "s/^.*=//"'))
+        let l:branch .= trim(system('grep "^ID=" /etc/os-release | sed "s/^.*=//"'))
     endif
     let l:branch .= l:top
     let l:branch = substitute(l:branch, "[^a-zA-Z0-9]", "", "g")
@@ -87,98 +89,98 @@ function version482#InitVersionDir(dirname)
 
     " Check version482 repository and move it aside if broken
     try
-	" Make sure version482 exists and is a directory
-	if ! isdirectory(s:versionDir[a:dirname])
-	    throw 'Error: ' . s:versionDir[a:dirname] . ' does not exist or is not a directory.'
-	endif
+        " Make sure version482 exists and is a directory
+        if ! isdirectory(s:versionDir[a:dirname])
+            throw 'Error: ' . s:versionDir[a:dirname] . ' does not exist or is not a directory.'
+        endif
 
-	" Make sure version482 is its own repo
-	let l:version482Top = trim(system('git -C "' . s:versionDir[a:dirname] . '" rev-parse --show-toplevel'))
-	if v:shell_error
-	    throw 'Error: ' . s:versionDir[a:dirname] . ' is not in a work tree.'
-	elseif l:version482Top != s:versionDir[a:dirname]
-	    throw 'Error: ' . s:versionDir[a:dirname] . ' is not its own repository.'
-	endif
+        " Make sure version482 is its own repo
+        let l:version482Top = trim(system('git -C "' . s:versionDir[a:dirname] . '" rev-parse --show-toplevel'))
+        if v:shell_error
+            throw 'Error: ' . s:versionDir[a:dirname] . ' is not in a work tree.'
+        elseif l:version482Top != s:versionDir[a:dirname]
+            throw 'Error: ' . s:versionDir[a:dirname] . ' is not its own repository.'
+        endif
 
-	" Make sure origin for version482 repo is consistent with origin for
-	" main repo
-	let l:url = trim(system('git -C "' . s:versionDir[a:dirname] . '" remote get-url origin'))
-	if v:shell_error || l:url != l:protocol . l:repo . '.version482' . l:suffix
-	    throw 'Error: origin for ' . s:versionDir[a:dirname] . ' is inconsistent with origin for main repo'
-	endif
+        " Make sure origin for version482 repo is consistent with origin for
+        " main repo
+        let l:url = trim(system('git -C "' . s:versionDir[a:dirname] . '" remote get-url origin'))
+        if v:shell_error || l:url != l:protocol . l:repo . '.version482' . l:suffix
+            throw 'Error: origin for ' . s:versionDir[a:dirname] . ' is inconsistent with origin for main repo'
+        endif
 
-	" Make sure version482 repo is on the correct branch
-	let l:branch1 = trim(system('git -C "' . s:versionDir[a:dirname] . '" branch --show-current'))
-	if l:branch1 != l:branch
-	    throw 'Error: ' . s:versionDir[a:dirname] . ' is on wrong branch ' . l:branch1
-	endif
+        " Make sure version482 repo is on the correct branch
+        let l:branch1 = trim(system('git -C "' . s:versionDir[a:dirname] . '" branch --show-current'))
+        if l:branch1 != l:branch
+            throw 'Error: ' . s:versionDir[a:dirname] . ' is on wrong branch ' . l:branch1
+        endif
 
-	" Make sure version482 repo's upstream is set to the corresponding
-	" branch on github
-	let l:remote = trim(system('git -C "' . s:versionDir[a:dirname] . '" rev-parse --abbrev-ref "@{upstream}"'))
-	if v:shell_error || l:remote != "origin/" . l:branch
-	    throw 'Error: ' . s:versionDir[a:dirname] . ' has the wrong upstream'
-	endif
+        " Make sure version482 repo's upstream is set to the corresponding
+        " branch on github
+        let l:remote = trim(system('git -C "' . s:versionDir[a:dirname] . '" rev-parse --abbrev-ref "@{upstream}"'))
+        if v:shell_error || l:remote != "origin/" . l:branch
+            throw 'Error: ' . s:versionDir[a:dirname] . ' has the wrong upstream'
+        endif
 
-	" Make sure I can add a file in the version482 repo
-	call system('touch "' . fnamemodify(s:versionDir[a:dirname], ':p') . 'tmp.' . l:dateString . '"; git -C "' . s:versionDir[a:dirname] . '" add -f "tmp.' . l:dateString . '"')
-	if v:shell_error
-	    throw 'Error: Cannot add tmp.' . l:dateString . ' in version482 repository.'
-	endif
+        " Make sure I can add a file in the version482 repo
+        call system('touch "' . fnamemodify(s:versionDir[a:dirname], ':p') . 'tmp.' . l:dateString . '"; git -C "' . s:versionDir[a:dirname] . '" add -f "tmp.' . l:dateString . '"')
+        if v:shell_error
+            throw 'Error: Cannot add tmp.' . l:dateString . ' in version482 repository.'
+        endif
 
-	" Make sure I can remove a file in the version482 repo
-	call system('git -C "' . s:versionDir[a:dirname] . '" rm -f -q "tmp.' . l:dateString . '"')
-	if v:shell_error
-	    throw 'Error: Cannot remove tmp.' . l:dateString . ' in version482 repository.'
-	endif
+        " Make sure I can remove a file in the version482 repo
+        call system('git -C "' . s:versionDir[a:dirname] . '" rm -f -q "tmp.' . l:dateString . '"')
+        if v:shell_error
+            throw 'Error: Cannot remove tmp.' . l:dateString . ' in version482 repository.'
+        endif
 
     catch /.*/
         " echo v:exception
-	" Move the broken version482 repository aside (if it exists)
-	if filereadable(s:versionDir[a:dirname]) || isdirectory(s:versionDir[a:dirname])
-	    let l:oldDir = s:versionDir[a:dirname] . '.' . l:dateString
-	    while (filereadable(l:oldDir) || isdirectory(l:oldDir))
-		let l:oldDir .= '.'
-	    endwhile
-	    if rename(s:versionDir[a:dirname], l:oldDir)
-		" echo 'Error: Cannot rename ' . s:versionDir[a:dirname] . ' to ' . l:oldDir
-		let s:versionDir[a:dirname] = ''
-		return
-	    endif
-	endif
+        " Move the broken version482 repository aside (if it exists)
+        if filereadable(s:versionDir[a:dirname]) || isdirectory(s:versionDir[a:dirname])
+            let l:oldDir = s:versionDir[a:dirname] . '.' . l:dateString
+            while (filereadable(l:oldDir) || isdirectory(l:oldDir))
+                let l:oldDir .= '.'
+            endwhile
+            if rename(s:versionDir[a:dirname], l:oldDir)
+                " echo 'Error: Cannot rename ' . s:versionDir[a:dirname] . ' to ' . l:oldDir
+                let s:versionDir[a:dirname] = ''
+                return
+            endif
+        endif
 
     endtry
 
     if ! isdirectory(s:versionDir[a:dirname])
-	" Clone and set up version482 repo
-	try
-	    call system('git -C "' . l:top . '" clone "' . l:protocol . l:repo . '.version482' . l:suffix . '" ' . s:versionDir[a:dirname])
-	    if v:shell_error
-		throw 'Error: cannot clone version482 repository.'
-	    endif
+        " Clone and set up version482 repo
+        try
+            call system('git -C "' . l:top . '" clone "' . l:protocol . l:repo . '.version482' . l:suffix . '" "' . s:versionDir[a:dirname] . '"')
+            if v:shell_error
+                throw 'Error: cannot clone version482 repository.'
+            endif
 
-	    " Try to checkout branch, in case this branch already exists
-	    call system('git -C "' . s:versionDir[a:dirname] . '" checkout ' . l:branch)
-	    if v:shell_error
-		" Branch didn't exist (this is the common case)
+            " Try to checkout branch, in case this branch already exists
+            call system('git -C "' . s:versionDir[a:dirname] . '" checkout ' . l:branch)
+            if v:shell_error
+                " Branch didn't exist (this is the common case)
 
-		" Create new branch
-		call system('git -C "' . s:versionDir[a:dirname] . '" checkout -b ' . l:branch . ' --no-track')
-		if v:shell_error
-		    throw 'Error: cannot create branch ' . l:branch . ' for version482 repo.'
-		endif
+                " Create new branch
+                call system('git -C "' . s:versionDir[a:dirname] . '" checkout -b ' . l:branch . ' --no-track')
+                if v:shell_error
+                    throw 'Error: cannot create branch ' . l:branch . ' for version482 repo.'
+                endif
 
-		" Set upstream to github, and create branch on github
-		call system('git -C "' . s:versionDir[a:dirname] . '" push --set-upstream origin ' . l:branch)
-		if v:shell_error
-		    throw 'Error: cannot add upstream reference to remote version482 repo'
-		endif
-	    endif
+                " Set upstream to github, and create branch on github
+                call system('git -C "' . s:versionDir[a:dirname] . '" push --set-upstream origin ' . l:branch)
+                if v:shell_error
+                    throw 'Error: cannot add upstream reference to remote version482 repo.'
+                endif
+            endif
 
-	catch /.*/
-	    echo v:exception
-	    let s:versionDir[a:dirname] = ''
-	endtry
+        catch /.*/
+            echo v:exception
+            let s:versionDir[a:dirname] = ''
+        endtry
     endif
 
 endfunction
@@ -256,7 +258,7 @@ function version482#Save(...)
     " Clear s:versionDir every so often, so the version482 repo gets re-checked.
     if l:now - s:checkTime >= s:minTimeCheck
         let s:versionDir = {}
-	let s:checkTime = l:now
+        let s:checkTime = l:now
     endif
 
     call version482#InitVersionDir(l:dirname)
@@ -286,8 +288,7 @@ function version482#Save(...)
     " push to github
     call system('git -C "' . l:versionDirname . '" push --quiet &')
     if ! v:shell_error
-	let s:pushTime[l:versionDirname] = l:now
+        let s:pushTime[l:versionDirname] = l:now
     endif
 
 endfunction
-
