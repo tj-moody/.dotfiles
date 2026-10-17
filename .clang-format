@@ -6,7 +6,7 @@ Language: Cpp
 PointerAlignment: Left
 
 # For some reason, these two break indentation (make it 2 spaces)
-AlignAfterOpenBracket: Align
+AlignAfterOpenBracket: AlwaysBreak
 AlignArrayOfStructures: Right
 AlignConsecutiveAssignments: false
 AlignConsecutiveBitFields: Consecutive
@@ -16,7 +16,7 @@ AlignEscapedNewlines: Left
 AlignOperands: AlignAfterOperator
 AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: false
-AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortBlocksOnASingleLine: Always
 
 AllowShortCaseLabelsOnASingleLine: true
@@ -26,8 +26,8 @@ AlignConsecutiveShortCaseStatements:
   AcrossComments: false
   AlignCaseColons: false
 
-AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: All
 AlwaysBreakBeforeMultilineStrings: false
 AllowShortLoopsOnASingleLine: true
@@ -49,7 +49,7 @@ ColumnLimit: 90
 CompactNamespaces: true
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
-Cpp11BracedListStyle: false
+Cpp11BracedListStyle: FunctionCall
 DerivePointerAlignment: false
 EmptyLineAfterAccessModifier: Leave
 EmptyLineBeforeAccessModifier: LogicalBlock
