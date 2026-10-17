@@ -59,7 +59,7 @@ symbol = ' '
 format = ' via [$symbol($version(-$name) )]($style)'
 
 [cpp]
-disabled = false
+disabled = true
 symbol = ' '
 format = ' via [$symbol($version(-$name) )]($style)'
 
