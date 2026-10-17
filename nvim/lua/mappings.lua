@@ -72,6 +72,11 @@ map("n", "<leader><leader>x", "<CMD>silent write<CR><CMD>source <CR>", "Execute"
 map("n", "<leader>q", "<CMD>q<CR>", "Quit")
 map("n", "<ESC>", "<CMD>noh<CR><CMD>echo ''<CR>", "Reset Screen")
 
+map("n", "<leader>m", function()
+    local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
+    vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end, "Clear multicursors")
+
 map("x", "K", ":m '<-2<CR>gv=gv", "Move Up")
 map("x", "J", ":m '>+1<CR>gv=gv", "Move Down")
 
