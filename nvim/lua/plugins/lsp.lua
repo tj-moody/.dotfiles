@@ -71,7 +71,6 @@ local function lsp_setup()
     }
 
     vim.lsp.enable({
-        "ruff",
         "ts_ls",
         "lua_ls",
         "pyrefly",
@@ -204,7 +203,6 @@ M.spec = {
         event = { "BufReadPre", "BufNew" },
         opts = {
             ensure_installed = {
-                "ruff",
                 "ts_ls",
                 "lua_ls",
                 "pyrefly",
@@ -222,7 +220,6 @@ M.spec = {
                 "verible",
 
                 "stylua",
-                "ruff",
             },
         },
         dependencies = {
@@ -277,7 +274,7 @@ M.spec = {
                             indent_type = "spaces",
                         },
                     },
-                    python = { "ruff", "black" },
+                    python = { "black" },
                     rust = { "rustfmt", lsp_format = "fallback" },
                     javascript = web_conform_options,
                     typescript = web_conform_options,
