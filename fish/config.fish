@@ -2,6 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     # global vars
     set -x EDITOR nvim
+    set -x MANPAGER nvim +Man!
     set fish_greeting
 
     fish_vi_key_bindings
