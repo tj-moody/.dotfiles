@@ -290,6 +290,28 @@ M.spec = {
             })
         end,
     },
+    {
+        "nvim-flutter/flutter-tools.nvim",
+        ft = "dart",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        config = function()
+            require("flutter-tools").setup({
+                lsp = {
+                    color_render = true,
+                    on_attach = function(client, bufnr) end,
+                    settings = {
+                        showTodos = true,
+                        completeFunctionCalls = true,
+                        analysisExcludedFolders = {
+                            vim.fn.expand("$HOME/.pub-cache"),
+                        },
+                    },
+                },
+            })
+        end,
+    },
 }
 
 return M
