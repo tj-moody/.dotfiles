@@ -1,3 +1,14 @@
+#  _             _
+# | |_ ___  ___ (_)
+# | __/ _ \/ _ \| |
+# | ||  __/  __/| |
+#  \__\___|\___|/ |
+#             |__/
+# Minimal tmux config with no
+# dependencies by TJ Moody
+#
+# https://github.com/tj-moody
+
 # https://man7.org/linux/man-pages/man1/tmux.1.html
 
 unbind C-b
