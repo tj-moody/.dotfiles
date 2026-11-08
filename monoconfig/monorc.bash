@@ -25,7 +25,7 @@ export PATH="/opt/zerobrew/bin/:$PATH"
 export PATH="$HOME/go/bin/:$PATH"
 
 # Prompt
-export PS1="\[\033[0;90m\]δ \[\033[0;35m\]\W\[\033[0m\] \[\033[0;90m\]::\[\033[0m\] "
+export PS1="\[\033[0;90m\]$ \[\033[0;35m\]\W\[\033[0m\] \[\033[0;90m\]::\[\033[0m\] "
 
 # Aliases
 alias src="source ~/.bashrc"
