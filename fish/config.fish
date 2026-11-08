@@ -20,6 +20,7 @@ if status is-interactive
     fish_add_path $HOME/.dotfiles/scripts
     fish_add_path $HOME/.config/emacs/bin
     fish_add_path /usr/local/opt/texinfo/bin
+    fish_add_path $HOME/packages/flutter/bin
 
     if test (uname) = "Darwin"
         fish_add_path /opt/zerobrew/bin
