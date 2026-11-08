@@ -11,6 +11,7 @@ fi
 
 wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monorc.vim
 wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monorc.bash
+wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monorc.tmux
 
 [ -r ~/.vimrc ] && cp ~/.vimrc ~/.vimrc.bak \
     && echo ".vimrc copied to .vimrc.bak" \
@@ -20,8 +21,13 @@ wget https://raw.githubusercontent.com/tj-moody/.dotfiles/main/monoconfig/monorc
     && echo ".bashrc copied to .bashrc.bak" \
     && rm ~/.bashrc
 
+[ -r ~/tmux.conf ] && cp ~/tmux.conf ~/tmux.conf.bak \
+    && echo "tmux.conf copied to tmux.conf.bak" \
+    && rm ~/tmux.conf
+
 cat ~/monorc.vim > ~/.vimrc && rm ~/monorc.vim*
 cat ~/monorc.bash > ~/.bashrc && rm ~/monorc.bash*
+cat ~/monorc.tmux > ~/tmux.conf && rm ~/monorc.tmux*
 echo "[ -r ~/.bashrc ] && . \"$HOME/.bashrc\"" >> ~/.bash_profile
 
 echo "Installation successful"

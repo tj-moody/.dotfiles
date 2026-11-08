@@ -1,0 +1,71 @@
+# https://man7.org/linux/man-pages/man1/tmux.1.html
+
+unbind C-b
+set -g prefix C-Space
+bind C-Space send-prefix
+
+set -g mouse on
+set -s escape-time 0
+set -g history-limit 50000
+set -g status-interval 5
+set -g default-terminal "xterm-256color"
+set -g status-style default
+set -g renumber-windows on
+set -g extended-keys on
+set -g terminal-features 'xterm*:extkeys'
+
+set -g status-left ''
+set -g window-status-current-format "• #[fg=yellow]#W#{?window_zoomed_flag,#[fg=blue] 󰊓#[default], }#{?@ssh_host,#[fg=blue]󰖟 #[fg=white]#{@ssh_host}#[default],}   "
+set -g window-status-format         "#[fg=black,bold]#I #W #{?@ssh_host,#[fg=blue]󰖟 #[fg=white]#{@ssh_host}#[default],}   "
+set -g status-right '#[fg=blue]#[bold]#S #[default,fg=black,italics]#{session_path}'
+set -g status-justify left
+
+set -g mode-style fg=terminal,bg=#1b1d29
+set -g message-style bg=terminal,fg=white,italics
+
+set -g pane-border-lines heavy
+set -g pane-active-border-style fg=black
+set -g pane-border-style fg=black
+
+# Split windows like my vim mapping
+bind l split-window -h
+bind j split-window -v
+bind-key w run-shell 'tmux choose-tree -Z -F "#{@my_tree_format}"'
+
+bind r source-file ~/.dotfiles/tmux.conf \; display "Reloaded config."
+bind n new-window
+
+bind -n 'C-n' select-window -n
+bind -n 'C-p' select-window -p
+
+bind z resize-pane -Z
+
+# Beautified tree search for sessions, windows, and panes (all)
+# https://github.com/tmux/tmux/issues/1530
+
+bind-key g split-pane -v -p 85 lazygit
+
+# Store the format string with doubled hashes
+set -g @tree_fmt "#{?pane_format,#[fg=cyan]#{pane_current_command} #[fg=black]#[italics]#{pane_title},#{?window_format,#[fg=yellow]#[bold]#{window_name}#[fg=white]#[bold]#{window_flags}#[default]#{?#{==:#{window_panes},1}, #{?#{!=:#{window_name},#{pane_current_command}},#[fg=magenta]#{pane_current_command} ,}#[fg=black]#[italics]#{pane_title},},#[fg=brightblue]#[bold]#{?session_grouped, (group #{session_group}: #{session_group_list}),}#{?#{==:#{session_name},CURRENT_SESSION},#[fg=white]#[nobold](#[fg=green]#[bold]current#[fg=white]#[nobold]),#{?session_attached,#[fg=white]#[nobold](#[fg=brightblue]#[bold]attached#[fg=white]#[nobold]),#[fg=white]#[nobold](#[fg=red]#[bold]unattached#[fg=white]#[nobold])}}}}"
+
+# Bind using string substitution
+bind s run-shell 'tmux choose-tree -Zs -F "$(tmux show -gv @tree_fmt | sed "s/CURRENT_SESSION/#{session_name}/")"'
+# https://github.com/tmux/tmux/issues/1115
+bind w run-shell 'tmux choose-tree -Zw -F "$(tmux show -gv @tree_fmt | sed "s/CURRENT_SESSION/#{session_name}/")" -f "##{==:##{session_name},#{session_name}}"'
+bind f run-shell 'tmux choose-tree -Zw -F "$(tmux show -gv @tree_fmt | sed "s/CURRENT_SESSION/#{session_name}/")"'
+
+# `J`oin current window with another
+bind J run-shell 'tmux choose-tree -Zw -F "$(tmux show -gv @tree_fmt | sed "s/CURRENT_SESSION/#{session_name}/")" -f "##{==:##{session_name},#{session_name}}" "join-pane -h -t %%"'
+
+# nvim-compatible navigation
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?\.?(view|n?vim?x?)(-wrapped)?(diff)?$'"
+
+bind -n 'C-h' if-shell "$is_vim" 'send-keys C-h' { if -F '#{pane_at_left}  ' 'send-keys C-h' 'select-pane -L' }
+bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l' { if -F '#{pane_at_right} ' 'send-keys C-l' 'select-pane -R' }
+bind -n 'C-j' if-shell "$is_vim" 'send-keys C-j' { if -F '#{pane_at_bottom}' 'send-keys C-j' 'select-pane -D' }
+bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k' { if -F '#{pane_at_top}   ' 'send-keys C-k' 'select-pane -U' }
+
+bind -T copy-mode-vi 'C-h' if -F '#{pane_at_left}  ' '' 'select-pane -L'
+bind -T copy-mode-vi 'C-j' if -F '#{pane_at_bottom}' '' 'select-pane -D'
+bind -T copy-mode-vi 'C-k' if -F '#{pane_at_top}   ' '' 'select-pane -U'
+bind -T copy-mode-vi 'C-l' if -F '#{pane_at_right} ' '' 'select-pane -R'
